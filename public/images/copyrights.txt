@@ -1,0 +1,3 @@
+edit.png    crystal clear edit-6.png
+delete.png  crystal clear edit-delete-8.png
+adduser.png oxygen        user-new-3.png
