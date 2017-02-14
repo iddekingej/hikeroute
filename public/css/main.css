@@ -1,4 +1,4 @@
-body,input{
+body,input,table,tr,td,textarea{
 	font-family:arial;
 	font-size:12px;
 }
@@ -21,19 +21,79 @@ body,input{
 	text-align:right;
 }
 
+/*Left menu */
+
+
+.leftmenu{border-right:solid 1px #ddd;width:200px;height:100%;vertical-align:top}
+.leftmenu_table{height:100%}
+.leftmenu_item{text-decoration:none;color:#777}
+.leftmenu_item_con{padding-top:5px}
+
+/* Map display */
+
 #map{
 	width:100%;
 	height:300px;
 }
-/* Map display */
-.map_container{width:100%}
-.map_table{margin-left:auto;margin-right:auto}
+
+.map_ud_table{
+	width:100%;
+	padding:0px;
+	margin:0px;
+	border-collapse:collapse;
+}
+
+.map_ud{
+		font-style:italic
+}
+
+.map_ud_value{
+		font-style:italic;
+		font-weight:700;
+}
+
+.map_ud_space{
+		width:100%;
+}
+
+.map_container{
+	width:100%
+}
+
+
+
+.map_table{
+	margin-left:auto;
+	margin-right:auto;	
+	border-collapse:collapse;
+}
 .map_title{font-size:18px;text-align:center;padding-bottom:5px;font-weight:700;color:#777}
-.map_body{width:450px;height:350px}
+.map_body{
+	width:450px;
+	height:350px;
+	vertical-align:top;
+}
+
+.map_comment{
+	vertical-align:top;
+}
 /* login */
-.login_form{ width:400px}
-.login_label{ color:#777;padding-bottom:5px;padding-top:6px;font-size:13px}
-.login_element{width:100%}
+.login_form{ 
+	width:400px;
+	border:solid 1px #aaa;
+	padding:10px;
+}
+.login_label{ 
+	color:#777;
+	padding-bottom:5px;
+	padding-top:6px;
+	font-size:14px
+}
+.login_element{
+	width:300px;
+	font-size:15px;
+	border:solid 1px #777;
+}
 /* forms */
 .form_body{width:100%;}
 .form_container{width:700px;margin-left:auto;margin-right:auto}
@@ -51,7 +111,4 @@ body,input{
 
 /* Buttons */
 .buttonBar{border-bottom:solid 1px #ddd;margin:3px}
-.buttonLink{color:#000;padding-left:3px;text-decoration:none}
-
-.leftmenu{border-right:solid 1px #ddd;width:200px;height:100%;vertical-align:top}
-.leftmenu_table{height:100%}
+.buttonLink{color:#777;padding-left:3px;text-decoration:none}

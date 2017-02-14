@@ -16,12 +16,25 @@
 <tr>
 <td>
 @if($canEdit)
-<a href="{{ Route( 'routes') }}">Back to routes overview</a>&nbsp;
-<a href="{{ Route( 'routes.edit',['id'=>$id]) }}">Edit route</a> &nbsp;
-<a href="{{ Route( 'routes.editfile',['id'=>$id]) }}">Upload new gpx file</a>
-<a href="{{ Route( 'routes.del',['id'=>$id]) }}">Delete this route</a>
+<a class="buttonLink" href="{{ Route( 'routes') }}">Back to routes overview</a>&nbsp;
+<a class="buttonLink" href="{{ Route( 'routes.edit',['id'=>$id]) }}">Edit route</a> &nbsp;
+<a class="buttonLink" href="{{ Route( 'routes.editfile',['id'=>$id]) }}">Upload new gpx file</a>
+<a class="buttonLink" href="{{ Route( 'routes.del',['id'=>$id]) }}">Delete this route</a>
 @endif
 <td>
+</tr>
+<tr>
+	<td>
+	<table>
+		<tr>
+			<td class="map_ud">creator:</td>
+			<td class="map_ud_value">{{ $creator }} </td>
+			<td class="map_ud_space">&nbsp</td>
+			<td class="map_ud">Uploaded:</td>
+			<td class="map_ud_value"> {{ $uploadDate->format('d-m-Y') }}</td>
+		</tr>
+	</table>
+	</td>
 </tr>
 <tr>
 	<td class="map_body">
@@ -29,7 +42,7 @@
 	</td>
 </tr>
 <tr>
-	<td>
+	<td class="map_comment">
 		{{ $comment }}
 	</td>
 </table>

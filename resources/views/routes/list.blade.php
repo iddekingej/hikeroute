@@ -25,7 +25,7 @@
 		</a>
 	</td>
 	<td class="table_cell">
-			
+			{{ $l_route->created_at->format('d-m-Y') }}
 	</td>
 </tr>
 @endforeach

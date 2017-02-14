@@ -30,6 +30,13 @@ class RoutesController extends Controller
 		return View("routes.new",["title"=>"Post a new hiking route","id"=>"","routeTitle"=>"","comment"=>""]);
 	}
 
+	/**
+	 * Display form for editing a route post.
+	 * 
+	 * @param integer $p_id Route ID, given as parameter.
+	 * @return unknown
+	 */
+	
 	function editRoute($p_id)
 	{
 		$l_route=\App\Route::findOrFail($p_id);
@@ -66,7 +73,6 @@ class RoutesController extends Controller
 	 */
 	function saveAddRoute(Request $p_request)
 	{
-		$this->checkAuthentication();
 		$l_rules=["routeTitle"=>["required"],"routefile"=>["required"]];
 		
 		$l_validator=Validator::make($p_request->all(),$l_rules);
@@ -83,9 +89,15 @@ class RoutesController extends Controller
 		return Redirect::to("/routes/");		
 	}
 	
+	/**
+	 * After the user editted the route data, this method saves the route
+	 * 
+	 * @param Request $p_request
+	 * @return Redirect Redirect to route display
+	 */
+	
 	function saveUpdateRoute(Request $p_request)
 	{
-		$this->checkAuthentication();
 		$l_rules=["routeTitle"=>["required"]];
 		
 		$l_validator=Validator::make($p_request->all(),$l_rules);
