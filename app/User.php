@@ -52,9 +52,9 @@ class User extends Authenticatable
     }
     
     /**
-     * Check if the user is a admin
+     * Check if the user is has admin rights
      * 
-     * @return boolean true: user is a admin, false:user is not a admin
+     * @return boolean true: user is has dmin rights, false:user has no admin rights
      */
     
     function isAdmin()
@@ -73,11 +73,23 @@ class User extends Authenticatable
     }
     
     /**
-     * Delete the rights belonging to this user
+     * Delete all the rights belonging to this user
      */
     function deleteRights()
     {	    	
    		\App\UserRight::deleteUserRights($this->id);
+    }
+    
+    /**
+     * Check if we can delete the user
+     * - If it has no postings
+     * 
+     * @return boolean true user can be deleted
+     *                 false user can be deleted
+     */
+    function canDelete()
+    {
+    	return Route::userHasRoutes($this);
     }
     
 }

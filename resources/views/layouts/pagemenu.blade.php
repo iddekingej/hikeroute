@@ -24,7 +24,7 @@ Logout
 {{ csrf_field() }}
 </form>
 </td>
-<td>
+<td class="pagecontent">
 @yield("pagebody")
 </td>
 </table>

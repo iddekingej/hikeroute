@@ -8,6 +8,9 @@
 	{!!Form::label("routeTitle","Title") !!}
 	</td>
 	<td class="form_elementCell">
+		@if ($errors->has('routeTitle'))
+			<div class="form_error">{{ $errors->first('routeTitle') }}</div>
+		@endif 
 	{!! Form::text("routeTitle",$routeTitle,["class"=>"form_valueElement"]) !!}	
 	</td>
 </tr>
@@ -25,6 +28,9 @@
 	{!!Form::label("routefile","GPX file") !!}
 	</td>
 	<td class="form_elementCell">
+	@if ($errors->has('routefile'))
+			<div class="form_error">{{ $errors->first('routefile') }}</div>
+	@endif	
 	{!!Form::file("routefile") !!}
 	</td>
 </tr>

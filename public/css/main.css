@@ -21,13 +21,24 @@ body,input,table,tr,td,textarea{
 	text-align:right;
 }
 
+.error_text{
+	background-color:#f00;
+	color:#fff;
+}
 /*Left menu */
 
 
-.leftmenu{border-right:solid 1px #ddd;width:200px;height:100%;vertical-align:top}
+.leftmenu{
+	border-right:solid 1px #ddd;
+	width:200px;
+	height:100%;
+	vertical-align:top;
+
+}
 .leftmenu_table{height:100%}
 .leftmenu_item{text-decoration:none;color:#777}
 .leftmenu_item_con{padding-top:5px}
+.pagecontent{padding-left:5px}
 
 /* Map display */
 
@@ -103,12 +114,21 @@ body,input,table,tr,td,textarea{
 .form_elementCell{padding-top:3px;padding-left:3px;padding-right:15px}
 .form_labelCell{padding-left:3px;font-weight:bold}
 .form_section{border-bottom:solid 1px #ccc;font-weight:700;text-align:center;padding:4px}
+.form_error{
+	color:#f00;
+}
 /* Table lists*/
 .table{border-collapse:collapse}
-.table_title{background-color:#eee;text-align:center;width:600px;padding:2px}
+.table_title{
+	text-align:center;
+	width:600px;
+	padding:2px;
+	font-size:14px;
+	border-bottom:solid 1px #bbb;
+}
 .table_cell{border:solid 1px #ccc;padding:3px}
 .table_header{border:solid 1px #bbb;padding:3px;font-weight:700}
 
 /* Buttons */
-.buttonBar{border-bottom:solid 1px #ddd;margin:3px}
+.buttonBar{margin:3px}
 .buttonLink{color:#777;padding-left:3px;text-decoration:none}

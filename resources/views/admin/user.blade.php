@@ -8,11 +8,21 @@
 <table class="form_table">
 <tr>
 	<td class="form_labelCell"> {!! Form::label("name","Name") !!}</td>
-	<td class="form_elementCell"> {!! Form::text("name",$name,["class"=>"form_valueElement"]) !!}</td>
+	<td class="form_elementCell"> 
+		@if ($errors->has('name'))
+			<div class="form_error">{{ $errors->first('name') }}</div>
+		@endif 
+		{!! Form::text("name",$name,["class"=>"form_valueElement"]) !!}
+	</td>
 </tr>
 <tr>
 	<td class="form_labelCell"> {!! Form::label("email","Email") !!}</td>
-	<td class="form_elementCell"> {!! form::email("email",$email,["class"=>"form_valueElement"]) !!}</td>
+	<td class="form_elementCell"> 
+		@if ($errors->has('email'))
+			<div class="form_error">{{ $errors->first('email') }}</div>
+		@endif 
+	{!! form::email("email",$email,["class"=>"form_valueElement"]) !!}
+	</td>
 </tr>
 @if($id!="")
 <tr>
@@ -29,6 +39,9 @@
 		{!! Form::label("password","Password") !!}
 	</td>
 	<td class="form_elementCell">
+		@if ($errors->has('password'))
+			<div class="form_error">{{ $errors->first('password') }}</div>
+		@endif 
 		{!! Form::password("password",["autocomplete"=>"off"]) !!}
 	</td>
 </tr>

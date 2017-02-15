@@ -22,4 +22,9 @@ class Route extends Model
 	{
 		return $this->belongsTo("\App\User","id_user");
 	}
+	
+	static function userHasRoutes(\App\User $p_user)
+	{
+		return self::where("id_user","=",$p_user->id)->limit(1)->get()->isEmpty();
+	}
 }

@@ -18,7 +18,7 @@
 @if($canEdit)
 <a class="buttonLink" href="{{ Route( 'routes') }}">Back to routes overview</a>&nbsp;
 <a class="buttonLink" href="{{ Route( 'routes.edit',['id'=>$id]) }}">Edit route</a> &nbsp;
-<a class="buttonLink" href="{{ Route( 'routes.editfile',['id'=>$id]) }}">Upload new gpx file</a>
+<a class="buttonLink" href="{{ Route( 'routes.updategpx',['id'=>$id]) }}">Upload new gpx file</a>
 <a class="buttonLink" href="{{ Route( 'routes.del',['id'=>$id]) }}">Delete this route</a>
 @endif
 <td>

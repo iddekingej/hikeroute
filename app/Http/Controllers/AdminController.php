@@ -36,7 +36,7 @@ class AdminController extends Controller
 	function listUsers()
 	{
 		$this->checkAuthentication();		
-		return view("admin.userlist",["users"=>\App\User::all()]);
+		return view("admin.userlist",["users"=>\App\User::orderBy("name")->get()]);
 	}
 	
 	private function getRightsArray()
@@ -109,7 +109,7 @@ class AdminController extends Controller
 			$l_user=\App\User::findOrFail($p_id);
 			$l_user->delete();
 		}
-		return Redirect::to("/admin/users/");
+		return Redirect::to("/admin/users/$p_id");
 	}
 	
 	/**
@@ -150,7 +150,8 @@ class AdminController extends Controller
 		
 		$l_validator=Validator::make($p_request->all(),$l_rules);
 		if($l_validator->fails()){
-			return Redirect::to("/admin/users/edit/$l_id")
+			
+			return Redirect::to("/admin/users/".(($l_id=="")?"new":"edit/$l_id"))
 			       ->withErrors($l_validator)->withInput($p_request->all());
 		} else if($l_id != ""){
 			$l_user=\App\User::findOrFail($l_id);				
