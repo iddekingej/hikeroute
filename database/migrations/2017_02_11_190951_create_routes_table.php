@@ -15,7 +15,7 @@ class CreateRoutesTable extends Migration
     {
         Schema::create('routes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer("id_user")->index();
+            $table->unsignedInteger("id_user")->index();
             $table->foreign("id_user")->references("id")->on("users");
             $table->string("title",255);
             $table->text("comment");

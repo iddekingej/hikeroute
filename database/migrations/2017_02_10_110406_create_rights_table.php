@@ -16,13 +16,13 @@ class CreateRightsTable extends Migration
         Schema::create('rights', function (Blueprint $p_table) {
         	$p_table->increments('id');
         	$p_table->string("description");
-        	$p_table->string("tag")->unique();
+        	$p_table->string("tag",160)->unique();
         });
         Schema::create("user_rights",function(Blueprint $p_table){
         	$p_table->increments("id");
-        	$p_table->integer("id_user")->index();
+        	$p_table->unsignedInteger("id_user")->index();
         	$p_table->foreign("id_user")->references("id")->on("users");
-        	$p_table->integer("id_right")->index();
+        	$p_table->unsignedInteger("id_right")->index();
       		$p_table->foreign("id_right")->references("id")->on("rights");
         });
 

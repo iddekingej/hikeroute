@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' => env('DB_CONNECTION', 'maindb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,14 +34,15 @@ return [
     'connections' => [
 
 
-            'pgsql' => [
-            'driver' => 'pgsql',
-            'host' => env('DB_HOST', 'dbsrv'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'hikeroute'),
-            'username' => env('DB_USERNAME', 'postgres'),
-            'password' => env('DB_PASSWORD', 'bla123'),
-            'charset' => 'utf8',
+            'maindb' => [
+            'driver' => env('DB_DRIVER'),
+            'host' => env('DB_HOST'),
+            'port' => env('DB_PORT'),
+            'database' => env('DB_DATABASE'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'prefer',
