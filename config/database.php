@@ -41,7 +41,7 @@ return [
             'database' => env('DB_DATABASE'),
             'username' => env('DB_USERNAME'),
             'password' => env('DB_PASSWORD'),
-            'charset' => 'utf8mb4',
+            'charset' => env("DB_ENCODING"),
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'schema' => 'public',

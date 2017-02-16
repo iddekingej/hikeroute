@@ -16,6 +16,16 @@ class GPXList{
 		$this->info->update($p_lat,$p_lon);
 	}
 	
+	function getList()
+	{
+		return $this->list;
+	}
+	
+	function getStart()
+	{
+		return reset($this->list);
+	}
+	
 	function getInfo()
 	{
 		return $this->info;

@@ -1,18 +1,18 @@
 @extends("layouts.pagemenu")
 @section("pagebody")
 <div class="buttonBar"><a href='{{ route("routes.new") }}' class='buttonLink'>
-<img src='/images/adduser.png'>Add new route</a></div>
+<img src='/images/adduser.png'>{{ __("Add new route") }}</a></div>
 <table class="table">
-<tr><td colspan='3' class="table_title">List of routes</td></tr>
+<tr><td colspan='3' class="table_title">{{ __("List of routes") }}</td></tr>
 <tr>
 	<td class="table_header">
 		&nbsp;
 	</td>
 	<td class="table_header">
-		Title
+		{{ __("Title") }}
 	</td>
 	<td class="table_header">
-		Create date
+		{{ __("Create date") }}
 	</td>
 </tr>
 @foreach($routes as $l_route)

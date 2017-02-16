@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Route extends Model
 {
 	protected $table="routes";
-	protected $fillable = ["id_user","title","comment","gpxdata"];
+	protected $fillable = ["id_user","title","comment","id_routefile","location"];
 	
 	/**
 	 * Get the user to which the route belongs to (=has posted)
@@ -20,7 +20,13 @@ class Route extends Model
 	 */
 	function user()
 	{
-		return $this->belongsTo("\App\User","id_user");
+		return $this->belongsTo(\App\User::class,"id_user");
+	}
+	
+	
+	function routeFile()
+	{
+		return $this->hasOne(RouteFile::class,"id","id_routefile");
 	}
 	
 	static function userHasRoutes(\App\User $p_user)

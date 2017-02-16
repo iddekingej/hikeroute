@@ -8,7 +8,7 @@
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @yield("header")
-<title>{{ config('app.name', 'Hiking routes') }}</title>
+<title>{{ config('app.name', __('Hiking routes')) }}</title>
 <link href="/css/main.css" rel="stylesheet" />
 <script type='text/javascript' src='/js/main.js' ></script>
 <script type='text/javascript'>
@@ -23,12 +23,12 @@ window.Laravel = {!! json_encode([
 <div class="apptitle" >
 	<table class="apptitle_table">
 		<tr>
-			<td class="apptitle_title">Hiking routes</td>
+			<td class="apptitle_title">{{ __("Hiking routes") }}</td>
 			<td class="apptitle_name">
 				{{ \Auth::user()?\Auth::user()->name:"Guest" }}
 				@if(!\Auth::user())|
-					<a class="buttonLink" href="{{ route('login') }}">Login</a>&nbsp;
-					<a class="buttonLink" href="{{ route('register') }}">Register</a>
+					<a class="buttonLink" href="{{ route('login') }}">{{ __("Login") }}</a>&nbsp;
+					<a class="buttonLink" href="{{ route('register') }}">{{ __("Register") }}</a>
 				@endif
 			</td>
 		</tr>

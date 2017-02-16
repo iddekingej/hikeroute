@@ -2,12 +2,12 @@
 @section("pagebody")
 <table class="table">
 <tr><td colspan='3' class="table_title">User list</td></tr>
-<tr><td colspan='3' ><div class="buttonBar"><a href='{{ route("admin.users.new") }}' class='buttonLink'><img src='/images/adduser.png'>Add new user</a></div>
+<tr><td colspan='3' ><div class="buttonBar"><a href='{{ route("admin.users.new") }}' class='buttonLink'><img src='/images/adduser.png'>{{ __("Add new user") }}</a></div>
 </td></tr>
 <tr>
 	<td class="table_header">&nbsp;</td>
-	<td class="table_header">Name</td>
-	<td class="table_header">Email</td>
+	<td class="table_header">{{ __("Name") }}</td>
+	<td class="table_header">{{ __("Email") }}</td>
 </tr>
 
 @foreach($users as $user)

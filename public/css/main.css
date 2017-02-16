@@ -55,7 +55,8 @@ body,input,table,tr,td,textarea{
 }
 
 .map_ud{
-		font-style:italic
+		font-style:italic;
+		white-space:nowrap;
 }
 
 .map_ud_value{

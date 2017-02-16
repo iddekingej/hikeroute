@@ -13,13 +13,20 @@ class CreateRoutesTable extends Migration
      */
     public function up()
     {
+    	Schema::create('routefiles', function (Blueprint $table) {
+    		$table->increments('id');
+    		$table->text("gpxdata");
+    		$table->timestamps();
+    	});
+    	
         Schema::create('routes', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger("id_user")->index();
             $table->foreign("id_user")->references("id")->on("users");
+            $table->unsignedInteger("id_routefile")->index();
+            $table->foreign("id_routefile")->references("id")->on("routefiles");
             $table->string("title",255);
-            $table->text("comment");
-            $table->text("gpxdata");
+            $table->text("comment")->nullable();
             $table->timestamps();
         });
     }
@@ -32,5 +39,6 @@ class CreateRoutesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('routes');
+        Schema::dropIfExists("routefiles");
     }
 }

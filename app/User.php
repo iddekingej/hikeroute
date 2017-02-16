@@ -38,7 +38,7 @@ class User extends Authenticatable
      */
     function userRights()
     {
-    	return $this->hasMany('\App\UserRight',"id_user");
+    	return $this->hasMany(\App\UserRight::class,"id_user");
     }
     
     /**
@@ -48,7 +48,7 @@ class User extends Authenticatable
      */
     function routes()
     {
-    	return $this->hasMany("\App\Route","id_user");
+    	return $this->hasMany(\App\Model\Route::class,"id_user");
     }
     
     /**
@@ -89,7 +89,7 @@ class User extends Authenticatable
      */
     function canDelete()
     {
-    	return Route::userHasRoutes($this);
+    	return \App\Model\Route::userHasRoutes($this);
     }
     
 }

@@ -32,7 +32,7 @@ class RoutesController extends Controller
 	function newRoute()
 	{
 	
-		return View("routes.new",["title"=>"Post a new hiking route"
+		return View("routes.newupload",["title"=>"Post a new hiking route"
 		                         ,"id"=>""
 				                 ,"routeTitle"=>""
 				                 ,"comment"=>""]);
@@ -49,15 +49,21 @@ class RoutesController extends Controller
 	
 	function delRoute($p_id)
 	{
-		$l_route=\App\Route::findOrFail($p_id);
+		$l_route=\App\Map\Route::findOrFail($p_id);
 		if(Gate::allows("edit-route",$l_route)){
 			$l_route->delete();
 			return Redirect::to("/routes/");				
 		} else {
-			return $this->displayError("delete this route");
+			return $this->displayError(__("delete this route"));
 		}
 	}
 	
+	function getRouteInfo(\App\Model\RouteFile $p_routeFile)
+	{
+		$l_gpxParser=new \App\Lib\GPXReader();
+		$l_gpx=$l_gpxParser->parse($p_routeFile->gpxdata);
+		return $l_gpx;
+	}
 	/**
 	 * Display form for editing a route post.
 	 * 
@@ -67,33 +73,67 @@ class RoutesController extends Controller
 	
 	function editRoute($p_id)
 	{
-		$l_route=\App\Route::findOrFail($p_id);
+		$l_route=\App\Model\Route::findOrFail($p_id);
 		if(Gate::allows("edit-route",$l_route)){
+			$l_gpx=$this->getRouteInfo($l_route->routeFile()->getResults());
 			$l_data = [ 
-					"title" => "Edit route",
+					"title" => __("Edit route"),
 					"id" => $l_route->id,
+					"id_routefile"=>$l_route->id_routefile,
 					"routeTitle" => $l_route->title,
-					"comment" => $l_route->comment 
+					"comment" => $l_route->comment ,
+					"routeLocation" =>$l_route->location,
+					"info"=>$l_gpx->getInfo()
 			];
 			return View ( "routes.new", $l_data );
 		} else {
-			return $this->displayError("edit this route");
+			return $this->displayError(__("edit this route"));
 		}
 	}
 	
 	function updateGPX($p_id)
 	{
-		$l_route=\App\Route::findOrFail($p_id);
+		$l_route=\App\Model\Route::findOrFail($p_id);
 		if(Gate::allows("edit-route",$l_route)){
 			$l_data=["id"=>$p_id];
 			return View("routes.upload",$l_data);
 		}
 	}
 	
+	function saveNewUpload(Request $p_request)
+	{
+		$l_rules = [
+				"routefile" => [
+						"required"
+				]
+		];
+			
+		$l_validator = Validator::make ( $p_request->all (), $l_rules );
+		if ($l_validator->fails ()) {
+			return Redirect::to ( "/routes/new/")->withErrors ( $l_validator )->withInput ( $p_request->all () );
+		}
+		$l_path=$p_request->file("routefile")->path();
+		$l_content=file_get_contents($l_path);
+		$l_routeFile=\App\Model\RouteFile::create(["gpxdata"=>$l_content]);
+		$l_gpx=$this->getRouteInfo($l_routeFile);
+		$l_locData=\App\Lib\AddressService::locationStringFromGPX($l_gpx->getStart());
+		
+		$l_data = [
+				"title" => __("New route"),
+				"id" => "",
+				"id_routefile"=>$l_routeFile->id,
+				"routeTitle" => "",
+				"comment" => "",
+				"info"=>$l_gpx->getInfo(),
+				"routeLocation"=>$l_locData
+		];
+		return View ( "routes.new", $l_data );
+	}
+	
 	function saveUploadGPX(Request $p_request)
 	{
 		$l_id=$p_request->input("id");
-		$l_route=\App\Route::findOrFail($l_id);
+		$l_route=\App\Model\Route::findOrFail($l_id);
 		if(Gate::allows("edit-route",$l_route)){
 			$l_rules = [ 
 					"routefile" => [ 
@@ -107,11 +147,12 @@ class RoutesController extends Controller
 			}
 			$l_path=$p_request->file("routefile")->path();
 			$l_content=file_get_contents($l_path);
-			$l_route->gpxdata=$l_content;
-			$l_route->save();
+			$l_routeFile=$l_route->routeFile()->getResults();
+			$l_routeFile->gpxdata=$l_content;
+			$l_routeFile->save();
 			return Redirect::to("/routes/display/$l_id");				
 		} else {
-			return $this->displayError("update route file");
+			return $this->displayError(__("update route file"));
 		}
 	}
 	
@@ -126,28 +167,28 @@ class RoutesController extends Controller
 	}
 	
 	/**
-	 * process data after submitting a new route
-	 * This method validates data and stores data in the DB
+	 * Process data the after submitting a new route.
+	 * This method validates data and stores data in the "route" table
 	 * 
 	 * @param Request $p_request request send back from form
 	 * 
-	 * @return unknown
+	 * @return Redirect  Redrict to next page
 	 */
 	function saveAddRoute(Request $p_request)
 	{
-		$l_rules=["routeTitle"=>["required"],"routefile"=>["required"]];
+		$l_rules=["routeTitle"=>["required"]];
 		
 		$l_validator=Validator::make($p_request->all(),$l_rules);
 		if($l_validator->fails()){
-			return Redirect::to("/routes/new")->withErrors($l_validator)->withInput($p_request->all());
+			return Redirect::to("/routes/save/newupload")->withErrors($l_validator)->withInput($p_request->all());
 		}
 		
-		$l_path=$p_request->file("routefile")->path();
-		$l_content=file_get_contents($l_path);
-		\App\Route::create(["id_user"=>\Auth::user()->id
+		\App\Model\Route::create(["id_user"=>\Auth::user()->id
 				       ,"title"=>$p_request->input("routeTitle")
                        ,"comment"=>$p_request->input("comment")
-		               ,"gpxdata"=>$l_content]);
+					   ,"location"=>$p_request->input("routeLocation")
+		               ,"id_routefile"=>$p_request->input("id_routefile")
+				]);
 		return Redirect::to("/routes/");		
 	}
 	
@@ -167,9 +208,10 @@ class RoutesController extends Controller
 			return Redirect::to("/routes/new")->withErrors($l_validator)->withInput($p_request->all());
 		}
 		$l_id=$p_request->input("id");
-		$l_route=\App\Route::findOrFail($l_id);
+		$l_route=\App\Model\Route::findOrFail($l_id);
 		$l_route->title=$p_request->input("routeTitle");
 		$l_route->comment=$p_request->input("comment");
+		$l_route->location=$p_request->input("routeLocation");
 		$l_route->save();
 		return Redirect::to("/routes/display/$l_id");
 	}

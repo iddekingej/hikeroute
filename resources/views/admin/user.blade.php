@@ -19,7 +19,7 @@
 	<td class="form_labelCell"> {!! Form::label("email","Email") !!}</td>
 	<td class="form_elementCell"> 
 		@if ($errors->has('email'))
-			<div class="form_error">{{ $errors->first('email') }}</div>
+			<div class="form_error">{{ $errors->first(__('email')) }}</div>
 		@endif 
 	{!! form::email("email",$email,["class"=>"form_valueElement"]) !!}
 	</td>
@@ -27,7 +27,7 @@
 @if($id!="")
 <tr>
 	<td class="form_labelCell">
-		{!! Form::label("resetpassword","Reset password ?") !!}
+		{!! Form::label("resetpassword",__("Reset password ?")) !!}
 	</td>
 	<td class="form_elementCell">
 		{!! Form::checkBox("resetpassword",1,false,["onclick"=>"core.displayId('password',this.checked)"]) !!}
@@ -63,7 +63,7 @@ Rights
 <tr>
 	<td colspan='2'>
 		{!! Form::submit("Save") !!}
-		<button type='button' onclick='window.location="{{ Route("admin.users") }}"'>Cancel</button>
+		<button type='button' onclick='window.location="{{ Route("admin.users") }}"'>{{ __("Cancel") }}</button>
 	</td>
 </tr>
 

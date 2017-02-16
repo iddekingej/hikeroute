@@ -1,6 +1,6 @@
-@extends('layouts.pageform',["title"=>__("Upload new GPX file to existing route")])
+@extends('layouts.pageform',["title"=>__("Upload new GPX file")])
 @section('formbody')
-{!! Form::open(["route"=>"routes.save.uploadgpx","enctype"=>"multipart/form-data"]) !!}
+{!! Form::open(["route"=>"routes.save.newupload","enctype"=>"multipart/form-data"]) !!}
 {!! Form::hidden("id",$id) !!}
 <table class="form_table">
 <tr>
@@ -16,7 +16,7 @@
 </tr>
 <tr>
 	<td colspan='2'>
-		{!! Form::submit(__("Save")) !!}
+		{!! Form::submit(__("Next")) !!}
 		<button type='button' onclick='window.location="{{ Route("routes") }}"'>Cancel</button>
 	</td>
 </tr>

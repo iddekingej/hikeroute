@@ -13,12 +13,12 @@ class UserRight extends Model
    
    function user()
    {
-   		return $this->belongsTo("\App\User","id_user"); 
+   		return $this->belongsTo(\App\User::class,"id_user"); 
    }
    
    function right()
    {
-   		return $this->belongsTo("\\App\\Right","id_right");
+   		return $this->belongsTo(\App\Right::class,"id_right");
    }
    
    static function deleteUserRights($p_id_user)
