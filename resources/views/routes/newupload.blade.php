@@ -15,7 +15,7 @@
 	</td>
 </tr>
 <tr>
-	<td colspan='2'>
+	<td colspan='2' class="form_submitCell">
 		{!! Form::submit(__("Next")) !!}
 		<button type='button' onclick='window.location="{{ Route("routes") }}"'>Cancel</button>
 	</td>

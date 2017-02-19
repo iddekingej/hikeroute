@@ -23,6 +23,12 @@ Route::get('/routes/display/{p_id}',["as"=>"routes.display","uses"=>"GuestContro
 Route::get("/routes/download/{p_id}",["as"=>"routes.download","uses"=>"GuestController@downloadRoute"]);
 
 /**
+ * User routes
+ */
+
+Route::get("/user/profile/",["as"=>"user.profile","uses"=>"UserController@displayProfile"]);
+
+/**
  * URL for user management
  * -List all users
  * -Edit new user
@@ -45,6 +51,6 @@ Route::post('/routes/save/edit',["as"=>"routes.save.edit","uses"=>"RoutesControl
 Route::post("/routes/save/updategpx",["as"=>"routes.save.uploadgpx","uses"=>"RoutesController@saveUploadGPX"]);
 Route::get('/routes/edit{id}',["as"=>"routes.edit","uses"=>"RoutesController@editRoute"]);
 Route::get("/routes/del/{id}",["as"=>"routes.del","uses"=>"RoutesController@delRoute"]);
-Route::get("/routes/updategpx/{id}",["as"=>"routes.updategpx","uses"=>"RoutesController@updateGPX"]);
+Route::get("/routes/updategpx/{id}",["as"=>"routes.updategpx","uses"=>"RoutesController@uploadGPX"]);
 Route::get('/routes/editfile/{id}',["as"=>"routes.editfile","uses"=>"RoutesController@editFile"]);
 Route::get('/routes/',["as"=>"routes","uses"=>"RoutesController@listRoutes"]);

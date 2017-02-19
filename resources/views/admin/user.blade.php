@@ -61,7 +61,7 @@ Rights
 </tr>
 @endforeach
 <tr>
-	<td colspan='2'>
+	<td colspan='2' class="form_submitCell">
 		{!! Form::submit("Save") !!}
 		<button type='button' onclick='window.location="{{ Route("admin.users") }}"'>{{ __("Cancel") }}</button>
 	</td>

@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class AlterRoutes extends Migration
 {
     /**
-     * Add location to route
+     * Add location to the routes table
      *
      * @return void
      */
@@ -19,7 +19,7 @@ class AlterRoutes extends Migration
     }
 
     /**
-     * Drop location column
+     * Reverse the change by dropping the location column
      *
      * @return void
      */

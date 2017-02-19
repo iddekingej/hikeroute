@@ -5,12 +5,24 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Support\Facades\Gate;
+use App\Lib\GPXReader;
+use App\Models\Route;
+use App\Models\RouteFile;
 
 class GuestController extends Controller
 {
+	/*
+	 * Displays a list of all routes at front page
+	 */
+	
 	public function start()
 	{
-		return view("welcome");
+		$l_data=[
+				"routes"=>Route::orderBy("id","asc")->get()
+			,	"title"=>__("All available routes")
+		];
+		
+		return view("welcome",$l_data);
 	}
 	
 	/**
@@ -23,9 +35,9 @@ class GuestController extends Controller
 	
 	function displayRoute($p_id)
 	{
-		$l_route=\App\Model\Route::findOrFail($p_id);
+		$l_route=Route::findOrFail($p_id);
 		
-		$l_gpxParser=new \App\Lib\GPXReader();
+		$l_gpxParser=new GPXReader();
 		$l_gpx=$l_gpxParser->parse($l_route->routefile()->getResults()->gpxdata);		
 		$l_data=[
 		"id"=>$p_id
@@ -42,6 +54,9 @@ class GuestController extends Controller
 	}
 	
 	/**
+	 * Download GPX file 
+	 * This is used for displaying the route on the map.  The GPX file is download
+	 * loaded via a XHR call.
 	 * 
 	 * @param integer $p_id 
 	 * @return unknown
@@ -49,7 +64,9 @@ class GuestController extends Controller
 	
 	function downloadRoute($p_id)
 	{
-		$l_route=\App\Model\RouteFile::findOrFail($p_id);
+		$l_route=RouteFile::findOrFail($p_id);
 		return $l_route->gpxdata;
 	}
+	
+	
 }

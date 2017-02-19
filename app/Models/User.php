@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -38,7 +38,7 @@ class User extends Authenticatable
      */
     function userRights()
     {
-    	return $this->hasMany(\App\UserRight::class,"id_user");
+    	return $this->hasMany(UserRight::class,"id_user");
     }
     
     /**
@@ -48,7 +48,23 @@ class User extends Authenticatable
      */
     function routes()
     {
-    	return $this->hasMany(\App\Model\Route::class,"id_user");
+    	return $this->hasMany(Route::class,"id_user");
+    }
+    /**
+     * Check if the user has a right with a tag $p_tag (=kind of right)
+     * 
+     * @param String $p_tag
+     * @return boolean
+     */
+    private function checkHasRight($p_tag)
+    {    	
+    	$l_userRights=$this->userRights();
+    	foreach($l_userRights->get() as $l_userRight){
+    		if($l_userRight->right()->getResults()->tag==$p_tag){
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     /**
@@ -60,14 +76,7 @@ class User extends Authenticatable
     function isAdmin()
     {
     	if($this->isAdmin === null){
-    		$this->isAdmin=false;
-    		$l_userRights=$this->userRights();
-    		foreach($l_userRights->get() as $l_userRight){
-    			if($l_userRight->right()->getResults()->tag=="admin"){
-    				$this->isAdmin=true;
-    				break;
-    			}
-    		}
+    		$this->isAdmin=$this->checkHasRight("admin");
     	}
     	return $this->isAdmin;
     }
@@ -77,7 +86,7 @@ class User extends Authenticatable
      */
     function deleteRights()
     {	    	
-   		\App\UserRight::deleteUserRights($this->id);
+   		\App\Models\UserRight::deleteUserRights($this->id);
     }
     
     /**
@@ -89,7 +98,7 @@ class User extends Authenticatable
      */
     function canDelete()
     {
-    	return \App\Model\Route::userHasRoutes($this);
+    	return Route::userHasRoutes($this);
     }
     
 }

@@ -15,9 +15,9 @@
 	</td>
 </tr>
 <tr>
-	<td colspan='2'>
+	<td colspan='2' class="form_submitCell">
 		{!! Form::submit(__("Save")) !!}
-		<button type='button' onclick='window.location="{{ Route("routes") }}"'>Cancel</button>
+		<button type='button' onclick='window.location="{{ Route("routes.display",["id"=>$id]) }}"'>Cancel</button>
 	</td>
 </tr>
 </table> 

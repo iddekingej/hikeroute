@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +20,7 @@ class Route extends Model
 	 */
 	function user()
 	{
-		return $this->belongsTo(\App\User::class,"id_user");
+		return $this->belongsTo(User::class,"id_user");
 	}
 	
 	
@@ -29,7 +29,7 @@ class Route extends Model
 		return $this->hasOne(RouteFile::class,"id","id_routefile");
 	}
 	
-	static function userHasRoutes(\App\User $p_user)
+	static function userHasRoutes(User $p_user)
 	{
 		return self::where("id_user","=",$p_user->id)->limit(1)->get()->isEmpty();
 	}

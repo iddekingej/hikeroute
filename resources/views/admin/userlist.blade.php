@@ -1,4 +1,4 @@
-@extends("layouts.pagemenu")
+@extends("layouts.pagemenu",["title"=>__("Users")])
 @section("pagebody")
 <table class="table">
 <tr><td colspan='3' class="table_title">User list</td></tr>

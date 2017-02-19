@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
+use App\Models\UserRight;
+use App\Models\Right;
 
 /**
  *  Controller for site administration
@@ -19,6 +22,9 @@ class AdminController extends Controller
 		$this->middleware('auth');
 	}
 	
+	/**
+	 * Checks if the user has admin rights
+	 */
 	private function checkAuthentication()
 	{
 
@@ -36,13 +42,13 @@ class AdminController extends Controller
 	function listUsers()
 	{
 		$this->checkAuthentication();		
-		return view("admin.userlist",["users"=>\App\User::orderBy("name")->get()]);
+		return view("admin.userlist",["users"=>\App\Models\User::orderBy("name")->get()]);
 	}
 	
 	private function getRightsArray()
 	{
 		$l_rights=[];
-		foreach(\App\Right::all() as $l_right){
+		foreach(Right::all() as $l_right){
 			$l_rights[$l_right->id]=[$l_right,false];
 		}
 		return $l_rights;
@@ -61,7 +67,7 @@ class AdminController extends Controller
 	function editUser($id)
 	{
 		$this->checkAuthentication();
-		$l_user=\App\User::findOrFail($id);
+		$l_user=User::findOrFail($id);
 		$l_rights=$this->getRightsArray();
 		$l_userRights=$l_user->userRights();
 		foreach ( $l_userRights->getResults() as $l_userRight ) {
@@ -106,7 +112,7 @@ class AdminController extends Controller
 	{
 		$this->checkAuthentication();
 		if($p_id != \Auth::user()->id){
-			$l_user=\App\User::findOrFail($p_id);
+			$l_user=User::findOrFail($p_id);
 			$l_user->delete();
 		}
 		return Redirect::to("/admin/users/$p_id");
@@ -120,12 +126,12 @@ class AdminController extends Controller
 	 * @param \App\User $p_user   User 
 	 */
 	
-	function saveRights(Request $p_request,\App\User $p_user)
+	function saveRights(Request $p_request,User $p_user)
 	{
 		$p_user->deleteRights();
-		foreach(\App\Right::all() as $l_right){
+		foreach(Right::all() as $l_right){
 			if($p_request->has("right_".$l_right->id)){
-				\App\UserRight::addUserRight($p_user,$l_right);
+				UserRight::addUserRight($p_user,$l_right);
 			}
 		}
 	}
@@ -154,7 +160,7 @@ class AdminController extends Controller
 			return Redirect::to("/admin/users/".(($l_id=="")?"new":"edit/$l_id"))
 			       ->withErrors($l_validator)->withInput($p_request->all());
 		} else if($l_id != ""){
-			$l_user=\App\User::findOrFail($l_id);				
+			$l_user=User::findOrFail($l_id);				
 			$l_user->name=$p_request->input("name");
 			$l_user->email=$p_request->input("email");
 			if($p_request->has("resetpassword")){
@@ -162,7 +168,7 @@ class AdminController extends Controller
 			}
 			$l_user->save();
 		} else {
-			$l_user=\App\User::create(["name"=>$p_request->input("name"),"email"=>$p_request->input("email"),"password"=>bcrypt($p_request->input("password"))]);
+			$l_user=User::create(["name"=>$p_request->input("name"),"email"=>$p_request->input("email"),"password"=>bcrypt($p_request->input("password"))]);
 			
 		}
 		$this->saveRights($p_request,$l_user);

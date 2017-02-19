@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\User;
-use App\Model\Route;
+use App\Models\User;
+use App\Models\Route;
 
 class AuthServiceProvider extends ServiceProvider
 {

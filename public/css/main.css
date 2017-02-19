@@ -39,8 +39,36 @@ body,input,table,tr,td,textarea{
 .leftmenu_item{text-decoration:none;color:#777}
 .leftmenu_item_con{padding-top:5px}
 .pagecontent{padding-left:5px}
+/* All routes */
+
+.routeall_title{
+	font-weight:700;
+	padding-top:5px;
+}
+
+.routeall_body{
+	padding:5px;
+}
+
+.routeall_infoLabel{
+	color:#777;
+	font-weight:700;
+}
+
+.routeall_infoValue{
+	color:#777;
+}
 
 /* Map display */
+
+.map_pageTable{
+	width:100%;
+}
+
+.map_menuCell{
+	width:200px;
+	vertical-align:top;	
+}
 
 #map{
 	width:100%;
@@ -90,11 +118,26 @@ body,input,table,tr,td,textarea{
 	vertical-align:top;
 }
 /* login */
+
 .login_form{ 
 	width:400px;
-	border:solid 1px #aaa;
+	background-color:#eee;
 	padding:10px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:30px;
 }
+
+.login_buttom{
+	margin-top:15px;
+	margin-bottom:10px;
+}
+
+.login_forget{
+	margin-top:10px;
+	text-decoration:none;
+}
+
 .login_label{ 
 	color:#777;
 	padding-bottom:5px;
@@ -104,7 +147,9 @@ body,input,table,tr,td,textarea{
 .login_element{
 	width:300px;
 	font-size:15px;
-	border:solid 1px #777;
+	padding:4px;
+	color:#555;
+	border:solid 1px #bbb;
 }
 /* forms */
 .form_body{width:100%;}
@@ -115,6 +160,7 @@ body,input,table,tr,td,textarea{
 .form_elementCell{padding-top:3px;padding-left:3px;padding-right:15px}
 .form_labelCell{padding-left:3px;font-weight:bold}
 .form_section{border-bottom:solid 1px #ccc;font-weight:700;text-align:center;padding:4px}
+.form_submitCell{padding-top:12px;padding-lef:5px;padding-bottom:5px}
 .form_error{
 	color:#f00;
 }

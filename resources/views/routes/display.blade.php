@@ -6,6 +6,30 @@
 @endsection
 
 @section("content")
+<table class="map_pageTable">
+<tr>
+
+<td class="map_menuCell">
+<div class="leftmenu_item_con">
+<a class="buttonLink" href="/">{{ __("All routes") }}</a>
+</div>
+@if($canEdit)
+<div class="leftmenu_item_con">
+<a class="buttonLink" href="{{ Route( 'routes') }}">{{ __("Back to routes overview") }}</a>
+</div>
+<div class="leftmenu_item_con">
+<a class="buttonLink" href="{{ Route( 'routes.edit',['id'=>$id]) }}">{{ __("Edit route") }}</a>
+</div>
+<div class="leftmenu_item_con">
+<a class="buttonLink" href="{{ Route( 'routes.updategpx',['id'=>$id]) }}">{{ __("Upload new gpx file") }}</a>
+</div>
+<div class="leftmenu_item_con">
+<a class="buttonLink" href="{{ Route( 'routes.del',['id'=>$id]) }}">{{ __("Delete this route") }}</a>
+</div>
+@endif
+</td>
+
+<td >
 <div class="map_container">
 <table class="map_table">
 <tr>
@@ -15,12 +39,7 @@
 </tr>
 <tr>
 <td>
-@if($canEdit)
-<a class="buttonLink" href="{{ Route( 'routes') }}">{{ __("Back to routes overview") }}</a>&nbsp;
-<a class="buttonLink" href="{{ Route( 'routes.edit',['id'=>$id]) }}">{{ __("Edit route") }}</a> &nbsp;
-<a class="buttonLink" href="{{ Route( 'routes.updategpx',['id'=>$id]) }}">{{ __("Upload new gpx file") }}</a>
-<a class="buttonLink" href="{{ Route( 'routes.del',['id'=>$id]) }}">{{ __("Delete this route") }}</a>
-@endif
+
 <td>
 </tr>
 <tr>
@@ -51,6 +70,9 @@
 	</td>
 </table>
 </div>
+</td>
+</tr>
+</table>
 <script type='text/javascript'>
 	l_map=new RouteMap("map");
 	l_map.setGpxRoute({!! json_encode(Route("routes.download",["p_id"=>$id_routefile])) !!});
