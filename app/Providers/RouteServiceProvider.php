@@ -2,16 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
+use Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use App\Models\User;
 
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
+     * Namespace appended to the controllers.
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
@@ -23,8 +21,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
+		Route::model("p_route",\App\Models\Route::class);
+		Route::model("p_user",User::class);
         parent::boot();
     }
 

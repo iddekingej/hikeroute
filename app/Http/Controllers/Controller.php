@@ -10,4 +10,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    function checkInteger($p_value)
+    {
+    	if(!is_numeric($p_value)){
+    		abort($p_value);
+    	}
+    }
 }

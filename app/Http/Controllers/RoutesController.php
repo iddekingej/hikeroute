@@ -62,7 +62,7 @@ class RoutesController extends Controller
 	 * @return Redirect|View  Redirect to route overview(if successfull) or a error message (when failed)
 	 */
 	
-	function delRoute($p_id)
+	function delRoute($user)
 	{
 		$l_route=Route::findOrFail($p_id);
 		if(Gate::allows("edit-route",$l_route)){

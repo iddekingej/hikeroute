@@ -38,9 +38,10 @@ Route::get("/user/profile/",["as"=>"user.profile","uses"=>"UserController@displa
  */
 Route::get('/admin/users/',["as"=>"admin.users","uses"=>"AdminController@listusers"]);
 Route::get('/admin/users/new',["as"=>"admin.users.new","uses"=>'AdminController@newuser']);
-Route::get('/admin/users/edit/{id}',["as"=>"admin.users.edit","uses"=>"AdminController@edituser"]);
-Route::get('/admin/users/delete/{id}',["as"=>"admin.users.delete","uses"=>"AdminController@deleteUser"]);
-Route::post('/admin/users/save',["as"=>"admin.users.save","uses"=>"AdminController@saveUser"]);
+Route::get('/admin/users/edit/{p_user}',["as"=>"admin.users.edit","uses"=>"AdminController@edituser"]);
+Route::get('/admin/users/delete/{p_user}',["as"=>"admin.users.delete","uses"=>"AdminController@deleteUser"]);
+Route::post('/admin/users/save/add',["as"=>"admin.users.save.add","uses"=>"AdminController@saveUserAdd"]);
+Route::post('/admin/users/save/edit',["as"=>"admin.users.save.edit","uses"=>"AdminController@saveUserEdit"]);
 /**
  * URLs for posting and editing hiking routes 
  */

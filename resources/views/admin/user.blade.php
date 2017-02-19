@@ -1,7 +1,7 @@
 @extends('layouts.pageform',["title"=>$title])
 @section('formbody')
 
-{!! Form::open(["route"=>["admin.users.save"],"autocomplete"=>"off"]) !!}
+{!! Form::open(["route"=>["admin.users.save.$cmd"],"autocomplete"=>"off"]) !!}
 {!! Form::hidden("id",$id) !!}
 <input type='text' style='display:none'/>
 <input type='password' style='display:none' />
@@ -50,6 +50,7 @@
 Rights
 </td>
 </tr>
+<!-- Print selection of rights -->
 @foreach($rights as $l_right)
 <tr>
 	<td>

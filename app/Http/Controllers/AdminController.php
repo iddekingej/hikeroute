@@ -1,7 +1,6 @@
 <?php 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Validator;
@@ -34,7 +33,7 @@ class AdminController extends Controller
 	}
 	
 	/**
-	 * Displayes all users
+	 * Displays all users
 	 * 
 	 * Call view "admin.userlist" with a list for all users
 	 */
@@ -64,25 +63,27 @@ class AdminController extends Controller
 	 * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory view to display
 	 */
 	
-	function editUser($id)
+	function editUser(User $p_user)
 	{
 		$this->checkAuthentication();
-		$l_user=User::findOrFail($id);
+		
 		$l_rights=$this->getRightsArray();
-		$l_userRights=$l_user->userRights();
+		$l_userRights=$p_user->userRights();
 		foreach ( $l_userRights->getResults() as $l_userRight ) {
 			$l_rights[$l_userRight->id_right][1] = true;
 		}		
+		
 		return view("admin.user",
-					["id"=>$l_user->id,
-					"name"=>$l_user->name,
-					"email"=>$l_user->email,
+					["id"=>$p_user->id,
+					"name"=>$p_user->name,
+					"email"=>$p_user->email,
 					"title"=>"Edit user",
-					"rights"=>$l_rights]);
+					"rights"=>$l_rights,
+					"cmd"=>"edit"]);
 	}
 	
 	/**
-	 * handles add users.
+	 * Handles adding a new users.
 	 * This method displays the admin.user view.
 	 * In this view a empty form is displayed for entering a
 	 * new user.
@@ -97,8 +98,9 @@ class AdminController extends Controller
 					["id"=>"",
 					 "name"=>"",
 					 "email"=>"",
-					"title"=>"New user",
-					"rights"=>$l_rights
+					 "title"=>"New user",
+					 "cmd"=>"add",
+					 "rights"=>$l_rights
 					]);
 	}
 	/**
@@ -108,14 +110,14 @@ class AdminController extends Controller
 	 * @param integer $p_id
 	 * @return redirect redirects to the user overview
 	 */
-	function deleteUser($p_id)
+	function deleteUser(User $p_user)
 	{
 		$this->checkAuthentication();
-		if($p_id != \Auth::user()->id){
-			$l_user=User::findOrFail($p_id);
-			$l_user->delete();
+		if($p_user->id != \Auth::user()->id){		
+			$p_user->userRights()->delete();
+			$p_user->delete();
 		}
-		return Redirect::to("/admin/users/$p_id");
+		return Redirect::to("/admin/users/");
 	}
 	
 	/**
@@ -126,7 +128,7 @@ class AdminController extends Controller
 	 * @param \App\User $p_user   User 
 	 */
 	
-	function saveRights(Request $p_request,User $p_user)
+	private function saveRights(Request $p_request,User $p_user)
 	{
 		$p_user->deleteRights();
 		foreach(Right::all() as $l_right){
@@ -137,40 +139,68 @@ class AdminController extends Controller
 	}
 	
 	/**
-	 * Validates ,save of insert data in the table.
+	 * After submitting a new user, this method
+	 * validates the data and insert the user in the "user" table.
 	 * 
 	 * @param Request $p_request
 	 * @return Redirect 
 	 */
-	function saveUser(Request $p_request)
+	
+	function saveUserAdd(Request $p_request)
 	{
-		$l_id=$p_request->input("id");
-		
 		$l_rules=[
 			"email"=>["required","email",Rule::unique("users")->ignore($l_id)]
 		,	"name"=>["required"]
-		];
-		if($l_id==""||$p_request->has("resetpassword")){
-			$l_rules["password"]=["required"];
-		}
+		,	"password"=>["required"]
+		];		
 		
 		$l_validator=Validator::make($p_request->all(),$l_rules);
 		if($l_validator->fails()){
 			
-			return Redirect::to("/admin/users/".(($l_id=="")?"new":"edit/$l_id"))
-			       ->withErrors($l_validator)->withInput($p_request->all());
-		} else if($l_id != ""){
-			$l_user=User::findOrFail($l_id);				
-			$l_user->name=$p_request->input("name");
-			$l_user->email=$p_request->input("email");
-			if($p_request->has("resetpassword")){
-				$l_user->password=bcrypt($p_request->input("password"));
-			}
-			$l_user->save();
-		} else {
-			$l_user=User::create(["name"=>$p_request->input("name"),"email"=>$p_request->input("email"),"password"=>bcrypt($p_request->input("password"))]);
-			
+			return Redirect::to("/admin/users/new")
+			       ->withErrors($l_validator)
+			       ->withInput($p_request->all());
 		}
+		
+		$l_user=User::create(["name"=>$p_request->input("name"),"email"=>$p_request->input("email"),"password"=>bcrypt($p_request->input("password"))]);
+		$this->saveRights($p_request,$l_user);
+		return Redirect::to("/admin/users/");
+	}
+	
+	/**
+	 * This method is called after submitting "edit user" form.
+	 * The user data is saved in the "User" table
+	 *  
+	 * @param Request $p_request Data posted from the "edit user" form.
+	 * @return unknown
+	 */
+	function saveUserEdit(Request $p_request)
+	{
+		$l_id=$p_request->input("id");
+		$this->checkInteger($l_id);
+		
+		$l_rules=[
+				"email"=>["required","email",Rule::unique("users")->ignore($l_id)]
+			   ,"name"=>["required"]			    
+		];
+		if($p_request->has("resetpassword")){
+			$l_rules["password"]=["required"];
+		}
+	
+		$l_validator=Validator::make($p_request->all(),$l_rules);
+		if($l_validator->fails()){
+				
+			return Redirect::to("/admin/users/edit/$l_id")
+			               ->withErrors($l_validator)
+			               ->withInput($p_request->all());
+		} 
+		$l_user=User::findOrFail($l_id);
+		$l_user->name=$p_request->input("name");
+		$l_user->email=$p_request->input("email");
+		if($p_request->has("resetpassword")){
+			$l_user->password=bcrypt($p_request->input("password"));
+		}
+		$l_user->save();
 		$this->saveRights($p_request,$l_user);
 		return Redirect::to("/admin/users/");
 	}
