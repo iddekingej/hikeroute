@@ -153,8 +153,16 @@ class RoutesController extends Controller
 		
 		
 		$l_routeFile=RouteFile::create(["gpxdata"=>$l_content]);
-		$l_locData=AddressService::locationStringFromGPX($l_gpxInfo->getStart());
 		
+		return Redirect::to("/routes/newdetails/".$l_routeFile->id);
+		
+	}
+	
+	function newDetails($p_id)
+	{
+		$l_routeFile=RouteFile::findOrFail($p_id); //TODO: check if file belong to user!
+		$l_gpxInfo=$this->getRouteInfo($l_routeFile);
+		$l_locData=AddressService::locationStringFromGPX($l_gpxInfo->getStart());
 		$l_data = [
 				"title" => __("New route"),
 				"id" => "",
@@ -181,7 +189,9 @@ class RoutesController extends Controller
 	
 		$l_validator=Validator::make($p_request->all(),$l_rules);
 		if($l_validator->fails()){
-			return Redirect::to("/routes/save/newupload")->withErrors($l_validator)->withInput($p_request->all());
+			return Redirect::to("/routes/newdetails/".$p_request->input("id_routefile"))
+			->withErrors($l_validator)
+			->withInput($p_request->all());
 		}
 	
 		Route::create(["id_user"=>\Auth::user()->id

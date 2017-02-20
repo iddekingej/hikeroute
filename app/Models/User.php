@@ -70,7 +70,7 @@ class User extends Authenticatable
     /**
      * Check if the user is has admin rights
      * 
-     * @return boolean true: user is has dmin rights, false:user has no admin rights
+     * @return boolean true: user is has admin rights, false:user has no admin rights
      */
     
     function isAdmin()
