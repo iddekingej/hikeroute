@@ -1,11 +1,22 @@
 <?php
 namespace App\Lib;
 
+/**
+ * Summary information about a route
+ */
+
 class GPXInfo{
 	public $minLon=null;
 	public $maxLon=null;
 	public $minLat=null;
 	public $maxLat=null;
+	
+	/**
+	 * Every time a point is read from the GPX file, this routine is called
+	 * 
+	 * @param unknown $p_lat
+	 * @param unknown $p_lon
+	 */
 	
 	function update($p_lat,$p_lon)
 	{

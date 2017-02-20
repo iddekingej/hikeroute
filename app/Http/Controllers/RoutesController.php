@@ -26,8 +26,9 @@ class RoutesController extends Controller
 	{
 		$this->middleware('auth');
 	}
+	
 /**
- * Display error page
+ * Displays and error page
  * 
  * @param String $p_message Message to display
  * @return unknown
@@ -39,7 +40,7 @@ class RoutesController extends Controller
 	
 	
 	/**
-	 * Display input form for entering a new hiking route
+	 * Displays an input form for entering a new hiking route
 	 * 
 	 * @return View View with input form 
 	 */
@@ -54,15 +55,15 @@ class RoutesController extends Controller
 	}
 
 	/**
-	 * Delete a route and return to the routes overwiew of the user.
-	 * Is the user is not allowed to delete the route, than a error
-	 * message is displayed
+	 * Deletes a route and returns to the users routes overview.
+	 * Is the user is not allowed to delete the route, an error
+	 * message is displayed.
 	 * 
 	 * @param integer $p_id the ID of the route to delete
-	 * @return Redirect|View  Redirect to route overview(if successfull) or a error message (when failed)
+	 * @return Redirect|View  Redirect to route overview(if successful) or a error message (when failed)
 	 */
 	
-	function delRoute($user)
+	function delRoute($p_id)
 	{
 		$l_route=Route::findOrFail($p_id);
 		if(Gate::allows("edit-route",$l_route)){
@@ -78,7 +79,7 @@ class RoutesController extends Controller
 	
 	
 	/***
-	 * Parse route gpx
+	 * Parse route gpx file
 	 * 
 	 * @param RouteFile $p_routeFile Record from the route file, with the gpx data
 	 * @return \App\Lib\GPXList Information from the gpxdata
@@ -91,9 +92,9 @@ class RoutesController extends Controller
 		return $l_gpx;
 	}
 	/**
-	 * Display form for editing a route post.
+	 * Displays a form for editing an existing route.
 	 * 
-	 * @param integer $p_id Route ID, given as parameter.
+	 * @param integer $p_id Route ID.
 	 * @return unknown
 	 */
 	
@@ -120,13 +121,13 @@ class RoutesController extends Controller
 
 	
 	/**
-	 * When adding a new route, first a gpx file is loaded.
+	 * When adding a new route, first a gpx file is uploaded.
 	 * This method saves the route. After the upload a form is 
 	 * displayed for entering some information about the hiking route
-	 * this information is save by the method @see RoutesController@saveAddRoute
+	 * this information is saved by the method @see RoutesController@saveAddRoute
 	 * 
 	 * @param Request $p_request
-	 * @return unknown
+	 * @return Redirect|View  
 	 */
 	
 	function saveNewUpload(Request $p_request)
@@ -167,12 +168,12 @@ class RoutesController extends Controller
 	}
 	
 	/**
-	 * Process data after submitting a new route.
+	 * Processes data after submitting a new route.
 	 * This method validates data and stores data in the "route" table
 	 *
 	 * @param Request $p_request request send back from form
 	 *
-	 * @return Redirect  Redrict to next page
+	 * @return Redirect  Redirect to next page
 	 */
 	function saveAddRoute(Request $p_request)
 	{
@@ -195,7 +196,7 @@ class RoutesController extends Controller
 	/**
 	 * When selecting "Uploading new GPX file" to an existing route
 	 * 1) This method displays a upload form, then...
-	 * 2) @see RoutesController::saveUploadGPX saves the gpx, and then...
+	 * 2) @see RoutesController::saveUploadGPX saves the gpx.
 	 * 
 	 * @param integer $p_id id of the selected hiking route
 	 * @return unknown
@@ -212,8 +213,9 @@ class RoutesController extends Controller
 	
 	/**
 	 * handle GPX file upload.
-	 * Check if file readable and parse GPX file.
-	
+	 * Checks if the file is readable, checks and parses the GPX file.
+	 * When the validation fails the upload form (with rout in p_errorDirect)
+	 * is displayed with an error message
 	 * 
 	 * @param Request $p_request         Upload request
 	 * @param String  $p_errorRedirect   Redirect address when upload fails
@@ -250,7 +252,7 @@ class RoutesController extends Controller
 	
 	/**
 	 * This method is called when a new GPX is uploaded for 
-	 * a existsing GPX 
+	 * an existing GPX 
 	 * 
 	 * @param Request $p_request
 	 * @return Redirect
@@ -292,9 +294,9 @@ class RoutesController extends Controller
 	}
 	
 	/**
-	 * Display a list of routes belonging to the current user
+	 * Displays a list of routes belonging to the current user
 	 * 
-	 * @return View View with list 
+	 * @return View View with list of routes
 	 */
 	function listRoutes()
 	{
@@ -303,7 +305,8 @@ class RoutesController extends Controller
 	
 
 	/**
-	 * After the user editted the route data, this method saves the route
+	 * After the user edited an existing route, this method 
+	 * saves the information in the database
 	 *
 	 * @param Request $p_request Data send back by the route
 	 * @return Redirect Redirect to route display

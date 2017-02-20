@@ -2,6 +2,12 @@
 namespace App\Lib;
 
 class AddressService{
+	/**
+	 * Returns name information(City,county,state..) about location in ($p_lat,$p_lon)
+	 * 
+	 *  @param real $p_lat Latitude of position (GPX position)
+	 *  @param real $p_lon Longitude of position(GPX position) 
+	 */
 	static function fromLocation($p_lat,$p_lon)
 	{
 		$l_curl=curl_init();
@@ -38,6 +44,14 @@ class AddressService{
 		}
 		return "";
 	}
+	
+	/**
+	 * Location name from position.
+	 * Same as @see AddressService::fromLocation
+	 * 
+	 * @param GPXPoint $p_point
+	 * @return String description
+	 */
 	
 	static function fromGpx(GPXPoint $p_point)
 	{

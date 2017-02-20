@@ -104,12 +104,13 @@ class AdminController extends Controller
 					]);
 	}
 	/**
-	 * Delete an user.
-	 * The user can't it's own user record.
+	 * Deletes an user.
+	 * The user can't delete their own user record.
 	 * 
 	 * @param integer $p_id
 	 * @return redirect redirects to the user overview
 	 */
+	
 	function deleteUser(User $p_user)
 	{
 		$this->checkAuthentication();
@@ -121,8 +122,9 @@ class AdminController extends Controller
 	}
 	
 	/**
-	 * Save rights belonging to users.
-	 * First all rights are deleted and then inserted again.
+	 * Save rights belonging to user.
+	 * First all existing rights are deleted and then 
+	 * the new rights inserted again.
 	 * 
 	 * @param Request $p_request  Post request form form (contains data to save)
 	 * @param \App\User $p_user   User 
@@ -140,7 +142,7 @@ class AdminController extends Controller
 	
 	/**
 	 * After submitting a new user, this method
-	 * validates the data and insert the user in the "user" table.
+	 * validates the data and inserts the user in the "user" table.
 	 * 
 	 * @param Request $p_request
 	 * @return Redirect 

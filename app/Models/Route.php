@@ -23,7 +23,11 @@ class Route extends Model
 		return $this->belongsTo(User::class,"id_user");
 	}
 	
-	
+	/**
+	 * Contents of the route file 
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+	 */
 	function routeFile()
 	{
 		return $this->hasOne(RouteFile::class,"id","id_routefile");

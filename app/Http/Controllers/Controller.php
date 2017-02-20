@@ -10,10 +10,18 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    
+    /**
+     * Checks if value is a integer, if not than the request is aborted
+     * with a 500.
+     * 
+     * @param integer $p_value
+     */
+    
     function checkInteger($p_value)
     {
     	if(!is_numeric($p_value)){
-    		abort($p_value);
+    		abort(500);
     	}
     }
 }
