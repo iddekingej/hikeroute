@@ -48,7 +48,6 @@ Route::post('/admin/users/save/edit',["as"=>"admin.users.save.edit","uses"=>"Adm
 Route::get('/routes/new',["as"=>"routes.new","uses"=>"RoutesController@newRoute"]);
 Route::get('/routes/newdetails/{id}',["as"=>"routes.newdetails","uses"=>"RoutesController@newDetails"]);
 Route::post("/routes/save/newupload",["as"=>"routes.save.newupload","uses"=>"RoutesController@saveNewUpload"]);
-
 Route::post('/routes/save/add',["as"=>"routes.save.add","uses"=>"RoutesController@saveAddRoute"]);
 Route::post('/routes/save/edit',["as"=>"routes.save.edit","uses"=>"RoutesController@saveUpdateRoute"]);
 Route::post("/routes/save/updategpx",["as"=>"routes.save.uploadgpx","uses"=>"RoutesController@saveUploadGPX"]);

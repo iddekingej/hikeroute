@@ -45,7 +45,7 @@ class UserRight extends Model
    }
       
    /**
-    * Grant a right (in the Right) object to a user (User object) by adding a 
+    * Grant a right to a user by adding a 
     * record in the UserRight table
     * 
     * @param \App\Models\User $p_user 

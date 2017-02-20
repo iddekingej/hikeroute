@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
- * Registered application user
- * From "users" table
+ * Registered application users
  */
 class User extends Authenticatable
 {
@@ -32,7 +31,7 @@ class User extends Authenticatable
     
     private $isAdmin=null;
     /**
-     * Get This rights the user has
+     * Get the rights the user has
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -42,7 +41,7 @@ class User extends Authenticatable
     }
     
     /**
-     * Get the routes posted by the user
+     * Get the routes uploaded by the user
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -68,9 +67,9 @@ class User extends Authenticatable
     }
     
     /**
-     * Check if the user is has admin rights
+     * Check if the user has admin rights
      * 
-     * @return boolean true: user is has admin rights, false:user has no admin rights
+     * @return boolean true: user has admin rights, false:user has no admin rights
      */
     
     function isAdmin()
@@ -94,7 +93,7 @@ class User extends Authenticatable
      * - If it has no postings
      * 
      * @return boolean true user can be deleted
-     *                 false user can be deleted
+     *                 false user can't be deleted
      */
     function canDelete()
     {
