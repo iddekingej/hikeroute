@@ -45,19 +45,6 @@
 	{!!Form::textarea("comment",$comment,["class"=>"form_valueElement"]) !!}
 	</td>
 </tr>
-@if($id=="")
-<tr>
-	<td class="form_labelCell">
-	{!!Form::label("routefile",__("GPX file")) !!}
-	</td>
-	<td class="form_elementCell">
-	@if ($errors->has('routefile'))
-			<div class="form_error">{{ $errors->first('routefile') }}</div>
-	@endif	
-	{!!Form::file("routefile") !!}
-	</td>
-</tr>
-@endif
 <tr>
 	<td colspan='2'>
 		{!! Form::submit("Save") !!}
