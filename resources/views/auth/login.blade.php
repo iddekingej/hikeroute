@@ -6,7 +6,7 @@
 {!! Form::open(["route"=>"login"]) !!}
 <div class="login_label">{!! Form::label("email",__("E-mail")) !!}</div>
 @if ($errors->has('email'))
-	<div class="form_errror">{{ $errors->first('email') }}</div>
+	<div class="form_error">{{ $errors->first('email') }}</div>
 @endif 
 <div>{!! Form::text("email",old("email"),["class"=>"login_element"]) !!} </div>
 <div class="login_label">{!! Form::label("password",__("Password")) !!}</div>
