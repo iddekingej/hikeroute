@@ -10,6 +10,7 @@
 @yield("header")
 <title>{{ $title }}</title>
 <link href="/css/main.css" rel="stylesheet" />
+<script type='text/javascript' src='/js/core.js' ></script>
 <script type='text/javascript' src='/js/main.js' ></script>
 <script type='text/javascript'>
 window.Laravel = {!! json_encode([

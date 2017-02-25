@@ -19,9 +19,6 @@
 <div class="login_label">{!! Form::label("remember",__("Remember me?")) !!} {!! Form::checkbox("remember",old('remember'))!!}</div>
 <div>
 <br/>
-<a class="login_forget" href="{{ route('password.request') }}">
-	{{ __("Forgot Your Password?") }}<br/>
-</a>
 <button type="submit" class="login_buttom">{{ __("Login") }}</button>
 </div>
 {!! Form::close() !!}

@@ -30,7 +30,7 @@
 		{!! Form::label("resetpassword",__("Reset password ?")) !!}
 	</td>
 	<td class="form_elementCell">
-		{!! Form::checkBox("resetpassword",1,false,["onclick"=>"core.displayId('password',this.checked)"]) !!}
+		{!! Form::checkBox("resetpassword",1,false,["onclick"=>"gui.displayId('password',this.checked)"]) !!}
 	</td>
 </tr>
 @endif

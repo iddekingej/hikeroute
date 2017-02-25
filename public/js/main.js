@@ -1,12 +1,3 @@
-var core={
-		display:function(p_element,p_flag){
-			p_element.style.display=p_flag?"":"none";
-		},
-		displayId:function(p_id,p_flag){
-			this.display(document.getElementById(p_id),p_flag);
-		}
-}
-
 function RouteMap(p_id_element)
 {
 	var l_layer=new ol.layer.Tile({source: new ol.source.OSM()});
@@ -50,7 +41,9 @@ function RouteMap(p_id_element)
 		      };
 }
 
-
+/**
+ * The the url to the GPX file for downloading.
+ */
 
 RouteMap.prototype.setGpxRoute=function(p_url)
 {
@@ -68,6 +61,10 @@ RouteMap.prototype.setGpxRoute=function(p_url)
 	this.layers.push(l_vector);
 }
 
+/**
+ * Set the area (in latitude/longitude) to display on the map. 
+ */
+
 RouteMap.prototype.setSize=function(p_minLat,p_maxLat,p_minLon,p_maxLon)
 {
 	this.minLon=p_minLon;
@@ -77,6 +74,11 @@ RouteMap.prototype.setSize=function(p_minLat,p_maxLat,p_minLon,p_maxLon)
 	this.centerLon=(p_minLon+p_maxLon)/2;
 	this.centerLat=(p_minLat+p_maxLat)/2;
 }
+
+/**
+ * Create route view:
+ * Set projection,center and size of the map.
+ */
 
 RouteMap.prototype.createView=function()
 {
