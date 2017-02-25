@@ -19,7 +19,7 @@ Logout
 </div>
 @endif
 <div class="leftmenu_item_con">
-<a class="leftmenu_item" href='{{ route("Start") }} '>{{ __("All public routes") }}</a>
+<a class="leftmenu_item" href='{{ route("start") }} '>{{ __("All public routes") }}</a>
 </div>
 <div class="leftmenu_item_con">
 <a class="leftmenu_item" href='{{ route("routes") }} '>{{ __("Routes") }}</a>
