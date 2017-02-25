@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\DB;
  */
 
 class RouteFile extends Model{
-	
+	protected $table="routefiles";
+	protected $fillable = ["gpxdata"];
 	/**
 	 * Returns the route to which this file belongs
 	 * 
@@ -19,8 +20,11 @@ class RouteFile extends Model{
 	 */	
 	function Route()
 	{
-		return $this->belongsTo(Route::class,"id_routefile");
+		return $this->belongsTo(Route::class,"id","id_routefile");
 	}
-	protected $table="routefiles";	
-	protected $fillable = ["gpxdata"];
+	
+	static function cleanGPX()
+	{
+		static::whereDoesntHave("route")->delete();
+	}
 }
