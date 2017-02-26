@@ -14,6 +14,9 @@
 	<td class="table_header">
 		{{ __("Create date") }}
 	</td>
+	<td class ="table_header">
+		{{ __("Record date") }}
+	</td>
 </tr>
 @foreach($routes as $l_route)
 <tr>
@@ -26,6 +29,9 @@
 	</td>
 	<td class="table_cell">
 			{{ $l_route->created_at->format('d-m-Y') }}
+	</td>
+	<td class="table_cell">
+			{{ $l_route->routeFile()->getResults()->startdate }}
 	</td>
 </tr>
 @endforeach

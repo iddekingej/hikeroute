@@ -74,10 +74,6 @@ class RoutesController extends Controller
 		}
 	}
 	
-	/* TODO:Acoid parsing gpx by 
-	 * storing route summary information in the routefile table*/ 
-	
-	
 	/***
 	 * Parse route gpx file
 	 * 
@@ -152,7 +148,10 @@ class RoutesController extends Controller
 		}
 		
 		
-		$l_routeFile=RouteFile::create(["gpxdata"=>$l_content]);
+		$l_routeFile=RouteFile::create([
+				"gpxdata"=>$l_content
+		,       "startdate"=>$l_gpxInfo->getStart()->getDatePart()							
+		]);
 		
 		return Redirect::to("/routes/newdetails/".$l_routeFile->id);
 		
@@ -167,7 +166,7 @@ class RoutesController extends Controller
 				"title" => __("New route"),
 				"id" => "",
 				"id_routefile"=>$l_routeFile->id,
-				"routeTitle" => "",
+				"routeTitle" => $l_locData,
 				"comment" => "",
 				"info"=>$l_gpxInfo->getInfo(),
 				"routeLocation"=>$l_locData
@@ -251,6 +250,7 @@ class RoutesController extends Controller
 				$l_message="Invalid gpx file:".$l_e->getMessage();
 			}
 		}
+		
 		if($l_message !== null){
 			return Redirect::to ( $p_errorRedirect )
 			->withErrors ( ["routefile"=>$l_message])

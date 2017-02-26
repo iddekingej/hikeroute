@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 class Route extends Model
 {
 	protected $table="routes";
-	protected $fillable = ["id_user","title","comment","id_routefile","location"];
+	protected $fillable = ["id_user","title","comment",
+			                "id_routefile","location"];
 	
 	/**
 	 * Get the user to which the route belongs to (=has posted)

@@ -10,9 +10,9 @@ class GPXList{
 		$this->info=new GPXInfo();
 	}
 	
-	function addPoint($p_lat,$p_lon)
+	function addPoint($p_lat,$p_lon,$p_timestamp)
 	{
-		$this->list[]=new GPXPoint($p_lat, $p_lon);
+		$this->list[]=new GPXPoint($p_lat, $p_lon,$p_timestamp);
 		$this->info->update($p_lat,$p_lon);
 	}
 	

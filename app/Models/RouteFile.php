@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class RouteFile extends Model{
 	protected $table="routefiles";
-	protected $fillable = ["gpxdata"];
+	protected $fillable = ["gpxdata","startdate"];
+
 	/**
 	 * Returns the route to which this file belongs
 	 * 

@@ -27,6 +27,18 @@ class GPXReader
 		return null;
 	}
 
+	private function parseTime(\DOMNode $p_parent)
+	{
+		$l_child=$p_parent->firstChild;
+		while($l_child){
+			if(($l_child->nodeType==XML_ELEMENT_NODE ) && ($l_child->nodeName=="time")){
+					return $l_child->nodeValue;
+			}
+			$l_child=$l_child->nextSibling;
+		}
+		return "";
+	}
+	
 	/**
 	 * We search for gpx->trk->trkseg.
 	 * This method searches trkseg for one or more trkpt node. These nodes are the 
@@ -51,7 +63,8 @@ class GPXReader
 				if($l_lon===null){
 					throw new \GPXLoadException("'lon' attribute not found at trkpt node");
 				}
-				$l_return->addPoint($l_lat, $l_lon);
+				$l_time=$this->parseTime($l_child);
+				$l_return->addPoint($l_lat, $l_lon,$l_time);
 			}
 			$l_child=$l_child->nextSibling;
 		}
