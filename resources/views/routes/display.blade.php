@@ -17,19 +17,15 @@
 <div class="leftmenu_item_con">
 <a class="buttonLink" href="{{ Route( 'routes') }}">{{ __("Back to routes overview") }}</a>
 </div>
-<div class="leftmenu_item_con">
-<a class="buttonLink" href="{{ Route( 'routes.edit',['id'=>$id]) }}">{{ __("Edit route") }}</a>
-</div>
-<div class="leftmenu_item_con">
-<a class="buttonLink" href="{{ Route( 'routes.updategpx',['id'=>$id]) }}">{{ __("Upload new gpx file") }}</a>
-</div>
-<div class="leftmenu_item_con">
-<a class="buttonLink" href="{{ Route( 'routes.del',['id'=>$id]) }}">{{ __("Delete this route") }}</a>
-</div>
 @endif
 </td>
 
 <td >
+{{ \App\Lib\Page::topMenuHeader() }}
+{{ \App\Lib\Page::topMenuitem('routes.edit',['id'=>$id],__("Edit route")) }}
+{{ \App\Lib\Page::topMenuitem('routes.updategpx',['id'=>$id],__("Upload new gpx file")) }}
+{{ \App\Lib\Page::topMenuitem('routes.del',['id'=>$id],__("Delete this route")) }}
+{{\App\Lib\Page::topMenuFooter() }}
 <div class="map_container">
 <table class="map_table">
 <tr>

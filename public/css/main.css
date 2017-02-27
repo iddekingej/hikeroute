@@ -5,14 +5,15 @@ body,input,table,tr,td,textarea{
 /* application */
 .apptitle{
 	border-bottom:solid 1px #ccc;
-	margin-bottom:9px;
+	margin-bottom:0px;
 	font-size:15px;
-	padding:2px;
+	padding-left:2px;
 	color:#777;
 }
 
 .apptitle_table{
 	width:100%;
+	border-collapse:collapse;
 }
 .apptitle_title{
 	text-align:left;	
@@ -25,6 +26,22 @@ body,input,table,tr,td,textarea{
 	background-color:#f00;
 	color:#fff;
 }
+
+.topMenu{
+	background-color:#dfd;
+	padding:3px;
+	margin-bottom:10px;
+}
+
+.topMenuItem{
+	padding-left:20px;
+}
+
+.topMenuLink{
+	color:#777;
+	text-decoration:none;
+}
+
 /*Left menu */
 
 
