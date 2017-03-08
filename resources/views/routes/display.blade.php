@@ -1,4 +1,4 @@
-@extends("layouts.page")
+@extends("layouts.page",["title"=>$route->title])
 
 @section("header")
 	<script src="/js/ol.js" ></script>
@@ -30,7 +30,7 @@
 <table class="map_table">
 <tr>
 	<td class="map_title">
-	{{ $title }}
+	{{ $route->title }}
 	</td>
 </tr>
 <tr>
@@ -43,7 +43,7 @@
 	<table>
 		<tr>
 			<td class="map_ud" colspan='1'>{{ __("Location") }}</td>
-			<td class="map_ud_value" colspan='4'>{{ $location }}</td>
+			<td class="map_ud_value" colspan='4'>{{ $route->location }}</td>
 		</tr>
 		<tr>
 			<td class="map_ud">{{ __("Uploaded by") }}:</td>
@@ -62,7 +62,7 @@
 </tr>
 <tr>
 	<td class="map_comment">
-		{{ $comment }}
+		{{ $route->comment }}
 	</td>
 </table>
 </div>
@@ -71,8 +71,8 @@
 </table>
 <script type='text/javascript'>
 	l_map=new RouteMap("map");
-	l_map.setGpxRoute({!! json_encode(Route("routes.download",["p_id"=>$id_routefile])) !!});
-	l_map.setSize({{ $info->minLat }},{{ $info->maxLat }} , {{ $info->minLon }} , {{ $info->maxLon}});
+	l_map.setGpxRoute({!! json_encode(Route("routes.download",["p_id"=>$route->id_routefile])) !!});
+	l_map.setSize({{ $route->minlat }},{{ $route->maxlat }} , {{ $route->minlon }} , {{ $route->maxlon}});
 	l_map.displayMap();
 </script>
 

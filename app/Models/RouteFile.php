@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+
 
 /**
  * RouteFile table contains the content of the GPX file.
@@ -12,17 +12,19 @@ use Illuminate\Support\Facades\DB;
 
 class RouteFile extends Model{
 	protected $table="routefiles";
-	protected $fillable = ["gpxdata","startdate"];
+	protected $fillable = ["gpxdata","startdate","minlon","maxlon","minlat","maxlat","id_user"];
 
 	/**
 	 * Returns the route to which this file belongs
 	 * 
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */	
-	function Route()
+	function route()
 	{
 		return $this->belongsTo(Route::class,"id","id_routefile");
 	}
+	
+
 	
 	/**
 	 * Clean all records in "routefile" that doesn't have a record in the route table.
@@ -34,5 +36,14 @@ class RouteFile extends Model{
 	static function cleanGPX()
 	{
 		static::whereDoesntHave("route")->delete();
+	}
+	/**
+	 * The user who has uploaded the routefile 
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	function user()
+	{
+		return $this->belongsTo(User::class,"id_user");
 	}
 }

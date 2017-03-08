@@ -37,6 +37,7 @@
 	{!! Form::text("routeLocation",$routeLocation,["class"=>"form_valueElement"]); !!}
 	</td>
 </tr>
+{!! \App\Lib\Frm::checkbox("publish",__("Publish"),$publish) !!}
 <tr>
 	<td class="form_labelCell">
 	{!!Form::label("comment",__("Description")) !!}

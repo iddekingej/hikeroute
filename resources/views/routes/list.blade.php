@@ -17,6 +17,9 @@
 	<td class ="table_header">
 		{{ __("Record date") }}
 	</td>
+	<td class="table_header">
+		{{ __("Published") }}
+	</td>
 </tr>
 @foreach($routes as $l_route)
 <tr>
@@ -32,6 +35,9 @@
 	</td>
 	<td class="table_cell">
 			{{ $l_route->routeFile()->getResults()->startdate }}
+	</td>
+	<td class="table_cell">
+			{{ $l_route->publish?__("Yes"):"" }}
 	</td>
 </tr>
 @endforeach

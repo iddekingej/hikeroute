@@ -149,9 +149,9 @@ class AdminController extends Controller
 	 */
 	
 	function saveUserAdd(Request $p_request)
-	{
+	{		
 		$l_rules=[
-			"email"=>["required","email",Rule::unique("users")->ignore($l_id)]
+			"email"=>["required","email",Rule::unique("users")]
 		,	"name"=>["required"]
 		,	"password"=>["required"]
 		];		

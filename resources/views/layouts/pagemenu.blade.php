@@ -15,7 +15,7 @@ Logout
 @if(\Auth::user() && \Auth::user()->isAdmin())
 {{ \App\Lib\Page::menuItem("admin.users",__("Users")) }}
 @endif
-{{ \App\Lib\Page::menuItem("start",__("All public routes")) }}
+{{ \App\Lib\Page::menuItem("start",__("Published routes")) }}
 {{ \App\Lib\Page::menuItem("routes",__("Routes")) }}
 @yield("menu")
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

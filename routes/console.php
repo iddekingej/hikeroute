@@ -21,3 +21,7 @@ Artisan::command('inspire', function () {
 Artisan::command("cleangpx",function(){
 	\App\Models\RouteFile::cleanGPX();
 })->describe("Clean all dangeling gpx files");
+
+Artisan::command("recalcallgpx",function(){
+	\App\Models\Route::recalcAllGpx();
+})->describe("Recalculate all summary information about gpx files");
