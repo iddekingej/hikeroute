@@ -154,6 +154,7 @@ class AdminController extends Controller
 			"email"=>["required","email",Rule::unique("users")]
 		,	"name"=>["required"]
 		,	"password"=>["required"]
+		,	"passwordconf"=>["same:password"]
 		];		
 		
 		$l_validator=Validator::make($p_request->all(),$l_rules);
@@ -187,6 +188,7 @@ class AdminController extends Controller
 		];
 		if($p_request->has("resetpassword")){
 			$l_rules["password"]=["required"];
+			$l_rules["passwordconf"]=["same:password"];
 		}
 	
 		$l_validator=Validator::make($p_request->all(),$l_rules);

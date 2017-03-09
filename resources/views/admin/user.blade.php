@@ -34,17 +34,10 @@
 	</td>
 </tr>
 @endif
-<tr id="password" style='display:{!! $id==""?"":"none" !!}'>
-	<td class="form_labelCell">
-		{!! Form::label("password","Password") !!}
-	</td>
-	<td class="form_elementCell">
-		@if ($errors->has('password'))
-			<div class="form_error">{{ $errors->first('password') }}</div>
-		@endif 
-		{!! Form::password("password",["autocomplete"=>"off"]) !!}
-	</td>
-</tr>
+<?php 
+\App\Lib\Frm::password("password","Password",$errors,"display:".($id==""?"":"none"));
+\App\Lib\Frm::password("passwordconf","Password confirmation",$errors,"display:".($id==""?"":"none"));
+?>
 <tr>
 <td colspan='2'  class='form_section'>
 Rights
