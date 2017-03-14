@@ -16,6 +16,8 @@ class GPXList{
 		$this->info->update($p_lat,$p_lon);
 	}
 	
+	
+	
 	function getList()
 	{
 		return $this->list;

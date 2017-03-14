@@ -5,6 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Lib\GPXReader;
 
+class RouteException extends \Exception
+{
+	function __construct($p_message,$p_previous=null)
+	{
+		return __construct($p_message,-1,$p_previous);
+	}
+}
+
 /**
  * Uploaded hiking route information
  *
@@ -49,22 +57,40 @@ class Route extends Model
 		return self::where("id_user","=",$p_user->id)->limit(1)->get()->isEmpty();
 	}
 	
-	private static function recalcSingleGpx(Route $p_route){
+	private function recalcGpxByFile($p_content){
 		$l_gpxParser=new GPXReader();
-		$p_gpxList=$l_gpxParser->parse($p_route->routeFile()->getResults()->gpxdata);
-		$l_gpxInfo=$p_gpxList->getInfo();
-		$p_route->minlon=$l_gpxInfo->minLon;
-		$p_route->maxlon=$l_gpxInfo->maxLon;
-		$p_route->minlat=$l_gpxInfo->minLat;
-		$p_route->maxlat=$l_gpxInfo->maxLat;
-		$p_route->save();
+		$l_gpxList=$l_gpxParser->parse($p_content);
+		$l_gpxInfo=$l_gpxList->getInfo();
+		$this->minlon=$l_gpxInfo->minLon;
+		$this->maxlon=$l_gpxInfo->maxLon;
+		$this->minlat=$l_gpxInfo->minLat;
+		$this->maxlat=$l_gpxInfo->maxLat;
+		$this->distance=$l_gpxInfo->distance;
+		$this->save();		
+	}
+	
+	static function recalcGpx(){
+		$this->recalcGpxByFile($this->routeFile()->getResults()->gpxdata);
+	}
+
+	function saveRouteFile($p_file)
+	{
+		$l_content=file_get_contents($p_file);
+		if($l_content===false){
+			throw new RouteException(__("Uploading gpx file failed"));
+		}
+		$l_routeFile=$this->routeFile()->getResults();
+		$l_routeFile->gpxdata=$l_content;
+		$l_routeFile->save();
+		
+		$this->recalcGpxByFile($l_content);
 	}
 	
 	static function recalcAllGpx()
 	{
 		self::chunk(10,function($p_routes){
 			foreach($p_routes as $l_route){
-				self::recalcSingleGpx($l_route);
+				$l_route->recalcGpx();
 			}
 		});
 	}

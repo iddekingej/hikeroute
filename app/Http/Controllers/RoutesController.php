@@ -79,7 +79,7 @@ class RoutesController extends Controller
 				$l_gpxParser=new GPXReader();
 				$p_gpxInfo=$l_gpxParser->parse($p_content);
 			} catch(\Exception $l_e){
-				$l_message="Invalid gpx file:".$l_e->getMessage();
+				$l_message=__("Invalid gpx file:").$l_e->getMessage();
 			}
 		}
 	
@@ -309,23 +309,14 @@ class RoutesController extends Controller
 						->withErrors ( $l_validator )
 						->withInput ( $p_request->all () );
 			}
-			//get and check the route file
-			$l_content=null;
-			$l_result=$this->getCheckRouteFile($p_request, "/routes/updategpx/$l_id", $l_content,$l_gpxList);
-			if($l_result != null){
-				return $l_result;
+			try{
+				$l_route->saveRouteFile($p_request->file("routefile")->path());
+			} catch(\Exception $e){
+				return Redirect::to ( "/routes/updategpx/$l_id" )
+				->withErrors ( ["routefile"=>$e->getMessage()])
+				->withInput ( $p_request->all () );
 			}
 			
-			$l_routeFile=$l_route->routeFile()->getResults();
-			$l_routeFile->gpxdata=$l_content;
-			$l_routeFile->save();
-			$l_route=$l_routeFile->route()->getResults();
-			$l_gpxInfo=$l_gpxList->getInfo();
-			$l_route->minlon=$l_gpxInfo->minLon;
-			$l_route->maxlon=$l_gpxInfo->maxLon;
-			$l_route->minlat=$l_gpxInfo->minLat;
-			$l_route->maxlat=$l_gpxInfo->maxLat;
-			$l_route->save();
 			return Redirect::to("/routes/display/$l_id");				
 		} else {
 			return $this->displayError(__("update route file"));
