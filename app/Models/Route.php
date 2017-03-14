@@ -69,7 +69,7 @@ class Route extends Model
 		$this->save();		
 	}
 	
-	static function recalcGpx(){
+	private function recalcGpx(){
 		$this->recalcGpxByFile($this->routeFile()->getResults()->gpxdata);
 	}
 
@@ -80,17 +80,21 @@ class Route extends Model
 			throw new RouteException(__("Uploading gpx file failed"));
 		}
 		$l_routeFile=$this->routeFile()->getResults();
+		$this->recalcGpxByFile($l_content);
 		$l_routeFile->gpxdata=$l_content;
 		$l_routeFile->save();
 		
-		$this->recalcGpxByFile($l_content);
 	}
 	
 	static function recalcAllGpx()
 	{
 		self::chunk(10,function($p_routes){
 			foreach($p_routes as $l_route){
-				$l_route->recalcGpx();
+				try{
+					$l_route->recalcGpx();
+				} catch(\Exception $e){
+					echo "Route id=",$l_route->id,'-',$e->getMessage(),"\n";
+				}
 			}
 		});
 	}

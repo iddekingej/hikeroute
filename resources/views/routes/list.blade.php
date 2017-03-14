@@ -17,6 +17,9 @@
 	<td class ="table_header">
 		{{ __("Record date") }}
 	</td>
+	<td class ="table_header">
+		{{ __("Distance") }}
+	</td>
 	<td class="table_header">
 		{{ __("Published") }}
 	</td>
@@ -35,6 +38,9 @@
 	</td>
 	<td class="table_cell">
 			{{ $l_route->routeFile()->getResults()->startdate }}
+	</td>
+	<td class="table_cell">
+			{{ round($l_route->distance)/1000 }}
 	</td>
 	<td class="table_cell">
 			{{ $l_route->publish?__("Yes"):"" }}
