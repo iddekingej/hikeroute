@@ -257,6 +257,7 @@ class RoutesController extends Controller
 				,"maxlon"=>$l_info->maxLon
 				,"minlat"=>$l_info->minLat
 				,"maxlat"=>$l_info->maxLat
+				,"distance"=>$l_info->distance
 		
 		]);
 		return Redirect::to("/routes/");

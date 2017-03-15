@@ -22,7 +22,7 @@ class Route extends Model
 	protected $table="routes";
 	protected $fillable = ["id_user","title","comment",
 			                "id_routefile","location","minlon","maxlon"
-							,"minlat","maxlat","publish"
+							,"minlat","maxlat","publish","distance"
 	];
 	
 	/**

@@ -45,6 +45,8 @@ class GuestController extends Controller
 		,"canEdit"=>Gate::allows("edit-route",$l_route)
 		,"creator"=>$l_route->user()->getResults()->name
 		,"uploadDate"=>$l_route->created_at
+		,"route"=>$l_route
+		,"distance"=>round($l_route->distance)/1000
 		];
 		return View("routes.display",$l_data);
 	}

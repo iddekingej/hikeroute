@@ -43,7 +43,9 @@
 	<table>
 		<tr>
 			<td class="map_ud" colspan='1'>{{ __("Location") }}</td>
-			<td class="map_ud_value" colspan='4'>{{ $route->location }}</td>
+			<td class="map_ud_value" colspan='2'>{{ $route->location }}</td>
+				<td class="map_ud">{{ __("Distance") }}:</td>
+			<td class="map_ud_value"> {{ $distance }}km</td>
 		</tr>
 		<tr>
 			<td class="map_ud">{{ __("Uploaded by") }}:</td>
