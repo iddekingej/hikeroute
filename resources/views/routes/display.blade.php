@@ -50,7 +50,7 @@
 		<tr>
 			<td class="map_ud">{{ __("Uploaded by") }}:</td>
 			<td class="map_ud_value">{{ $creator }} </td>
-			<td class="map_ud_space">&nbsp</td>
+			<td class="map_ud_space">&#160;</td>
 			<td class="map_ud">{{ __("Uploaded on") }}:</td>
 			<td class="map_ud_value"> {{ $uploadDate->format('d-m-Y') }}</td>
 		</tr>

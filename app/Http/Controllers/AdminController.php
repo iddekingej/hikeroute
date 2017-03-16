@@ -76,6 +76,8 @@ class AdminController extends Controller
 		return view("admin.user",
 					["id"=>$p_user->id,
 					"name"=>$p_user->name,
+					"firstname"=>$p_user->firstname,
+					"lastname"=>$p_user->lastname,
 					"email"=>$p_user->email,
 					"title"=>"Edit user",
 					"rights"=>$l_rights,
@@ -96,10 +98,13 @@ class AdminController extends Controller
 		$l_rights=$this->getRightsArray();
 		return view("admin.user",
 					["id"=>"",
-					 "name"=>"",
+					"name"=>"",
+					 "firstname"=>"",
+					"lastname"=>"",
 					 "email"=>"",
 					 "title"=>"New user",
 					 "cmd"=>"add",
+					
 					 "rights"=>$l_rights
 					]);
 	}
@@ -153,6 +158,8 @@ class AdminController extends Controller
 		$l_rules=[
 			"email"=>["required","email",Rule::unique("users")]
 		,	"name"=>["required"]
+		,	"firstname"=>["required"]
+		,	"lastname"=>["required"]
 		,	"password"=>["required"]
 		,	"passwordconf"=>["same:password"]
 		];		
@@ -165,7 +172,12 @@ class AdminController extends Controller
 			       ->withInput($p_request->all());
 		}
 		
-		$l_user=User::create(["name"=>$p_request->input("name"),"email"=>$p_request->input("email"),"password"=>bcrypt($p_request->input("password"))]);
+		$l_user=User::create([
+				 "name"=>$p_request->input("name")
+				,"firstname"=>$p_request->input("firstname")
+				,"lastname"=>$p_request->inpurt("lastname")
+				,"email"=>$p_request->input("email")
+				,"password"=>bcrypt($p_request->input("password"))]);
 		$this->saveRights($p_request,$l_user);
 		return Redirect::to("/admin/users/");
 	}
@@ -184,7 +196,9 @@ class AdminController extends Controller
 		
 		$l_rules=[
 				"email"=>["required","email",Rule::unique("users")->ignore($l_id)]
-			   ,"name"=>["required"]			    
+				,"name"=>["required"]
+			   ,"firstname"=>["required"]
+				,"lastname"=>["required"]
 		];
 		if($p_request->has("resetpassword")){
 			$l_rules["password"]=["required"];
@@ -200,6 +214,8 @@ class AdminController extends Controller
 		} 
 		$l_user=User::findOrFail($l_id);
 		$l_user->name=$p_request->input("name");
+		$l_user->firstname=$p_request->input("firstname");
+		$l_user->lastname=$p_request->input("lastname");
 		$l_user->email=$p_request->input("email");
 		if($p_request->has("resetpassword")){
 			$l_user->password=bcrypt($p_request->input("password"));

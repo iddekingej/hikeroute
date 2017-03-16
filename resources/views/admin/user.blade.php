@@ -6,15 +6,9 @@
 <input type='text' style='display:none'/>
 <input type='password' style='display:none' />
 <table class="form_table">
-<tr>
-	<td class="form_labelCell"> {!! Form::label("name","Name") !!}</td>
-	<td class="form_elementCell"> 
-		@if ($errors->has('name'))
-			<div class="form_error">{{ $errors->first('name') }}</div>
-		@endif 
-		{!! Form::text("name",$name,["class"=>"form_valueElement"]) !!}
-	</td>
-</tr>
+<?php \App\Lib\Frm::text("name", __("Nick name"), $name, $errors)?>
+<?php \App\Lib\Frm::text("firstname", __("First name"), $firstname, $errors)?>
+<?php \App\Lib\Frm::text("lastname", __("Last name"), $lastname, $errors)?>
 <tr>
 	<td class="form_labelCell"> {!! Form::label("email","Email") !!}</td>
 	<td class="form_elementCell"> 
@@ -30,13 +24,13 @@
 		{!! Form::label("resetpassword",__("Reset password ?")) !!}
 	</td>
 	<td class="form_elementCell">
-		{!! Form::checkBox("resetpassword",1,false,["onclick"=>"gui.displayId('password',this.checked)"]) !!}
+		{!! Form::checkBox("resetpassword",1,false,["onclick"=>"gui.displayId('password',this.checked);gui.displayId('passwordconf',this.checked)"]) !!}
 	</td>
 </tr>
 @endif
 <?php 
-\App\Lib\Frm::password("password","Password",$errors,"display:".($id==""?"":"none"));
-\App\Lib\Frm::password("passwordconf","Password confirmation",$errors,"display:".($id==""?"":"none"));
+\App\Lib\Frm::password("password","Password",$errors,"password","display:".($id==""?"":"none"));
+\App\Lib\Frm::password("passwordconf","Password confirmation",$errors,"passwordconf","display:".($id==""?"":"none"));
 ?>
 <tr>
 <td colspan='2'  class='form_section'>

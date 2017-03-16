@@ -6,7 +6,9 @@
 </td></tr>
 <tr>
 	<td class="table_header">&nbsp;</td>
-	<td class="table_header">{{ __("Name") }}</td>
+	<td class="table_header">{{ __("Nick name") }}</td>
+	<td class="table_header">{{ __("First name") }}</td>
+	<td class="table_header">{{ __("Last name") }}</td>
 	<td class="table_header">{{ __("Email") }}</td>
 </tr>
 
@@ -19,6 +21,12 @@
 	</td>
 	<td class="table_cell">
 		<a href='{{route("admin.users.edit",["id"=>$user->id])}}'>{{ $user->name }}</a>
+	</td>
+	<td class="table_cell">
+		{{ $user->firstname }}
+	</td>
+	<td class="table_cell">
+		{{ $user->lastname }}
 	</td>
 	<td class="table_cell">
 	{{ $user->email }}
