@@ -2,8 +2,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Validator;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
 use App\Models\UserRight;
@@ -155,16 +153,8 @@ class AdminController extends Controller
 	
 	function saveUserAdd(Request $p_request)
 	{		
-		$l_rules=[
-			"email"=>["required","email",Rule::unique("users")]
-		,	"name"=>["required"]
-		,	"firstname"=>["required"]
-		,	"lastname"=>["required"]
-		,	"password"=>["required"]
-		,	"passwordconf"=>["same:password"]
-		];		
+		$l_validator=User::validateRequest($p_request,-1,true);
 		
-		$l_validator=Validator::make($p_request->all(),$l_rules);
 		if($l_validator->fails()){
 			
 			return Redirect::to("/admin/users/new")
@@ -193,19 +183,8 @@ class AdminController extends Controller
 	{
 		$l_id=$p_request->input("id");
 		$this->checkInteger($l_id);
-		
-		$l_rules=[
-				"email"=>["required","email",Rule::unique("users")->ignore($l_id)]
-				,"name"=>["required"]
-			   ,"firstname"=>["required"]
-				,"lastname"=>["required"]
-		];
-		if($p_request->has("resetpassword")){
-			$l_rules["password"]=["required"];
-			$l_rules["passwordconf"]=["same:password"];
-		}
 	
-		$l_validator=Validator::make($p_request->all(),$l_rules);
+		$l_validator=User::validateRequest($p_request,$l_id,$p_request->has("resetpassword"));
 		if($l_validator->fails()){
 				
 			return Redirect::to("/admin/users/edit/$l_id")

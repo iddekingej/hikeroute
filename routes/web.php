@@ -27,7 +27,8 @@ Route::get("/routes/download/{p_id}",["as"=>"routes.download","uses"=>"GuestCont
  */
 
 Route::get("/user/profile/",["as"=>"user.profile","uses"=>"UserController@displayProfile"]);
-
+Route::get("/user/profile/edit",["as"=>"user.editprofile","uses"=>"UserController@editProfile"]);
+Route::post("/user/profile/save",["as"=>"user.saveprofile","uses"=>"UserController@saveProfile"]);
 /**
  * URL for user management
  * -List all users

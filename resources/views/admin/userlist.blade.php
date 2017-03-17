@@ -16,7 +16,7 @@
 <tr>
 	<td class="table_cell">
 		@if(\Auth::user()->id != $user->id && $user->canDelete())
-		<a href='{{route("admin.users.delete",["id"=>$user->id])}}'><img src="/images/delete.png" /></a>
+		<?=\App\Lib\Page::iconConfirm(__("Delete this user?"), route("admin.users.delete",["id"=>$user->id]), \App\Lib\Icons::DELETE);?>			
 		@endif	
 	</td>
 	<td class="table_cell">

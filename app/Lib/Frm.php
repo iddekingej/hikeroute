@@ -8,19 +8,6 @@ namespace App\Lib;
 
 class Frm{
 	
-	static function checkBox($p_name,$p_label,$p_value)
-	{
-		?>
-		<tr>
-		<td class="form_labelCell">
-		<?=\Form::label($p_name,$p_label)?>
-		</td>
-		<td class="form_elementCell">
-		<?=\Form::checkbox($p_name,1,$p_value) ?>
-		</td>
-		</tr>
-		<?php
-	}
 	
 	static function password($p_name,$p_label,$p_errors,$p_id,$p_style)
 	{
@@ -54,6 +41,35 @@ class Frm{
 			</td>
 		</tr>
 		<?php 
+	}
+	
+	static function checkbox($p_name,$p_label,$p_value,Array $p_tags=null)
+	{
+		?>
+		<tr>
+		<td class="form_labelCell">
+		<?=\Form::label($p_name,$p_label) ?>
+		</td>
+		<td class="form_elementCell">
+		<?=\Form::checkBox($p_name,1,$p_value,$p_tags) ?>
+		</td>
+		</tr>
+		<?php
+	}
+	
+	static function email($p_name,$p_label,$p_value,$p_errors)
+	{
+	?>
+	<tr>
+	<td class="form_labelCell"> <?=\Form::label($p_name,$p_label)?></td>
+	<td class="form_elementCell"> 
+		<?php if ($p_errors->has($p_name)){?>
+			<div class="form_error"><?=$p_errors->first($p_name)?></div>
+		<?php }?>
+		<?=\Form::email($p_name,$p_value,["class"=>"form_valueElement"])?>
+	</td>
+</tr>
+	<?php 
 	}
 }
 ?>

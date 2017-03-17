@@ -8,6 +8,27 @@ namespace App\Lib;
 
 class Page{
 
+/**
+ * HTML Escape string
+ * 
+ * @param String $p_string
+ * @return string
+ */	
+	static function e($p_string)
+	{
+		return htmlspecialchars($p_string,ENT_QUOTES|ENT_HTML5);
+	}
+	
+/**
+ * Make javascript for confirm message
+ * 
+ * @param String Message in confirmation box
+ * @param String Url url location to go when confirmed
+ */	
+	static function confirmJs($p_message,$p_url)
+	{
+		return "if(confirm(".json_encode($p_message)."))window.location=".json_encode($p_url);		
+	}
 	/**
 	 * Menu item
 	 * 
@@ -36,11 +57,30 @@ class Page{
 	<?php 
 	}
 	
+	static function topMenuItemConfirm($p_route,Array $p_parameters,$p_title,$p_message)
+	{
+		$l_js=self::confirmJs($p_message, route($p_route,$p_parameters))
+		?>
+			<span class="topMenuItem" ><a class='topMenuLink' href='#' onclick='<?=self::e($l_js)?>'><?=htmlspecialchars($p_title)?></a></span>
+		<?php 
+	}
+	
 	static function topMenuFooter()
 	{
 		?>
 		</div>
 		<?php 	
+	}
+	
+	static function iconConfirm($p_message,$p_url,$p_image)
+	{
+		$l_js=self::confirmJs($p_message,$p_url);
+		?><span class="deleteIcon" onclick="<?=self::e($l_js)?>"><img src='<?=self::e($p_image)?>'></span><?php
+	}	
+	
+	static function editLink($p_route,Array $p_parameters,$p_message)
+	{
+		?><a href="<?=self::e(route($p_route,$p_parameters))?>"><img src='<?=self::e(\App\Lib\Icons::EDIT)?>'/><?=self::e($p_message)?></a><?php 
 	}
 }
 

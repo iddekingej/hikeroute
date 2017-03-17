@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Validator;
 /**
  * Registered application users
  */
@@ -30,6 +33,21 @@ class User extends Authenticatable
     ];
     
     private $isAdmin=null;
+    
+    static function validateRequest(Request $p_request,$p_id,$p_checkPassword)
+    {
+    	$l_rules=[
+    			"email"=>["required","email",Rule::unique("users")->ignore($p_id)]
+    			,	"name"=>["required",Rule::unique("users")->ignore($p_id)]
+    			,	"firstname"=>["required"]
+    			,	"lastname"=>["required"]
+    	];
+    	if($p_checkPassword){
+    		$l_rules["password"]=["required"];
+    		$l_rules["passwordconf"]=["required","same:password"];
+    	}
+    	return Validator::make($p_request->all(),$l_rules);
+    }
     /**
      * Get the rights the user has
      * 
@@ -99,5 +117,6 @@ class User extends Authenticatable
     {
     	return Route::userHasRoutes($this);
     }
+    
     
 }
