@@ -42,7 +42,7 @@ return [
             'username' => env('DB_USERNAME'),
             'password' => env('DB_PASSWORD'),
             'charset' => env("DB_ENCODING"),
-            'collation' => 'utf8mb4_unicode_ci',
+            'collation' => env("DB_COLLATION",""),
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'prefer',
