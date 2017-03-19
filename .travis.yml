@@ -9,3 +9,7 @@ service: mysql
          
 before_script:
 - composer update
+- cp travis/env .env
+- ./artisan key:generate
+- mysql -e "create database hikeroute"
+- ./artisan mirgate
