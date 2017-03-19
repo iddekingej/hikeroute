@@ -12,4 +12,4 @@ before_script:
 - cp travis/env .env
 - ./artisan key:generate
 - mysql -e "create database hikeroute"
-- ./artisan migrate
+- ./artisan migrate --no-interaction
