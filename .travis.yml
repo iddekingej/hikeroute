@@ -9,6 +9,6 @@ matrix:
          service: mysql
          
 before_script:
-sudo apt-get install curl git
-curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-composer update
+-sudo apt-get install curl git
+-curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+-composer update
