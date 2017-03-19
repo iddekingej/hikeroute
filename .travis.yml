@@ -2,11 +2,10 @@ language: php
 sudo: required
 php:
         - '5.6'
-matrix:
-        include:        
-        -os: linux
-         dist: trusty
-         service: mysql
+
+os: linux
+dist: trusty
+service: mysql
          
 before_script:
 -sudo apt-get install curl git
