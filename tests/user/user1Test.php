@@ -17,16 +17,17 @@ class user1Test extends TestCase
 	}
 	function testAddUser()
 	{
+		$l_password=bcrypt("test");
 		$l_user=User::create([
 				'name'=>"bla123",
 				'email'=>"bla123@xx.com", 
-				'password'=>bcrypt("test"),
+				'password'=>$l_password,
 				"firstname"=>"Afn",
 				"lastname"=>"Lnf"
 			]);
 		$this->assertEquals($l_user->name,"bla123");
 		$this->assertEquals($l_user->email,"bla123@xx.com");
-		$this->assertEquals($l_user->password,bcrypt("test"));
+		$this->assertEquals($l_user->password,$l_password);
 		$this->assertEquals($l_user->firstname,"Afn");
 		$this->assertEquals($l_user->lastname,"lnf");
 	}
