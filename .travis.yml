@@ -2,14 +2,16 @@ language: php
 sudo: required
 php:
         - '5.6'
+    modules:
+        php:
+            -mbstring
+            -PDO
 
 os: linux
 dist: trusty
 service: mysql
          
 before_script:
-- sudo apt-get update -y
-- sudo apt-get install -y php-mbstring php-PDO
 - composer update
 - cp travis/env .env
 - ./artisan key:generate
