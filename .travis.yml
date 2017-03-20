@@ -8,6 +8,7 @@ dist: trusty
 service: mysql
          
 before_script:
+- sudo apt-get install -yq php-mbstring php-PDO
 - composer update
 - cp travis/env .env
 - ./artisan key:generate
