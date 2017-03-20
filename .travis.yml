@@ -4,10 +4,6 @@ php:
     install: '1'
     settings:
         version: '56'
-    modules:
-        php:
-            -mbstring
-            -PDO
 
 os: linux
 dist: trusty
