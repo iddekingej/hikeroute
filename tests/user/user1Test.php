@@ -29,6 +29,6 @@ class user1Test extends TestCase
 		$this->assertEquals($l_user->email,"bla123@xx.com");
 		$this->assertEquals($l_user->password,$l_password);
 		$this->assertEquals($l_user->firstname,"Afn");
-		$this->assertEquals($l_user->lastname,"lnf");
+		$this->assertEquals($l_user->lastname,"Lnf");
 	}
 }
