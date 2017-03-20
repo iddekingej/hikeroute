@@ -8,6 +8,7 @@ dist: trusty
 service: mysql
          
 before_script:
+- sudo apt-get update -y
 - sudo apt-get install -y php-mbstring php-PDO
 - composer update
 - cp travis/env .env
