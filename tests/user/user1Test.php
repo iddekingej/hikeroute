@@ -24,10 +24,10 @@ class user1Test extends TestCase
 				"firstname"=>"Afn",
 				"lastname"=>"Lnf"
 			]);
-		$this->assertEqual($l_user->name,"bla123");
-		$this->assertEqual($l_user->email,"bla123@xx.com");
-		$this->assertEqual($l_user->password,bcrypt("test"));
-		$this->assertEqual($l_user->firstname,"Afn");
-		$this->assertEqual($l_user->lastname,"lnf");
+		$this->assertEquals($l_user->name,"bla123");
+		$this->assertEquals($l_user->email,"bla123@xx.com");
+		$this->assertEquals($l_user->password,bcrypt("test"));
+		$this->assertEquals($l_user->firstname,"Afn");
+		$this->assertEquals($l_user->lastname,"lnf");
 	}
 }
