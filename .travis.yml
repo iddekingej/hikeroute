@@ -12,5 +12,5 @@ before_script:
 - ./artisan key:generate
 - mysql -e "create database hikeroute"
 - ./artisan migrate --no-interaction
-- ./artisan makeadmin testadmin admin@example.com
+- ./artisan makeadmin testadmin admin@example.com >pass
 
