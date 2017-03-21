@@ -11,5 +11,6 @@ before_script:
 - cp travis/env .env
 - ./artisan key:generate
 - mysql -e "create database hikeroute"
-- ./artisan makeadmin testadmin admin@example.com
 - ./artisan migrate --no-interaction
+- ./artisan makeadmin testadmin admin@example.com
+
