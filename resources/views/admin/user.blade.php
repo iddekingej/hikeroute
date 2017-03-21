@@ -11,6 +11,7 @@
 \App\Lib\Frm::text("firstname", __("First name"), $firstname, $errors);
 \App\Lib\Frm::text("lastname", __("Last name"), $lastname, $errors);
 \App\Lib\Frm::text("email",__("Email"),$email,$errors);
+\App\Lib\Frm::checkbox("enabled",__("Account enabled"),$enabled,[]);
 if($id != ""){
 	\App\Lib\Frm::checkbox("resetpassword",__("Reset password ?"),false,["onclick"=>"gui.displayId('password',this.checked);gui.displayId('passwordconf',this.checked)"]);
 }

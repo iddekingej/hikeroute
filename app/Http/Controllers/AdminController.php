@@ -77,6 +77,7 @@ class AdminController extends Controller
 					"firstname"=>$p_user->firstname,
 					"lastname"=>$p_user->lastname,
 					"email"=>$p_user->email,
+					"enabled"=>$p_user->enabled,
 					"title"=>"Edit user",
 					"rights"=>$l_rights,
 					"cmd"=>"edit"]);
@@ -100,9 +101,9 @@ class AdminController extends Controller
 					 "firstname"=>"",
 					"lastname"=>"",
 					 "email"=>"",
+					 "enabled"=>"",
 					 "title"=>"New user",
-					 "cmd"=>"add",
-					
+					 "cmd"=>"add",					
 					 "rights"=>$l_rights
 					]);
 	}
@@ -167,6 +168,7 @@ class AdminController extends Controller
 				,"firstname"=>$p_request->input("firstname")
 				,"lastname"=>$p_request->inpurt("lastname")
 				,"email"=>$p_request->input("email")
+				,"enabled"=>$p_request->input("enabled")?1:0
 				,"password"=>bcrypt($p_request->input("password"))]);
 		$this->saveRights($p_request,$l_user);
 		return Redirect::to("/admin/users/");
@@ -196,6 +198,7 @@ class AdminController extends Controller
 		$l_user->firstname=$p_request->input("firstname");
 		$l_user->lastname=$p_request->input("lastname");
 		$l_user->email=$p_request->input("email");
+		$l_user->enabled=$p_request->input("enabled")?1:0;
 		if($p_request->has("resetpassword")){
 			$l_user->password=bcrypt($p_request->input("password"));
 		}
