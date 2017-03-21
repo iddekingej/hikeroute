@@ -2,6 +2,9 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use App\Models\User;
+use App\Models\Right;
+use App\Models\UserRight;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +28,21 @@ Artisan::command("cleangpx",function(){
 Artisan::command("recalcallgpx",function(){
 	\App\Models\Route::recalcAllGpx();
 })->describe("Recalculate all summary information about gpx files");
+
+Artisan::command("recalcallgpx",function(){
+	\App\Models\Route::recalcAllGpx();
+})->describe("Recalculate all summary information about gpx files");
+
+Artisan::command("makeadmin{name}{email}",function($name,$email){
+	
+	if(!User::where("name",$name)->get()->isEmpty()){
+		echo "Nick name already exists\n";
+	}else if(!User::where("email",$email)->get()->isEmpty()){
+		echo "Email already exists\n";
+	} else {
+		$l_password=sha1(mt_rand(0,100000)."-".mt_rand(0,100000)."-".mt_rand(0,100000)."-".mt_rand(0,100000));
+		$l_user=User::create(["name"=>$name,"email"=>$email,"firstname"=>"x","lastname"=>"y","password"=>bcrypt($l_password)]);
+		echo "Password = $l_password \n";
+		foreach(Right::all() as $l_right) UserRight::addUserRight($l_user,$l_right);
+	}
+})->describe("Create admin user");

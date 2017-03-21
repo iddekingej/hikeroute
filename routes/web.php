@@ -10,7 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::pattern("id","[0-9]+");
+Route::pattern("p_id","[0-9]+");
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
