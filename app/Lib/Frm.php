@@ -8,6 +8,10 @@ namespace App\Lib;
 
 class Frm{
 	
+	static function e($p_string)
+	{
+		return \App\Lib\Page::e($p_string);
+	}
 	
 	static function password($p_name,$p_label,$p_errors,$p_id,$p_style)
 	{
@@ -70,6 +74,19 @@ class Frm{
 	</td>
 </tr>
 	<?php 
+	}
+	
+	static function footer($p_cancelUrl)
+	{
+		$l_js="window.location=".json_encode(Route($p_cancelUrl));
+		?>
+		<tr>
+		<td colspan='2' class="form_submitCell">
+		<?=\Form::submit(__("Save")); ?>
+		<button type='button' onclick='<?=htmlspecialchars($l_js)?>'><?=__("Cancel")?>'</button>
+		</td>
+		</tr>
+		<?php 
 	}
 }
 ?>

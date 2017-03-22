@@ -26,10 +26,13 @@ Route::get("/routes/download/{p_id}",["as"=>"routes.download","uses"=>"GuestCont
 /**
  * User routes
  */
-
-Route::get("/user/profile/",["as"=>"user.profile","uses"=>"UserController@displayProfile"]);
-Route::get("/user/profile/edit",["as"=>"user.editprofile","uses"=>"UserController@editProfile"]);
-Route::post("/user/profile/save",["as"=>"user.saveprofile","uses"=>"UserController@saveProfile"]);
+Route::group(["middleware"=>"auth","prefix"=>"user/profile"],function(){
+	Route::get("/",["as"=>"user.profile","uses"=>"UserController@displayProfile"]);
+	Route::get("edit",["as"=>"user.editprofile","uses"=>"UserController@editProfile"]);
+	Route::post("save",["as"=>"user.saveprofile","uses"=>"UserController@saveProfile"]);
+	Route::get("password/edit",["as"=>"user.editpassword","uses"=>"UserController@editPassword"]);
+	Route::post("password/save",["as"=>"user.savepassword","uses"=>"UserController@savePassword"]);
+});
 /**
  * URL for user management
  * -List all users

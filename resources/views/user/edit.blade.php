@@ -1,6 +1,10 @@
 @extends('layouts.pageform',["title"=>__("Edit user profile")])
 @section('formbody')
-
+<?php 
+/**
+ * Edit profile
+ */
+?>
 {!! Form::open(["route"=>["user.saveprofile"]]) !!}
 <table class="form_table">
 <?php 
@@ -11,7 +15,7 @@
 ?>
 <tr>
 <td colspan='2' class="form_submitCell">
-{!! Form::submit("Save") !!}
+{!! Form::submit(__("Save")) !!}
 <button type='button' onclick='window.location="{{ Route("user.profile") }}"'>{{ __("Cancel") }}</button>
 </td>
 </tr>
