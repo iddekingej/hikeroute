@@ -64,6 +64,12 @@ class UserController extends Controller
 		return  View("user.password");	
 	}
 	
+	/**
+	 * Save password after edit password is submitted
+	 * 
+	 * @param Request $p_request Submit request of edit password form
+	 * @return unknown|\Illuminate\View\View|\Illuminate\Contracts\View\Factory
+	 */
 	function savePassword(Request $p_request)
 	{
 		$l_rules=[

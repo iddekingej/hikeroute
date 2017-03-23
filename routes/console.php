@@ -21,17 +21,24 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
+/**
+ * Remove all routefiles which doesn't have a record in the route table
+ */
 Artisan::command("cleangpx",function(){
 	\App\Models\RouteFile::cleanGPX();
 })->describe("Clean all dangeling gpx files");
 
-Artisan::command("recalcallgpx",function(){
-	\App\Models\Route::recalcAllGpx();
-})->describe("Recalculate all summary information about gpx files");
+/**
+ * Recalc distance and area 
+ */
 
 Artisan::command("recalcallgpx",function(){
 	\App\Models\Route::recalcAllGpx();
 })->describe("Recalculate all summary information about gpx files");
+
+/**
+ * Create an admin account with a name or email
+ */
 
 Artisan::command("makeadmin{name}{email}",function($name,$email){
 	
