@@ -28,7 +28,8 @@ class AlterRoutefile extends Migration
     public function down()
     {
         Schema::table('routefiles', function (Blueprint $p_table) {
-           $p_table->dropColumn("id_user");
+        	$p_table->dropForeign("routefiles_id_user_foreign");
+			$p_table->dropColumn("id_user");
         });
     }
 }
