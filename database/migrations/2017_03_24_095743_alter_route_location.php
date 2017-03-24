@@ -14,7 +14,7 @@ class AlterRouteLocation extends Migration
     public function up()
     {
         Schema::table('routes', function (Blueprint $p_table) {
-			$p_table->integer("id_location")->nullable()->index();
+        	$p_table->unsignedInteger("id_location")->nullable()->index();
 			$p_table->foreign("id_location")->references("id")->on("locations");
         });
     }
