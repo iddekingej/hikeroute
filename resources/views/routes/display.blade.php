@@ -75,8 +75,8 @@
 </table>
 <script type='text/javascript'>
 	l_map=new RouteMap("map");
-	l_map.setGpxRoute({!! json_encode(Route("routes.download",["p_id"=>$route->id_routefile])) !!});
-	l_map.setSize({{ $route->minlat }},{{ $route->maxlat }} , {{ $route->minlon }} , {{ $route->maxlon}});
+	l_map.setGpxRoute({!! json_encode(Route("routes.download",["p_id"=>$routetrace->id_routefile])) !!});
+	l_map.setSize({{ $routetrace->minlat }},{{ $routetrace->maxlat }} , {{ $routetrace->minlon }} , {{ $routetrace->maxlon}});
 	l_map.displayMap();
 </script>
 

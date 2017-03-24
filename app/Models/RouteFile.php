@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RouteFile extends Model{
 	protected $table="routefiles";
-	protected $fillable = ["gpxdata","startdate","minlon","maxlon","minlat","maxlat","id_user"];
+	protected $fillable = ["gpxdata","id_user"];
 
 	/**
 	 * Returns the route to which this file belongs

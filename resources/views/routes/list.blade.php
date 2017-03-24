@@ -37,7 +37,7 @@
 			{{ $l_route->created_at->format('d-m-Y') }}
 	</td>
 	<td class="table_cell">
-			{{ $l_route->routeFile()->getResults()->startdate }}
+			{{ $l_route->routeTrace()->getResults()->startdate }}
 	</td>
 	<td class="table_cell">
 			{{ round($l_route->distance)/1000 }}

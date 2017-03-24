@@ -44,6 +44,7 @@ class GuestController extends Controller
 		,"creator"=>$l_route->user()->getResults()->name
 		,"uploadDate"=>$l_route->created_at
 		,"route"=>$l_route
+		,"routetrace"=>$l_route->routeTrace()->getResults()
 		,"distance"=>round($l_route->distance)/1000
 		];
 		return View("routes.display",$l_data);

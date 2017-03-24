@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\Route;
 use App\Lib\GPXReader;
 use App\Models\RouteFile;
-use App\Lib\AddressService;
 use App\Models\Location;
-use App\Models\LocationService;
+use App\Models\RouteTraceService;
+use App\Models\RouteTrace;
 /**
  * Handles uploading ,deleting, editing etc.. of hiking routes 
 */
@@ -170,21 +170,19 @@ class RoutesController extends Controller
 			       ->withErrors ( $l_validator )
 			        ->withInput ( $p_request->all () );
 		}
-		
-		$l_content=null;
-		$l_result=$this->getCheckRouteFile($p_request, "/routes/new/", $l_content,$l_gpxInfo);
-		if($l_result != null){
-			return $l_result;
+
+		try{
+			$l_path=$p_request->file("routefile")->path();
+			$l_content=file_get_contents($l_path);
+			$l_routeTrace=RouteTraceService::addGpxFile($l_content);
+		}catch(Exception $l_e){
+			return Redirect::to ( 
+				$p_errorRedirect )->withErrors ( [ 
+					"routefile" =>$l_e->getMessage() 
+				] )->withInput ( $p_request->all () );
+
 		}
-		
-		
-		$l_routeFile=RouteFile::create([
-				"gpxdata"=>$l_content
-		,		"id_user"=>\Auth::user()->id
-		,       "startdate"=>$l_gpxInfo->getStart()->getDatePart()							
-		]);
-		
-		return Redirect::to("/routes/newdetails/".$l_routeFile->id);
+		return Redirect::to("/routes/newdetails/".$l_routeTrace->id);
 		
 	}
 	/**
@@ -198,32 +196,25 @@ class RoutesController extends Controller
 	function newDetails($p_id)
 	{
 		$this->checkInteger($p_id);
-		$l_routeFile=RouteFile::findOrFail($p_id);		
-		if($l_routeFile->id_user != \Auth::user()->id){
+		$l_routeTrace=RouteTrace::findOrFail($p_id);		
+		if($l_routeTrace->id_user != \Auth::user()->id){
 			return $this->displayError(__("attach this route file to a route"));
 		}
 		
-		if($l_routeFile->route()->getResults()){
+		if($l_routeTrace->route()->getResults()){
 			
 			return $this->displayError(__("route file already attached to route"));
 		}
-		$l_gpxList=$this->getRouteInfo($l_routeFile);
-		$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
-		$l_location=LocationService::getLocation($l_locData->data);
-		if($l_location !== null){
-			$l_id_location=$l_location->id;
-		} else {
-			$l_id_location=null;
-		}
+
 		$l_data = [
 				"title" => __("New route"),
-				"id" => "",
-				"id_location"=>$l_id_location,
-				"id_routefile"=>$l_routeFile->id,
-				"routeTitle" => $l_locData->fullname,
+				"id" => "",			
+				"id_routefile"=>$l_routeTrace->id_routefile,
+				"id_routetrace"=>$l_routeTrace->id,
+				"routeTitle" => $l_routeTrace->location()->getResults()->name,
 				"comment" => "",
-				"info"=>$l_gpxList->getInfo(),
-				"routeLocation"=>$l_locData->fullname,
+				"info"=>$l_routeTrace,
+				"routeLocation"=>$l_routeTrace->location()->getResults()->name,
 				"publish"=>false
 				
 		];
@@ -241,11 +232,9 @@ class RoutesController extends Controller
 	 */
 	function saveAddRoute(Request $p_request)
 	{
-		$l_id_routeFile=$p_request->input("id_routefile");
-		$this->checkInteger($l_id_routeFile);
 		$l_rules=[
 				"routeTitle"=>["required"]
-		,		"id_routefile"=>["required","integer"]
+		,		"id_routetrace"=>["required","integer"]
 		,		"id_location"=>["integer"]
 		];
 	
@@ -255,24 +244,16 @@ class RoutesController extends Controller
 			->withErrors($l_validator)
 			->withInput($p_request->all());
 		}
-	
-		$l_routeFile=RouteFile::findOrFail($l_id_routeFile); //TODO: check if file belong to user!
-		$l_gpxList=$this->getRouteInfo($l_routeFile);
-		$l_info=$l_gpxList->getInfo();
-			
+		$l_routeTrace=RouteTrace::findOrFail($p_request->input("id_routetrace"));		
+		if($l_routeTrace->id_user != \Auth::user()->id){
+			return $this->displayError(__("attach this route file to a route"));
+		}
 		Route::create(["id_user"=>\Auth::user()->id
 				,"title"=>$p_request->input("routeTitle")
 				,"comment"=>$p_request->input("comment")
 				,"location"=>$p_request->input("routeLocation")
-				,"id_routefile"=>$l_id_routeFile
+				,"id_routetrace"=>$l_routeTrace->id
 				,"publish"=>$p_request->input("publish")?1:0
-				,"minlon"=>$l_info->minLon
-				,"maxlon"=>$l_info->maxLon
-				,"minlat"=>$l_info->minLat
-				,"maxlat"=>$l_info->maxLat
-				,"distance"=>$l_info->distance
-				,"id_location"=>$p_request->input("id_location")
-		
 		]);
 		return Redirect::to("/routes/");
 	}
@@ -294,7 +275,7 @@ class RoutesController extends Controller
 		if(Gate::allows("edit-route",$l_route)){
 			$l_data=["id"=>$p_id];
 			return View("routes.upload",$l_data);
-		}
+		}//TODO redirect
 	}
 	
 	
@@ -314,7 +295,7 @@ class RoutesController extends Controller
 			//validate request
 			$l_rules = [ 
 					"routefile" => [ 
-							"required" 
+							"required","file"
 					] 
 			];
 			
@@ -325,7 +306,8 @@ class RoutesController extends Controller
 						->withInput ( $p_request->all () );
 			}
 			try{
-				$l_route->saveRouteFile($p_request->file("routefile")->path());
+				$l_gpxData=file_get_contents($p_request->file("routefile")->path());				
+				RouteTraceService::updateGpxFile($l_route->routeTrace()->getResults(), $l_gpxData);
 			} catch(\Exception $e){
 				return Redirect::to ( "/routes/updategpx/$l_id" )
 				->withErrors ( ["routefile"=>$e->getMessage()])
@@ -349,18 +331,18 @@ class RoutesController extends Controller
 	{
 		$this->checkInteger($p_id);
 		$l_route=Route::findOrFail($p_id);
+		$l_routeTrace=$l_route->routetrace()->getResults();
 		if(Gate::allows("edit-route",$l_route)){
-			$l_gpx=$this->getRouteInfo($l_route->routeFile()->getResults());
 			$l_data = [
 					"title" => __("Edit route"),
 					"id" => $l_route->id,
-					"id_routefile"=>$l_route->id_routefile,
+					"id_routefile"=>$l_routeTrace->id_routeFile,
+					"id_routetrace"=>$l_routeTrace->id,
 					"routeTitle" => $l_route->title,
 					"comment" => $l_route->comment ,
 					"routeLocation" =>$l_route->location,
-					"info"=>$l_gpx->getInfo(),
+					"info"=>$l_routeTrace,
 					"publish"=>$l_route->publish,
-					"id_location"=>$l_route->id_location
 			];
 			return View ( "routes.form", $l_data );
 		} else {

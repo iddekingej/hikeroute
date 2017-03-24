@@ -16,8 +16,7 @@
 </table>
 {!! Form::open(["route"=>$id==""?"routes.save.add":"routes.save.edit","enctype"=>"multipart/form-data"]); !!}
 {!! Form::hidden("id",$id) !!}
-{!! Form::hidden("id_routefile",$id_routefile) !!}
-{!! Form::hidden("id_location",$id_location) !!}
+{!! Form::hidden("id_routetrace",$id_routetrace) !!}
 <table class="form_table">
 <tr>
 	<td class="form_labelCell">
@@ -58,7 +57,7 @@
 <script type='text/javascript'>
 	l_map=new RouteMap("map");
 	l_map.setGpxRoute({!! json_encode(Route("routes.download",["p_id"=>$id_routefile])) !!});
-	l_map.setSize({{ $info->minLat }},{{ $info->maxLat }} , {{ $info->minLon }} , {{ $info->maxLon}});
+	l_map.setSize({{ $info->minlat }},{{ $info->maxlat }} , {{ $info->minlon }} , {{ $info->maxlon}});
 	l_map.displayMap();
 </script>
 {!! Form::close() !!}

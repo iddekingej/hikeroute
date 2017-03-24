@@ -21,9 +21,8 @@ class Route extends Model
 {
 	protected $table="routes";
 	protected $fillable = ["id_user","title","comment",
-			                "id_routefile","location","minlon","maxlon"
-							,"minlat","maxlat","publish","distance"
-							,"id_location"
+			                "location","publish","distance"
+							,"id_routetrace"
 	];
 	
 	function location()
@@ -46,10 +45,11 @@ class Route extends Model
 	 * 
 	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
 	 */
-	function routeFile()
+	function routeTrace()
 	{
-		return $this->hasOne(RouteFile::class,"id","id_routefile");
+		return $this->belongsTo(RouteTrace::class,"id_routetrace");
 	}
+	
 	
 	/**
 	 * Checks if an user has a route uploaded
@@ -79,19 +79,6 @@ class Route extends Model
 		$this->recalcGpxByFile($this->routeFile()->getResults()->gpxdata);
 	}
 
-	function saveRouteFile($p_file)
-	{
-		$l_content=file_get_contents($p_file);
-		if($l_content===false){
-			throw new RouteException(__("Uploading gpx file failed"));
-		}
-		$l_routeFile=$this->routeFile()->getResults();
-		$this->recalcGpxByFile($l_content);
-		$l_routeFile->gpxdata=$l_content;
-		$l_routeFile->save();
-		
-	}
-	
 	static function recalcAllGpx()
 	{
 		self::chunk(10,function($p_routes){
