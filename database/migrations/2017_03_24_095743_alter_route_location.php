@@ -26,7 +26,7 @@ class AlterRouteLocation extends Migration
      */
     public function down()
     {
-        Schema::table('routes', function (Blueprint $table) {
+        Schema::table('routes', function (Blueprint $p_table) {
             $p_table->dropColumn("id_location");
         });
     }

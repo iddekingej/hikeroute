@@ -26,7 +26,7 @@ class AlterUser extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $p_table) {
             $p_table->dropColumn("firstname");
             $p_table->dropColumn("lastname");
         });
