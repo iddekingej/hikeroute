@@ -29,6 +29,7 @@ class AlterRouteTrace extends Migration
     public function down()
     {
         Schema::table('routes', function (Blueprint $p_table) {
+        	$p_table->dropForeign("routes_id_routetrace_foreign");
         	$p_table->dropColumn("id_routetrace");
         	$p_table->unsignedInteger("id_routefile")->index();
         	$p_table->foreign("id_routefile")->references("id")->on("routefiles");
