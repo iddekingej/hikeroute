@@ -17,6 +17,7 @@
 {!! Form::open(["route"=>$id==""?"routes.save.add":"routes.save.edit","enctype"=>"multipart/form-data"]); !!}
 {!! Form::hidden("id",$id) !!}
 {!! Form::hidden("id_routefile",$id_routefile) !!}
+{!! Form::hidden("id_location",$id_location) !!}
 <table class="form_table">
 <tr>
 	<td class="form_labelCell">

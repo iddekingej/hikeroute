@@ -36,9 +36,7 @@ class GuestController extends Controller
 	function displayRoute($p_id)
 	{
 		$l_route=Route::findOrFail($p_id);
-		
-		$l_gpxParser=new GPXReader();
-		$l_gpx=$l_gpxParser->parse($l_route->routefile()->getResults()->gpxdata);		
+	
 		$l_data=[
 		"id"=>$p_id
 		,"route"=>$l_route

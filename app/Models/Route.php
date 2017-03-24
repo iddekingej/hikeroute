@@ -23,7 +23,13 @@ class Route extends Model
 	protected $fillable = ["id_user","title","comment",
 			                "id_routefile","location","minlon","maxlon"
 							,"minlat","maxlat","publish","distance"
+							,"id_location"
 	];
+	
+	function location()
+	{
+		return $this->belongsTo(Location::class,"id_location");
+	}
 	
 	/**
 	 * Get the user to which the route belongs to (=has posted)

@@ -26,23 +26,29 @@ class AddressService{
 	{
 		$l_location=self::fromGPX($p_point);
 		$l_result=[];
+		$l_address=new Address();
 		if($l_location){
 			$l_data=$l_location->address;
-			if(isset($l_data->suburb)){
-				$l_result[]=$l_data->suburb;
-			}
-			if(isset($l_data->city)){
-				$l_result[]=$l_data->city;
+			if(isset($l_data->country)){
+				$l_address->data["country"]=$l_data->country;
+				$l_address->fullname .= "/".$l_data->country;
 			}
 			if(isset($l_data->state)){
-				$l_result[]=$l_data->state;
+				$l_address->data["state"]=$l_data->state;
+				$l_address->fullname .= "/".$l_data->state;
 			}
-			if(isset($l_data->country)){
-				$l_result[]=$l_data->country;
+			if(isset($l_data->city)){
+				$l_address->data["city"]=$l_data->city;
+				$l_address->fullname .= "/".$l_data->city;
 			}
-			return implode("/", $l_result);		
+			if(isset($l_data->suburb)){
+				$l_address->data["suburb"]=$l_data->suburb;
+				$l_address->fullname .= "/".$l_data->suburb;
+			}
+
 		}
-		return "";
+		return $l_address;
+			
 	}
 	
 	/**

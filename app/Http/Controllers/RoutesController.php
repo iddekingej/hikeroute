@@ -10,6 +10,8 @@ use App\Models\Route;
 use App\Lib\GPXReader;
 use App\Models\RouteFile;
 use App\Lib\AddressService;
+use App\Models\Location;
+use App\Models\LocationService;
 /**
  * Handles uploading ,deleting, editing etc.. of hiking routes 
 */
@@ -158,7 +160,7 @@ class RoutesController extends Controller
 	{
 		$l_rules = [
 				"routefile" => [
-						"required"
+						"required","file"
 				]
 		];
 			
@@ -207,14 +209,21 @@ class RoutesController extends Controller
 		}
 		$l_gpxList=$this->getRouteInfo($l_routeFile);
 		$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
+		$l_location=LocationService::getLocation($l_locData->data);
+		if($l_location !== null){
+			$l_id_location=$l_location->id;
+		} else {
+			$l_id_location=null;
+		}
 		$l_data = [
 				"title" => __("New route"),
 				"id" => "",
+				"id_location"=>$l_id_location,
 				"id_routefile"=>$l_routeFile->id,
-				"routeTitle" => $l_locData,
+				"routeTitle" => $l_locData->fullname,
 				"comment" => "",
 				"info"=>$l_gpxList->getInfo(),
-				"routeLocation"=>$l_locData,
+				"routeLocation"=>$l_locData->fullname,
 				"publish"=>false
 				
 		];
@@ -234,7 +243,11 @@ class RoutesController extends Controller
 	{
 		$l_id_routeFile=$p_request->input("id_routefile");
 		$this->checkInteger($l_id_routeFile);
-		$l_rules=["routeTitle"=>["required"]];
+		$l_rules=[
+				"routeTitle"=>["required"]
+		,		"id_routefile"=>["required","integer"]
+		,		"id_location"=>["integer"]
+		];
 	
 		$l_validator=Validator::make($p_request->all(),$l_rules);
 		if($l_validator->fails()){
@@ -258,6 +271,7 @@ class RoutesController extends Controller
 				,"minlat"=>$l_info->minLat
 				,"maxlat"=>$l_info->maxLat
 				,"distance"=>$l_info->distance
+				,"id_location"=>$p_request->input("id_location")
 		
 		]);
 		return Redirect::to("/routes/");
@@ -345,7 +359,8 @@ class RoutesController extends Controller
 					"comment" => $l_route->comment ,
 					"routeLocation" =>$l_route->location,
 					"info"=>$l_gpx->getInfo(),
-					"publish"=>$l_route->publish
+					"publish"=>$l_route->publish,
+					"id_location"=>$l_route->id_location
 			];
 			return View ( "routes.form", $l_data );
 		} else {
