@@ -27,6 +27,7 @@ class AlterRouteLocation extends Migration
     public function down()
     {
         Schema::table('routes', function (Blueprint $p_table) {
+        	$p_table->dropForeign("routes_id_location_foreign");
             $p_table->dropColumn("id_location");
         });
     }
