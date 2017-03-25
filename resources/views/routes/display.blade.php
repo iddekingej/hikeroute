@@ -21,6 +21,7 @@
 </td>
 
 <td >
+@if($canEdit)
 <?php  
 \App\Lib\Page::topMenuHeader(); 
 \App\Lib\Page::topMenuitem('routes.edit',['id'=>$id],__("Edit route")); 
@@ -28,6 +29,8 @@
 \App\Lib\Page::topMenuitemConfirm('routes.del',['id'=>$id],__("Delete this route"),__("Delete route?")); 
 \App\Lib\Page::topMenuFooter();
 ?>
+@endif
+
 <div class="map_container">
 <table class="map_table">
 <tr>

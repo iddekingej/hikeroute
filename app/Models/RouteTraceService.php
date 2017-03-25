@@ -4,6 +4,7 @@ namespace App\Models;
 use App\Lib\TableService;
 use App\Lib\GPXReader;
 use App\Lib\AddressService;
+use App\Lib\Control;
 
 class RouteTraceException extends \Exception
 {
@@ -23,8 +24,12 @@ class RouteTraceService extends TableService{
 		$l_routeFile->save();
 		$l_gpxParser=new GPXReader();
 		$l_gpxList=$l_gpxParser->parse($p_gpxData);
-		$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
-		$l_location=LocationService::getLocation($l_locData->data);
+		if(Control::addressServiceEnabled()){
+			$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
+			$l_location=LocationService::getLocation($l_locData->data);
+		} else {
+			$l_location=null;
+		}
 		if($l_location !== null){
 			$l_id_location=$l_location->id;
 		} else {
