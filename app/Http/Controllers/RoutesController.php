@@ -119,9 +119,7 @@ class RoutesController extends Controller
 		$l_route=Route::findOrFail($p_id);
 
 		if(Gate::allows("edit-route",$l_route)){
-			$l_routeFile=$l_route->routeFile()->getResults();;
-			$l_route->delete();
-			$l_routeFile->delete();
+			$l_route->deleteDepended();
 			return Redirect::to("/routes/");
 		} else {
 			return $this->displayError(__("delete this route"));
