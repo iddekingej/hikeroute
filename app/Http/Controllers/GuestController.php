@@ -36,7 +36,7 @@ class GuestController extends Controller
 	function displayRoute($p_id)
 	{
 		$l_route=Route::findOrFail($p_id);
-	
+		$l_routeTrace=$l_route->routeTrace()->getResults();
 		$l_data=[
 		"id"=>$p_id
 		,"route"=>$l_route
@@ -44,8 +44,8 @@ class GuestController extends Controller
 		,"creator"=>$l_route->user()->getResults()->name
 		,"uploadDate"=>$l_route->created_at
 		,"route"=>$l_route
-		,"routetrace"=>$l_route->routeTrace()->getResults()
-		,"distance"=>round($l_route->distance)/1000
+		,"routetrace"=>$l_routeTrace
+		,"distance"=>round($l_routeTrace->distance)/1000
 		];
 		return View("routes.display",$l_data);
 	}

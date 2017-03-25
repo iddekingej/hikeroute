@@ -37,6 +37,7 @@ class RouteTraceService extends TableService{
 		$p_routeTrace->maxlon=$l_info->maxLon;
 		$p_routeTrace->minlat=$l_info->minLat;
 		$p_routeTrace->maxlat=$l_info->maxLat;
+		$p_routeTrace->distance=$l_info->distance;
 		$p_routeTrace->save();
 	}
 	
@@ -62,6 +63,7 @@ class RouteTraceService extends TableService{
 		,	"maxlon"=>$l_info->maxLon
 		,	"minlat"=>$l_info->minLat
 		,	"maxlat"=>$l_info->maxLat
+		,	"distance"=>$l_info->distance
 		,	"id_user"=>\Auth::user()->id
 		]);
 		return $l_trace;
