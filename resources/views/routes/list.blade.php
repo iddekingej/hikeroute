@@ -40,7 +40,7 @@
 			{{ $l_route->routeTrace()->getResults()->startdate }}
 	</td>
 	<td class="table_cell">
-			{{ round($l_route->distance)/1000 }}
+			{{ round($l_route->routeTrace()->getResults()->distance)/1000 }}km
 	</td>
 	<td class="table_cell">
 			{{ $l_route->publish?__("Yes"):"" }}
