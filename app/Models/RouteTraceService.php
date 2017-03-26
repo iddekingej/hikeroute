@@ -35,15 +35,9 @@ class RouteTraceService extends TableService{
 		} else {
 			$l_id_location=null;
 		}
-		$l_info=$l_gpxList->getInfo();
+		
 		$p_routeTrace->id_location=$l_id_location;
-		$p_routeTrace->startdate=$l_gpxList->getStart()->getDatePart();
-		$p_routeTrace->minlon=$l_info->minLon;
-		$p_routeTrace->maxlon=$l_info->maxLon;
-		$p_routeTrace->minlat=$l_info->minLat;
-		$p_routeTrace->maxlat=$l_info->maxLat;
-		$p_routeTrace->distance=$l_info->distance;
-		$p_routeTrace->save();
+		$p_routeTrace->setByGPX($l_gpxList);
 	}
 	
 	public static function addGpxFile($p_gpxData)

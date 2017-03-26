@@ -62,34 +62,16 @@ class Route extends Model
 	{
 		return self::where("id_user","=",$p_user->id)->limit(1)->get()->isEmpty();
 	}
-	
-	private function recalcGpxByFile($p_content){
-		$l_gpxParser=new GPXReader();
-		$l_gpxList=$l_gpxParser->parse($p_content);
-		$l_gpxInfo=$l_gpxList->getInfo();
-		$this->minlon=$l_gpxInfo->minLon;
-		$this->maxlon=$l_gpxInfo->maxLon;
-		$this->minlat=$l_gpxInfo->minLat;
-		$this->maxlat=$l_gpxInfo->maxLat;
-		$this->distance=$l_gpxInfo->distance;
-		$this->save();		
-	}
-	
-	private function recalcGpx(){
-		$this->recalcGpxByFile($this->routeFile()->getResults()->gpxdata);
-	}
-
-	static function recalcAllGpx()
+	/**
+	 * Recalc data from gpx file,like min,max lat/lon and distance 
+	 */
+	function recalcGPX()
 	{
-		self::chunk(10,function($p_routes){
-			foreach($p_routes as $l_route){
-				try{
-					$l_route->recalcGpx();
-				} catch(\Exception $e){
-					echo "Route id=",$l_route->id,'-',$e->getMessage(),"\n";
-				}
-			}
-		});
+
+		$l_routeTrace=$this->routeTrace()->getResults();		
+		if($l_routeTrace){
+			$l_routeTrace->recalcGPX();
+		}
 	}
 	
 	static function getPublished()

@@ -15,6 +15,12 @@ class TableService
 		}
 		return $l_indexedList;
 	}
+	
+	static function chunk($p_num,callable $p_function)
+	{
+		$l_model=static::$model;
+		$l_model::chunk($p_num,$p_function);
+	}
 }
 
 ?>
