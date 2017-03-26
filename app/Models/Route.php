@@ -97,6 +97,10 @@ class Route extends Model
 		return self::where("publish",1)->orderBy("id","asc")->get();
 	}
 	
+	/**
+	 * Delete route and all depended data
+	 * (RouteTrace and routeFile)
+	 */
 	function deleteDepended()
 	{
 			$l_routeTrace=$this->routeTrace()->getResults();

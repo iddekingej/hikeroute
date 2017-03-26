@@ -1,62 +1,70 @@
 {
-"Add new route":"Nieuwe route toevoegen"
-,"Add new user":"Nieuwe gebruiker toevoegen"
-,"Added by":"Toegevoegd door"
-,"attach this route file to a route":"deze route bestand te verbinden met een route"
-,"All routes":"Alle routes"
-,"Back to routes overview":"Terug naar overzicht met routes"
-,"Cancel":"Opheffen"
-,"Confirm Password":"Bevestig wachtwoord"
-,"Create date":"Aanmaken datum"
-,"delete this route":"deze route te verwijderen"
-,"Delete this route":"Deze route verwijderen" 
-,"Delete route?":"Deze route verwijderen?"
-,"Delete this user?":"Deze gebruiker vewijderen?"
-,"Description":"Omschrijving"
-,"Distance":"Afstand"
-,"Edit password":"Wijzigen wachtwoord"
-,"Edit profile":"Wijzigen profiel"
-,"Edit route":"Wijzigen route"
-,"edit this route":"deze route te wijzigen"
-,"email":"email"
-,"Email":"Email"
-,"E-Mail Address":"E-Mail adres"
-,"First name":"First name"
-,"Forgot Your Password?":"Wachtwoord vergeten?"
-,"GPX file":"GPX bestand"
-,"Hiking routes":"Wandel routes"
-,"Invalid gpx file":"Ongeldige gpx bestand"
-,"Last name":"Achternaam"
-,"List of routes":"Lijst met routes"
-,"Location":"Locatie"
-,"login":"Login"
-,"New password":"Nieuw wachtwoord"
-,"New route":"Nieuwe route"
-,"Not allowed to":"U bent niet geautoriseerd om"
-,"Name":"Naam"
-,"Nick name":"Bijnaam"
-,"Password":"Wachtwoord"
-,"Published":"Gepubliseerd"
-,"Published routes":"Gepubliseerde routes"
-,"Register":"Registreer"
-,"Reset Password":"Wachtwoord resetten"
-,"Reset password ?":"Wachtwoord resetten?"
-,"Remember me?":"Mijn inlog gegevens herinneren?"
-,"route file already attached to route":"route bestand is al verbonden met een route"
-,"Goto route details":"Ga naar route details"
-,"Routes":"Routes"
-,"Save":"Opslaan"
-,"Start location":"Start locatie"
-,"Title":"Titel"
-,"update route file":"Wijzigen route bestand"
-,"Upload new gpx file":"Nieuwe GPX bestand uploaden"
-,"Upload new GPX file to existing route":"Uploaden nieuwe GPX bestand bij bestaande route"
-,"Uploading routefile failed":"Uploaden van route bestand is mislukt"
-,"User profile":"Profiel van gebruiker"
-,"Users":"Gebruikers"
-,"User routes":"Routes van de gebruiker"
-,"Uploaded by":"Geüpload door"
-,"Uploaded on":"Geüpload op"
-,"Send Password Reset Link":"Stuur link om wachtwoord te resetten"
-,"Yes":"Ja"
+    "Account enabled": "Account is actief",
+    "Add new route": "Nieuwe route toevoegen",
+    "Add new user": "Nieuwe gebruiker toevoegen",
+    "Added by": "Toegevoegd door",
+    "All available routes": "Alle beschikbare routes",
+    "All routes": "Alle routes",
+    "attach this route file to a route": "deze route bestand te verbinden met een route",
+    "Back to routes overview": "Terug naar overzicht met routes",
+    "Cancel": "Opheffen",
+    "Confirm password": "Bevestig wachtwoord",
+    "Create date": "Aanmaken datum",
+    "Delete route?": "Deze route verwijderen?",
+    "Delete this route": "Deze route verwijderen",
+    "delete this route": "deze route te verwijderen",
+    "Delete this user?": "Deze gebruiker vewijderen?",
+    "Description": "Omschrijving",
+    "Distance": "Afstand",
+    "E-mail": "E-mail",
+    "Edit password": "Wijzigen wachtwoord",
+    "Edit profile": "Wijzigen profiel",
+    "Edit route": "Wijzigen route",
+    "edit this route": "deze route te wijzigen",
+    "Edit user profile": "Wijzigen gebruikers profiel",
+    "Email": "Email",
+    "Email adres": "Email adres",
+    "Error": "Fout",
+    "First name": "First name",
+    "Goto route details": "Ga naar route details",
+    "GPX File": "GPX bestand",
+    "Hiking routes": "Wandel routes",
+    "Invalid gpx file:": "Ongeldige GPX bestand",
+    "Last name": "Achternaam",
+    "List of routes": "Lijst met routes",
+    "Location": "Locatie",
+    "Login": "Login",
+    "login": "Login",
+    "Name": "Naam",
+    "New password": "Nieuw wachtwoord",
+    "New route": "Nieuwe route",
+    "Next": "Volgende",
+    "Nick name": "Bijnaam",
+    "Not allowed to": "U bent niet geautoriseerd om",
+    "Password": "Wachtwoord",
+    "Password confirmation": "Bevestig wachtwoord",
+    "Profile": "Profiel",
+    "Publish": "Publiceren?",
+    "Published": "Gepubliseerd",
+    "Published routes": "Gepubliseerde routes",
+    "Record date": "Opname datum",
+    "Register": "Registreer",
+    "Remember me?": "Mijn inlog gegevens herinneren?",
+    "Reset password ?": "Wachtwoord resetten?",
+    "route file already attached to route": "route bestand is al verbonden met een route",
+    "Routes": "Routes",
+    "Save": "Opslaan",
+    "Start location": "Start locatie",
+    "Title": "Titel",
+    "update route file": "Wijzigen route bestand",
+    "Upload new GPX file": "Nieuwe GPX bestand uploaden",
+    "Upload new gpx file": "Nieuwe GPX bestand uploaden",
+    "Upload new GPX file to existing route": "Uploaden nieuwe GPX bestand bij bestaande route",
+    "Uploaded by": "Geüpload door",
+    "Uploaded on": "Geüpload op",
+    "Uploading routefile failed": "Uploaden van route bestand is mislukt",
+    "User profile": "Profiel van gebruiker",
+    "User routes": "Routes van de gebruiker",
+    "Users": "Gebruikers",
+    "Yes": "Ja"
 }
