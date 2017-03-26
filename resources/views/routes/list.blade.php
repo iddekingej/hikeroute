@@ -31,7 +31,7 @@
 	<td class="table_cell">
 		<a href="{{ Route('routes.display',['id'=>$l_route->id]) }}">
 			{{ $l_route->title }}
-		</a>
+		</a> 
 	</td>
 	<td class="table_cell">
 			{{ $l_route->created_at->format('d-m-Y') }}
