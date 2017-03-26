@@ -36,6 +36,9 @@ class GuestController extends Controller
 	function displayRoute($p_id)
 	{
 		$l_route=Route::findOrFail($p_id);
+		if(!$l_route->canCurrentShow()){
+			return View("errors.notallowed",["message"=>__("To view this route")]);
+		}
 		$l_routeTrace=$l_route->routeTrace()->getResults();
 		$l_data=[
 		"id"=>$p_id

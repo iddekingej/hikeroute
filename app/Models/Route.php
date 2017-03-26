@@ -110,4 +110,27 @@ class Route extends Model
 			$l_routeFile->delete();
 		
 	}
+	
+	function canCurrentShow()
+	{
+		if($this->publish==1){
+			return true;
+		}
+		if(\Auth::check()){
+			return $this->canShow(\Auth::user());
+		}
+		return false;
+	}
+	
+	function canShow(\App\Models\User $p_user)
+	{
+		if($p_user->isAdmin()){
+			return true;
+		}
+		if($this->id_user==$p_user->id){
+			return true;
+		}
+		return ($this->publish==true);
+		
+	}
 }
