@@ -14,4 +14,4 @@ before_script:
 - ./artisan -vvv --force --step --no-interaction migrate 
 - ./artisan -vvv --force --step --no-interaction migrate:refresh
 - ./artisan makeadmin admin admin@example.com >pass
-- mysql --database=hikeroute -e "SELECT TABLE_NAME,COLUMN_NAME ,table_schema FROM INFORMATION_SCHEMA.COLUMNS order by TABLE_NAME"
+- mysql --database=hikeroute -e "desc routefiles"
