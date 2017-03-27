@@ -14,8 +14,11 @@ class AlterRoutefilesGpxdate extends Migration
     public function up()
     {
         Schema::table('routefiles', function (Blueprint $p_table) {
-        	$p_table->longtext("gpxdata")->change();
+        	$p_table->longtext("gpxdata2")->nullable();
+           	$p_table->dropColumn("gpxdata");
+        	$p_table->renameColumn("gpxdata2", "gpxdata");
         });
+        	
     }
 
     /**
@@ -25,8 +28,6 @@ class AlterRoutefilesGpxdate extends Migration
      */
     public function down()
     {
-        Schema::table('routefiles', function (Blueprint $p_table) {
-        	$p_table->text("gpxdata")->change();
-        });
+
     }
 }
