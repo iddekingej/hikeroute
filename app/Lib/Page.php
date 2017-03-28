@@ -82,5 +82,46 @@ class Page{
 	{
 		?><a href="<?=self::e(route($p_route,$p_parameters))?>"><img src='<?=self::e(\App\Lib\Icons::EDIT)?>'/><?=self::e($p_message)?></a><?php 
 	}
+	
+	//Dual column layout
+	//Left an menu and right the content
+	/**
+	 * Header of DC
+	 * Usage
+	 * -dcHeader
+	 * -left column content
+	 * -dcContentHeader
+	 * -right content
+	 * -dcFooter
+	 */
+	static function dcHeader()
+	{
+?>
+<table id="main" class="main_table">
+<tr><td class="main_column_left">
+<?php 
+	}
+	/**
+	 * Content header(right column) Between left and right column
+	 */
+	static function dcContentHeader()
+	{
+?>
+</td><td class="main_column_right">
+<?php 
+	}
+	
+	/**
+	 * DC Footer code (javascript is for enlarging content until page size
+	 */
+	
+	static function dcFooter()
+	{
+?>
+</td></tr>
+</table>
+<script type="text/javascript">gui.elementToPageHeight($("main"));</script>
+<?php 
+	}
 }
 

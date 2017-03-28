@@ -68,6 +68,11 @@ class RouteTraceService extends TableService{
 		return $l_trace;
 	}
 	
+	
+	static function byLocation($p_id)
+	{
+		return static::whereOrderBy("id_location","=", $p_id, "id");
+	}
 }
 
 ?>

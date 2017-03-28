@@ -19,5 +19,11 @@ class RouteService extends TableService
 			}
 		});
 	}
+	
+	static function search($p_term)
+	{
+		$l_term="%$p_term%";
+		return static::where("title","like",$l_term)->orWhere("location","like",$l_term)->orWhere("comment","like",$l_term)->get();
+	}
 }
 ?>

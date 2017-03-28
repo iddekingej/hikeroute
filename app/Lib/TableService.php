@@ -21,6 +21,30 @@ class TableService
 		$l_model=static::$model;
 		$l_model::chunk($p_num,$p_function);
 	}
+	
+	static function whereNull($p_field)
+	{
+		$l_model=static::$model;
+		return $l_model::whereNull($p_field);
+	}
+	
+	static function where($p_field,$p_comp,$p_value)
+	{
+		$l_model=static::$model;
+		return $l_model::where($p_field,$p_comp,$p_value);
+	}
+	/**
+	 * Todo whereget
+	 * @param unknown $p_id
+	 * @param unknown $p_comp
+	 * @param unknown $p_value
+	 * @param unknown $p_orderBy
+	 */
+	static function whereOrderBy($p_id,$p_comp,$p_value,$p_orderBy)
+	{
+		$l_model=static::$model;
+		return $l_model::where($p_id,$p_comp,$p_value)->orderBy($p_orderBy)->get();
+	}
 }
 
 ?>

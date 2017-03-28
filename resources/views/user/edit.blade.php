@@ -20,4 +20,6 @@
 </td>
 </tr>
 </table>
+{!! Form::close() !!}
+
 @endsection

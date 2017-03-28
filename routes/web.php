@@ -20,9 +20,10 @@ Route::get('/home', 'HomeController@index');
  * Guest routes
  */
 Route::get('/',["as"=>"start","uses"=>"GuestController@start"]);
+Route::get('/location/{p_id1}/{p_id2?}/{p_id3?}/{p_id4?}',["as"=>"start.location","uses"=>"GuestController@location"]);
 Route::get('/routes/display/{p_id}',["as"=>"routes.display","uses"=>"GuestController@displayRoute"]);
 Route::get("/routes/download/{p_id}",["as"=>"routes.download","uses"=>"GuestController@downloadRoute"]);
-
+Route::post("/routes/search/",["as"=>"routes.search","uses"=>"GuestController@search"]);
 /**
  * User routes
  */
@@ -65,4 +66,5 @@ Route::group(["middleware"=>"auth","prefix"=>"/routes/"],function(){
 	Route::get("updategpx/{id}",["as"=>"routes.updategpx","uses"=>"RoutesController@uploadGPX"]);
 	Route::get('editfile/{id}',["as"=>"routes.editfile","uses"=>"RoutesController@editFile"]);
 	Route::get('/',["as"=>"routes","uses"=>"RoutesController@listRoutes"]);
+
 });

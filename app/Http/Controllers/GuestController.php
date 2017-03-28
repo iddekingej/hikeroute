@@ -8,10 +8,14 @@ use Illuminate\Support\Facades\Gate;
 use App\Lib\GPXReader;
 use App\Models\Route;
 use App\Models\RouteFile;
+use App\Models\LocationService;
+use App\Models\RouteService;
+use App\Models\RouteTraceService;
+use Illuminate\Http\Request;
 
 class GuestController extends Controller
 {
-	/*
+	/**
 	 * Displays a list of all routes at front page
 	 */
 	
@@ -20,8 +24,60 @@ class GuestController extends Controller
 		$l_data=[
 				"routes"=>Route::getPublished()
 			,	"title"=>__("All available routes")
+				,	"locations"=>\App\Models\LocationService::topLocations()
+				,   "tree"=>[]
+				,	"pars"=>""
+				,	"routes"=>[]
+				,	"routeTraces"=>[]
 		];
 		
+		return view("welcome",$l_data);
+	}
+	
+	public function search(Request $p_request)
+	{
+		$l_search=$p_request->input("search");
+		$l_routes=RouteService::search($l_search);
+		$l_data=[
+				"routes"=>Route::getPublished()
+				,	"title"=>__("All available routes")
+				,	"locations"=>\App\Models\LocationService::topLocations()
+				,   "tree"=>[]
+				,	"pars"=>""
+				,	"routes"=>[]
+				,	"routes"=>$l_routes
+		];
+		
+		return view("welcome",$l_data);
+	}
+	
+	
+	public function location($p_id1,$p_id2=null,$p_id3=null,$p_id4=null)
+	{
+		$l_ids=[];
+		$l_args=func_get_args();
+		foreach($l_args as $l_id){
+			if($l_id===null){
+				break;
+			}
+			$l_ids[]=$l_id;
+		}
+		$l_id_location=end($l_ids);
+		$l_locations=LocationService::getLocationsByParent($l_id_location);
+		$l_tree=LocationService::getLocationsByArray($l_ids);
+		$l_traces=RouteTraceService::byLocation($l_id_location);
+		$l_routes=[];
+		foreach($l_traces as $l_trace){
+			$l_routes[]=$l_trace->route()->getResults();
+		}
+		$l_data=[
+				"routes"=>Route::getPublished()
+				,	"title"=>__("All available routes")
+				,	"locations"=>$l_locations				
+				,   "tree"=>$l_tree
+				,	"pars"=>implode("/",$l_ids)."/"
+				,	"routes"=>$l_routes
+		];
 		return view("welcome",$l_data);
 	}
 	

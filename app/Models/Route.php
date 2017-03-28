@@ -112,7 +112,7 @@ class Route extends Model
 		if($this->id_user==$p_user->id){
 			return true;
 		}
-		return ($this->publish==true);
+		return ($this->publish);
 		
 	}
 }

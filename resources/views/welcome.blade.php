@@ -1,6 +1,35 @@
 @extends("layouts.page")
 @section("content")
+<?php \App\Lib\Page::dcHeader()?>
+<?php  
+$l_cnt=1;
+$l_pars=""
+?>
+<div><a href="/location/">{{ __("World") }}</a></div>
+@foreach($tree as $location)
+
+<div style='padding-left:{{ 5*$l_cnt}}px'><a href="/location/{{$l_pars}}{{$location->id}}">{{ $location->name }}</a></div>
+<?php 
+	$l_cnt++ ;
+	$l_pars .= $location->id."/"; 
+	?> 
+@endforeach
+@foreach($locations as $location)
+<?php  ?>
+<div style='padding-left:{{ 5*$l_cnt }}px'><a href="/location/{{$pars}}{{$location->id}}">{{ $location->name }}</a></div>
+@endforeach
+&nbsp<?php \App\Lib\Page::dcContentHeader()?>
+{!! Form::open(["route"=>["routes.search"]]) !!}
+<div class="main_search_container">
+<span>{!! Form::label("search",__("Search")) !!}</span><br/>
+<div class="main_search_input_container">
+{!! Form::text("search","",["class"=>"main_search_input"]) !!}
+{!! Form::submit(__("Search")) !!}
+{!! Form::close() !!}
+</div>
+</div>
 @foreach($routes as $l_route)
+
 <div class="routeall_title">{{ $l_route->title}}</div>
 <div class="routeall_body">
 <table class="routeall_infoTable">
@@ -18,4 +47,5 @@
 </pre>
 </div>
 @endforeach
+<?php \App\Lib\Page::dcFooter()?>
 @endsection

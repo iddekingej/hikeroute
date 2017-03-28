@@ -21,7 +21,40 @@ body,input,table,tr,td,textarea{
 .apptitle_name{
 	text-align:right;
 }
+/* main table */
+.main_table{
+	width:100%;
+	border-collapse:collapse;
+}
 
+.main_column_left{
+	width:100px;
+	background-color:#eee;
+	height:400px;
+	vertical-align:top
+}
+
+.main_column_right{
+	vertical-align:top;
+}
+
+.main_search_container{
+		
+	width:100%;
+	text-align:center;
+	color:#777;
+	padding-top:20px;
+}
+.main_search_input_containeer{
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+}
+
+.main_search_input{
+	width:300px;
+}
+/* error */
 .error_text{
 	background-color:#f00;
 	color:#fff;
@@ -123,8 +156,8 @@ body,input,table,tr,td,textarea{
 
 
 .map_table{
-	margin-left:auto;
-	margin-right:auto;	
+	margin-left:0px auto;
+	margin-right:0px auto;	
 	border-collapse:collapse;
 }
 .map_title{font-size:18px;text-align:center;padding-bottom:5px;font-weight:700;color:#777}

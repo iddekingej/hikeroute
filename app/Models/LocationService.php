@@ -37,7 +37,7 @@ class LocationService extends TableService
 		}
 	}
 	
-	public static function getLocation(Array $p_data)
+	static function getLocation(Array $p_data)
 	{
 		$l_id_parent=null;
 		$l_location=null;
@@ -46,6 +46,25 @@ class LocationService extends TableService
 			$l_id_parent=$l_location->id;
 		}
 		return $l_location;
+	}
+	
+	static function topLocations()
+	{
+		return static::whereNull("id_parent")->orderBy("name")->get();
+	}
+	
+	static function getLocationsByArray(Array $p_ids)
+	{
+		$l_locations=[];
+		foreach($p_ids as $l_id){
+			$l_locations[]=Location::findOrFail($l_id);
+		}
+		return $l_locations;
+	}
+	
+	static function getLocationsByParent($p_id_parent)
+	{
+		return self::whereOrderBy("id_parent", "=", $p_id_parent,"name");
 	}
 }
 
