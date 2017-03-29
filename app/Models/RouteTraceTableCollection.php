@@ -27,11 +27,11 @@ class RouteTraceTableCollection extends TableCollection{
 		if(Control::addressServiceEnabled()){
 			$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
 			$l_location=LocationTableCollection::getLocation($l_locData->data);
-		} else {
-			$l_location=null;
-		}
-		if($l_location !== null){
-			$l_id_location=$l_location->id;
+			if($l_location !== null){
+				$l_id_location=$l_location->id;
+			} else {
+				$l_id_location=null;
+			}
 		} else {
 			$l_id_location=null;
 		}
@@ -45,9 +45,13 @@ class RouteTraceTableCollection extends TableCollection{
 		$l_gpxParser=new GPXReader();
 		$l_gpxList=$l_gpxParser->parse($p_gpxData);
 		$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
-		$l_location=LocationTableCollection::getLocation($l_locData->data);
-		if($l_location !== null){
-			$l_id_location=$l_location->id;
+		if(Control::addressServiceEnabled()){
+			$l_location=LocationTableCollection::getLocation($l_locData->data);
+			if($l_location !== null){
+				$l_id_location=$l_location->id;
+			} else {
+				$l_id_location=null;
+			}
 		} else {
 			$l_id_location=null;
 		}
