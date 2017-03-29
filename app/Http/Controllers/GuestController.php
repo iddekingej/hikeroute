@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Support\Facades\Gate;
-use App\Lib\GPXReader;
 use App\Models\Route;
 use App\Models\RouteFile;
-use App\Models\LocationService;
-use App\Models\RouteService;
-use App\Models\RouteTraceService;
+use App\Models\LocationTableCollection;
+use App\Models\RouteTableCollection;
+use App\Models\RouteTraceTableCollection;
 use Illuminate\Http\Request;
 
 class GuestController extends Controller
@@ -24,7 +23,7 @@ class GuestController extends Controller
 		$l_data=[
 				"routes"=>Route::getPublished()
 			,	"title"=>__("All available routes")
-				,	"locations"=>\App\Models\LocationService::topLocations()
+				,	"locations"=>\App\Models\LocationTableCollection::topLocations()
 				,   "tree"=>[]
 				,	"pars"=>""
 				,	"routes"=>[]
@@ -37,11 +36,11 @@ class GuestController extends Controller
 	public function search(Request $p_request)
 	{
 		$l_search=$p_request->input("search");
-		$l_routes=RouteService::search($l_search);
+		$l_routes=RouteTableCollection::search($l_search);
 		$l_data=[
 				"routes"=>Route::getPublished()
 				,	"title"=>__("All available routes")
-				,	"locations"=>\App\Models\LocationService::topLocations()
+				,	"locations"=>\App\Models\LocationTableCollection::topLocations()
 				,   "tree"=>[]
 				,	"pars"=>""
 				,	"routes"=>[]
@@ -63,9 +62,9 @@ class GuestController extends Controller
 			$l_ids[]=$l_id;
 		}
 		$l_id_location=end($l_ids);
-		$l_locations=LocationService::getLocationsByParent($l_id_location);
-		$l_tree=LocationService::getLocationsByArray($l_ids);
-		$l_traces=RouteTraceService::byLocation($l_id_location);
+		$l_locations=LocationTableCollection::getLocationsByParent($l_id_location);
+		$l_tree=LocationTableCollection::getLocationsByArray($l_ids);
+		$l_traces=RouteTraceTableCollection::byLocation($l_id_location);
 		$l_routes=[];
 		foreach($l_traces as $l_trace){
 			$l_routes[]=$l_trace->route()->getResults();

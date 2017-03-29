@@ -1,8 +1,9 @@
 <?php 
 namespace App\Models;
-use App\Lib\TableService;
 
-class RouteService extends TableService
+use App\Lib\TableCollection;
+
+class RouteTableCollection extends TableCollection
 {
 	static protected $model=Route::class;
 	

@@ -1,6 +1,6 @@
 <?php 
 namespace App\Lib;
-class TableService
+class TableCollection
 {
 	static protected $model;
 	

@@ -10,7 +10,7 @@ use App\Models\Route;
 use App\Lib\GPXReader;
 use App\Models\RouteFile;
 use App\Models\Location;
-use App\Models\RouteTraceService;
+use App\Models\RouteTraceTableCollection;
 use App\Models\RouteTrace;
 /**
  * Handles uploading ,deleting, editing etc.. of hiking routes 
@@ -172,7 +172,7 @@ class RoutesController extends Controller
 		try{
 			$l_path=$p_request->file("routefile")->path();
 			$l_content=file_get_contents($l_path);
-			$l_routeTrace=RouteTraceService::addGpxFile($l_content);
+			$l_routeTrace=RouteTraceTableCollection::addGpxFile($l_content);
 		}catch(Exception $l_e){
 			return Redirect::to ( 
 				$p_errorRedirect )->withErrors ( [ 
@@ -305,7 +305,7 @@ class RoutesController extends Controller
 			}
 			try{
 				$l_gpxData=file_get_contents($p_request->file("routefile")->path());				
-				RouteTraceService::updateGpxFile($l_route->routeTrace()->getResults(), $l_gpxData);
+				RouteTraceTableCollection::updateGpxFile($l_route->routeTrace()->getResults(), $l_gpxData);
 			} catch(\Exception $e){
 				return Redirect::to ( "/routes/updategpx/$l_id" )
 				->withErrors ( ["routefile"=>$e->getMessage()])

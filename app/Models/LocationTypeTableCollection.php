@@ -1,9 +1,9 @@
 <?php 
 namespace App\Models;
 
-use App\Lib\TableService;
+use App\Lib\TableCollection;
 
-class LocationTypeService extends TableService
+class LocationTypeTableCollection extends TableCollection
 {
 	static protected $model=LocationType::class;
 	static private $indexedList=null;

@@ -1,10 +1,10 @@
 <?php 
 namespace App\Models;
 
-use App\Lib\TableService;
 use App\Lib\GPXReader;
 use App\Lib\AddressService;
 use App\Lib\Control;
+use App\Lib\TableCollection;
 
 class RouteTraceException extends \Exception
 {
@@ -14,7 +14,7 @@ class RouteTraceException extends \Exception
 	}
 }
 
-class RouteTraceService extends TableService{
+class RouteTraceTableCollection extends TableCollection{
 	static protected $model=RouteTrace::class;
 	
 	public static function updateGpxFile(RouteTrace $p_routeTrace,$p_gpxData)
@@ -26,7 +26,7 @@ class RouteTraceService extends TableService{
 		$l_gpxList=$l_gpxParser->parse($p_gpxData);
 		if(Control::addressServiceEnabled()){
 			$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
-			$l_location=LocationService::getLocation($l_locData->data);
+			$l_location=LocationTableCollection::getLocation($l_locData->data);
 		} else {
 			$l_location=null;
 		}
@@ -45,7 +45,7 @@ class RouteTraceService extends TableService{
 		$l_gpxParser=new GPXReader();
 		$l_gpxList=$l_gpxParser->parse($p_gpxData);
 		$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
-		$l_location=LocationService::getLocation($l_locData->data);
+		$l_location=LocationTableCollection::getLocation($l_locData->data);
 		if($l_location !== null){
 			$l_id_location=$l_location->id;
 		} else {

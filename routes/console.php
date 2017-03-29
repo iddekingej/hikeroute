@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Models\User;
 use App\Models\Right;
 use App\Models\UserRight;
-use App\Models\RouteService;
+use App\Models\RouteTableCollection;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ Artisan::command("cleangpx",function(){
  */
 
 Artisan::command("recalcallgpx",function(){
-	RouteService::recalcAllGpx();
+	RouteTableCollection::recalcAllGpx();
 })->describe("Recalculate all summary information about gpx files");
 
 /**

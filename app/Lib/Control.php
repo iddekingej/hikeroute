@@ -6,7 +6,7 @@ class Control{
 	static function addressServiceEnabled()
 	{
 		if(\Config::get("hr.useAddressService")){
-			if(\App::enviroment("test")){
+			if(\App::runningUnitTests()){
 				return \Config::get("hr.addressServiceOnTest");
 			}
 			return true;

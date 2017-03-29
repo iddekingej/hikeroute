@@ -1,9 +1,9 @@
 <?php 
 namespace App\Models;
 
-use App\Lib\TableService;
+use App\Lib\TableCollection;
 
-class LocationService extends TableService
+class LocationTableCollection extends TableCollection
 {
 	static protected $model=Location::class;
 	static protected $locationTypes=null;
@@ -11,7 +11,7 @@ class LocationService extends TableService
 	private static function getLocationType($p_description)
 	{
 		if(self::$locationTypes==null){
-			self::$locationTypes=LocationTypeService::getIndexedList();
+			self::$locationTypes=LocationTypeTableCollection::getIndexedList();
 		}
 		return self::$locationTypes[$p_description];
 	}
