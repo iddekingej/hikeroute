@@ -6,7 +6,7 @@ class route1Test extends \Tests\TestCase
 {
 	const TRACE1="2_nov._2016_09_01_26.gpx";
 	private $trace;
-	function setUp()
+	function setup()
 	{
 		parent::setup();
 		$l_gpxFileName=self::TRACE1;

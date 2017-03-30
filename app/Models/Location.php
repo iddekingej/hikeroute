@@ -11,6 +11,6 @@ class Location extends Model
 	
 	function parentLocation()
 	{
-		return $this->belongsTo(Model::class,"id_parent");
+		return $this->belongsTo(Location::class,"id_parent");
 	}
 }
