@@ -113,6 +113,7 @@ class Route extends Model
 			return true;
 		}
 		return ($this->publish);
-		
 	}
+	
+		
 }

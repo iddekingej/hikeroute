@@ -23,7 +23,7 @@ class GuestController extends Controller
 		$l_data=[
 				"routes"=>Route::getPublished()
 			,	"title"=>__("All available routes")
-				,	"locations"=>\App\Models\LocationTableCollection::topLocations()
+				,	"locations"=>RouteTableCollection::numRoutesByLocation(null)
 				,   "tree"=>[]
 				,	"pars"=>""
 				,	"routes"=>[]
@@ -40,7 +40,7 @@ class GuestController extends Controller
 		$l_data=[
 				"routes"=>Route::getPublished()
 				,	"title"=>__("All available routes")
-				,	"locations"=>\App\Models\LocationTableCollection::topLocations()
+				,	"locations"=>RouteTableCollection::numRoutesByLocation(null)
 				,   "tree"=>[]
 				,	"pars"=>""
 				,	"routes"=>[]
@@ -62,16 +62,16 @@ class GuestController extends Controller
 			$l_ids[]=$l_id;
 		}
 		$l_id_location=end($l_ids);
-		$l_locations=LocationTableCollection::getLocationsByParent($l_id_location);
+		$l_locations=RouteTableCollection::numRoutesByLocation($l_id_location);
 		$l_tree=LocationTableCollection::getLocationsByArray($l_ids);
-		$l_traces=RouteTraceTableCollection::byLocation($l_id_location);
+		$l_traces= RouteTraceTableCollection::byLocation($l_id_location);
 		$l_routes=[];
 		foreach($l_traces as $l_trace){
 			$l_routes[]=$l_trace->route()->getResults();
 		}
 		$l_data=[
 				"routes"=>Route::getPublished()
-				,	"title"=>__("All available routes")
+				,	"title"=>__("Searching for routes")
 				,	"locations"=>$l_locations				
 				,   "tree"=>$l_tree
 				,	"pars"=>implode("/",$l_ids)."/"

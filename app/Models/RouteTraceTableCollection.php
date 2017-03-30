@@ -46,14 +46,16 @@ class RouteTraceTableCollection extends TableCollection{
 		$l_gpxList=$l_gpxParser->parse($p_gpxData);
 		$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
 		if(Control::addressServiceEnabled()){
-			$l_location=LocationTableCollection::getLocation($l_locData->data);
-			if($l_location !== null){
+			$l_locations=LocationTableCollection::getLocation($l_locData->data);
+			if($l_locations !== null){
+				$l_location=end($l_locations);
 				$l_id_location=$l_location->id;
 			} else {
 				$l_id_location=null;
 			}
 		} else {
 			$l_id_location=null;
+			$l_locations=null;
 		}
 		$l_routeFile=RouteFile::create(["gpxdata"=>$p_gpxData]);
 		$l_info=$l_gpxList->getInfo();
@@ -69,14 +71,19 @@ class RouteTraceTableCollection extends TableCollection{
 		,	"distance"=>$l_info->distance
 		,	"id_user"=>\Auth::user()->id
 		]);
+		if($l_locations){
+			TraceLocationTableCollection::addTraceLocations($l_trace, $l_locations);
+		}
 		return $l_trace;
 	}
 	
 	
 	static function byLocation($p_id)
 	{
-		return static::whereOrderBy("id_location","=", $p_id, "id");
+		return static::whereOrderBy("id_location","=", $p_id, "id","position");
 	}
+	
+
 }
 
 ?>

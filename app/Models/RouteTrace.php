@@ -68,4 +68,9 @@ class RouteTrace extends Model
 	{
 		return $this->belongsTo(Location::class,"id_location");
 	}
+	
+	function getLocations()
+	{
+		return TraceLocationTableCollection::getByTrace($this);
+	}
 }

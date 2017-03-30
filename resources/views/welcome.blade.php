@@ -5,7 +5,7 @@
 $l_cnt=1;
 $l_pars=""
 ?>
-<div><a href="/location/">{{ __("World") }}</a></div>
+<div><a href="/">{{ __("World") }}</a></div>
 @foreach($tree as $location)
 
 <div style='padding-left:{{ 5*$l_cnt}}px'><a href="/location/{{$l_pars}}{{$location->id}}">{{ $location->name }}</a></div>
@@ -14,9 +14,9 @@ $l_pars=""
 	$l_pars .= $location->id."/"; 
 	?> 
 @endforeach
-@foreach($locations as $location)
+@foreach($locations as $l_lrn)
 <?php  ?>
-<div style='padding-left:{{ 5*$l_cnt }}px'><a href="/location/{{$pars}}{{$location->id}}">{{ $location->name }}</a></div>
+<div style='padding-left:{{ 5*$l_cnt }}px'><a href="/location/{{$pars}}{{ $l_lrn->id }}">{{ $l_lrn->name }}({{ $l_lrn->num }})</a></div>
 @endforeach
 &nbsp<?php \App\Lib\Page::dcContentHeader()?>
 {!! Form::open(["route"=>["routes.search"]]) !!}

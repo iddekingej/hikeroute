@@ -41,11 +41,13 @@ class LocationTableCollection extends TableCollection
 	{
 		$l_id_parent=null;
 		$l_location=null;
+		$l_locations=[];
 		foreach($p_data as $l_type=>$l_name){
 			$l_location=self::getLocationModel($l_id_parent,$l_type,$l_name);
+			$l_locations[]=$l_location;
 			$l_id_parent=$l_location->id;
 		}
-		return $l_location;
+		return $l_locations;
 	}
 	
 	static function topLocations()
