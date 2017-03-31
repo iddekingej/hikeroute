@@ -1,10 +1,13 @@
 @extends("layouts.page")
 @section("content")
-<?php \App\Lib\Page::dcHeader()?>
-<?php  
-$l_cnt=1;
-$l_pars=""
+
+
+<?php 	
+	\App\Vc\RouteVC::routeSearch();	
+	$l_cnt=1;
+	$l_pars=""
 ?>
+<div class="main_graybox">
 <div><a href="/">{{ __("World") }}</a></div>
 @foreach($tree as $location)
 
@@ -18,19 +21,12 @@ $l_pars=""
 <?php  ?>
 <div style='padding-left:{{ 5*$l_cnt }}px'><a href="/location/{{$pars}}{{ $l_lrn->id }}">{{ $l_lrn->name }}({{ $l_lrn->num }})</a></div>
 @endforeach
-&nbsp<?php \App\Lib\Page::dcContentHeader()?>
-{!! Form::open(["route"=>["routes.search"]]) !!}
-<div class="main_search_container">
-<span>{!! Form::label("search",__("Search")) !!}</span><br/>
-<div class="main_search_input_container">
-{!! Form::text("search","",["class"=>"main_search_input"]) !!}
-{!! Form::submit(__("Search")) !!}
-{!! Form::close() !!}
 </div>
-</div>
+
 @foreach($routes as $l_route)
 
 <div class="routeall_title">{{ $l_route->title}}</div>
+
 <div class="routeall_body">
 <table class="routeall_infoTable">
 <tr>
@@ -47,5 +43,4 @@ $l_pars=""
 </pre>
 </div>
 @endforeach
-<?php \App\Lib\Page::dcFooter()?>
 @endsection

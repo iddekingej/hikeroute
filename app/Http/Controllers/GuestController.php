@@ -65,7 +65,10 @@ class GuestController extends Controller
 		$l_traces= RouteTraceTableCollection::byLocation($l_id_location);
 		$l_routes=[];
 		foreach($l_traces as $l_trace){
-			$l_routes[]=$l_trace->route();
+			$l_route=$l_trace->route();
+			if($l_route){
+				$l_routes[]=$l_route;
+			}
 		}
 		$l_data=[
 					"title"=>__("Searching for routes")
