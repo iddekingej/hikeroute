@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -9,12 +9,17 @@ class TraceLocation extends Model
 	protected $table="tracelocations";
 	protected $fillable =["id_location","id_routetrace","position"];
 	
-	function getRouteTrace()
+	/**
+	 * Get the RouteTrace to which the Trace location belongs to
+	 * @return RouteTrace
+	 */
+	
+	function getRouteTrace():RouteTrace
 	{
 		return self::belongsTo(RouteTrace::class,"id_routetrace")->getResults();	
 	}
 	
-	function getLocation()
+	function getLocation():Location
 	{
 		return self::belongsTo(Location::class,"id_location")->getResults();
 	}

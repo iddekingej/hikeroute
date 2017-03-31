@@ -3,7 +3,7 @@ namespace App\Lib;
 
 class Control{
 	
-	static function addressServiceEnabled()
+	static function addressServiceEnabled():bool
 	{
 		if(\Config::get("hr.useAddressService")){
 			if(\App::runningUnitTests()){

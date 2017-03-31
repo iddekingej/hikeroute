@@ -17,17 +17,18 @@ class RouteTraceException extends \Exception
 class RouteTraceTableCollection extends TableCollection{
 	static protected $model=RouteTrace::class;
 	
-	public static function updateGpxFile(RouteTrace $p_routeTrace,$p_gpxData)
+	public static function updateGpxFile(RouteTrace $p_routeTrace,string $p_gpxData):void
 	{
-		$l_routeFile=$p_routeTrace->routeFile()->getResults();
+		$l_routeFile=$p_routeTrace->routeFile();
 		$l_routeFile->gpxdata=$p_gpxData;
 		$l_routeFile->save();
 		$l_gpxParser=new GPXReader();
 		$l_gpxList=$l_gpxParser->parse($p_gpxData);
 		if(Control::addressServiceEnabled()){
 			$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
-			$l_location=LocationTableCollection::getLocation($l_locData->data);
-			if($l_location !== null){
+			$l_locations=LocationTableCollection::getLocation($l_locData->data);
+			if($l_locations !== null){
+				$l_location=end($l_locations);				
 				$l_id_location=$l_location->id;
 			} else {
 				$l_id_location=null;
@@ -40,7 +41,7 @@ class RouteTraceTableCollection extends TableCollection{
 		$p_routeTrace->setByGPX($l_gpxList);
 	}
 	
-	public static function addGpxFile($p_gpxData)
+	public static function addGpxFile(string $p_gpxData):?RouteTrace
 	{
 		$l_gpxParser=new GPXReader();
 		$l_gpxList=$l_gpxParser->parse($p_gpxData);
@@ -76,13 +77,14 @@ class RouteTraceTableCollection extends TableCollection{
 		}
 		return $l_trace;
 	}
-	
-	
-	static function byLocation($p_id)
+	static function byLocation($p_id_location)
 	{
-		return static::whereOrderBy("id_location","=", $p_id, "id","position");
+		$l_traces=[];
+		foreach(TraceLocationTableCollection::byLocation($p_id_location) as $l_tc){
+			$l_traces[]=$l_tc->getRouteTrace();
+		}
+		return $l_traces;
 	}
-	
 
 }
 

@@ -25,6 +25,7 @@
 	</td>
 </tr>
 @foreach($routes as $l_route)
+<?php $l_trace=$l_route->routeTrace();?>
 <tr>
 	<td class="table_cell">
 	</td>
@@ -37,10 +38,10 @@
 			{{ $l_route->created_at->format('d-m-Y') }}
 	</td>
 	<td class="table_cell">
-			{{ $l_route->routeTrace()->getResults()->startdate }}
+			{{ $l_trace->startdate }}
 	</td>
 	<td class="table_cell">
-			{{ round($l_route->routeTrace()->getResults()->distance)/1000 }}km
+			{{ round($l_trace->distance)/1000 }}km
 	</td>
 	<td class="table_cell">
 			{{ $l_route->publish?__("Yes"):"" }}

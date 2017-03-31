@@ -12,6 +12,7 @@ use App\Models\RouteFile;
 use App\Models\Location;
 use App\Models\RouteTraceTableCollection;
 use App\Models\RouteTrace;
+use App\Lib\GPXList;
 /**
  * Handles uploading ,deleting, editing etc.. of hiking routes 
 */
@@ -47,7 +48,7 @@ class RoutesController extends Controller
 	 * @return \App\Lib\GPXList Information from the gpxdata
 	 */
 	
-	function getRouteInfo(RouteFile $p_routeFile)
+	function getRouteInfo(RouteFile $p_routeFile):GPXList
 	{
 		$l_gpxParser=new GPXReader();
 		$l_gpx=$l_gpxParser->parse($p_routeFile->gpxdata);
@@ -174,9 +175,8 @@ class RoutesController extends Controller
 			$l_content=file_get_contents($l_path);
 			$l_routeTrace=RouteTraceTableCollection::addGpxFile($l_content);
 		}catch(Exception $l_e){
-			return Redirect::to ( 
-				$p_errorRedirect )->withErrors ( [ 
-					"routefile" =>$l_e->getMessage() 
+			return Redirect::to ("/routes/new/" )->withErrors ( [ 
+					"routefile" =>$l_e->getMessage()
 				] )->withInput ( $p_request->all () );
 
 		}
@@ -199,7 +199,7 @@ class RoutesController extends Controller
 			return $this->displayError(__("attach this route file to a route"));
 		}
 		
-		if($l_routeTrace->route()->getResults()){
+		if($l_routeTrace->route()){
 			
 			return $this->displayError(__("route file already attached to route"));
 		}
@@ -209,10 +209,10 @@ class RoutesController extends Controller
 				"id" => "",			
 				"id_routefile"=>$l_routeTrace->id_routefile,
 				"id_routetrace"=>$l_routeTrace->id,
-				"routeTitle" => $l_routeTrace->location()->getResults()->name,
+				"routeTitle" => $l_routeTrace->getLocationString(),
 				"comment" => "",
 				"info"=>$l_routeTrace,
-				"routeLocation"=>$l_routeTrace->location()->getResults()->name,
+				"routeLocation"=>$l_routeTrace->getLocationString(),
 				"publish"=>false
 				
 		];
@@ -305,7 +305,7 @@ class RoutesController extends Controller
 			}
 			try{
 				$l_gpxData=file_get_contents($p_request->file("routefile")->path());				
-				RouteTraceTableCollection::updateGpxFile($l_route->routeTrace()->getResults(), $l_gpxData);
+				RouteTraceTableCollection::updateGpxFile($l_route->routeTrace(), $l_gpxData);
 			} catch(\Exception $e){
 				return Redirect::to ( "/routes/updategpx/$l_id" )
 				->withErrors ( ["routefile"=>$e->getMessage()])
@@ -329,7 +329,7 @@ class RoutesController extends Controller
 	{
 		$this->checkInteger($p_id);
 		$l_route=Route::findOrFail($p_id);
-		$l_routeTrace=$l_route->routetrace()->getResults();
+		$l_routeTrace=$l_route->routetrace();
 		if(Gate::allows("edit-route",$l_route)){
 			$l_data = [
 					"title" => __("Edit route"),

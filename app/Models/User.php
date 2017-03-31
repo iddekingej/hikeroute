@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
@@ -57,7 +57,7 @@ class User extends Authenticatable
      */
     function userRights()
     {
-    	return $this->hasMany(UserRight::class,"id_user");
+    	return $this->hasMany(UserRight::class,"id_user")->getResults();
     }
     
     /**
@@ -78,8 +78,8 @@ class User extends Authenticatable
     private function checkHasRight($p_tag)
     {    	
     	$l_userRights=$this->userRights();
-    	foreach($l_userRights->get() as $l_userRight){
-    		if($l_userRight->right()->getResults()->tag==$p_tag){
+    	foreach($l_userRights as $l_userRight){
+    		if($l_userRight->right()->tag==$p_tag){
     			return true;
     		}
     	}

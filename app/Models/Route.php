@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -25,29 +25,24 @@ class Route extends Model
 							,"id_routetrace"
 	];
 	
-	function location()
-	{
-		return $this->belongsTo(Location::class,"id_location");
-	}
-	
 	/**
 	 * Get the user to which the route belongs to (=has posted)
 	 * 
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 * @return User
 	 */
-	function user()
+	function user():User
 	{
-		return $this->belongsTo(User::class,"id_user");
+		return $this->belongsTo(User::class,"id_user")->getResults();
 	}
 	
 	/**
 	 * Contents of the route file 
 	 * 
-	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+	 * @return RouteTrace
 	 */
-	function routeTrace()
+	function routeTrace():RouteTrace
 	{
-		return $this->belongsTo(RouteTrace::class,"id_routetrace");
+		return $this->belongsTo(RouteTrace::class,"id_routetrace")->getResults();
 	}
 	
 	
@@ -58,17 +53,17 @@ class Route extends Model
 	 * @return boolean    true - user
 	 */
 	
-	static function userHasRoutes(User $p_user)
+	static function userHasRoutes(User $p_user):bool
 	{
 		return self::where("id_user","=",$p_user->id)->limit(1)->get()->isEmpty();
 	}
 	/**
 	 * Recalc data from gpx file,like min,max lat/lon and distance 
 	 */
-	function recalcGPX()
+	function recalcGPX():void
 	{
 
-		$l_routeTrace=$this->routeTrace()->getResults();		
+		$l_routeTrace=$this->routeTrace();		
 		if($l_routeTrace){
 			$l_routeTrace->recalcGPX();
 		}
@@ -83,17 +78,16 @@ class Route extends Model
 	 * Delete route and all depended data
 	 * (RouteTrace and routeFile)
 	 */
-	function deleteDepended()
+	function deleteDepended():void
 	{
-			$l_routeTrace=$this->routeTrace()->getResults();
-			$l_routeFile=$l_routeTrace->routeFile()->getResults();
-			$this->delete();
-			$l_routeTrace->delete();
+			$l_routeTrace=$this->routeTrace();
+			$l_routeFile=$l_routeTrace->routeFile();
+			$this->delete();			
+			$l_routeTrace->deleteDepend();
 			$l_routeFile->delete();
-		
 	}
 	
-	function canCurrentShow()
+	function canCurrentShow():bool
 	{
 		if($this->publish==1){
 			return true;
@@ -104,7 +98,7 @@ class Route extends Model
 		return false;
 	}
 	
-	function canShow(\App\Models\User $p_user)
+	function canShow(\App\Models\User $p_user):bool
 	{
 		if($p_user->isAdmin()){
 			return true;

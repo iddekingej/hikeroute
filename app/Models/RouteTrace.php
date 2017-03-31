@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -19,16 +19,24 @@ class RouteTrace extends Model
 	{
 		return $this->belongsTo(User::class,"id_user");
 	}
-	
-	function recalcGpx(){
+	/**
+	 * Recalculate summary infornation about GPX trace files
+	 */
+	function recalcGpx():void
+	{
 		$l_content=$this->routeFile()->getResults()->gpxdata;
 		$l_gpxParser=new GPXReader();
 		$l_gpxList=$l_gpxParser->parse($l_content);
 		$this->setByGPX($l_gpxList);
 	}
 	
+	/**
+	 * Set gpx trace summary information by a  GPXList object.
+	 * 
+	 * @param GPXList $p_gpxList
+	 */
 
-	function setByGPX(GPXList $p_gpxList)
+	function setByGPX(GPXList $p_gpxList):void
 	{
 		$l_gpxInfo=$p_gpxList->getInfo();
 		$this->minlon=$l_gpxInfo->minLon;
@@ -47,7 +55,7 @@ class RouteTrace extends Model
 	 */
 	function route()
 	{
-		return $this->hasOne(Route::class,"id_routetrace");
+		return $this->hasOne(Route::class,"id_routetrace")->getResults();
 	}
 	
 	/**
@@ -57,20 +65,27 @@ class RouteTrace extends Model
 	 */
 	function routeFile()
 	{
-		return $this->belongsTo(RouteFile::class,"id_routefile");
+		return $this->belongsTo(RouteFile::class,"id_routefile")->getResults();
 	}
 	
-	/**
-	 * Get location information.
-	 * @return unknown
-	 */
-	function location()
+	
+	function getLocationString():string
 	{
-		return $this->belongsTo(Location::class,"id_location");
+		$l_return ="";
+		foreach($this->getLocations() as $l_location){
+			$l_return .= "/".$l_location->getLocation()->name;
+		}
+		return $l_return;
 	}
 	
 	function getLocations()
 	{
 		return TraceLocationTableCollection::getByTrace($this);
+	}
+	
+	function deleteDepend()
+	{
+		TraceLocationTableCollection::deleteByTrace($this);
+		$this->delete();
 	}
 }

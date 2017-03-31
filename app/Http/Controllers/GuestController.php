@@ -21,8 +21,7 @@ class GuestController extends Controller
 	public function start()
 	{
 		$l_data=[
-				"routes"=>Route::getPublished()
-			,	"title"=>__("All available routes")
+			 		"title"=>__("All available routes")
 				,	"locations"=>RouteTableCollection::numRoutesByLocation(null)
 				,   "tree"=>[]
 				,	"pars"=>""
@@ -38,8 +37,7 @@ class GuestController extends Controller
 		$l_search=$p_request->input("search");
 		$l_routes=RouteTableCollection::search($l_search);
 		$l_data=[
-				"routes"=>Route::getPublished()
-				,	"title"=>__("All available routes")
+					"title"=>__("All available routes")
 				,	"locations"=>RouteTableCollection::numRoutesByLocation(null)
 				,   "tree"=>[]
 				,	"pars"=>""
@@ -51,7 +49,7 @@ class GuestController extends Controller
 	}
 	
 	
-	public function location($p_id1,$p_id2=null,$p_id3=null,$p_id4=null)
+	public function location(int $p_id1,int $p_id2=null,int $p_id3=null,int $p_id4=null)
 	{
 		$l_ids=[];
 		$l_args=func_get_args();
@@ -67,11 +65,10 @@ class GuestController extends Controller
 		$l_traces= RouteTraceTableCollection::byLocation($l_id_location);
 		$l_routes=[];
 		foreach($l_traces as $l_trace){
-			$l_routes[]=$l_trace->route()->getResults();
+			$l_routes[]=$l_trace->route();
 		}
 		$l_data=[
-				"routes"=>Route::getPublished()
-				,	"title"=>__("Searching for routes")
+					"title"=>__("Searching for routes")
 				,	"locations"=>$l_locations				
 				,   "tree"=>$l_tree
 				,	"pars"=>implode("/",$l_ids)."/"
@@ -88,18 +85,18 @@ class GuestController extends Controller
 	 * @return \Illuminate\View\View View to  display 
 	 */
 	
-	function displayRoute($p_id)
+	function displayRoute(int $p_id)
 	{
 		$l_route=Route::findOrFail($p_id);
 		if(!$l_route->canCurrentShow()){
 			return View("errors.notallowed",["message"=>__("To view this route")]);
 		}
-		$l_routeTrace=$l_route->routeTrace()->getResults();
+		$l_routeTrace=$l_route->routeTrace();
 		$l_data=[
 		"id"=>$p_id
 		,"route"=>$l_route
 		,"canEdit"=>Gate::allows("edit-route",$l_route)
-		,"creator"=>$l_route->user()->getResults()->name
+		,"creator"=>$l_route->user()->name
 		,"uploadDate"=>$l_route->created_at
 		,"route"=>$l_route
 		,"routetrace"=>$l_routeTrace

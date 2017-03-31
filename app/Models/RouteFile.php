@@ -21,7 +21,7 @@ class RouteFile extends Model{
 	 */	
 	function route()
 	{
-		return $this->belongsTo(Route::class,"id","id_routefile");
+		return $this->belongsTo(Route::class,"id","id_routefile")->getResults();
 	}
 	
 

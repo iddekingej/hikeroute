@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use App\Lib\TableCollection;
+use Illuminate\Database\Eloquent\Collection;
 
 class LocationTableCollection extends TableCollection
 {
@@ -37,7 +38,7 @@ class LocationTableCollection extends TableCollection
 		}
 	}
 	
-	static function getLocation(Array $p_data)
+	static function getLocation(Array $p_data):Array
 	{
 		$l_id_parent=null;
 		$l_location=null;
@@ -50,23 +51,24 @@ class LocationTableCollection extends TableCollection
 		return $l_locations;
 	}
 	
-	static function topLocations()
+	/**
+	 * get the "top" locations (with out parent locations)=list of countries.
+	 * @return array
+	 */
+	static function topLocations():Array
 	{
 		return static::whereNull("id_parent")->orderBy("name")->get();
 	}
 	
-	static function getLocationsByArray(Array $p_ids)
+	/**
+	 * Translate location id's to locations
+	 * @param array $p_ids
+	 * @return array
+	 */
+	static function getLocationsByArray(Array $p_ids):Collection
 	{
-		$l_locations=[];
-		foreach($p_ids as $l_id){
-			$l_locations[]=Location::findOrFail($l_id);
-		}
-		return $l_locations;
+		return static::whereIn("id",$p_ids)->get();
 	}
-	
-	static function getLocationsByParent($p_id_parent)
-	{
-		return self::whereOrderBy("id_parent", "=", $p_id_parent,"name");
-	}
+
 }
 

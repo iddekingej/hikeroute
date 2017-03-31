@@ -67,7 +67,7 @@ class AdminController extends Controller
 		
 		$l_rights=$this->getRightsArray();
 		$l_userRights=$p_user->userRights();
-		foreach ( $l_userRights->getResults() as $l_userRight ) {
+		foreach ( $l_userRights as $l_userRight ) {
 			$l_rights[$l_userRight->id_right][1] = true;
 		}		
 		

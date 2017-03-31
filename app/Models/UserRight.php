@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +30,7 @@ class UserRight extends Model
    
    function right()
    {
-   		return $this->belongsTo(Right::class,"id_right");
+   		return $this->belongsTo(Right::class,"id_right")->getResults();
    }
    
    /**

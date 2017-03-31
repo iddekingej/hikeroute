@@ -8,7 +8,7 @@ class LocationTypeTableCollection extends TableCollection
 	static protected $model=LocationType::class;
 	static private $indexedList=null;
 	
-	static function getIndexedList()
+	static function getIndexedList():Array
 	{
 		if(self::$indexedList===null){
 			self::$indexedList=self::indexArray("description","id", "sequence");

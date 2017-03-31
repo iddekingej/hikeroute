@@ -1,13 +1,13 @@
 <?php 
+declare(strict_types=1);
 namespace App\Lib;
 class TableCollection
 {
 	static protected $model;
 	
-	static function indexArray($p_index,$p_field,$p_orderBy)
+	static function indexArray($p_index,$p_field,$p_orderBy):Array
 	{
-		$l_model=static::$model;
-		$l_data=$l_model::orderBy($p_orderBy,"asc")->get([$p_index,$p_field]);
+		$l_data=static::$model::orderBy($p_orderBy,"asc")->get([$p_index,$p_field]);
 		$l_indexedList=[];
 
 		foreach($l_data as $l_row){
@@ -18,20 +18,22 @@ class TableCollection
 	
 	static function chunk($p_num,callable $p_function)
 	{
-		$l_model=static::$model;
-		$l_model::chunk($p_num,$p_function);
+		static::$model::chunk($p_num,$p_function);
 	}
 	
 	static function whereNull($p_field)
 	{
-		$l_model=static::$model;
-		return $l_model::whereNull($p_field);
+		return static::$model::whereNull($p_field);
+	}
+
+	static function whereIn($p_field,Array $p_data)
+	{
+		return static::$model::whereIn($p_field,$p_data);
 	}
 	
 	static function where($p_field,$p_comp,$p_value)
-	{
-		$l_model=static::$model;
-		return $l_model::where($p_field,$p_comp,$p_value);
+	{		
+		return static::$model::where($p_field,$p_comp,$p_value);
 	}
 	/**
 	 * Todo whereget
@@ -41,9 +43,8 @@ class TableCollection
 	 * @param unknown $p_orderBy
 	 */
 	static function whereOrderBy($p_id,$p_comp,$p_value,$p_orderBy)
-	{
-		$l_model=static::$model;
-		return $l_model::where($p_id,$p_comp,$p_value)->orderBy($p_orderBy)->get();
+	{		
+		return static::$model::where($p_id,$p_comp,$p_value)->orderBy($p_orderBy)->get();
 	}
 }
 

@@ -1,4 +1,6 @@
 <?php 
+declare(strict_types=1);
+
 namespace App\Lib;
 
 class GPXList{
@@ -18,12 +20,12 @@ class GPXList{
 	
 	
 	
-	function getList()
+	function getList():Array
 	{
 		return $this->list;
 	}
 	
-	function getStart()
+	function getStart():GPXPoint
 	{
 		return reset($this->list);
 	}

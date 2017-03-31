@@ -37,7 +37,7 @@ $l_pars=""
 	<td class="routeall_infoLabel">{{ __("Location") }} </td><td class="routeall_infoValue">{{ $l_route->location }} </td>
 </tr>
 <tr>
-	<td class="routeall_infoLabel">{{ __("Added by") }}</td><td class="routeall_infoValue">{{ $l_route->user()->getResults()->name }} </td>
+	<td class="routeall_infoLabel">{{ __("Added by") }}</td><td class="routeall_infoValue">{{ $l_route->user()->name }} </td>
 </tr>
 </table>
 <br/>

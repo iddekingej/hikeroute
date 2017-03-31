@@ -1,4 +1,6 @@
 <?php 
+declare(strict_types=1);
+
 namespace App\Lib;
 
 /**
@@ -24,7 +26,7 @@ class GPXPoint
 	 * When date value is empty or there is not 'T' in the date text a empty string is returned
 	 * @return string
 	 */
-	function getDatePart()
+	function getDatePart():string
 	{
 		$l_pos=strpos($this->timestamp,"T");
 		if($l_pos !== false){

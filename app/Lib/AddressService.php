@@ -1,4 +1,5 @@
 <?php 
+declare(strict_types=1);
 namespace App\Lib;
 
 class AddressService{
@@ -22,10 +23,10 @@ class AddressService{
 		return null;
 	}
 	
-	static function locationStringFromGPX(GPXPoint $p_point)
+	static function locationStringFromGPX(GPXPoint $p_point):?Address
 	{
 		$l_location=self::fromGPX($p_point);
-		$l_result=[];
+		
 		$l_address=new Address();
 		if($l_location){
 			$l_data=$l_location->address;
@@ -52,14 +53,14 @@ class AddressService{
 	}
 	
 	/**
-	 * Location name from position.
+	 * Location info from position.
 	 * Same as @see AddressService::fromLocation
 	 * 
 	 * @param GPXPoint $p_point
-	 * @return String description
+	 * @return \stdClass Location info
 	 */
 	
-	static function fromGpx(GPXPoint $p_point)
+	static function fromGpx(GPXPoint $p_point):?\stdClass
 	{
 		return self::fromLocation($p_point->lat,$p_point->lon);
 	}
