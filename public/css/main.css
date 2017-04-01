@@ -42,31 +42,43 @@ body,input,table,tr,td,textarea{
 	text-align:center;
 	width:100%;
 	color:#777;
-	background-color:#eee;
 	padding-top:20px;
 	padding-bottom:20px;
 	margin-left:10px;
 	margin-top:10px;
 	margin-right:10px;
+	border-radius:10px;
 }
 
 .main_graybox
 {
 	width:100%;
 	color:#777;
-	background-color:#eee;
 	padding-left:5px;
 	padding-top:20px;
 	padding-bottom:20px;
 	margin-left:10px;
 	margin-top:10px;
 	margin-right:10px;
+	border-radius:10px;
 }
 
 .main_search_input_containeer{
 	margin-left:auto;
 	margin-right:auto;
 	margin-top:20px;
+}
+
+.main_part_title{
+	text-align:center;
+	color:#777;
+	font-size:13px;
+	border-bottom:solid 1px #666;
+}
+
+.main_selected_locations{
+	padding-top:10px;
+	padding-bottom:5px;
 }
 
 .main_search_input{
