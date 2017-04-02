@@ -78,21 +78,6 @@ class RouteTraceTableCollection extends TableCollection{
 		return $l_trace;
 	}
 	
-	/**
-	 * Get traces belonging to a location
-	 * 
-	 * @param int $p_id_location
-	 * @return Array
-	 */
-	static function byLocation($p_id_location):Array
-	{
-		$l_traces=[];
-		foreach(TraceLocationTableCollection::byLocation($p_id_location) as $l_tc){
-			$l_traces[]=$l_tc->getRouteTrace();
-		}
-		return $l_traces;
-	}
-
 }
 
 ?>

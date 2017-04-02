@@ -37,8 +37,31 @@ class RouteTableCollection extends TableCollection
 	static function search(string $p_term):Collection
 	{
 		$l_term="%$p_term%";
-		return static::where("title","like",$l_term)->orWhere("location","like",$l_term)->orWhere("comment","like",$l_term)->get();
+		$l_qry=static::$model::orWhere(
+				function($p_query) use($l_term){
+					$p_query->orWhere("title","like",$l_term)
+					        ->orWhere("location","like",$l_term)
+							->orWhere("comment","like",$l_term);
+				})	;
+		return static::authQry($l_qry)->get();		
 	}
+	
+	private static function authQry($p_query)
+	{
+		$l_qry=$p_query;
+		if(\Auth::check()){
+			if(!\Auth::user()->isAdmin()){
+				$l_qry=$l_qry->orWhere(function($p_qry){
+					$p_qry->where("published","=",1);
+					$p_qry->where("id_user","=",\Auth::user()->id);
+				});
+			}
+		} else {
+			$l_qry=$l_qry->where("publish","=",1);
+		}
+		return $l_qry;
+	}
+	
 	/**
 	 * Get location and number of routes for a location with parent $p_id_parent
 	 * 
@@ -47,13 +70,42 @@ class RouteTableCollection extends TableCollection
 	 */
 	static function numRoutesByLocation($p_id_parent):Array
 	{
+		$l_data=[];
+		$l_qry="select l.id,l.name,count(1) num from routes r join routetraces t on (r.id_routetrace=t.id) join tracelocations tl on(t.id=tl.id_routetrace) join locations l on (tl.id_location=l.id)  where";
 		if($p_id_parent === null){
-			return \DB::select(\DB::raw("select l.id,l.name,count(1) num from routes r join routetraces t on (r.id_routetrace=t.id) join tracelocations tl on(t.id=tl.id_routetrace) join locations l on (tl.id_location=l.id) where l.id_parent is null  group by l.name,l.id order by l.name"));
+			$l_qry .= " l.id_parent is null";
 		} else {
-			return \DB::select(\DB::raw("select l.id,l.name,count(1) num from routes r join routetraces t on (r.id_routetrace=t.id) join tracelocations tl on(t.id=tl.id_routetrace) join locations l on (tl.id_location=l.id) where l.id_parent=:id  group by l.name,l.id order by l.name"),["id"=>$p_id_parent]);
+			$l_qry .= " l.id_parent=:id_parent";
+			$l_data["id_parent"]=$p_id_parent;
 		}
+		$l_auth="";
+		if(\Auth::check()){
+			if(!\Auth::user()->isAdmin()){
+				$l_auth="r.id_user=:id_user or r.publish=1";
+				$l_data["id_user"]=\Auth::user()->id;
+			}
+		} else {
+			$l_auth="publish=1";	
+		}
+		if($l_auth){
+			$l_qry .= " and ($l_auth)";
+		}
+		$l_qry .= " group by l.id,l.name";
+		return\DB::select(\DB::raw($l_qry),$l_data);
 	}
-	
+	/** Accessable */
+	static function getAccessibleByLocation($p_id_location){
+		$l_qry=self::$model::whereExists(function($p_query) use($p_id_location){
+			$p_query->select(\DB::raw(1))
+				->from("routetraces as rt")
+				->join("tracelocations as tl","tl.id_routetrace","=","rt.id")
+				->whereRaw("rt.id=routes.id_routetrace")
+				->where("tl.id_location","=",$p_id_location);
+		});
+		$l_qry=static::authQry($l_qry);
+
+		return $l_qry->get();
+	}
 	
 }
 ?>

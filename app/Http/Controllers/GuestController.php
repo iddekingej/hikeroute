@@ -63,14 +63,7 @@ class GuestController extends Controller
 		$l_id_location=end($l_ids);
 		$l_locations=RouteTableCollection::numRoutesByLocation($l_id_location);
 		$l_tree=LocationTableCollection::getLocationsByArray($l_ids);
-		$l_traces= RouteTraceTableCollection::byLocation($l_id_location);
-		$l_routes=new Collection();
-		foreach($l_traces as $l_trace){
-			$l_route=$l_trace->route();
-			if($l_route){
-				$l_routes->add($l_route);				
-			}
-		}
+		$l_routes=RouteTableCollection::getAccessibleByLocation($l_id_location);
 		$l_data=[
 					"title"=>__("Searching for routes")
 				,	"locations"=>$l_locations				

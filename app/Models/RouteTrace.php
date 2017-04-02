@@ -54,7 +54,7 @@ class RouteTrace extends Model
 	 * 
 	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
 	 */
-	function route():Route
+	function route():?Route
 	{
 		return $this->hasOne(Route::class,"id_routetrace")->getResults();
 	}
