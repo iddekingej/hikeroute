@@ -45,7 +45,7 @@ class User extends Authenticatable
      * @param bool $p_checkPassword
      * @return unknown
      */
-    static function validateRequest(Request $p_request,$p_id,$p_checkPassword)
+    static function validateRequest(Request $p_request,int $p_id,bool $p_checkPassword)
     {
     	$l_rules=[
     			"email"=>["required","email",Rule::unique("users")->ignore($p_id)]

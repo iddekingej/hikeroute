@@ -12,7 +12,7 @@ class RouteTableCollection extends TableCollection
 	 * Recalculate summary information of all routes
 	 * Called from command line with artisan 
 	 */
-	static function recalcAllGpx()
+	static function recalcAllGpx():void
 	{
 		self::chunk(10,function($p_routes){
 			foreach($p_routes as $l_route){

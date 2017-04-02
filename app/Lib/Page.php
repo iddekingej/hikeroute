@@ -54,17 +54,22 @@ class Page extends ViewComponent{
 		<?php 	
 	}
 	
-	static function iconConfirm($p_message,$p_url,$p_image)
+	/**
+	 * After clicking a icon, a confirmation message is displayed
+	 * After pressing "yes"   
+	 * 
+	 * @param unknown $p_message   Confirmation message to display
+	 * @param unknown $p_url       Url to go after click + confirmation
+	 * @param unknown $p_image     Url of icon/image
+	 */
+	
+	static function iconConfirm(string $p_message,string $p_url,string $p_image):void
 	{
 		$l_js=self::confirmJs($p_message,$p_url);
 		?><span class="deleteIcon" onclick="<?=self::e($l_js)?>"><img src='<?=self::e($p_image)?>'></span><?php
 	}	
 	
-	static function editLink($p_route,Array $p_parameters,$p_message)
-	{
-		?><a href="<?=self::e(route($p_route,$p_parameters))?>"><img src='<?=self::e(\App\Lib\Icons::EDIT)?>'/><?=self::e($p_message)?></a><?php 
-	}
-	
+
 	//Dual column layout
 	//Left an menu and right the content
 	/**

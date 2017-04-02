@@ -19,7 +19,7 @@ class RouteFile extends Model{
 	 * 
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */	
-	function route()
+	function route():Route
 	{
 		return $this->belongsTo(Route::class,"id","id_routefile")->getResults();
 	}
@@ -30,7 +30,7 @@ class RouteFile extends Model{
 	 * 
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	function user()
+	function user():User
 	{
 		return $this->belongsTo(User::class,"id_user");
 	}

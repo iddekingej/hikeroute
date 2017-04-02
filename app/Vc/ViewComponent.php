@@ -52,5 +52,17 @@ class ViewComponent
 	{
 		self::link(Route($p_route,$p_data),$p_text);	
 	}
+	
+	/**
+	 * Print html link with edit icon and a text
+	 * 
+	 * @param string $p_route
+	 * @param array $p_parameters
+	 * @param string $p_message
+	 */
+	static function editLink(string $p_route,Array $p_parameters,string $p_message):void
+	{
+		?><a href="<?=self::e(route($p_route,$p_parameters))?>"><img src='<?=self::e(\App\Lib\Icons::EDIT)?>'/><?=self::e($p_message)?></a><?php
+	}
 }
 ?>

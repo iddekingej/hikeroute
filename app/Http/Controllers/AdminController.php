@@ -1,4 +1,5 @@
 <?php 
+declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class AdminController extends Controller
 		return view("admin.userlist",["users"=>\App\Models\User::orderBy("name")->get()]);
 	}
 	
-	private function getRightsArray()
+	private function getRightsArray():array
 	{
 		$l_rights=[];
 		foreach(Right::all() as $l_right){
@@ -185,7 +186,7 @@ class AdminController extends Controller
 		$l_id=$p_request->input("id");
 		$this->checkInteger($l_id);
 	
-		$l_validator=User::validateRequest($p_request,$l_id,$p_request->has("resetpassword"));
+		$l_validator=User::validateRequest($p_request,(int)$l_id,$p_request->has("resetpassword"));
 		if($l_validator->fails()){
 				
 			return Redirect::to("/admin/users/edit/$l_id")

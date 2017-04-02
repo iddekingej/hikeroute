@@ -36,7 +36,7 @@ class RoutesController extends Controller
  * @param String $p_message Message to display
  * @return unknown
  */
-	private function displayError($p_message)
+	private function displayError(string $p_message)
 	{
 		return View("errors.notallowed",["message"=>$p_message]);
 	}
@@ -115,7 +115,7 @@ class RoutesController extends Controller
 	 * @return Redirect|View  Redirect to route overview(if successful) or a error message (when failed)
 	 */
 	
-	function delRoute($p_id)
+	function delRoute(int $p_id)
 	{
 		$l_route=Route::findOrFail($p_id);
 
@@ -191,7 +191,7 @@ class RoutesController extends Controller
 	 * @param integer $p_id  ID of route file added in the previous step.
 	 * @return unknown
 	 */
-	function newDetails($p_id)
+	function newDetails(string $p_id)
 	{
 		$this->checkInteger($p_id);
 		$l_routeTrace=RouteTrace::findOrFail($p_id);		
@@ -269,6 +269,7 @@ class RoutesController extends Controller
 	
 	function uploadGPX($p_id)
 	{
+		$this->checkInteger($p_id);
 		$l_route=Route::findOrFail($p_id);
 		if(Gate::allows("edit-route",$l_route)){
 			$l_data=["id"=>$p_id];

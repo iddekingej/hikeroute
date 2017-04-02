@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Lib\GPXReader;
 use App\Lib\GPXList;
+use Illuminate\Database\Eloquent\Collection;
 
 class RouteTrace extends Model
 {
@@ -53,7 +54,7 @@ class RouteTrace extends Model
 	 * 
 	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
 	 */
-	function route()
+	function route():Route
 	{
 		return $this->hasOne(Route::class,"id_routetrace")->getResults();
 	}
@@ -61,9 +62,9 @@ class RouteTrace extends Model
 	/**
 	 * Contents of the route file
 	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+	 * @return RouteFile
 	 */
-	function routeFile()
+	function routeFile():RouteFile
 	{
 		return $this->belongsTo(RouteFile::class,"id_routefile")->getResults();
 	}
@@ -82,14 +83,14 @@ class RouteTrace extends Model
 		return $l_return;
 	}
 	
-	function getLocations()
+	function getLocations():Collection
 	{
 		return TraceLocationTableCollection::getByTrace($this);
 	}
 	/**
 	 * Delete a RouteTrace record and also all depended data
 	 */
-	function deleteDepend()
+	function deleteDepend():void
 	{
 		TraceLocationTableCollection::deleteByTrace($this);
 		$this->delete();

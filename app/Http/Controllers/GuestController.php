@@ -26,7 +26,7 @@ class GuestController extends Controller
 				,	"locations"=>RouteTableCollection::numRoutesByLocation(null)
 				,   "tree"=>new Collection()
 				,	"pars"=>""
-				,	"routes"=>[]
+				,	"routes"=>new Collection()
 				,	"routeTraces"=>[]
 		];
 		
@@ -118,7 +118,7 @@ class GuestController extends Controller
 	 * @return unknown
 	 */
 	
-	function downloadRoute($p_id)
+	function downloadRoute(int $p_id)
 	{
 		$l_route=RouteFile::findOrFail($p_id);
 		return $l_route->gpxdata;

@@ -8,10 +8,16 @@ namespace App\Lib;
 
 class Frm{
 	
-	static function e($p_string)
+	static function e(string $p_string):string
 	{
 		return \App\Lib\Page::e($p_string);
 	}
+	
+	static function title(string $p_title):void
+	{
+		?><div class="form_title"><?=static::e($p_title)?></div><?php 
+	}
+	
 	
 	static function password($p_name,$p_label,$p_errors,$p_id,$p_style)
 	{

@@ -14,21 +14,21 @@ class UserRight extends Model
    /**
     * The user to which the UserRight belongs
     *  
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo 
+    * @return User 
     */
    
-   function user()
+   function user():User
    {
-   		return $this->belongsTo(User::class,"id_user"); 
+   		return $this->belongsTo(User::class,"id_user")->getResults(); 
    }
    
    /**
     * Related right
     * 
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    * @return Right
     */
    
-   function right()
+   function right():Right
    {
    		return $this->belongsTo(Right::class,"id_right")->getResults();
    }
@@ -39,7 +39,7 @@ class UserRight extends Model
     * @param integer $p_id_user user id
     */
    
-   static function deleteUserRights($p_id_user)
+   static function deleteUserRights($p_id_user):void
    {
    		DB::table("user_rights")->where("id_user","=",$p_id_user)->delete();   		
    }
@@ -53,7 +53,7 @@ class UserRight extends Model
     * @return UserRight
     */
    
-   static function addUserRight(User $p_user,Right $p_right)
+   static function addUserRight(User $p_user,Right $p_right):UserRight
    {
    		return self::create(["id_user"=>$p_user->id,"id_right"=>$p_right->id]);
    }
