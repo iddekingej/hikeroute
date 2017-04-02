@@ -46,6 +46,12 @@ class RouteTableCollection extends TableCollection
 		return static::authQry($l_qry)->get();		
 	}
 	
+	/**
+	 * Add route authorization to a query on the route table
+	 * 
+	 * @param Builder $p_query
+	 * @return Builder
+	 */
 	private static function authQry($p_query)
 	{
 		$l_qry=$p_query;
@@ -93,8 +99,15 @@ class RouteTableCollection extends TableCollection
 		$l_qry .= " group by l.id,l.name";
 		return\DB::select(\DB::raw($l_qry),$l_data);
 	}
-	/** Accessable */
-	static function getAccessibleByLocation($p_id_location){
+	
+	/**
+	 * Get all accessible routes by location
+	 * 
+	 * @param int $p_id_location
+	 * @return Collection
+	 */
+	
+	static function getAccessibleByLocation(int $p_id_location):Collection{
 		$l_qry=self::$model::whereExists(function($p_query) use($p_id_location){
 			$p_query->select(\DB::raw(1))
 				->from("routetraces as rt")
@@ -102,9 +115,8 @@ class RouteTableCollection extends TableCollection
 				->whereRaw("rt.id=routes.id_routetrace")
 				->where("tl.id_location","=",$p_id_location);
 		});
-		$l_qry=static::authQry($l_qry);
-
-		return $l_qry->get();
+		return static::authQry($l_qry)->get();
+		
 	}
 	
 }
