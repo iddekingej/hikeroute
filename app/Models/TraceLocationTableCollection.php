@@ -40,6 +40,11 @@ class TraceLocationTableCollection extends TableCollection
 		return static::whereOrderBy("id_location","=", $p_id, "id","position");
 	}
 	
+	/**
+	 * Delete all TraceLocation records belonging to a RouteTrace
+	 * 
+	 * @param RouteTrace $p_routeTrace
+	 */
 	static function deleteByTrace(RouteTrace $p_routeTrace):void
 	{
 		static::where("id_routetrace","=",$p_routeTrace->id)->delete();

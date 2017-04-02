@@ -19,6 +19,11 @@ class TraceLocation extends Model
 		return self::belongsTo(RouteTrace::class,"id_routetrace")->getResults();	
 	}
 	
+	/**
+	 * Get location belonging to a route trace
+	 * 
+	 * @return Location
+	 */
 	function getLocation():Location
 	{
 		return self::belongsTo(Location::class,"id_location")->getResults();

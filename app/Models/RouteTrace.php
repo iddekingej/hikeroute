@@ -68,7 +68,11 @@ class RouteTrace extends Model
 		return $this->belongsTo(RouteFile::class,"id_routefile")->getResults();
 	}
 	
-	
+	/**
+	 * Get description of location of the start point of a GPX route trace
+	 * 
+	 * @return string
+	 */
 	function getLocationString():string
 	{
 		$l_return ="";
@@ -82,7 +86,9 @@ class RouteTrace extends Model
 	{
 		return TraceLocationTableCollection::getByTrace($this);
 	}
-	
+	/**
+	 * Delete a RouteTrace record and also all depended data
+	 */
 	function deleteDepend()
 	{
 		TraceLocationTableCollection::deleteByTrace($this);

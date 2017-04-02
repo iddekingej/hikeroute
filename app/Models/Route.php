@@ -3,7 +3,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Lib\GPXReader;
 
 class RouteException extends \Exception
 {
@@ -13,10 +12,7 @@ class RouteException extends \Exception
 	}
 }
 
-/**
- * Uploaded hiking route information
- *
- */
+
 class Route extends Model
 {
 	protected $table="routes";
@@ -86,7 +82,13 @@ class Route extends Model
 			$l_routeTrace->deleteDepend();
 			$l_routeFile->delete();
 	}
-	
+	/**
+	 * Has the current enough rights to display route
+	 * 
+	 * @return bool true Current user has display rights to route 
+	 *              false Current user has can't view to route
+	 *  
+	 */
 	function canCurrentShow():bool
 	{
 		if($this->publish==1){
@@ -97,6 +99,13 @@ class Route extends Model
 		}
 		return false;
 	}
+	
+	/**
+	 * Checks if user can view route
+	 * 
+	 * @param \App\Models\User $p_user
+	 * @return bool
+	 */
 	
 	function canShow(\App\Models\User $p_user):bool
 	{

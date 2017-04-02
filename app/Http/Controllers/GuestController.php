@@ -11,6 +11,7 @@ use App\Models\LocationTableCollection;
 use App\Models\RouteTableCollection;
 use App\Models\RouteTraceTableCollection;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 
 class GuestController extends Controller
 {
@@ -23,7 +24,7 @@ class GuestController extends Controller
 		$l_data=[
 			 		"title"=>__("All available routes")
 				,	"locations"=>RouteTableCollection::numRoutesByLocation(null)
-				,   "tree"=>[]
+				,   "tree"=>new Collection()
 				,	"pars"=>""
 				,	"routes"=>[]
 				,	"routeTraces"=>[]
@@ -39,7 +40,7 @@ class GuestController extends Controller
 		$l_data=[
 					"title"=>__("All available routes")
 				,	"locations"=>RouteTableCollection::numRoutesByLocation(null)
-				,   "tree"=>[]
+				,   "tree"=>new Collection()
 				,	"pars"=>""
 				,	"routes"=>[]
 				,	"routes"=>$l_routes
@@ -63,11 +64,11 @@ class GuestController extends Controller
 		$l_locations=RouteTableCollection::numRoutesByLocation($l_id_location);
 		$l_tree=LocationTableCollection::getLocationsByArray($l_ids);
 		$l_traces= RouteTraceTableCollection::byLocation($l_id_location);
-		$l_routes=[];
+		$l_routes=new Collection();
 		foreach($l_traces as $l_trace){
 			$l_route=$l_trace->route();
 			if($l_route){
-				$l_routes[]=$l_route;
+				$l_routes->add($l_route);				
 			}
 		}
 		$l_data=[

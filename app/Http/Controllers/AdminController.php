@@ -118,9 +118,8 @@ class AdminController extends Controller
 	function deleteUser(User $p_user)
 	{
 		$this->checkAuthentication();
-		if($p_user->id != \Auth::user()->id){		
-			$p_user->userRights()->delete();
-			$p_user->delete();
+		if($p_user->id != \Auth::user()->id){					
+			$p_user->deleteDepended();
 		}
 		return Redirect::to("/admin/users/");
 	}

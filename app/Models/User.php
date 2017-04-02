@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Validator;
+use Illuminate\Database\Eloquent\Collection;
 /**
  * Registered application users
  */
@@ -36,6 +37,14 @@ class User extends Authenticatable
     
     private $isAdmin=null;
     
+    /**
+     * Validate edit/add users request
+     *  
+     * @param Request $p_request
+     * @param int $p_id
+     * @param bool $p_checkPassword
+     * @return unknown
+     */
     static function validateRequest(Request $p_request,$p_id,$p_checkPassword)
     {
     	$l_rules=[
@@ -50,12 +59,22 @@ class User extends Authenticatable
     	}
     	return Validator::make($p_request->all(),$l_rules);
     }
+    
+    /**
+     * Delete user and right information
+     */
+    function deleteDepended()
+    {
+    	$this->hasMany(UserRight::class,"id_user")->delete();
+    	$this->delete();
+    }
+    
     /**
      * Get the rights the user has
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    function userRights()
+    function userRights():Collection
     {
     	return $this->hasMany(UserRight::class,"id_user")->getResults();
     }

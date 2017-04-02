@@ -9,6 +9,12 @@ class LocationTableCollection extends TableCollection
 	static protected $model=Location::class;
 	static protected $locationTypes=null;
 	
+	/**
+	 * Converts location name into location id
+	 * 
+	 * @param String $p_description
+	 * @return mixed
+	 */
 	private static function getLocationType($p_description)
 	{
 		if(self::$locationTypes==null){
@@ -17,6 +23,16 @@ class LocationTableCollection extends TableCollection
 		return self::$locationTypes[$p_description];
 	}
 	
+	/**
+	 * Checks if location combination ($p_id_parent,$p_type,$p_name) 
+	 * is already in the database, the location is inserted in the database
+	 * Return an object representing this location.
+	 *  
+	 * @param unknown $p_id_parent Parent location. Null when location has not parent location
+	 * @param unknown $p_type Location type name ("city","suburb","country" etc..) 
+	 * @param unknown $p_name Location name
+	 * @return Location       Location object
+	 */
 	private static function getLocationModel($p_id_parent,$p_type,$p_name)
 	{
 		$l_id=self::getLocationType($p_type);
@@ -38,6 +54,14 @@ class LocationTableCollection extends TableCollection
 		}
 	}
 	
+	/**
+	 * The $p_data contains the location tree (country->state->city->suburb).
+	 * This data is inserted in the database (if it doesn't exists yet) and returns
+	 * an array with objects representing each location tree item.
+	 * 
+	 * @param array $p_data Associative Array of location name (Location type=>location name)
+	 * @return array        Array of locations
+	 */
 	static function getLocation(Array $p_data):Array
 	{
 		$l_id_parent=null;

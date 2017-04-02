@@ -77,6 +77,13 @@ class RouteTraceTableCollection extends TableCollection{
 		}
 		return $l_trace;
 	}
+	
+	/**
+	 * Get traces belonging to a location
+	 * 
+	 * @param int $p_id_location
+	 * @return Array
+	 */
 	static function byLocation($p_id_location)
 	{
 		$l_traces=[];

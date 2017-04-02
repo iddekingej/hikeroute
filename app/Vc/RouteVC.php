@@ -1,9 +1,14 @@
 <?php
 declare(string_types=1);
 namespace App\Vc;
+use Illuminate\Database\Eloquent\Collection;
+
 class RouteVC extends \App\Vc\ViewComponent
 {
-	static function routeSearch()
+	/**
+	 * Display search input box
+	 */
+	static function routeSearch():void
 	{
 		?>
 		
@@ -19,7 +24,13 @@ class RouteVC extends \App\Vc\ViewComponent
 		<?php 
 	}
 	
-	static function searchByLocation($p_tree,$p_locations)
+	/**
+	 * Select list of locations
+	 *  
+	 * @param array $p_tree       Current selected location
+	 * @param array $p_locations  Location belonging to location selected location
+	 */
+	static function searchByLocation(Collection $p_tree,Array $p_locations):void
 	{
 	
 		$l_pars="";
@@ -49,8 +60,12 @@ class RouteVC extends \App\Vc\ViewComponent
 		<?php 
 		
 	}
-	
-	static function routeSummary(\App\Models\Route $p_route)
+	/**
+	 * Print summary information about a route
+	 * 
+	 * @param \App\Models\Route $p_route
+	 */
+	static function routeSummary(\App\Models\Route $p_route):void
 	{
 		?>
 		<div class="routeall_title"><?=static::e($p_route->title)?></div>
@@ -73,7 +88,12 @@ class RouteVC extends \App\Vc\ViewComponent
 		<?php 
 	}
 	
-	static function printRoutesSummary(Array $p_routes):void
+	/**
+	 * Display summary information about some routes
+	 * 
+	 * @param array $p_routes
+	 */
+	static function printRoutesSummary(Collection $p_routes):void
 	{
 		if(count($p_routes)>0){
 			

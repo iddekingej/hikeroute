@@ -8,6 +8,11 @@ class LocationTypeTableCollection extends TableCollection
 	static protected $model=LocationType::class;
 	static private $indexedList=null;
 	
+	/**
+	 * Get list of location type indexed by index name
+	 * 
+	 * @return array
+	 */
 	static function getIndexedList():Array
 	{
 		if(self::$indexedList===null){
