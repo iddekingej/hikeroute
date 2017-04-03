@@ -13,4 +13,9 @@ class Control{
 		} 
 		return false;
 	}
+	
+	static function locationServiceType()
+	{
+		return \Config::get("hr.locationServiceType");
+	}
 }

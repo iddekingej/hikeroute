@@ -22,7 +22,7 @@ class GPXInfo{
 	 */
 	
 	
-	function update($p_lat,$p_lon)
+	function update(float $p_lat,float $p_lon)
 	{		
 		if($this->minLat==null){
 			$this->minLat=$p_lat;
@@ -47,7 +47,7 @@ class GPXInfo{
 	}
 
 	
-	private function distance($p_lat1,$p_lon1,$p_lat2,$p_lon2)
+	private function distance(float $p_lat1,float $p_lon1,float $p_lat2,float $p_lon2)
 	{
 		$l_r=6371000;
 		$l_f1=$p_lat1/180*pi();

@@ -34,7 +34,7 @@ return [
     'connections' => [
 
 
-            'maindb' => [
+        'maindb' => [
             'driver' => env('DB_DRIVER'),
             'host' => env('DB_HOST'),
             'port' => env('DB_PORT'),
@@ -47,6 +47,19 @@ return [
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
+    	'locationdb' => [
+    				'driver' => env('DB_LOC_DRIVER'),
+    				'host' => env('DB_LOC_HOST'),
+    				'port' => env('DB_LOC_PORT'),
+    				'database' => env('DB_LOC_DATABASE'),
+    				'username' => env('DB_LOC_USERNAME'),
+    				'password' => env('DB_LOC_PASSWORD'),
+    				'charset' => env("DB_LOC_ENCODING"),
+    				'collation' => env("DB_LOC_COLLATION",""),
+    				'prefix' => '',
+    				'schema' => 'public',
+    				'sslmode' => 'prefer',
+    	]
 
     ],
 

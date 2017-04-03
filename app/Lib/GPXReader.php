@@ -64,7 +64,7 @@ class GPXReader
 					throw new \GPXLoadException("'lon' attribute not found at trkpt node");
 				}
 				$l_time=$this->parseTime($l_child);
-				$l_return->addPoint($l_lat, $l_lon,$l_time);
+				$l_return->addPoint((float)$l_lat, (float)$l_lon,$l_time);
 			}
 			$l_child=$l_child->nextSibling;
 		}

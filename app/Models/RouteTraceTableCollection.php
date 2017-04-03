@@ -2,9 +2,9 @@
 namespace App\Models;
 
 use App\Lib\GPXReader;
-use App\Lib\AddressService;
 use App\Lib\Control;
 use App\Lib\TableCollection;
+use App\Location\LocationService;
 
 class RouteTraceException extends \Exception
 {
@@ -25,7 +25,7 @@ class RouteTraceTableCollection extends TableCollection{
 		$l_gpxParser=new GPXReader();
 		$l_gpxList=$l_gpxParser->parse($p_gpxData);
 		if(Control::addressServiceEnabled()){
-			$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
+			$l_locData=LocationService::locationStringFromGPX($l_gpxList->getStart());
 			$l_locations=LocationTableCollection::getLocation($l_locData->data);
 			if($l_locations !== null){
 				$l_location=end($l_locations);				
@@ -45,8 +45,8 @@ class RouteTraceTableCollection extends TableCollection{
 	{
 		$l_gpxParser=new GPXReader();
 		$l_gpxList=$l_gpxParser->parse($p_gpxData);
-		$l_locData=AddressService::locationStringFromGPX($l_gpxList->getStart());
 		if(Control::addressServiceEnabled()){
+			$l_locData=LocationService::locationStringFromGPX($l_gpxList->getStart());			
 			$l_locations=LocationTableCollection::getLocation($l_locData->data);
 			if($l_locations !== null){
 				$l_location=end($l_locations);

@@ -14,7 +14,7 @@ class GPXPoint
 	public $lon;
 	public $timestamp;
 	
-	function __construct($p_lat,$p_lon,$p_timestamp)
+	function __construct(float $p_lat,float $p_lon,string $p_timestamp)
 	{
 		$this->lat=$p_lat;
 		$this->lon=$p_lon;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Lib;
+namespace App\Location;
 class Address{
 	public $data=[];
 	public $fullname="";
