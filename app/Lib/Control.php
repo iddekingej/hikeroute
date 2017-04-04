@@ -18,4 +18,10 @@ class Control{
 	{
 		return \Config::get("hr.locationServiceType");
 	}
+	
+	static function locationServiceConfig()
+	{
+		$l_data=\Config::get("hr.locationServices");
+		return $l_data[static::locationServiceType()];
+	}
 }

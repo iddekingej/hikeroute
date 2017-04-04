@@ -14,9 +14,10 @@ class LocationService{
 	 * Depending on the configuration the service object is created in this method.
 	 */
 	private static function initLocationQueryService()
-	{
-		$l_type=Control::locationServiceType();
-		static::$locationQueryService=new $l_type();
+	{		
+		$l_config=Control::locationServiceConfig();
+		$l_type=$l_config["type"];
+		static::$locationQueryService=new $l_type($l_config);
 	}
 	
 	/**
