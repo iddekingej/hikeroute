@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Lib\GPXReader;
 use App\Lib\GPXList;
 use Illuminate\Database\Eloquent\Collection;
+use phpDocumentor\Reflection\Types\Array_;
 
 class RouteTrace extends Model
 {
-	
+	protected $locationsCached;
 	protected $table="routetraces";
 	protected $fillable =["id_routefile","id_location","distance","startdate"
 						   ,"minlat","maxlat","minlon","maxlon"
@@ -81,6 +82,28 @@ class RouteTrace extends Model
 			$l_return .= "/".$l_location->getLocation()->name;
 		}
 		return $l_return;
+	}
+	
+	function getLocationsIndexed():Array
+	{
+		return TraceLocationTableCollection::getByTraceTypeIndexed($this);
+	}
+	
+	function getLocationsIndexCached():Array
+	{
+		if($this->locationsCached===null){
+			$this->locationsCached=$this->getLocationsIndexed();
+		}
+		return $this->locationsCached;
+	}
+	
+	function getLocationByTypeCached($p_type):string
+	{
+		$l_cached=$this->getLocationsIndexCached();
+		if(isset($l_cached[$p_type])){
+			return $l_cached[$p_type]->name;	
+		}
+		return "";
 	}
 	
 	function getLocations():Collection

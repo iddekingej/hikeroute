@@ -9,7 +9,6 @@ use App\Models\Route;
 use App\Models\RouteFile;
 use App\Models\LocationTableCollection;
 use App\Models\RouteTableCollection;
-use App\Models\RouteTraceTableCollection;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 

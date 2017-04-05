@@ -17,6 +17,7 @@ Logout
 @endif
 {{ \App\Lib\Page::menuItem("start",__("Published routes")) }}
 {{ \App\Lib\Page::menuItem("routes",__("Routes")) }}
+{{ \App\Lib\Page::menuItem("traces.list",__("Route traces")) }}
 @yield("menu")
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 {{ csrf_field() }}

@@ -6,7 +6,7 @@ use App\Location\LocationQueryService;
 class LocationQueryNominatim implements LocationQueryService
 {
 	/**
-	 * Service configuation
+	 * Service configuration
 	 * @var Array
 	 */
 	private $config;

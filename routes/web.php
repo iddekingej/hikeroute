@@ -50,6 +50,12 @@ Route::group(["middleware"=>"auth","prefix"=>"/admin/users"],function(){
 	Route::post('add',["as"=>"admin.users.save.add","uses"=>"AdminController@saveUserAdd"]);
 	Route::post('edit',["as"=>"admin.users.save.edit","uses"=>"AdminController@saveUserEdit"]);
 });
+
+
+Route::group(["middleware"=>"auth","prefix"=>"/traces/"],function(){
+	Route::get("list",["as"=>"traces.list","uses"=>"TracesController@list"]);
+});
+
 /**
  * URLs for posting and editing hiking routes 
  */

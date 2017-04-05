@@ -18,4 +18,9 @@ class Location extends Model
 	{
 		return $this->belongsTo(Location::class,"id_parent")->getResults();
 	}
+
+	function getLocationType()
+	{
+		return $this->belongsTo(LocationType::class,"id_locationtype")->getResults();
+	}
 }

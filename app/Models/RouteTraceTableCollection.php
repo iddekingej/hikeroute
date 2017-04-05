@@ -5,6 +5,7 @@ use App\Lib\GPXReader;
 use App\Lib\Control;
 use App\Lib\TableCollection;
 use App\Location\LocationService;
+use Illuminate\Database\Eloquent\Collection;
 
 class RouteTraceException extends \Exception
 {
@@ -78,6 +79,10 @@ class RouteTraceTableCollection extends TableCollection{
 		return $l_trace;
 	}
 	
+	static function getByUser(User $p_user):?Collection
+	{
+		return self::where("id_user","=",$p_user->id)->orderBy("startdate")->get();
+	}
 }
 
 ?>

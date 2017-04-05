@@ -39,6 +39,22 @@ class TraceLocationTableCollection extends TableCollection
 	{
 		return static::whereOrderBy("id_location","=", $p_id, "id","position");
 	}
+	/**
+	 * 
+	 */
+	static function getByTraceTypeIndexed(RouteTrace $p_routeTrace):Array
+	{
+		$l_lts=self::getByTrace($p_routeTrace);
+		$l_locations =[];
+		if($l_lts){
+			foreach($l_lts as $l_lt){
+				$l_location=$l_lt->getLocation();
+				$l_index=$l_lt->getLocation()->getLocationType()->description;
+				$l_locations[$l_index]=$l_location;
+			}
+		}
+		return $l_locations;
+	}
 	
 	/**
 	 * Delete all TraceLocation records belonging to a RouteTrace
