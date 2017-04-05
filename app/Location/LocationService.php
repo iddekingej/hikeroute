@@ -10,14 +10,25 @@ class LocationService{
 	private static $locationQueryService;
 	
 	/**
+	* Set location by configuration name
+	* @param string $p_name  Use this namend configuration item (defined in config/hr.php and configuration "locationServices"
+	*/
+	
+	static function setLocationService($p_name)
+	{
+		$l_data=\Config::get("hr.locationServices");
+		$l_config=$l_data[$p_name];
+		$l_type=$l_config["type"];
+		static::$locationQueryService=new $l_type($l_config);
+	}
+	
+	/**
 	 * the LocationQueryService objects queries the location query.
 	 * Depending on the configuration the service object is created in this method.
 	 */
 	private static function initLocationQueryService()
 	{		
-		$l_config=Control::locationServiceConfig();
-		$l_type=$l_config["type"];
-		static::$locationQueryService=new $l_type($l_config);
+		static::setLocationService(Control::locationServiceType());
 	}
 	
 	/**
@@ -55,7 +66,7 @@ class LocationService{
 		$l_location=self::fromGPX($p_point);
 
 		$l_address=new Address();
-		if($l_location){
+		if($l_location && isset($l_location->address)){
 			$l_data=$l_location->address;
 			if(isset($l_data->country)){
 				$l_address->data["country"]=$l_data->country;

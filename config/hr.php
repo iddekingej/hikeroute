@@ -2,7 +2,7 @@
 return [
 	"addressServiceOnTest"=>false
 ,	"useAddressService"=>true
-,	"locationServiceType"=>"nomatim"
+,	"locationServiceType"=>env("LOCATION_TYPE","nomatim")
 ,	"locationServices"=>[
 		"nomatim"=>[
 				"type"=>"App\\Location\\LocationQueryNominatim"

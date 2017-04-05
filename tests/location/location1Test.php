@@ -24,5 +24,22 @@ class location1Test extends \Tests\TestCase
 		$l_location2=end($l_locations2);
 		$this->assertEquals($l_location->id,$l_location2->id);
 	}
+	
+	function test2location()
+	{
+		\App\Location\LocationService::setLocationService("nomatim");
+		$l_gpx=new \App\Lib\GPXPoint(40+44/60,-73+51/60,"");
+		$l_data=(\App\Location\LocationService::locationStringFromGPX($l_gpx	));
+		$this->assertEquals($l_data->fullname,"/United States of America/New York/Village of East Hampton");
+		sleep(1);
+	}
+	
+	function test3location()
+	{
+		$l_gpx=new \App\Lib\GPXPoint(0,0,"");
+		$l_data=(\App\Location\LocationService::locationStringFromGPX($l_gpx	));
+		$this->assertEquals($l_data->fullname,"");
+		sleep(1);
+	}
 }
 ?>
