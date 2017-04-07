@@ -24,4 +24,15 @@ class Controller extends BaseController
     		abort(500);
     	}
     }
+    
+    /**
+     * Displays and error page
+     *
+     * @param String $p_message Message to display
+     * @return unknown
+     */
+    protected function displayError(string $p_message)
+    {
+    	return View("errors.notallowed",["message"=>$p_message]);
+    }
 }

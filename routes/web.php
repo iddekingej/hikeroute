@@ -54,6 +54,8 @@ Route::group(["middleware"=>"auth","prefix"=>"/admin/users"],function(){
 
 Route::group(["middleware"=>"auth","prefix"=>"/traces/"],function(){
 	Route::get("list",["as"=>"traces.list","uses"=>"TracesController@list"]);
+	Route::get("download/{p_id}",["as"=>"traces.download","uses"=>"TracesController@download"]);
+	Route::get("show/{p_id}",["as"=>"traces.show","uses"=>"TracesController@show"]);
 });
 
 /**

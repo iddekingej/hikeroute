@@ -4,7 +4,6 @@ use App\Models\RouteTraceTableCollection;
 use App\Models\LocationTableCollection;
 use App\Models\TraceLocationTableCollection;
 use App\Models\Route;
-use App\Models\RouteTableCollection;
 
 class route1Test extends \Tests\TestCase
 {

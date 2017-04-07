@@ -10,7 +10,7 @@ use App\Models\Right;
 
 /**
  *  Controller for site administration
- *  Can only be used by administrator users.
+ *  Can only be used by users with administrator rights.
  */
 class AdminController extends Controller
 {
@@ -34,7 +34,7 @@ class AdminController extends Controller
 	/**
 	 * Displays all users
 	 * 
-	 * Call view "admin.userlist" with a list for all users
+	 * Call view "admin.userlist" which contains a list with all users
 	 */
 	
 	function listUsers()

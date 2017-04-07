@@ -30,16 +30,7 @@ class RoutesController extends Controller
 		$this->middleware('auth');
 	}
 	
-/**
- * Displays and error page
- * 
- * @param String $p_message Message to display
- * @return unknown
- */
-	private function displayError(string $p_message)
-	{
-		return View("errors.notallowed",["message"=>$p_message]);
-	}
+
 	
 	/***
 	 * Parse route gpx file

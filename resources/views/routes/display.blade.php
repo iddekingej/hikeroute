@@ -1,8 +1,12 @@
+<?php
+use App\Vc\RouteTracesVC;
+?>
 @extends("layouts.page",["title"=>$route->title])
 
-@section("header")
-	<script src="/js/ol.js" ></script>
-	<link href="/css/ol.css" rel='stylesheet'></link>
+@section("header")	
+	<?php
+		RouteTracesVC::openLayerExtItems();	
+	?>
 @endsection
 
 @section("content")
@@ -64,7 +68,7 @@
 </tr>
 <tr>
 	<td class="map_body">
-		<div id='map'></div>
+		<?php RouteTracesVC::openLayerDiv();?>		
 	</td>
 </tr>
 <tr>
@@ -76,11 +80,8 @@
 </td>
 </tr>
 </table>
-<script type='text/javascript'>
-	l_map=new RouteMap("map");
-	l_map.setGpxRoute({!! json_encode(Route("routes.download",["p_id"=>$routetrace->id_routefile])) !!});
-	l_map.setSize({{ $routetrace->minlat }},{{ $routetrace->maxlat }} , {{ $routetrace->minlon }} , {{ $routetrace->maxlon}});
-	l_map.displayMap();
-</script>
+<?php 
+RouteTracesVC::openLayerJs($route->routeTrace());
+?>
 
 @endsection

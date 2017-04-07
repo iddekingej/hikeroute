@@ -16,10 +16,11 @@ class RouteTrace extends Model
 						   ,"minlat","maxlat","minlon","maxlon"
 	                       ,"id_user"
 	];
+	protected $dates=["startdate"];
 	
 	function user()
 	{
-		return $this->belongsTo(User::class,"id_user");
+		return $this->belongsTo(User::class,"id_user")->getResults();
 	}
 	/**
 	 * Recalculate summary infornation about GPX trace files
@@ -89,6 +90,12 @@ class RouteTrace extends Model
 		return TraceLocationTableCollection::getByTraceTypeIndexed($this);
 	}
 	
+	/**
+	 * Get cached location info belonging to route traces.
+	 * Return is a associative array. Index is the location type and value is the location description
+	 * @return array
+	 */
+	
 	function getLocationsIndexCached():Array
 	{
 		if($this->locationsCached===null){
@@ -96,6 +103,13 @@ class RouteTrace extends Model
 		}
 		return $this->locationsCached;
 	}
+	
+	/**
+	 * Get Location object belonging to the route trace by cached data
+	 *
+	 * @param $p_type Get location  name by locationtype
+	 * @return Collection
+	 */
 	
 	function getLocationByTypeCached($p_type):string
 	{
@@ -105,7 +119,11 @@ class RouteTrace extends Model
 		}
 		return "";
 	}
-	
+	/**
+	 * Get Location object belonging to the route trace
+	 * 
+	 * @return Collection
+	 */
 	function getLocations():Collection
 	{
 		return TraceLocationTableCollection::getByTrace($this);
@@ -117,5 +135,10 @@ class RouteTrace extends Model
 	{
 		TraceLocationTableCollection::deleteByTrace($this);
 		$this->delete();
+	}
+	
+	function canViewTrace(User $p_user)
+	{
+		return ($this->id_user==$p_user->id) || $p_user->getIsAdmin();
 	}
 }
