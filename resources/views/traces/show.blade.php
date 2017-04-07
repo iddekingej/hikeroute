@@ -17,11 +17,7 @@ use App\Vc\RouteTracesVC;
 		<?php RouteTracesVC::traceInfo($routeTrace);?>
 	</td>
 </tr>
-<tr>
-<td class="map_body">
-		<?php RouteTracesVC::openLayerDiv();?>		
-</td>
-</tr>
+<?php RouteTracesVC::openLayerDiv();?>		
 </table>
 </div>
 <?php 

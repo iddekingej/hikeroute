@@ -139,7 +139,11 @@ class RouteTracesVC extends ViewComponent
 	static function openLayerDiv()
 	{
 		?>
-		<div id='map'></div>
+		<tr>
+			<td class="map_body">		
+				<div id='map'></div>
+			</td>
+		</tr>
 		<?php 
 	}
 	

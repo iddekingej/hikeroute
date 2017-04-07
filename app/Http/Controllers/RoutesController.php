@@ -186,23 +186,15 @@ class RoutesController extends Controller
 	{
 		$this->checkInteger($p_id);
 		$l_routeTrace=RouteTrace::findOrFail($p_id);		
-		if($l_routeTrace->id_user != \Auth::user()->id){
+		if(!$l_routeTrace->canRoute(\Auth::user())){
 			return $this->displayError(__("attach this route file to a route"));
 		}
-		
-		if($l_routeTrace->route()){
-			
-			return $this->displayError(__("route file already attached to route"));
-		}
-
 		$l_data = [
 				"title" => __("New route"),
 				"id" => "",			
-				"id_routefile"=>$l_routeTrace->id_routefile,
-				"id_routetrace"=>$l_routeTrace->id,
 				"routeTitle" => $l_routeTrace->getLocationString(),
 				"comment" => "",
-				"info"=>$l_routeTrace,
+				"routeTrace"=>$l_routeTrace,
 				"routeLocation"=>$l_routeTrace->getLocationString(),
 				"publish"=>false
 				
@@ -224,7 +216,6 @@ class RoutesController extends Controller
 		$l_rules=[
 				"routeTitle"=>["required"]
 		,		"id_routetrace"=>["required","integer"]
-		,		"id_location"=>["integer"]
 		];
 	
 		$l_validator=Validator::make($p_request->all(),$l_rules);
@@ -234,7 +225,7 @@ class RoutesController extends Controller
 			->withInput($p_request->all());
 		}
 		$l_routeTrace=RouteTrace::findOrFail($p_request->input("id_routetrace"));		
-		if($l_routeTrace->id_user != \Auth::user()->id){
+		if(!$l_routeTrace->canRoute(\Auth::user())){
 			return $this->displayError(__("attach this route file to a route"));
 		}
 		Route::create(["id_user"=>\Auth::user()->id
@@ -326,12 +317,10 @@ class RoutesController extends Controller
 			$l_data = [
 					"title" => __("Edit route"),
 					"id" => $l_route->id,
-					"id_routefile"=>$l_routeTrace->id_routeFile,
-					"id_routetrace"=>$l_routeTrace->id,
 					"routeTitle" => $l_route->title,
 					"comment" => $l_route->comment ,
 					"routeLocation" =>$l_route->location,
-					"info"=>$l_routeTrace,
+					"routeTrace"=>$l_routeTrace,
 					"publish"=>$l_route->publish,
 			];
 			return View ( "routes.form", $l_data );

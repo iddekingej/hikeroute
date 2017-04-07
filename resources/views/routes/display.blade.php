@@ -66,11 +66,7 @@ use App\Vc\RouteTracesVC;
 	</table>
 	</td>
 </tr>
-<tr>
-	<td class="map_body">
-		<?php RouteTracesVC::openLayerDiv();?>		
-	</td>
-</tr>
+<?php RouteTracesVC::openLayerDiv();?>		
 <tr>
 	<td class="map_comment">
 		{{ $route->comment }}

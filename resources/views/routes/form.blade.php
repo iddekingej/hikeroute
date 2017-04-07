@@ -1,3 +1,6 @@
+<?php
+use App\Vc\RouteTracesVC;
+?>
 @extends('layouts.pageform',["title"=>$title])
 
 @section("header")
@@ -8,15 +11,11 @@
 
 @section('formbody')
 <table class="map_table">
-<tr>
-	<td class="map_body">
-		<div id='map'></div>
-	</td>
-</tr>
+		<?php RouteTracesVC::openLayerDiv();?>		
 </table>
 {!! Form::open(["route"=>$id==""?"routes.save.add":"routes.save.edit","enctype"=>"multipart/form-data"]); !!}
 {!! Form::hidden("id",$id) !!}
-{!! Form::hidden("id_routetrace",$id_routetrace) !!}
+{!! Form::hidden("id_routetrace",$routeTrace->id) !!}
 <table class="form_table">
 <tr>
 	<td class="form_labelCell">
@@ -54,11 +53,8 @@
 </tr>
 
 </table>
-<script type='text/javascript'>
-	l_map=new RouteMap("map");
-	l_map.setGpxRoute({!! json_encode(Route("routes.download",["p_id"=>$id_routefile])) !!});
-	l_map.setSize({{ $info->minlat }},{{ $info->maxlat }} , {{ $info->minlon }} , {{ $info->maxlon}});
-	l_map.displayMap();
-</script>
+<?php 
+RouteTracesVC::openLayerJs($routeTrace);
+?>
 {!! Form::close() !!}
 @endsection

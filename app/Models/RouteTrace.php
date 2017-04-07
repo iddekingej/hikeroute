@@ -141,4 +141,9 @@ class RouteTrace extends Model
 	{
 		return ($this->id_user==$p_user->id) || $p_user->getIsAdmin();
 	}
+	
+	function canRoute(User $p_user)
+	{
+		return ($this->id_user==$p_user->id) || $p_user->getIsAdmin();
+	}
 }
