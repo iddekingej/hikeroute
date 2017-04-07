@@ -4,6 +4,7 @@ namespace App\Vc;
 use App\Vc\ViewComponent;
 use App\Models\RouteTrace;
 use App\Lib\Localize;
+use App\Lib\Page;
 
 class RouteTracesVC extends ViewComponent
 {
@@ -17,6 +18,9 @@ class RouteTracesVC extends ViewComponent
 	 */
 	static function traceListHeader()
 	{
+		Page::topMenuHeader();
+		Page::topMenuItem("traces.upload", [], __("Upload new gpx"));
+		Page::topMenuFooter();
 ?>
 <table class="table">
 <tr>
@@ -33,6 +37,9 @@ class RouteTracesVC extends ViewComponent
 	</td> 
 	<td class="table_header">
 		<?=__("Distance")?>
+	</td>
+	<td class="table_header">
+		<?=__("Has route")?>
 	</td>
 </tr>
 <?php 
@@ -52,6 +59,7 @@ class RouteTracesVC extends ViewComponent
 	
 	static function traceListRow(RouteTrace $p_trace)
 	{
+		
 ?>
 	<tr>
 		<td class="table_cell">
@@ -75,6 +83,10 @@ class RouteTracesVC extends ViewComponent
 		<td class="table_cell">
 		<?=static::e((string)round($p_trace->distance/1000))?>
 		</td>
+		<td class="table_cell">
+		<?=$p_trace->hasRoutes()?"X":""?>
+		</td>
+
 	</tr>
 <?php 
 	}
@@ -106,6 +118,7 @@ class RouteTracesVC extends ViewComponent
 	 */
 	static function traceInfo(RouteTrace $p_trace)
 	{
+
 	?>
 	<table>
 		<tr>
@@ -128,6 +141,7 @@ class RouteTracesVC extends ViewComponent
 			<td class="map_ud"><?=__("Download")?>:</td>
 			<td class="map_ud_value"><?=self::downloadLink($p_trace)?></td>
 		</tr>
+
 
 	</table>
 	<?php 	
@@ -166,8 +180,12 @@ class RouteTracesVC extends ViewComponent
 	
 	static function routeList(RouteTrace $p_routeTrace):void
 	{
+		$l_routes=$p_routeTrace->routes();
 		?>
 		<div class="traces_route_title"><?=static::e(__("Routes using this trace"))?></div>
+		<?php if(count($l_routes)==0){?>
+		<?=static::e(__("Nothing found"))?>
+		<?php } else {?>
 		<ul>
 		<?php 
 		foreach($p_routeTrace->routes() as $l_route){
@@ -176,5 +194,6 @@ class RouteTracesVC extends ViewComponent
 		<?php }?>
 		</ul>
 		<?php 
+		}
 	}
 }

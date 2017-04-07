@@ -51,6 +51,11 @@ class RouteTrace extends Model
 		$this->save();
 	}
 	
+	function hasRoutes():bool
+	{
+		return Route::where("id_routetrace",$this->id)->exists();
+	}
+	
 	/**
 	 * Get related route
 	 * 
@@ -146,4 +151,10 @@ class RouteTrace extends Model
 	{
 		return ($this->id_user==$p_user->id) || $p_user->getIsAdmin();
 	}
+	
+	function canDelete(User $p_user)
+	{
+		return ($this->id_user==$p_user->id) || $p_user->getIsAdmin();
+	}
+
 }

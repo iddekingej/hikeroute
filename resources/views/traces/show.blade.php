@@ -13,7 +13,10 @@ use App\Lib\Page;
 <div class="map_container">
 <?php 
 Page::topMenuHeader();
-Page::topMenuitem('routes.newdetails',['id'=>$routeTrace->id],__("Add as route")); 
+Page::topMenuitem('routes.newdetails',['id'=>$routeTrace->id],__("Add as route"));
+if(!$routeTrace->hasRoutes()){
+	Page::topMenuItemConfirm('traces.del', ['id'=>$routeTrace->id], __("Delete this route trace"),__("Delete this route trace?"));
+}
 Page::topMenuFooter();
 ?>
 <table class="map_table">
