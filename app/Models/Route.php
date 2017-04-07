@@ -76,11 +76,7 @@ class Route extends Model
 	 */
 	function deleteDepended():void
 	{
-			$l_routeTrace=$this->routeTrace();
-			$l_routeFile=$l_routeTrace->routeFile();
 			$this->delete();			
-			$l_routeTrace->deleteDepend();
-			$l_routeFile->delete();
 	}
 	/**
 	 * Has the current enough rights to display route

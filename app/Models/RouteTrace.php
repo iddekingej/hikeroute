@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Lib\GPXReader;
 use App\Lib\GPXList;
 use Illuminate\Database\Eloquent\Collection;
-use phpDocumentor\Reflection\Types\Array_;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RouteTrace extends Model
 {
@@ -56,9 +56,9 @@ class RouteTrace extends Model
 	 * 
 	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
 	 */
-	function route():?Route
+	function routes():?Collection
 	{
-		return $this->hasOne(Route::class,"id_routetrace")->getResults();
+		return $this->hasMany(Route::class,"id_routetrace")->getResults();
 	}
 	
 	/**

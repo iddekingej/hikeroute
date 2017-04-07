@@ -163,4 +163,18 @@ class RouteTracesVC extends ViewComponent
 </script>	
 	<?php 	
 	}
+	
+	static function routeList(RouteTrace $p_routeTrace):void
+	{
+		?>
+		<div class="traces_route_title"><?=static::e(__("Routes using this trace"))?></div>
+		<ul>
+		<?php 
+		foreach($p_routeTrace->routes() as $l_route){
+		?>
+			<li><?=static::link(Route("routes.display",$l_route->id),$l_route->title) ?></li>
+		<?php }?>
+		</ul>
+		<?php 
+	}
 }

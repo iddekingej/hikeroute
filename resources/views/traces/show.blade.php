@@ -1,5 +1,6 @@
 <?php
 use App\Vc\RouteTracesVC;
+use App\Lib\Page;
 ?>
 @extends("layouts.pagemenu",["title"=>__("Route trace")])
 
@@ -10,7 +11,11 @@ use App\Vc\RouteTracesVC;
 @endsection
 @section("pagebody")
 <div class="map_container">
-
+<?php 
+Page::topMenuHeader();
+Page::topMenuitem('routes.newdetails',['id'=>$routeTrace->id],__("Add as route")); 
+Page::topMenuFooter();
+?>
 <table class="map_table">
 <tr>
 	<td>
@@ -21,6 +26,7 @@ use App\Vc\RouteTracesVC;
 </table>
 </div>
 <?php 
+RouteTracesVC::routeList($routeTrace);
 RouteTracesVC::openLayerJs($routeTrace);
 ?>
 @endsection()
