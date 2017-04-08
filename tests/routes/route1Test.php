@@ -28,7 +28,7 @@ class route1Test extends \Tests\TestCase
 	function test1UploadRoute()
 	{
 
-		$l_file=$this->trace->routeFile();
+		$l_file=$this->trace->routeFile;
 		$this->assertNotNull($l_file);
 		$l_size=strlen($l_file->gpxdata);
 		$this->assertEquals($this->getResourceLen(self::TRACE1), $l_size);
@@ -40,7 +40,7 @@ class route1Test extends \Tests\TestCase
 		$l_gpxFileName="2_nov._2016_10_24_21.gpx";
 		$l_content=$this->getResource($l_gpxFileName);
 		RouteTraceTableCollection::updateGpxFile($this->trace,$l_content);
-		$l_file=$this->trace->routeFile();
+		$l_file=$this->trace->routeFile;
 		$l_size=strlen($l_file->gpxdata);
 		$this->assertEquals($this->getResourceLen($l_gpxFileName), $l_size);
 		

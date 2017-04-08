@@ -20,7 +20,7 @@ class RouteTraceTableCollection extends TableCollection{
 	
 	public static function updateGpxFile(RouteTrace $p_routeTrace,string $p_gpxData):void
 	{
-		$l_routeFile=$p_routeTrace->routeFile();
+		$l_routeFile=$p_routeTrace->routeFile;
 		$l_routeFile->gpxdata=$p_gpxData;
 		$l_routeFile->save();
 		$l_gpxParser=new GPXReader();

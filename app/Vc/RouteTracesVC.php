@@ -188,7 +188,7 @@ class RouteTracesVC extends ViewComponent
 		<?php } else {?>
 		<ul>
 		<?php 
-		foreach($p_routeTrace->routes() as $l_route){
+		foreach($p_routeTrace->routes as $l_route){
 		?>
 			<li><?=static::link(Route("routes.display",$l_route->id),$l_route->title) ?></li>
 		<?php }?>

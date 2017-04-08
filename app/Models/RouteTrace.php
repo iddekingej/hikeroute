@@ -7,6 +7,7 @@ use App\Lib\GPXReader;
 use App\Lib\GPXList;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RouteTrace extends Model
 {
@@ -27,7 +28,7 @@ class RouteTrace extends Model
 	 */
 	function recalcGpx():void
 	{
-		$l_content=$this->routeFile()->getResults()->gpxdata;
+		$l_content=$this->routeFile->gpxdata;
 		$l_gpxParser=new GPXReader();
 		$l_gpxList=$l_gpxParser->parse($l_content);
 		$this->setByGPX($l_gpxList);
@@ -61,9 +62,9 @@ class RouteTrace extends Model
 	 * 
 	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
 	 */
-	function routes():?Collection
+	function routes():HasMany
 	{
-		return $this->hasMany(Route::class,"id_routetrace")->getResults();
+		return $this->hasMany(Route::class,"id_routetrace");
 	}
 	
 	/**
@@ -71,9 +72,9 @@ class RouteTrace extends Model
 	 *
 	 * @return RouteFile
 	 */
-	function routeFile():RouteFile
+	function routeFile():BelongsTo
 	{
-		return $this->belongsTo(RouteFile::class,"id_routefile")->getResults();
+		return $this->belongsTo(RouteFile::class,"id_routefile");
 	}
 	
 	/**

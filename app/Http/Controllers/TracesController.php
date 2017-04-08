@@ -32,7 +32,7 @@ class TracesController extends Controller
 		$this->checkInteger($p_id);
 		$l_trace=RouteTrace::findOrFail($p_id);
 		if($l_trace->canViewTrace(\Auth::user())){
-			return response($l_trace->routeFile()->gpxdata)
+			return response($l_trace->routeFile->gpxdata)
 			->header("Content-Description","File Transfer")
 			->header("Content-Type","application/gpx+xml")
 			->header("Content-Disposition","attachment; filename='route.gpx'");
