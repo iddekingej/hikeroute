@@ -1,11 +1,11 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class AlterRouteDistance extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -26,7 +26,7 @@ class AlterRouteDistance extends Migration
     public function down()
     {
         Schema::table('routes', function (Blueprint $p_table) {
-        	$p_table->dropColumn("distance");
+            $p_table->dropColumn("distance");
         });
     }
 }

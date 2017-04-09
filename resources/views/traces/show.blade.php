@@ -6,29 +6,33 @@ use App\Lib\Page;
 
 @section("header")	
 	<?php
-		RouteTracesVC::openLayerExtItems();	
-	?>
+RouteTracesVC::openLayerExtItems();
+?>
 @endsection
 @section("pagebody")
 <div class="map_container">
-<?php 
+<?php
 Page::topMenuHeader();
-Page::topMenuitem('routes.newdetails',['id'=>$routeTrace->id],__("Add as route"));
-if(!$routeTrace->hasRoutes()){
-	Page::topMenuItemConfirm('traces.del', ['id'=>$routeTrace->id], __("Delete this route trace"),__("Delete this route trace?"));
+Page::topMenuitem('routes.newdetails', [
+    'id' => $routeTrace->id
+], __("Add as route"));
+if (! $routeTrace->hasRoutes()) {
+    Page::topMenuItemConfirm('traces.del', [
+        'id' => $routeTrace->id
+    ], __("Delete this route trace"), __("Delete this route trace?"));
 }
 Page::topMenuFooter();
 ?>
 <table class="map_table">
-<tr>
-	<td>
+		<tr>
+			<td>
 		<?php RouteTracesVC::traceInfo($routeTrace);?>
 	</td>
-</tr>
+		</tr>
 <?php RouteTracesVC::openLayerDiv();?>		
 </table>
 </div>
-<?php 
+<?php
 RouteTracesVC::routeList($routeTrace);
 RouteTracesVC::openLayerJs($routeTrace);
 ?>

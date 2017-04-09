@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Default Database Connection Name
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify which of the database connections below you wish
-    | to use as your default connection for all database work. Of course
-    | you may use many connections at once using the Database library.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Default Database Connection Name
+     * |--------------------------------------------------------------------------
+     * |
+     * | Here you may specify which of the database connections below you wish
+     * | to use as your default connection for all database work. Of course
+     * | you may use many connections at once using the Database library.
+     * |
+     */
+    
     'default' => env('DB_CONNECTION', 'maindb'),
 
     /*
@@ -32,8 +31,7 @@ return [
     */
 
     'connections' => [
-
-
+        
         'maindb' => [
             'driver' => env('DB_DRIVER'),
             'host' => env('DB_HOST'),
@@ -42,25 +40,25 @@ return [
             'username' => env('DB_USERNAME'),
             'password' => env('DB_PASSWORD'),
             'charset' => env("DB_ENCODING"),
-            'collation' => env("DB_COLLATION",""),
+            'collation' => env("DB_COLLATION", ""),
             'prefix' => '',
             'schema' => 'public',
-            'sslmode' => 'prefer',
+            'sslmode' => 'prefer'
         ],
-    	'locationdb' => [
-    				'driver' => env('DB_LOC_DRIVER'),
-    				'host' => env('DB_LOC_HOST'),
-    				'port' => env('DB_LOC_PORT'),
-    				'database' => env('DB_LOC_DATABASE'),
-    				'username' => env('DB_LOC_USERNAME'),
-    				'password' => env('DB_LOC_PASSWORD'),
-    				'charset' => env("DB_LOC_ENCODING"),
-    				'collation' => env("DB_LOC_COLLATION",""),
-    				'prefix' => '',
-    				'schema' => 'public',
-    				'sslmode' => 'prefer',
-    	]
-
+        'locationdb' => [
+            'driver' => env('DB_LOC_DRIVER'),
+            'host' => env('DB_LOC_HOST'),
+            'port' => env('DB_LOC_PORT'),
+            'database' => env('DB_LOC_DATABASE'),
+            'username' => env('DB_LOC_USERNAME'),
+            'password' => env('DB_LOC_PASSWORD'),
+            'charset' => env("DB_LOC_ENCODING"),
+            'collation' => env("DB_LOC_COLLATION", ""),
+            'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'prefer'
+        ]
+    
     ],
 
     /*
@@ -88,16 +86,16 @@ return [
     */
 
     'redis' => [
-
+        
         'client' => 'predis',
-
+        
         'default' => [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),
-            'database' => 0,
-        ],
-
-    ],
+            'database' => 0
+        ]
+    
+    ]
 
 ];

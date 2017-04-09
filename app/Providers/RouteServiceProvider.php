@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Providers;
 
 use Route;
@@ -8,8 +7,10 @@ use App\Models\User;
 
 class RouteServiceProvider extends ServiceProvider
 {
+
     /**
      * Namespace appended to the controllers.
+     * 
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
@@ -21,8 +22,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-		Route::model("p_route",\App\Models\Route::class);
-		Route::model("p_user",User::class);
+        Route::model("p_route", \App\Models\Route::class);
+        Route::model("p_user", User::class);
         parent::boot();
     }
 
@@ -34,9 +35,9 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-
+        
         $this->mapWebRoutes();
-
+        
         //
     }
 
@@ -49,9 +50,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/web.php'));
     }
 
     /**
@@ -63,9 +62,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+        Route::prefix('api')->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
     }
 }

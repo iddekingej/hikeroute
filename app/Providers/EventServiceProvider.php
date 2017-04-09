@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Event;
@@ -7,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 
 class EventServiceProvider extends ServiceProvider
 {
+
     /**
      * The event listener mappings for the application.
      *
@@ -14,8 +14,8 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
-        ],
+            'App\Listeners\EventListener'
+        ]
     ];
 
     /**
@@ -26,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
+        
         //
     }
 }

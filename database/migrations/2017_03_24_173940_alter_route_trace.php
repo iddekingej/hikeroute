@@ -1,11 +1,11 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class AlterRouteTrace extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -14,10 +14,14 @@ class AlterRouteTrace extends Migration
     public function up()
     {
         Schema::table('routes', function (Blueprint $p_table) {
-           $p_table->unsignedInteger("id_routetrace")->nullable()->index();
-           $p_table->foreign("id_routetrace")->references("id")->on("routetraces");
-           $p_table->dropForeign("routes_id_routefile_foreign");
-           $p_table->dropColumn("id_routefile");
+            $p_table->unsignedInteger("id_routetrace")
+                ->nullable()
+                ->index();
+            $p_table->foreign("id_routetrace")
+                ->references("id")
+                ->on("routetraces");
+            $p_table->dropForeign("routes_id_routefile_foreign");
+            $p_table->dropColumn("id_routefile");
         });
     }
 
@@ -29,10 +33,12 @@ class AlterRouteTrace extends Migration
     public function down()
     {
         Schema::table('routes', function (Blueprint $p_table) {
-        	$p_table->dropForeign("routes_id_routetrace_foreign");
-        	$p_table->dropColumn("id_routetrace");
-        	$p_table->unsignedInteger("id_routefile")->index();
-        	$p_table->foreign("id_routefile")->references("id")->on("routefiles");
+            $p_table->dropForeign("routes_id_routetrace_foreign");
+            $p_table->dropColumn("id_routetrace");
+            $p_table->unsignedInteger("id_routefile")->index();
+            $p_table->foreign("id_routefile")
+                ->references("id")
+                ->on("routefiles");
         });
     }
 }

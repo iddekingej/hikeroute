@@ -1,9 +1,9 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 
 class InsertRightsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -11,18 +11,14 @@ class InsertRightsTable extends Migration
      */
     public function up()
     {
-    	DB::table("rights")->insert(
-    			[
-    					"description"=>"Administrate site"
-    					,	"tag"=>"admin"
-    			]
-    			);
-    	DB::table("rights")->insert(
-    			[
-    					"description"=>"Post routes"
-    					,	"tag"=>"post"
-    			]
-    			);
+        DB::table("rights")->insert([
+            "description" => "Administrate site",
+            "tag" => "admin"
+        ]);
+        DB::table("rights")->insert([
+            "description" => "Post routes",
+            "tag" => "post"
+        ]);
     }
 
     /**

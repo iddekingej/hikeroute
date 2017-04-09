@@ -3,7 +3,7 @@ use App\Lib\Frm;
 ?>
 @extends('layouts.pageform',["title"=>__("Edit user profile")])
 @section('formbody')
-<?php 
+<?php
 /**
  * Edit password
  */

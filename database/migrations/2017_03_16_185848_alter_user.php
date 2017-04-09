@@ -1,11 +1,11 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class AlterUser extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -14,8 +14,8 @@ class AlterUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $p_table) {
-            $p_table->string("firstname",100)->nullable();
-            $p_table->string("lastname",100)->nullable();
+            $p_table->string("firstname", 100)->nullable();
+            $p_table->string("lastname", 100)->nullable();
         });
     }
 

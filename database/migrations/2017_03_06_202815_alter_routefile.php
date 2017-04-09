@@ -1,11 +1,11 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class AlterRoutefile extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -14,9 +14,12 @@ class AlterRoutefile extends Migration
     public function up()
     {
         Schema::table('routefiles', function (Blueprint $p_table) {
-        	$p_table->unsignedInteger("id_user")->nullable()->index();
-        	$p_table->foreign("id_user")->references("id")->on("users");
-        	 
+            $p_table->unsignedInteger("id_user")
+                ->nullable()
+                ->index();
+            $p_table->foreign("id_user")
+                ->references("id")
+                ->on("users");
         });
     }
 
@@ -28,8 +31,8 @@ class AlterRoutefile extends Migration
     public function down()
     {
         Schema::table('routefiles', function (Blueprint $p_table) {
-        	$p_table->dropForeign("routefiles_id_user_foreign");
-			$p_table->dropColumn("id_user");
+            $p_table->dropForeign("routefiles_id_user_foreign");
+            $p_table->dropColumn("id_user");
         });
     }
 }
