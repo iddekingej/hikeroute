@@ -13,6 +13,7 @@
 		<directory suffix="Test.php">./tests/location</directory>
 		<directory suffix="Test.php">./tests/routes</directory>
 		<directory suffix="Test.php">./tests/user</directory>
+		<directory suffic="Test.php">./tests/userright</directory>
         </testsuite>
     </testsuites>
     <filter>

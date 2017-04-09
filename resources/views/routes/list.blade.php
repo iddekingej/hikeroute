@@ -25,7 +25,7 @@
 	</td>
 </tr>
 @foreach($routes as $l_route)
-<?php $l_trace=$l_route->routeTrace();?>
+<?php $l_trace=$l_route->routeTrace;?>
 <tr>
 	<td class="table_cell">
 	</td>

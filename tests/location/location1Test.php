@@ -17,7 +17,7 @@ class location1Test extends \Tests\TestCase
 		$l_location=end($l_locations);
 		$this->assertNotNull($l_location);
 		$this->assertEquals("testxc",$l_location->name);
-		$l_parent=$l_location->parentLocation();
+		$l_parent=$l_location->parentLocation;
 		$this->assertNotNull($l_parent);
 		$this->assertEquals("testxb",$l_parent->name);
 		$l_locations2=LocationTableCollection::getLocation(["city"=>"testxa","state"=>"testxb","country"=>"testxc"]);

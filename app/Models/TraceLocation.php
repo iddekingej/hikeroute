@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TraceLocation extends Model
 {
@@ -14,9 +15,9 @@ class TraceLocation extends Model
 	 * @return RouteTrace
 	 */
 	
-	function getRouteTrace():RouteTrace
+	function routeTrace():BelongsTo
 	{
-		return self::belongsTo(RouteTrace::class,"id_routetrace")->getResults();	
+		return self::belongsTo(RouteTrace::class,"id_routetrace");	
 	}
 	
 	/**
@@ -24,8 +25,8 @@ class TraceLocation extends Model
 	 * 
 	 * @return Location
 	 */
-	function getLocation():Location
+	function location():BelongsTo
 	{
-		return self::belongsTo(Location::class,"id_location")->getResults();
+		return self::belongsTo(Location::class,"id_location");
 	}
 }

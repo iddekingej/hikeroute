@@ -123,7 +123,7 @@ class RouteTracesVC extends ViewComponent
 	<table>
 		<tr>
 			<td class="map_ud"><?=__("Uploaded by")?>:</td>
-			<td class="map_ud_value"><?=static::e($p_trace->user()->name)?></td>
+			<td class="map_ud_value"><?=static::e($p_trace->user->name)?></td>
 		</tr>
 		<tr>
 			<td class="map_ud"><?=__("Location")?>:</td>
@@ -180,7 +180,7 @@ class RouteTracesVC extends ViewComponent
 	
 	static function routeList(RouteTrace $p_routeTrace):void
 	{
-		$l_routes=$p_routeTrace->routes();
+		$l_routes=$p_routeTrace->routes;
 		?>
 		<div class="traces_route_title"><?=static::e(__("Routes using this trace"))?></div>
 		<?php if(count($l_routes)==0){?>

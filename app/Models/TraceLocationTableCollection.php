@@ -48,8 +48,8 @@ class TraceLocationTableCollection extends TableCollection
 		$l_locations =[];
 		if($l_lts){
 			foreach($l_lts as $l_lt){
-				$l_location=$l_lt->getLocation();
-				$l_index=$l_lt->getLocation()->getLocationType()->description;
+				$l_location=$l_lt->location;
+				$l_index=$l_location->locationType->description;
 				$l_locations[$l_index]=$l_location;
 			}
 		}

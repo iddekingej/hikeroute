@@ -65,13 +65,15 @@ class route1Test extends \Tests\TestCase
 		TraceLocationTableCollection::addTraceLocations($this->trace,$l_locations);
 		$l_locations=$this->trace->getLocations();
 		$this->assertEquals(2,count($l_locations));
-		$this->assertEquals("QQ",$l_locations[0]->getLocation()->name);
-		$this->assertEquals("ZZ",$l_locations[1]->getLocation()->name);
+		$this->assertEquals("QQ",$l_locations[0]->location->name);
+		$this->assertEquals("ZZ",$l_locations[1]->location->name);
+		$l_return=TraceLocationTableCollection::getByTraceTypeIndexed($this->trace);
+		$this->assertEquals("QQ",$l_return["country"]->name);
 	}
 	
 	function test4()
 	{
-		$this->assertEquals($this->route->routeTrace()->id,$this->trace->id);
+		$this->assertEquals($this->route->routeTrace->id,$this->trace->id);
 	}
 	
 	/**
@@ -89,6 +91,8 @@ class route1Test extends \Tests\TestCase
 		$this->assertEquals($l_route->comment,"bla123");
 		$this->assertEquals($l_route->publish,0);
 	}
+		
+	
 }
 
 ?>

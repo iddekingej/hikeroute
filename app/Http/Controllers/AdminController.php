@@ -67,7 +67,7 @@ class AdminController extends Controller
 		$this->checkAuthentication();
 		
 		$l_rights=$this->getRightsArray();
-		$l_userRights=$p_user->userRights();
+		$l_userRights=$p_user->userRights;
 		foreach ( $l_userRights as $l_userRight ) {
 			$l_rights[$l_userRight->id_right][1] = true;
 		}		
@@ -166,7 +166,7 @@ class AdminController extends Controller
 		$l_user=User::create([
 				 "name"=>$p_request->input("name")
 				,"firstname"=>$p_request->input("firstname")
-				,"lastname"=>$p_request->inpurt("lastname")
+				,"lastname"=>$p_request->input("lastname")
 				,"email"=>$p_request->input("email")
 				,"enabled"=>$p_request->input("enabled")?1:0
 				,"password"=>bcrypt($p_request->input("password"))]);

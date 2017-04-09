@@ -19,9 +19,9 @@ class RouteTrace extends Model
 	];
 	protected $dates=["startdate"];
 	
-	function user()
+	function user():BelongsTo
 	{
-		return $this->belongsTo(User::class,"id_user")->getResults();
+		return $this->belongsTo(User::class,"id_user");
 	}
 	/**
 	 * Recalculate summary infornation about GPX trace files
@@ -86,7 +86,7 @@ class RouteTrace extends Model
 	{
 		$l_return ="";
 		foreach($this->getLocations() as $l_location){
-			$l_return .= "/".$l_location->getLocation()->name;
+			$l_return .= "/".$l_location->location->name;
 		}
 		return $l_return;
 	}

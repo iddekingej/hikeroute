@@ -87,12 +87,12 @@ class GuestController extends Controller
 		if(!$l_route->canCurrentShow()){
 			return View("errors.notallowed",["message"=>__("To view this route")]);
 		}
-		$l_routeTrace=$l_route->routeTrace();
+		$l_routeTrace=$l_route->routeTrace;
 		$l_data=[
 		"id"=>$p_id
 		,"route"=>$l_route
 		,"canEdit"=>Gate::allows("edit-route",$l_route)
-		,"creator"=>$l_route->user()->name
+		,"creator"=>$l_route->user->name
 		,"uploadDate"=>$l_route->created_at
 		,"route"=>$l_route
 		,"routetrace"=>$l_routeTrace

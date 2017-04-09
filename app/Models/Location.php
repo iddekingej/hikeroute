@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Location extends Model
 {
@@ -14,13 +15,18 @@ class Location extends Model
 	 * @return Location
 	 */
 	
-	function parentLocation():Location
+	function parentLocation():BelongsTo
 	{
-		return $this->belongsTo(Location::class,"id_parent")->getResults();
+		return $this->belongsTo(Location::class,"id_parent");
 	}
 
-	function getLocationType()
+	/**
+	 * Get the location type belonging to the location
+	 * 
+	 * @return BelongsTo
+	 */
+	function locationType():BelongsTo
 	{
-		return $this->belongsTo(LocationType::class,"id_locationtype")->getResults();
+		return $this->belongsTo(LocationType::class,"id_locationtype");
 	}
 }

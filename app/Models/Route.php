@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RouteException extends \Exception
 {
@@ -24,19 +25,19 @@ class Route extends Model
 	/**
 	 * Get the user to which the route belongs to (=has posted)
 	 * 
-	 * @return User
+	 * @return BelongsTo
 	 */
-	function user():User
+	function user():BelongsTo
 	{
-		return $this->belongsTo(User::class,"id_user")->getResults();
+		return $this->belongsTo(User::class,"id_user");
 	}
 	
 	/**
 	 * Contents of the route file 
 	 * 
-	 * @return RouteTrace
+	 * @return BelongsTo
 	 */
-	function routeTrace():RouteTrace
+	function routeTrace():BelongsTo
 	{
 		return $this->belongsTo(RouteTrace::class,"id_routetrace");
 	}
@@ -58,8 +59,7 @@ class Route extends Model
 	 */
 	function recalcGPX():void
 	{
-
-		$l_routeTrace=$this->routeTrace();		
+		$l_routeTrace=$this->routeTrace;		
 		if($l_routeTrace){
 			$l_routeTrace->recalcGPX();
 		}

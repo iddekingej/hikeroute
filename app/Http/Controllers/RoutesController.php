@@ -288,7 +288,7 @@ class RoutesController extends Controller
 			}
 			try{
 				$l_gpxData=file_get_contents($p_request->file("routefile")->path());				
-				RouteTraceTableCollection::updateGpxFile($l_route->routeTrace(), $l_gpxData);
+				RouteTraceTableCollection::updateGpxFile($l_route->routeTrace, $l_gpxData);
 			} catch(\Exception $e){
 				return Redirect::to ( "/routes/updategpx/$l_id" )
 				->withErrors ( ["routefile"=>$e->getMessage()])
@@ -312,7 +312,7 @@ class RoutesController extends Controller
 	{
 		$this->checkInteger($p_id);
 		$l_route=Route::findOrFail($p_id);
-		$l_routeTrace=$l_route->routetrace();
+		$l_routeTrace=$l_route->routeTrace;
 		if(Gate::allows("edit-route",$l_route)){
 			$l_data = [
 					"title" => __("Edit route"),

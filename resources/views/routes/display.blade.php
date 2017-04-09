@@ -77,7 +77,7 @@ use App\Vc\RouteTracesVC;
 </tr>
 </table>
 <?php 
-RouteTracesVC::openLayerJs($route->routeTrace());
+RouteTracesVC::openLayerJs($route->routeTrace);
 ?>
 
 @endsection

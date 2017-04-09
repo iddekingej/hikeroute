@@ -76,7 +76,7 @@ class RouteVC extends \App\Vc\ViewComponent
 		<td class="routeall_infoLabel"><?=static::e(__("Location"))?> </td><td class="routeall_infoValue"><?=static::e($p_route->location)?> </td>
 		</tr>
 		<tr>
-		<td class="routeall_infoLabel"><?=static::e(__("Added by"))?></td><td class="routeall_infoValue"><?=static::e($p_route->user()->name)?> </td>
+		<td class="routeall_infoLabel"><?=static::e(__("Added by"))?></td><td class="routeall_infoValue"><?=static::e($p_route->user->name)?> </td>
 		</tr>
 		</table>
 		<br/>

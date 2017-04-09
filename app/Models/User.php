@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Validator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Registered application users
  */
@@ -74,9 +75,9 @@ class User extends Authenticatable
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    function userRights():Collection
+    function userRights():HasMany
     {
-    	return $this->hasMany(UserRight::class,"id_user")->getResults();
+    	return $this->hasMany(UserRight::class,"id_user");
     }
     
     /**
@@ -95,10 +96,9 @@ class User extends Authenticatable
      * @return boolean
      */
     private function checkHasRight($p_tag)
-    {    	
-    	$l_userRights=$this->userRights();
-    	foreach($l_userRights as $l_userRight){
-    		if($l_userRight->right()->tag==$p_tag){
+    {    	    	
+    	foreach($this->userRights as $l_userRight){
+    		if($l_userRight->right->tag==$p_tag){
     			return true;
     		}
     	}

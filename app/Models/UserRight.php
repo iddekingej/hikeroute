@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserRight extends Model
 {
@@ -17,9 +18,9 @@ class UserRight extends Model
     * @return User 
     */
    
-   function user():User
+   function user():BelongsTo
    {
-   		return $this->belongsTo(User::class,"id_user")->getResults(); 
+   		return $this->belongsTo(User::class,"id_user"); 
    }
    
    /**
@@ -28,9 +29,9 @@ class UserRight extends Model
     * @return Right
     */
    
-   function right():Right
+   function right():BelongsTo
    {
-   		return $this->belongsTo(Right::class,"id_right")->getResults();
+   		return $this->belongsTo(Right::class,"id_right");
    }
    
    /**
