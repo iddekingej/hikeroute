@@ -63,6 +63,10 @@ use App\Vc\RouteTracesVC;
 			<td class="map_ud">{{ __("Uploaded on") }}:</td>
 			<td class="map_ud_value"> {{ $uploadDate->format('d-m-Y') }}</td>
 		</tr>
+		<tr>
+			<td class="map_ud">{{ __("Download route") }}:</td>
+			<td colspan='4' class="map_ud_value"><?=RouteTracesVC::downloadLink($route->routeTrace)?></td>
+		</tr>
 	</table>
 	</td>
 </tr>
