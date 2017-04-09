@@ -2,6 +2,8 @@
 declare(string_types=1);
 namespace App\Vc;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\Route;
+use App\Lib\Localize;
 
 class RouteVC extends \App\Vc\ViewComponent
 {
@@ -109,6 +111,47 @@ class RouteVC extends \App\Vc\ViewComponent
 			</div>
 			<?php 
 		}
+	}
+	
+	/**
+	 * 
+	 */
+	
+	static function routeInfoRow($p_label,$p_value,int $p_colSpanLabel=1,int $p_colSpanValue=1)
+	{
+		?>
+			<td class="map_ud" colspan="<?=static::e((string)$p_colSpanLabel)?>">
+				<?=static::e($p_label)?>
+			</td>
+			<td class="map_ud_value" colspan="<?=static::e((string)$p_colSpanValue)?>">
+				<?=static::e($p_value)?>
+			</td>
+		<?php 
+	}
+	
+	static function routeInfo(Route $p_route)
+	{
+		?>		
+		<table>
+		<tr>
+		<?php 
+			static::routeInfoRow(__("Location"),$p_route->location,1,2);
+			static::routeInfoRow(__("Distance"),Localize::meterToDistance($p_route->routeTrace->distance));
+				
+		?>
+		</tr>
+		<tr>
+		<?php 
+			static::routeInfoRow(__("Author"), $p_route->user->name,1,2);
+			static::routeInfoRow(__("Crearted on"),\App\Lib\Localize::shortDate($p_route->created_at));
+		?>
+		</tr>
+		<tr>
+		<td class="map_ud"><?=static::e(__("Download route"))?>:</td>
+		<td colspan='4' class="map_ud_value"><?=RouteTracesVC::downloadLink($p_route->routeTrace)?></td>
+		</tr>
+		</table>
+		<?php 
 	}
 
 }

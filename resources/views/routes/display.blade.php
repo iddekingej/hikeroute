@@ -1,5 +1,6 @@
 <?php
 use App\Vc\RouteTracesVC;
+use App\Vc\RouteVC;
 ?>
 @extends("layouts.page",["title"=>$route->title])
 
@@ -43,31 +44,10 @@ use App\Vc\RouteTracesVC;
 	</td>
 </tr>
 <tr>
-<td>
-
-<td>
-</tr>
-<tr>
 	<td>
-	<table>
-		<tr>
-			<td class="map_ud" colspan='1'>{{ __("Location") }}</td>
-			<td class="map_ud_value" colspan='2'>{{ $route->location }}</td>
-				<td class="map_ud">{{ __("Distance") }}:</td>
-			<td class="map_ud_value"> {{ $distance }}km</td>
-		</tr>
-		<tr>
-			<td class="map_ud">{{ __("Uploaded by") }}:</td>
-			<td class="map_ud_value">{{ $creator }} </td>
-			<td class="map_ud_space">&#160;</td>
-			<td class="map_ud">{{ __("Uploaded on") }}:</td>
-			<td class="map_ud_value"> {{ $uploadDate->format('d-m-Y') }}</td>
-		</tr>
-		<tr>
-			<td class="map_ud">{{ __("Download route") }}:</td>
-			<td colspan='4' class="map_ud_value"><?=RouteTracesVC::downloadLink($route->routeTrace)?></td>
-		</tr>
-	</table>
+		<?php
+		RouteVC::routeInfo($route);
+		?>
 	</td>
 </tr>
 <?php RouteTracesVC::openLayerDiv();?>		
