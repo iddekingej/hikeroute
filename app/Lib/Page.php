@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace App\Lib;
 
 use App\Vc\ViewComponent;
@@ -10,7 +11,17 @@ use App\Vc\ViewComponent;
 
 class Page extends ViewComponent{
 
-
+	/**
+	 * Display menu group
+	 * 
+	 * @param string $p_title
+	 */
+	static function menuGroup(string $p_title):void
+	{
+		?>
+		<div class="leftmenu_group"><?=static::e($p_title)?></div>
+		<?php 
+	}
 	/**
 	 * Menu item
 	 * 

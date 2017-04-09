@@ -103,7 +103,7 @@ class Route extends Model
 	 * @return bool
 	 */
 	
-	function canShow(\App\Models\User $p_user):bool
+	function canShow(User $p_user):bool
 	{
 		if($p_user->isAdmin()){
 			return true;
@@ -113,6 +113,15 @@ class Route extends Model
 		}
 		return ($this->publish);
 	}
+	
+	function canEdit(User $p_user):bool
+	{
+		if($p_user->isAdmin()){
+			return true;
+		}
+		return $this->id_user==$p_user->id;
+	}
+			
 	
 		
 }

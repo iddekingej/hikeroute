@@ -5,11 +5,44 @@ use App\Vc\ViewComponent;
 use App\Models\RouteTrace;
 use App\Lib\Localize;
 use App\Lib\Page;
+use Illuminate\Database\Eloquent\Collection;
 
 class RouteTracesVC extends ViewComponent
 {
 	
 	/**
+	 * Link to download a gpx file
+	 * @param RouteTrace $p_trace
+	 */
+	
+	static function downloadLink(RouteTrace $p_trace)
+	{
+		static::link(Route("traces.download",["p_id"=>$p_trace->id]),__("Download file"));
+	}
+	
+	static function listTopMenu()
+	{
+		Page::topMenuHeader();
+		Page::topMenuItem("traces.upload", [], __("Upload new gpx"));
+		Page::topMenuFooter();
+	}
+	/**
+	 * Printout a list of route traces 
+	 * 
+	 * @param array $p_traces List of traces to display
+	 * @param string $p_selectionRoute Url to jump to when selecting route
+	 */
+	static function traceListTable(Collection $p_traces,string $p_selectionRoute,Array $p_parameters=[]):void
+	{
+		RouteTracesVC::traceListHeader();
+		foreach($p_traces as $l_trace)
+		{
+			RouteTracesVC::traceListRow($l_trace,$p_selectionRoute,$p_parameters);
+		}
+		RouteTracesVC::traceListFooter();
+	}
+	
+		/**
 	 * Header of list with all user's traces
 	 * Usage:
 	 * ::tracelistHeader
@@ -18,9 +51,6 @@ class RouteTracesVC extends ViewComponent
 	 */
 	static function traceListHeader()
 	{
-		Page::topMenuHeader();
-		Page::topMenuItem("traces.upload", [], __("Upload new gpx"));
-		Page::topMenuFooter();
 ?>
 <table class="table">
 <tr>
@@ -45,25 +75,24 @@ class RouteTracesVC extends ViewComponent
 <?php 
 	}
 	
-	static function downloadLink(RouteTrace $p_trace)
-	{
-		static::link(Route("traces.download",["p_id"=>$p_trace->id]),__("Download file"));	
-	}
+
 	
 	/**
 	 * Print table row with information about a trace
 	 * Used in list with all the users uploaded route traces
 	 * 
 	 * @param RouteTrace $p_trace display information about this trace
+	 * @param string $p_selectionRoute Url Route to jump to after selecting a route
 	 */
 	
-	static function traceListRow(RouteTrace $p_trace)
+	static function traceListRow(RouteTrace $p_trace,string $p_selectionRoute,Array $p_parameters)
 	{
-		
+		$l_parameters=$p_parameters;
+		$l_parameters["p_id"]=$p_trace->id;
 ?>
 	<tr>
 		<td class="table_cell">
-			<?=static::editLink("traces.show",["p_id"=>$p_trace->id],"")?>
+			<?=static::editLink($p_selectionRoute,$l_parameters,"")?>
 		</td>
 		<td class="table_cell">
 		<?=static::e($p_trace->getLocationByTypeCached("country"))?>

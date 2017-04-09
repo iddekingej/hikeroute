@@ -137,7 +137,6 @@ class RouteVC extends \App\Vc\ViewComponent
 		<?php 
 			static::routeInfoRow(__("Location"),$p_route->location,1,2);
 			static::routeInfoRow(__("Distance"),Localize::meterToDistance($p_route->routeTrace->distance));
-				
 		?>
 		</tr>
 		<tr>

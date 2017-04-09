@@ -121,59 +121,22 @@ class RoutesController extends Controller
 	//--------(new route)----------------------------
 	
 	/**
-	 * Displays an input form for entering a new hiking route
+	 * When entering a new route, first select a previous uploaded route
 	 * 
 	 * @return View View with input form 
 	 */
 	
 	function newRoute()
 	{
-	
-		return View("routes.newupload",["title"=>"Post a new hiking route"
-		                         ,"id"=>""
-				                 ,"routeTitle"=>""
-				                 ,"comment"=>""]);
+		$l_traces=RouteTraceTableCollection::getByUser(\Auth::user());
+		return View("routes.selecttrace",
+				["title"=>__("Post a new hiking route")
+				,"traces"=>$l_traces
+				,"id_route"=>""
+				,"next"=>"route.newdetails"
+		]);
 	}
 
-	
-	/**
-	 * When adding a new route, first a gpx file is uploaded.
-	 * This method saves the route. After the upload a form is 
-	 * displayed for entering some information about the hiking route
-	 * this information is saved by the method @see RoutesController@saveAddRoute
-	 * 
-	 * @param Request $p_request
-	 * @return Redirect|View  
-	 */
-	
-	function saveNewUpload(Request $p_request)
-	{
-		$l_rules = [
-				"routefile" => [
-						"required","file"
-				]
-		];
-			
-		$l_validator = Validator::make ( $p_request->all (), $l_rules );
-		if ($l_validator->fails ()) {
-			return Redirect::to ( "/routes/new/")
-			       ->withErrors ( $l_validator )
-			        ->withInput ( $p_request->all () );
-		}
-
-		try{
-			$l_path=$p_request->file("routefile")->path();
-			$l_content=file_get_contents($l_path);
-			$l_routeTrace=RouteTraceTableCollection::addGpxFile($l_content);
-		}catch(Exception $l_e){
-			return Redirect::to ("/routes/new/" )->withErrors ( [ 
-					"routefile" =>$l_e->getMessage()
-				] )->withInput ( $p_request->all () );
-
-		}
-		return Redirect::to("/routes/newdetails/".$l_routeTrace->id);
-		
-	}
 	/**
 	 * When add a new route ,first the route is uploaded. After
 	 * the route file is inserted in the database successful 
@@ -240,67 +203,52 @@ class RoutesController extends Controller
 	
 	//--------(edit route)----------------------------
 	
-	/**
-	 * When selecting "Uploading new GPX file" to an existing route
-	 * 1) This method displays a upload form, then...
-	 * 2) @see RoutesController::saveUploadGPX saves the gpx.
-	 * 
-	 * @param integer $p_id id of the selected hiking route
-	 * @return unknown
-	 */
 	
-	function uploadGPX($p_id)
+	private function notAllowedToChangeRoute()
+	{
+		return $this->displayError(__("Not allowed to change this route"));		
+	}
+	
+	function traceEdit($p_id)
+	{
+		$l_route=Route::findOrFail($p_id);
+		if(!$l_route->canEdit(\Auth::user())){
+			return $this->notAllowedToChangeRoute();
+		}
+		$l_traces=RouteTraceTableCollection::getByUser(\Auth::user());
+		return View("routes.selecttrace",
+				["title"=>__("Change trace")
+						,"traces"=>$l_traces
+						,"id_route"=>$p_id
+						,"next"=>"routes.trace.update"
+				]);
+
+	}
+
+	/**
+	 * When a new trace is selected for a route, update the information. 
+	 * 
+	 * @param int $p_id_route
+	 * @param int $p_id
+	 * @return \App\Http\Controllers\unknown|unknown
+	 */
+	function traceUpdate($p_id_route,$p_id)
 	{
 		$this->checkInteger($p_id);
-		$l_route=Route::findOrFail($p_id);
-		if(Gate::allows("edit-route",$l_route)){
-			$l_data=["id"=>$p_id];
-			return View("routes.upload",$l_data);
-		}//TODO redirect
-	}
-	
-	
-	/**
-	 * This method is called when a new GPX is uploaded for 
-	 * an existing GPX 
-	 * 
-	 * @param Request $p_request
-	 * @return Redirect
-	 */
-	function saveUploadGPX(Request $p_request)
-	{
-		$l_id=$p_request->input("id");
-		$l_route=Route::findOrFail($l_id);
-		if(Gate::allows("edit-route",$l_route)){
-			
-			//validate request
-			$l_rules = [ 
-					"routefile" => [ 
-							"required","file"
-					] 
-			];
-			
-			$l_validator = Validator::make ( $p_request->all (), $l_rules );
-			if ($l_validator->fails ()) {
-				return Redirect::to ( "/routes/updategpx/$l_id" )
-						->withErrors ( $l_validator )
-						->withInput ( $p_request->all () );
-			}
-			try{
-				$l_gpxData=file_get_contents($p_request->file("routefile")->path());				
-				RouteTraceTableCollection::updateGpxFile($l_route->routeTrace, $l_gpxData);
-			} catch(\Exception $e){
-				return Redirect::to ( "/routes/updategpx/$l_id" )
-				->withErrors ( ["routefile"=>$e->getMessage()])
-				->withInput ( $p_request->all () );
-			}
-			
-			return Redirect::to("/routes/display/$l_id");				
-		} else {
-			return $this->displayError(__("update route file"));
+		$this->checkInteger($p_id);
+		$l_route=Route::findOrFail($p_id_route);
+		$l_routeTrace=RouteTrace::findOrFail($p_id);
+		if(!$l_route->canEdit(\Auth::user())){
+			return $this->notAllowedToChangeRoute();
 		}
+		if(!$l_routeTrace->canRoute(\Auth::user())){
+			return $this->displayError(__("Not allowed to use this trace for a new route"));
+		}
+		$l_route->id_routetrace=$l_routeTrace->id;
+		$l_route->save();
+		return Redirect::route("routes.display",["p_id"=>$l_route->id]);
 	}
-		
+	
 	/**
 	 * Displays a form for editing an existing route.
 	 *

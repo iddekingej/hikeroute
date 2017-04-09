@@ -30,7 +30,7 @@ use App\Vc\RouteVC;
 <?php  
 \App\Lib\Page::topMenuHeader(); 
 \App\Lib\Page::topMenuitem('routes.edit',['id'=>$id],__("Edit route")); 
-\App\Lib\Page::topMenuitem('routes.updategpx',['id'=>$id],__("Upload new gpx file")); 
+\App\Lib\Page::topMenuitem('routes.trace.edit',['id'=>$id],__("Upload new gpx file")); 
 \App\Lib\Page::topMenuitemConfirm('routes.del',['id'=>$id],__("Delete this route"),__("Delete route?")); 
 \App\Lib\Page::topMenuFooter();
 ?>

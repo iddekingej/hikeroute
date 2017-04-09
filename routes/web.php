@@ -67,15 +67,13 @@ Route::group(["middleware"=>"auth","prefix"=>"/traces/"],function(){
 Route::group(["middleware"=>"auth","prefix"=>"/routes/"],function(){
 		
 	Route::get('new',["as"=>"routes.new","uses"=>"RoutesController@newRoute"]);
-	Route::get('newdetails/{id}',["as"=>"routes.newdetails","uses"=>"RoutesController@newDetails"]);
-	Route::post("save/newupload",["as"=>"routes.save.newupload","uses"=>"RoutesController@saveNewUpload"]);
+	Route::get('newdetails/{id}',["as"=>"routes.newdetails","uses"=>"RoutesController@newDetails"]);	
 	Route::post('save/add',["as"=>"routes.save.add","uses"=>"RoutesController@saveAddRoute"]);
 	Route::post('save/edit',["as"=>"routes.save.edit","uses"=>"RoutesController@saveUpdateRoute"]);
-	Route::post("save/updategpx",["as"=>"routes.save.uploadgpx","uses"=>"RoutesController@saveUploadGPX"]);
+	Route::get("trace/edit/{p_id}",["as"=>"routes.trace.edit","uses"=>"RoutesController@traceEdit"]);
+	Route::get("trace/update/{p_id_route}/{p_id}",["as"=>"routes.trace.update","uses"=>"RoutesController@traceUpdate"]);
 	Route::get('edit{id}',["as"=>"routes.edit","uses"=>"RoutesController@editRoute"]);
 	Route::get("del/{id}",["as"=>"routes.del","uses"=>"RoutesController@delRoute"]);
-	Route::get("updategpx/{id}",["as"=>"routes.updategpx","uses"=>"RoutesController@uploadGPX"]);
-	Route::get('editfile/{id}',["as"=>"routes.editfile","uses"=>"RoutesController@editFile"]);
 	Route::get('/',["as"=>"routes","uses"=>"RoutesController@listRoutes"]);
 
 });
