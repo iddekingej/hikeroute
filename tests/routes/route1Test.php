@@ -24,6 +24,19 @@ class route1Test extends \Tests\TestCase
 				,"publish"=>1
 		]);
 	}
+	/**
+	 * In the test method some test data is saved.
+	 * Load data and check values
+	 */
+	function testGetRoute()
+	{
+		$l_route=Route::findOrFail($this->route->id);
+		$this->assertEquals("title1",$l_route->title);
+		$this->assertEquals("Comment",$l_route->comment);
+		$this->assertEquals("LocationTest",$l_route->location);
+		$this->assertEquals($this->trace->id,$l_route->id_routetrace);
+		$this->assertEquals(1,$l_route->published);
+	}
 	
 	function test1UploadRoute()
 	{
@@ -61,10 +74,20 @@ class route1Test extends \Tests\TestCase
 		$this->assertEquals($this->route->routeTrace()->id,$this->trace->id);
 	}
 	
-	function test5(){
-		$l_locations=LocationTableCollection::getLocation(["country"=>"QQ","city"=>"ZZ"]);
-		TraceLocationTableCollection::addTraceLocations($this->trace,$l_locations);
-		$this->route->deleteDepended();
+	/**
+	 * Test if update route details will work
+	 */
+	function testUpdateInfo()
+	{
+		$this->route->title="X2";
+		$this->route->comment="bla123";
+		$this->route->location="XXX";
+		$this->route->publish=0;
+		$this->route->save();
+		$l_route=Route::findOrFail($this->route->id);
+		$this->assertEquals($l_route->title, "X2");
+		$this->assertEquals($l_route->comment,"bla123");
+		$this->assertEquals($l_route->publish,0);
 	}
 }
 
