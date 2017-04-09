@@ -38,7 +38,7 @@ class Route extends Model
 	 */
 	function routeTrace():RouteTrace
 	{
-		return $this->belongsTo(RouteTrace::class,"id_routetrace")->getResults();
+		return $this->belongsTo(RouteTrace::class,"id_routetrace");
 	}
 	
 	

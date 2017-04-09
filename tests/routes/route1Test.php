@@ -35,7 +35,7 @@ class route1Test extends \Tests\TestCase
 		$this->assertEquals("Comment",$l_route->comment);
 		$this->assertEquals("LocationTest",$l_route->location);
 		$this->assertEquals($this->trace->id,$l_route->id_routetrace);
-		$this->assertEquals(1,$l_route->published);
+		$this->assertEquals(1,$l_route->publish);
 	}
 	
 	function test1UploadRoute()
