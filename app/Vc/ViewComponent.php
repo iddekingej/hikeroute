@@ -16,7 +16,7 @@ class ViewComponent
         if ($p_string === null) {
             return "";
         }
-        return htmlspecialchars($p_string, ENT_QUOTES | ENT_HTML5);
+        return htmlspecialchars("$p_string", ENT_QUOTES | ENT_HTML5);
     }
 
     /**
