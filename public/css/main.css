@@ -363,13 +363,18 @@ body, input, table, tr, td, textarea {
 
 .table_cell {
 	border: solid 1px #ccc;
-	padding: 3px
+	padding-top: 3px;
+	padding-bottom:3px;
+	padding-left:5px;
+	padding-right:5px;
+	
 }
 
 .table_header {
 	border: solid 1px #bbb;
 	padding: 3px;
-	font-weight: 700
+	font-weight: 700;
+	text-align:center;
 }
 
 /* Buttons */

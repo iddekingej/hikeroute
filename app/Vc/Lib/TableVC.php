@@ -3,6 +3,7 @@ declare(stric_types=1);
 namespace App\Vc\Lib;
 
 use App\Vc\ViewComponent;
+use App\Lib\Page;
 
 abstract class TableVC extends ViewComponent{
     private $config=[];
@@ -55,6 +56,9 @@ abstract class TableVC extends ViewComponent{
                     break;
                 case "@html":
                     echo $p_value;
+                    break;
+                case "@iconlinkconfirm":
+                    Page::iconConfirm($p_config["confirmmsg"],$p_value,$p_config["icon"]);
                     break;
                 case "@link":
                     ?><a href="<?=static::e($p_value[0])?>"><?=static::e($p_value[1])?></a><?php
