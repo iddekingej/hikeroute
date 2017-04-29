@@ -7,6 +7,18 @@ namespace App\Lib;
 class Frm
 {
 
+    static function label($p_name,$p_label)
+    {
+        ?>
+                <td class="form_labelCell"><?=\Form::label($p_name,$p_label)?></td>
+        <?php 
+    }
+    static function error($p_name,$p_errors)
+    {
+		 if ($p_errors->has($p_name)){?>
+			<div class="form_error"><?=$p_errors->first($p_name)?></div>
+		<?php }
+    }
     static function e(string $p_string): string
     {
         return \App\Lib\Page::e($p_string);
@@ -80,6 +92,49 @@ class Frm
 	</td>
 </tr>
 <?php
+    }
+   
+    static function file($p_name,$p_label,$p_errors)
+    {
+        ?>
+        <tr>
+        <?php  self::label($p_name,$p_label); ?>
+        <td class="form_labelElement">
+            <?php self::error($p_name,$p_errors);?>
+            <?=\Form::file($p_name)?>
+            </td>
+            </tr>
+           <?php
+    }
+
+    static function header($p_title,$p_submitRoute,Array $p_hidden){
+        ?>
+        <div class="form_body">
+			<div class="form_container">
+		<div class="form_title"><?=self::e($p_title)?></div><?php 
+        echo \Form::open(["route"=>$p_submitRoute,"enctype"=>"multipart/form-data"]); 
+        foreach($p_hidden as $l_key=>$p_value){
+          echo \Form::hidden($l_key,$l_value);
+        }            
+        ?><table class="form_table"><?php 
+        
+    }
+    static function submit($p_cancelUrl)
+    {
+        ?>
+        <tr>
+        <td colspan='2'><?=\Form::submit(__("Save"))?>
+        	<button type='button'
+                    onclick='window.location="<?=$p_cancelUrl?>"'><?=static::e(__("Cancel"))?></button>
+         </td>
+         </tr>
+         </table>
+         
+        <?php
+        \Form::close();
+        ?>
+        </div></div>
+        <?php 
     }
 
     static function footer($p_cancelUrl)

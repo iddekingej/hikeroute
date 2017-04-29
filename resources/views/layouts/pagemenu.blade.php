@@ -29,7 +29,7 @@ Page::menuItem("start", __("Published routes"));
 <form id="logout-form" action="{{ route('logout') }}" method="POST"
 				style="display: none;">{{ csrf_field() }}</form>
 		</td>
-		<td class="pagecontent">@yield("pagebody")</td>
+		<td class="pagecontent">@yield("pagebody")</td></tr>
 
 </table>
 @endsection

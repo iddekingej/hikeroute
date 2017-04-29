@@ -69,35 +69,7 @@ class GuestController extends Controller
         return view("welcome", $l_data);
     }
 
-    /**
-     * Display route:Map and all route data
-     * also display edit controls when user is allowed to
-     * edit the route *
-     * 
-     * @param integer $p_id            
-     * @return \Illuminate\View\View View to display
-     */
-    function displayRoute(int $p_id)
-    {
-        $l_route = Route::findOrFail($p_id);
-        if (! $l_route->canCurrentShow()) {
-            return View("errors.notallowed", [
-                "message" => __("To view this route")
-            ]);
-        }
-        $l_routeTrace = $l_route->routeTrace;
-        $l_data = [
-            "id" => $p_id,
-            "route" => $l_route,
-            "canEdit" => Gate::allows("edit-route", $l_route),
-            "creator" => $l_route->user->name,
-            "uploadDate" => $l_route->created_at,
-            "route" => $l_route,
-            "routetrace" => $l_routeTrace,
-            "distance" => round($l_routeTrace->distance) / 1000
-        ];
-        return View("routes.display", $l_data);
-    }
+ 
 
     /**
      * Download GPX file

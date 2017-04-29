@@ -32,7 +32,7 @@ class Controller extends BaseController
      */
     protected function displayError(string $p_message)
     {
-        return View("errors.notallowed", [
+        return View("other.error", [
             "message" => $p_message
         ]);
     }

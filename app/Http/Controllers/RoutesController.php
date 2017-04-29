@@ -226,11 +226,9 @@ class RoutesController extends Controller
             return $this->notAllowedToChangeRoute();
         }
         $l_traces = RouteTraceTableCollection::getByUser(\Auth::user());
-        return View("routes.selecttrace", [
-            "title" => __("Change trace"),
+        return View("routes.selecttrace", [            
             "traces" => $l_traces,
-            "id_route" => $p_id,
-            "next" => "routes.trace.update"
+            "route" => $l_route            
         ]);
     }
 
@@ -255,7 +253,7 @@ class RoutesController extends Controller
         }
         $l_route->id_routetrace = $l_routeTrace->id;
         $l_route->save();
-        return Redirect::route("routes.display", [
+        return Redirect::route("display.overview", [
             "p_id" => $l_route->id
         ]);
     }
@@ -316,6 +314,7 @@ class RoutesController extends Controller
         $l_route->location = $p_request->input("routeLocation");
         $l_route->publish = $p_request->input("publish") ? 1 : 0;
         $l_route->save();
-        return Redirect::to("/routes/display/$l_id");
+        return Redirect::route("display.overview",["id"=>$l_id]);
+        
     }
 }

@@ -17,14 +17,14 @@ class RouteVC extends \App\Vc\ViewComponent
         ?>
 		
 		<?=\Form::open(["route"=>["routes.search"]])?>
-<div class="main_search_container">
-	<span><?=\Form::label("search",__("Search"))?></span><br />
-	<div class="main_search_input_container">
-		<?=\Form::text("search","",["class"=>"main_search_input"]) ?>
-		<?=\Form::submit(__("Search"))?>
+		<div class="main_search_container">
+			<span><?=\Form::label("search",__("Search"))?></span><br />
+			<div class="main_search_input_container">
+				<?=\Form::text("search","",["class"=>"main_search_input"]) ?>
+				<?=\Form::submit(__("Search"))?>
+			</div>
 		</div>
-</div>
-<?=\Form::close()?>
+		<?=\Form::close()?>
 		<?php
     }
 
@@ -87,7 +87,7 @@ class RouteVC extends \App\Vc\ViewComponent
 		</tr>
 	</table>
 	<br />
-		&nbsp;<?=static::linkRoute("routes.display",["id"=>$p_route->id], __("Goto route details"))?><br />
+		&nbsp;<?=static::linkRoute("display.overview",["id"=>$p_route->id], __("Goto route details"))?><br />
 	
 		<?=nl2br(static::e($p_route->comment))?>
 	
@@ -118,42 +118,5 @@ class RouteVC extends \App\Vc\ViewComponent
         }
     }
 
-    /**
-     */
-    static function routeInfoRow($p_label, $p_value, int $p_colSpanLabel = 1, int $p_colSpanValue = 1)
-    {
-        ?>
-<td class="map_ud" colspan="<?=static::e((string)$p_colSpanLabel)?>">
-				<?=static::e($p_label)?>
-			</td>
-<td class="map_ud_value"
-	colspan="<?=static::e((string)$p_colSpanValue)?>">
-				<?=static::e($p_value)?>
-			</td>
-<?php
-    }
-
-    static function routeInfo(Route $p_route)
-    {
-        ?>
-<table>
-	<tr>
-		<?php
-        static::routeInfoRow(__("Location"), $p_route->location, 1, 2);
-        static::routeInfoRow(__("Distance"), Localize::meterToDistance($p_route->routeTrace->distance));
-        ?>
-		</tr>
-	<tr>
-		<?php
-        static::routeInfoRow(__("Author"), $p_route->user->name, 1, 2);
-        static::routeInfoRow(__("Crearted on"), \App\Lib\Localize::shortDate($p_route->created_at));
-        ?>
-		</tr>
-	<tr>
-		<td class="map_ud"><?=static::e(__("Download route"))?>:</td>
-		<td colspan='4' class="map_ud_value"><?=RouteTracesVC::downloadLink($p_route->routeTrace)?></td>
-	</tr>
-</table>
-<?php
-    }
+  
 }

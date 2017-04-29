@@ -4,6 +4,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\UnauthorizedException;
 
 class Handler extends ExceptionHandler
 {
@@ -32,6 +33,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        error_log($exception->getMessage());        
         parent::report($exception);
     }
 
@@ -43,8 +45,11 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
-    {
-        return parent::render($request, $exception);
+    {  
+       if($exception instanceof UnauthorizedException){
+          return response()->view("other.error",["message"=>$exception->getMessage()]);
+       }
+       return parent::render($request, $exception);
     }
 
     /**

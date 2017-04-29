@@ -1,5 +1,5 @@
 <?php
-use App\Vc\RouteTracesVC;
+use App\Vc\Trace\OpenLayer;
 ?>
 @extends('layouts.pageform',["title"=>$title])
 
@@ -8,7 +8,10 @@ use App\Vc\RouteTracesVC;
 <link href="/css/ol.css" rel='stylesheet'></link>
 @endsection @section('formbody')
 <table class="map_table">
-		<?php RouteTracesVC::openLayerDiv();?>		
+<?php 
+ $l_trace=new OpenLayer($routeTrace);
+ $l_trace->display();
+?>	
 </table>
 {!!
 Form::open(["route"=>$id==""?"routes.save.add":"routes.save.edit","enctype"=>"multipart/form-data"]);
@@ -48,8 +51,5 @@ Form::hidden("id_routetrace",$routeTrace->id) !!}
 	</tr>
 
 </table>
-<?php
-RouteTracesVC::openLayerJs($routeTrace);
-?>
 {!! Form::close() !!}
 @endsection

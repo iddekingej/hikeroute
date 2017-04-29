@@ -112,22 +112,32 @@ class Route extends Model
      * @param \App\Models\User $p_user            
      * @return bool
      */
-    function canShow(User $p_user): bool
+    function canShow(?User $p_user): bool
     {
-        if ($p_user->isAdmin()) {
+        if($this->publish){
             return true;
         }
-        if ($this->id_user == $p_user->id) {
-            return true;
+       if($p_user){
+            if ($p_user->isAdmin()) {
+                return true;
+            }
+            if ($this->id_user == $p_user->id) {
+                return true;
+            }
         }
-        return ($this->publish);
+        return false;
     }
 
-    function canEdit(User $p_user): bool
+    function canEdit(?User $p_user): bool
     {
         if ($p_user->isAdmin()) {
             return true;
         }
         return $this->id_user == $p_user->id;
+    }
+    
+    function routeImages()
+    {
+        return $this->hasMany(RouteImage::class,"id_route");
     }
 }

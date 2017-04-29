@@ -4,6 +4,10 @@ use App\Models\RouteTraceTableCollection;
 use App\Models\LocationTableCollection;
 use App\Models\TraceLocationTableCollection;
 use App\Models\Route;
+use App\Vc\Route\TracePage;
+use App\Vc\Route\ListPage;
+use App\Vc\Route\OverviewPage;
+use App\Vc\Route\AlbumPage;
 
 class route1Test extends \Tests\TestCase
 {
@@ -96,6 +100,35 @@ class route1Test extends \Tests\TestCase
         $this->assertEquals($l_route->title, "X2");
         $this->assertEquals($l_route->comment, "bla123");
         $this->assertEquals($l_route->publish, 0);
+    }
+    
+    function testPageTrace()
+    {
+            $l_page=new TracePage($this->route);
+            $l_page->display();
+            $this->assertEquals(1,1);
+    }
+    
+    function testPageAlbum()
+    {
+            $l_page=new AlbumPage($this->route);
+            $l_page->display();
+            $this->assertEquals(1,1);
+    }
+    
+    function testPageOverview()
+    {
+        $l_page=new OverviewPage($this->route);
+        $l_page->display();
+        $this->assertEquals(1,1);
+        
+    }
+    
+    function testPageList()
+    {
+        $l_page= new ListPage(\Auth::user()->routes());
+        $l_page->display();
+        $this->assertEquals(1,1);
     }
 }
 

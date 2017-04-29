@@ -6,7 +6,7 @@ use App\Vc\ViewComponent;
 use App\Models\RouteTrace;
 use App\Lib\Localize;
 use App\Lib\Page;
-use Illuminate\Database\Eloquent\Collection;
+
 
 class RouteTracesVC extends ViewComponent
 {
@@ -30,105 +30,7 @@ class RouteTracesVC extends ViewComponent
         Page::topMenuFooter();
     }
 
-    /**
-     * Printout a list of route traces
-     *
-     * @param array $p_traces
-     *            List of traces to display
-     * @param string $p_selectionRoute
-     *            Url to jump to when selecting route
-     */
-    static function traceListTable(Collection $p_traces, string $p_selectionRoute, Array $p_parameters = []): void
-    {
-        RouteTracesVC::traceListHeader();
-        foreach ($p_traces as $l_trace) {
-            RouteTracesVC::traceListRow($l_trace, $p_selectionRoute, $p_parameters);
-        }
-        RouteTracesVC::traceListFooter();
-    }
-
-    /**
-     * Header of list with all user's traces
-     * Usage:
-     * ::tracelistHeader
-     * ::traceListRow (for each route trace)
-     * ::traceListFooter
-     */
-    static function traceListHeader()
-    {
-        ?>
-<table class="table">
-	<tr>
-		<td colspan="6" class="table_title"><?=__("List of route traces")?></td>
-	</tr>
-	<tr>
-		<td class="table_header"></td>
-		<td colspan='4' class="table_header">
-		<?=__("Location")?>
-	</td>
-		<td class="table_header">
-		<?=__("Record date")?>
-	</td>
-		<td class="table_header">
-		<?=__("Distance")?>
-	</td>
-		<td class="table_header">
-		<?=__("Has route")?>
-	</td>
-	</tr>
-<?php
-    }
-
-    /**
-     * Print table row with information about a trace
-     * Used in list with all the users uploaded route traces
-     *
-     * @param RouteTrace $p_trace
-     *            display information about this trace
-     * @param string $p_selectionRoute
-     *            Url Route to jump to after selecting a route
-     */
-    static function traceListRow(RouteTrace $p_trace, string $p_selectionRoute, Array $p_parameters)
-    {
-        $l_parameters = $p_parameters;
-        $l_parameters["p_id"] = $p_trace->id;
-        ?>
-	<tr>
-		<td class="table_cell">
-			<?=static::editLink($p_selectionRoute,$l_parameters,"")?>
-		</td>
-		<td class="table_cell">
-		<?=static::e($p_trace->getLocationByTypeCached("country"))?>
-		</td>
-		<td class="table_cell">
-		<?=static::e($p_trace->getLocationByTypeCached("state"))?>
-		</td>
-		<td class="table_cell">
-		<?=static::e($p_trace->getLocationByTypeCached("city"))?>
-		</td>
-		<td class="table_cell">
-		<?=static::e($p_trace->getLocationByTypeCached("suburb"))?>
-		</td>
-		<td class="table_cell">
-		<?=static::e(Localize::shortDate($p_trace->startdate))?>
-		</td>
-		<td class="table_cell">
-		<?=static::e((string)round($p_trace->distance/1000))?>
-		</td>
-		<td class="table_cell">
-		<?=$p_trace->hasRoutes()?"X":""?>
-		</td>
-
-	</tr>
-<?php
-    }
-
-    static function traceListFooter()
-    {
-        ?>
-	</table>
-<?php
-    }
+   
 
     /**
      * Js and css file needed for openlayers
@@ -220,7 +122,7 @@ class RouteTracesVC extends ViewComponent
 		<?php
             foreach ($p_routeTrace->routes as $l_route) {
                 ?>
-			<li><?=static::link(Route("routes.display",$l_route->id),$l_route->title) ?></li>
+			<li><?=static::link(Route("display.overview",$l_route->id),$l_route->title) ?></li>
 		<?php }?>
 		</ul>
 <?php

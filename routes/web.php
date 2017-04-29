@@ -1,17 +1,9 @@
 <?php
 
-/*
- * |--------------------------------------------------------------------------
- * | Web Routes
- * |--------------------------------------------------------------------------
- * |
- * | Here is where you can register web routes for your application. These
- * | routes are loaded by the RouteServiceProvider within a group which
- * | contains the "web" middleware group. Now create something great!
- * |
- */
+
 Route::pattern("id", "[0-9]+");
 Route::pattern("p_id", "[0-9]+");
+Route::pattern("p_id_route","[0-9]+");
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
@@ -27,10 +19,39 @@ Route::get('/location/{p_id1}/{p_id2?}/{p_id3?}/{p_id4?}', [
     "as" => "start.location",
     "uses" => "GuestController@location"
 ]);
-Route::get('/routes/display/{p_id}', [
-    "as" => "routes.display",
-    "uses" => "GuestController@displayRoute"
-]);
+
+
+\
+Route::get("/images/display/{p_id_route_image}",[
+    "as"=>"images.display"
+   ,"uses"=>"ImageController@displayImage"]);
+
+Route::get("/images/thumbnail/{p_id_route_image}",[
+    "as"=>"images.thumbnail",
+    "uses"=>"ImageController@displaythumbnail"]);
+
+/**
+ * Display routes
+ */
+Route::group([
+    "prefix"=>"/display/"
+],function(){
+    Route::get("album/{p_id_route}",[
+        "as"=>"routes.album",
+        "uses"=>"DisplayController@album"
+    ]);
+
+    Route::get("trace/{p_id_route}",[
+        "as"=>"display.trace"
+        ,"uses"=>"DisplayController@trace"
+    ]);
+
+    Route::get('overview/{p_id_route}', [
+        "as" => "display.overview",
+        "uses" => "DisplayController@summary"
+    ]);
+});
+
 Route::get("/routes/download/{p_id}", [
     "as" => "routes.download",
     "uses" => "GuestController@downloadRoute"
@@ -180,3 +201,14 @@ Route::group([
         "uses" => "RoutesController@listRoutes"
     ]);
 });
+
+Route::group([
+    "middleware" => "auth",
+    "prefix" => "/images/"
+], function () {
+    Route::get("add/{p_id}",["as"=>"images.add","uses"=>"ImageController@addImage"]);
+    Route::post("save",["as"=>"images.save","uses"=>"ImageController@saveImage"]);
+    Route::get("del/{p_id_route_image}",["as"=>"images.del","uses"=>"ImageController@delImage"]);
+}
+);
+

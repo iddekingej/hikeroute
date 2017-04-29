@@ -1,10 +1,6 @@
-<?php
-use App\Vc\RouteTracesVC;
+<?php 
+use App\Vc\Trace\ListPage;
+
+$l_page=new ListPage($traces);
+$l_page->display();
 ?>
-@extends("layouts.pagemenu",["title"=>__("User route traces")])
-@section("pagebody")
-<?php
-RouteTracesVC::listTopMenu();
-RouteTracesVC::traceListTable($traces, "traces.show");
-?>
-@endsection

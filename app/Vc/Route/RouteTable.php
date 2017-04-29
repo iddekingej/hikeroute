@@ -23,7 +23,7 @@ class RouteTable extends TableVC
     {
         $l_trace=$p_item->routeTrace;
         return [
-            "title"=>[Route('routes.display',['id'=>$p_item->id]),$p_item->title]
+            "title"=>[Route('display.overview',['id'=>$p_item->id]),$p_item->title]
             ,"createdate"=>\App\Lib\Localize::shortDate($p_item->created_at)
             ,"startdate"=>\App\Lib\Localize::shortDate($l_trace->startdate)
             ,"distance"=>\App\Lib\Localize::meterToDistance((int)$l_trace->distance)

@@ -2,6 +2,8 @@
 declare(strict_types = 1);
 namespace App\Vc;
 
+use App\Vc\Lib\Tag;
+
 class ViewComponent
 {
 
@@ -72,5 +74,15 @@ class ViewComponent
         ?><a href="<?=self::e(route($p_route,$p_parameters))?>"><img
 	src='<?=self::e(\App\Lib\Icons::EDIT)?>' /><?=self::e($p_message)?></a><?php
     }
+    
+    static function tag(string $p_tag):Tag
+    {
+        return new Tag($p_tag);
+    }      
+    
+    static function div():Tag
+    {
+        return self::tag("div");
+    }        
 }
 ?>

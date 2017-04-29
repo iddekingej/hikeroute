@@ -11,7 +11,11 @@ use Validator;
 
 class TracesController extends Controller
 {
-
+/**
+ * List all route traces belonging to the user
+ * 
+ * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+ */
     function list()
     {
         $l_traces = RouteTraceTableCollection::getByUser(\Auth::user());
@@ -41,7 +45,7 @@ class TracesController extends Controller
                 ->header("Content-Type", "application/gpx+xml")
                 ->header("Content-Disposition", "attachment; filename='route.gpx'");
         }
-        return $this->displayError(__("to view this route trace"));
+        return $this->displayError(__("Not allowed to view this route trace"));
     }
 
     function del($p_id)
@@ -49,11 +53,11 @@ class TracesController extends Controller
         $this->checkInteger($p_id);
         $l_trace = RouteTrace::findOrFail($p_id);
         if ($l_trace->hasRoutes()) {
-            return $this->displayError(__("to delete this trace, the route trace is used in a route"));
+            return $this->displayError(__("Not allowed to delete this trace, the route trace is used in a route"));
         }
         ;
         if (! $l_trace->canDelete(\Auth::user())) {
-            return $this->displayError(__("to delete this route trace"));
+            return $this->displayError(__("Not allowed to delete this route trace"));
         }
         $l_trace->deleteDepend();
         return Redirect::route("traces.list");

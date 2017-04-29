@@ -1,6 +1,7 @@
 <?php
 use App\Vc\RouteTracesVC;
 use App\Lib\Page;
+use App\Vc\Trace\OpenLayer;
 ?>
 @extends("layouts.pagemenu",["title"=>__("Route trace")])
 
@@ -24,16 +25,22 @@ if (! $routeTrace->hasRoutes()) {
 Page::topMenuFooter();
 ?>
 <table class="map_table">
-		<tr>
-			<td>
+<tr>
+	<td>
 		<?php RouteTracesVC::traceInfo($routeTrace);?>
 	</td>
-		</tr>
-<?php RouteTracesVC::openLayerDiv();?>		
+</tr>
+<tr>
+	<td>
+<?php 
+ $l_trace=new OpenLayer($routeTrace);
+ $l_trace->display();
+?>		
+	</td>
+</tr>
 </table>
 </div>
 <?php
 RouteTracesVC::routeList($routeTrace);
-RouteTracesVC::openLayerJs($routeTrace);
 ?>
 @endsection()

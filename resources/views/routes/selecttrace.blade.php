@@ -1,13 +1,12 @@
 <?php
-use App\Vc\RouteTracesVC;
+use App\Vc\Trace\TraceTable;
 ?>
 @extends('layouts.pageform',["title"=>__("Upload new GPX file")])
 @section('formbody')
 <div class="page_hint">{{ __("Please, select first a previous uploaded
 	route trace")}}</div>
 <?php
-RouteTracesVC::traceListTable($traces, $next, [
-    "p_id_route" => $id_route
-]);
+$l_traceTable=new TraceTable($traces,"routes.trace.update",["id_route"=>$route->id]);
+$l_traceTable->display();
 ?>
 @endsection
