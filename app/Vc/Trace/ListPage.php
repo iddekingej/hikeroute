@@ -17,7 +17,7 @@ class ListPage extends HtmlMenuPage{
     function content()
     {
         RouteTracesVC::listTopMenu();
-        $l_trace=new TraceTable($this->traces,"traces.show");
+        $l_trace=new TraceTable($this->traces,"traces.show",[]);
         $l_trace->display();
     }
 
