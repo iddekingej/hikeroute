@@ -9,6 +9,10 @@ service: mysql
 before_script:
 - composer update
 - cp travis/env .env
+- sudo grep -v innodb_log_file_size /etc/mysql/my.cnf >my.tmp
+- sudo echo "innodb_log_file_size = 100M" >> my.tmp
+- sudo cp my.tmp /etc/mysql/my.cnf
+- sudo systemctl restart mysql
 - ./artisan key:generate
 - mysql -e "create database hikeroute"
 - ./artisan -vvv --force --step --no-interaction migrate 
