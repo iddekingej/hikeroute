@@ -93,6 +93,6 @@ class ImageController extends Controller
         }
         $l_route=$l_routeImage->route;
         $l_routeImage->deleteAll();
-        return Redirect::route("display.album",["id_route"=>$l_route->id]);
+        return Redirect::route("images.edit",["id_route"=>$l_route->id]);
     }
 }

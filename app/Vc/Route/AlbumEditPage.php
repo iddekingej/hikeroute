@@ -5,6 +5,7 @@ namespace App\Vc\Route;
 use App\Vc\Lib\HtmlMenuPage;
 use App\Models\Route;
 use App\Lib\Icons;
+use App\Vc\Lib\TopMenu;
 
 class AlbumEditPage extends HtmlMenuPage{
     private $route;
@@ -16,6 +17,9 @@ class AlbumEditPage extends HtmlMenuPage{
     
     function content()
     {
+        $l_topMenu=new TopMenu();
+        $l_topMenu->addMenuItem("display.album",["id"=>$this->route->id], __("Back to route"));        
+        $l_topMenu->display();
         foreach($this->route->routeImages as $l_routeImage)
         {
             $this->theme->route_AlbumEdit->imageEditHeader();

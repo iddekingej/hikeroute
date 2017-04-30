@@ -17,7 +17,7 @@ class AlbumPage extends DisplayPage
     {
         $l_topMenu=new TopMenu();
         $l_topMenu->addMenuItem("images.add",["id"=>$this->route->id], __("Add image"));
-        $l_topMenu->addMenuItem("images.edit",["id"=>$this->route->id], __("Add image"));
+        $l_topMenu->addMenuItem("images.edit",["id"=>$this->route->id], __("Edit album"));
         $l_topMenu->display();
         $l_album=new Album($this->route);
         $l_album->display();

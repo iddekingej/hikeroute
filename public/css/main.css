@@ -182,7 +182,8 @@ body, input, table, tr, td, textarea {
 }
 
 .pagecontent {
-	padding-left: 5px
+	padding-left: 5px;
+	vertical-align:top;
 }
 /* Profile */
 .profile_label {
