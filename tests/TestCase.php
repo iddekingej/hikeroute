@@ -9,7 +9,8 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
     const TRACE1 = "2_nov._2016_09_01_26.gpx";
     const TRACE2 = "2_nov._2016_10_24_21.gpx";
-    
+    const IMG1_JPEG= "DSC02062.JPG";
+    const IMG1_JPEG_TMP="DSC02062.TMP";
     private $adminUser = false;
 
     function getResourcePath($p_name)

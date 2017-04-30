@@ -16,6 +16,7 @@
 			<directory suffix="Test.php">./tests/user</directory>
 			<directory suffic="Test.php">./tests/userright</directory>
 			<directory suffic="Test.php">./tests/traces</directory>
+			<directory suffic="Test.php">./tests/album</directory>
 		</testsuite>
 	</testsuites>
 	<filter>

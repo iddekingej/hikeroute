@@ -1,6 +1,9 @@
 <?php 
 
 use Tests\TestCase;
+use App\Models\ImageTableCollection;
+use App\Models\RouteTraceTableCollection;
+use App\Models\Route;
 
 class album1Test extends TestCase
 {
@@ -20,5 +23,10 @@ class album1Test extends TestCase
         ]);
     }
     
-    
+    function testImage()
+    {
+        $l_image=ImageTableCollection::addImage($this->getResourcePath(static::IMG1_JPEG_TMP), static::IMG1_JPEG);
+        $this->assertEquals("image/jpeg", $l_image->mimetype);
+        $this->assertEquals($this->getResource(static::IMG1_JPEG), $l_image->decodedImage());
+    }
 }
