@@ -9,7 +9,7 @@ class LeftMenu extends ThemeItem
     function MenuHeader()
     {
        ?>
-<table class="leftmenu_table">
+<table id="main" class="leftmenu_table">
 	<tr>
 		<td class='leftmenu'>       
        <?php 
@@ -29,6 +29,7 @@ class LeftMenu extends ThemeItem
         </td>
         </tr>
         </table>
+        <script type="text/javascript">gui.elementToPageHeight($("main"));</script>        
         <?php    
     }
     
