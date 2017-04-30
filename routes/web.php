@@ -20,15 +20,57 @@ Route::get('/location/{p_id1}/{p_id2?}/{p_id3?}/{p_id4?}', [
     "uses" => "GuestController@location"
 ]);
 
+/**
+ * Routes for displaying images
+ */
+Route::group([
+    "prefix"=>"/images/display/"
+],
+    function(){
+        Route::get("display/{p_id_route_image}",[
+            "as"=>"images.display"
+           ,"uses"=>"ImageController@displayImage"]);
+        
+        Route::get("thumbnail/{p_id_route_image}",[
+            "as"=>"images.thumbnail",
+            "uses"=>"ImageController@displaythumbnail"]);
+            }
+);
 
-\
-Route::get("/images/display/{p_id_route_image}",[
-    "as"=>"images.display"
-   ,"uses"=>"ImageController@displayImage"]);
+/**
+ * Album/Image administration
+ * (Add/edit/del)
+ */
 
-Route::get("/images/thumbnail/{p_id_route_image}",[
-    "as"=>"images.thumbnail",
-    "uses"=>"ImageController@displaythumbnail"]);
+Route::group([
+    "prefix"=>"/images/edit/"
+,    "middleware" => "auth"
+],
+    function(){
+        Route::get("display/{p_id_route_image}",[
+                "as"=>"images.edit"
+            ,   "uses"=>"ImageController@editAlbum"
+            ]
+        );
+        
+        Route::get("add/{p_id}",[
+            "as"=>"images.add",
+            "uses"=>"ImageController@addImage"
+            ]
+        );
+        Route::post("save",[
+            "as"=>"images.save",
+            "uses"=>"ImageController@saveImage"
+        ]);
+        Route::get("del/{p_id_routeImage}",[
+            "as"=>"images.del",
+            "uses"=>"ImageController@delImage"
+            ]
+        );
+        
+    }
+) ;  
+    
 
 /**
  * Display routes
@@ -37,7 +79,7 @@ Route::group([
     "prefix"=>"/display/"
 ],function(){
     Route::get("album/{p_id_route}",[
-        "as"=>"routes.album",
+        "as"=>"display.album",
         "uses"=>"DisplayController@album"
     ]);
 
@@ -126,6 +168,9 @@ Route::group([
     ]);
 });
 
+/**
+ * Routes for managing route traces
+ */
 Route::group([
     "middleware" => "auth",
     "prefix" => "/traces/"
@@ -155,6 +200,7 @@ Route::group([
         "uses" => "TracesController@save"
     ]);
 });
+
 
 /**
  * URLs for posting and editing hiking routes
@@ -201,14 +247,4 @@ Route::group([
         "uses" => "RoutesController@listRoutes"
     ]);
 });
-
-Route::group([
-    "middleware" => "auth",
-    "prefix" => "/images/"
-], function () {
-    Route::get("add/{p_id}",["as"=>"images.add","uses"=>"ImageController@addImage"]);
-    Route::post("save",["as"=>"images.save","uses"=>"ImageController@saveImage"]);
-    Route::get("del/{p_id_route_image}",["as"=>"images.del","uses"=>"ImageController@delImage"]);
-}
-);
 

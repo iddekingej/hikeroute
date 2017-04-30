@@ -27,7 +27,7 @@ abstract class DisplayPage extends HtmlMenuPage
         $l_params=["id"=>$this->route->id];
         $l_pageMenu->addItem("overview", Route("display.overview",$l_params), __("Overview"));
         $l_pageMenu->addItem("trace", Route("display.trace",$l_params), __("Route map"));
-        $l_pageMenu->addItem("album",Route("routes.album",$l_params),__("Album"));
+        $l_pageMenu->addItem("album",Route("display.album",$l_params),__("Album"));
         $l_pageMenu->display();
     }
 }

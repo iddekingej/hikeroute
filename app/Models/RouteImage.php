@@ -31,4 +31,10 @@ class RouteImage extends Model
     {
         return $this->belongsTo(Image::class,"id_thumbnail");
     }
+    
+    function deleteAll():void
+    {
+        $this->delete();
+        $this->image->delete();        
+    }
 }

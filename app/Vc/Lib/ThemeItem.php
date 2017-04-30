@@ -4,11 +4,16 @@ namespace App\Vc\Lib;
 
 class ThemeItem{
     
-    private $theme;
+    protected $theme;
     
     function __construct(Theme $p_theme)
     {
         $this->theme=$p_theme;       
+    }
+    
+    function __call($p_function,$p_args)
+    {
+        return call_user_func_array([$this->theme,$p_function],$p_args);
     }
     
     /**
@@ -33,27 +38,7 @@ class ThemeItem{
         return new Tag($p_tag);
     }
     
-    /**
-     * HTML Escape string
-     *
-     * @param String $p_string
-     * @return string
-     */
-    function e($p_string): string
-    {
-        if ($p_string === null) {
-            return "";
-        }
-        return htmlspecialchars("$p_string", ENT_QUOTES | ENT_HTML5);
-    }
+
     
-    function textRouteLink($p_route,Array $p_params,$p_text)
-    {
-        $this->textLink(Route($p_route,$p_params),$p_text);
-    }
-    function textLink($p_url,$p_text)
-    {
-        ?><a href="<?=$this->e($p_url)?>"><?=$this->e($p_text)?></a><?php 
-    }
 
 }

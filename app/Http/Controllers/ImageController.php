@@ -4,60 +4,61 @@ namespace App\Http\Controllers;
 
 use App\Models\Route;
 use Illuminate\Http\Request;
-use App\Models\ImageTableCollection;
 use Illuminate\Support\Facades\Redirect;
 use App\Exceptions\ValidationException;
 use Validator;
 use App\Models\RouteImageTableCollection;
 use App\Models\RouteImage;
-;
+use App\Lib\RouteGC;
+use App\Lib\RouteImageGC;
 
 class ImageController extends Controller
 {
+    use RouteGC;
+    use RouteImageGC; 
+
     public function addImage($p_id)
     {
         $this->checkInteger($p_id);
-        $l_route= Route::findOrFail($p_id);
-        if(!$l_route->canEdit(\Auth::user())){
-            return $this->displayError(__("Not allowed to add images to this route"));
+        if($this->getCheckRouteEdit($p_id, $l_route, $l_view)){
+            return $l_view;
         }
-        return View("routes.image",["route"=>$l_route]);
+        return View("album.image",["route"=>$l_route]);
     }
     
-    public function saveImage(Request $p_request)
+    
+    function saveImage(Request $p_request)
     {
-        try{
         $l_rules=[
                "id"=>["required","integer"]
             ,  "image"=>["required","file"]
         ];
         
         $l_validator = Validator::make($p_request->all(), $l_rules);
+        
         if ($l_validator->fails()) {
             return Redirect::route("images.add",["p_id"=> $p_request->input("id")])->withErrors($l_validator)->withInput($p_request->all());
         }
         
-        $l_route=Route::findOrFail($p_request->input("id"));
+        if($this->getCheckRouteEdit($p_request->input("id"), $l_route, $l_view)){
+            return $l_view;
+        }
+
         try{
             RouteImageTableCollection::addImage($l_route, $p_request->image->path(), $p_request->image->getClientOriginalName());
         }catch(ValidationException $l_e){
-            echo $l_e->getMessage();
             return Redirect::route("images.add",[])->withErrors($l_e->getData())->withInput($p_request->all());
         }
-        }catch(\Exception $l_e){
-        }
-        return Redirect::route("routes.album",["id"=>$l_route->id]);
+        return Redirect::route("display.album",["id"=>$l_route->id]);
     }
     
     private function displayImageGen($p_id_route_image,bool $p_thumbnail)
     {
         $this->checkInteger($p_id_route_image);
         $l_routeImage=RouteImage::find($p_id_route_image);
-        if(!$l_routeImage){
-            return View("other.error",["message",__("Image not found")]);
-        }
-        if(!$l_routeImage->route->canShow(\Auth::user())){
-            return $this->displayError(__("Not allowed to view this image"));
+
+        if($this->getCheckRouteImageShow($p_id_route_image, $l_routeImage, $l_view)){
+            return $l_view;
         }
         if($p_thumbnail){
             $l_image=$l_routeImage->thumbnail;
@@ -67,13 +68,31 @@ class ImageController extends Controller
         return response($l_image->decodedImage())->header("Content-Type",$l_image->mimetype);
     }
     
-    public function displayImage($p_id_route_image)
+    function displayImage($p_id_route_image)
     {
         return $this->displayImageGen($p_id_route_image,false);
     }
     
-    public function displayThumbnail($p_id_route_image)
+    function displayThumbnail($p_id_route_image)
     {
         return $this->displayImageGen($p_id_route_image,true);
+    }
+    
+    function editAlbum($p_id_route)
+    {
+        if($this->getCheckRouteEdit($p_id_route,$l_route, $l_view)){
+            return $l_view;
+        }
+        return View("album.edit",["route"=>$l_route]);
+    }
+    
+    function delImage($p_id_routeImage)
+    {        
+        if($this->getCheckRouteImageEdit($p_id_routeImage,$l_routeImage,$l_view)){
+            return $l_view;
+        }
+        $l_route=$l_routeImage->route;
+        $l_routeImage->deleteAll();
+        return Redirect::route("display.album",["id_route"=>$l_route->id]);
     }
 }

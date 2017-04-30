@@ -7,7 +7,9 @@ use App\Models\User;
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
-
+    const TRACE1 = "2_nov._2016_09_01_26.gpx";
+    const TRACE2 = "2_nov._2016_10_24_21.gpx";
+    
     private $adminUser = false;
 
     function getResourcePath($p_name)
@@ -36,6 +38,19 @@ abstract class TestCase extends BaseTestCase
     function loginToAdmin()
     {
         \Auth::login($this->getAdminUser());
+    }
+    
+    function routeRegexStr($p_route,Array $p_params)
+    {
+        return "/".str_replace("/","\\/",Route($p_route,$p_params))."/";
+    }
+    
+    function outputContainsRoute($p_routes){
+        $l_output=$this->getActualOutput();
+        foreach($p_routes as $l_route){
+            $l_expect=Route($l_route[0],$l_route[1]);
+            $this->assertContains($l_expect, $l_output);
+        }
     }
 
     function setUp()

@@ -113,7 +113,7 @@ class Frm
 			<div class="form_container">
 		<div class="form_title"><?=self::e($p_title)?></div><?php 
         echo \Form::open(["route"=>$p_submitRoute,"enctype"=>"multipart/form-data"]); 
-        foreach($p_hidden as $l_key=>$p_value){
+        foreach($p_hidden as $l_key=>$l_value){
           echo \Form::hidden($l_key,$l_value);
         }            
         ?><table class="form_table"><?php 
