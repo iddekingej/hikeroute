@@ -23,12 +23,7 @@ class RouteTracesVC extends ViewComponent
         ]), __("Download file"));
     }
 
-    static function listTopMenu()
-    {
-        Page::topMenuHeader();
-        Page::topMenuItem("traces.upload", [], __("Upload new gpx"));
-        Page::topMenuFooter();
-    }
+
 
    
 

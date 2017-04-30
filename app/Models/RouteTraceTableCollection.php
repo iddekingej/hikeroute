@@ -88,6 +88,13 @@ class RouteTraceTableCollection extends TableCollection
     {
         return self::where("id_user", "=", $p_user->id)->orderBy("startdate")->get();
     }
+    
+    static function userHasRouteTraces(User $p_user): bool
+    {
+        return !(self::where("id_user", "=", $p_user->id)->limit(1)
+        ->get()
+        ->isEmpty());
+    }
 }
 
 ?>

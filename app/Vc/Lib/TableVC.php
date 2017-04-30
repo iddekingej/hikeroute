@@ -83,11 +83,15 @@ abstract class TableVC extends ViewComponentBase{
                     echo $p_value;
                     break;
                     
-                case "@iconlink":                    
-                    echo static::tag("a")->property("href",$p_value)->inner("img")->property("src",$p_config["icon"])->endInner();
+                case "@iconlink":
+                    if($p_value != null){
+                        echo static::tag("a")->property("href",$p_value)->inner("img")->property("src",$p_config["icon"])->endInner();
+                    }
                     break;
                 case "@iconlinkconfirm":
-                    Page::iconConfirm($p_config["confirmmsg"],$p_value,$p_config["icon"]);
+                    if($p_value != null){
+                        Page::iconConfirm($p_config["confirmmsg"],$p_value,$p_config["icon"]);
+                    }                       
                     break;
                     
                 case "@link":

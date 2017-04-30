@@ -2,6 +2,8 @@
 use App\Models\User;
 use Tests\CreatesApplication;
 use Tests\TestCase;
+use App\Vc\User\AllUserTable;
+use App\Vc\User\AllUserPage;
 
 /**
  * CRUD action on user
@@ -33,5 +35,11 @@ class user1Test extends TestCase
     {
         $l_ur = $this->getAdminUser()->userRights();
         $this->assertNotNull($l_ur);
+    }
+    
+    function testListAllUsers()
+    {
+        $l_page=new AllUserPage();
+        $l_page->display();
     }
 }

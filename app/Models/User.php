@@ -156,6 +156,12 @@ class User extends Authenticatable
      */
     function canDelete()
     {
-        return Route::userHasRoutes($this);
+        if(RouteTableCollection::userHasRoutes($this)){
+            return false;
+        }
+        if(RouteTraceTableCollection::userHasRouteTraces($this)){
+            return false;
+        }
+        return true;
     }
 }

@@ -118,5 +118,19 @@ class RouteTableCollection extends TableCollection
         });
         return static::authQry($l_qry)->get();
     }
+    
+    /**
+     * Checks if an user has a route uploaded
+     *
+     * @param User $p_user
+     *            The use to check of.
+     * @return boolean true - user
+     */
+    static function userHasRoutes(User $p_user): bool
+    {
+        return !(self::where("id_user", "=", $p_user->id)->limit(1)
+        ->get()
+        ->isEmpty());
+    }
 }
 ?>

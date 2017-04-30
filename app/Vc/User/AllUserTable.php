@@ -22,7 +22,7 @@ class AllUserTable extends TableVC
     
     function getData($p_user)
     {
-        return ["del"=>route("admin.users.delete",["id"=>$p_user->id])
+        return ["del"=>$p_user->canDelete()?route("admin.users.delete",["id"=>$p_user->id]):NULL
             ,"email"=>[route("admin.users.edit",["id"=>$p_user->id]),$p_user->email]
             ,"nick"=>$p_user->name
             ,"firstname"=>$p_user->firstname
