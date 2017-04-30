@@ -1,5 +1,5 @@
 <?php
-declare(stric_type=1);
+declare(strict_types=1);
 namespace App\Lib;
 
 /**
@@ -41,7 +41,7 @@ class Magic{
 	 * @return String|NULL
 	 */
 
-	function findMimeByMagick($p_file):?string
+	function findMimeByMagick($p_file):?int
 	{
 		$l_convFile=$p_file;
 		$l_fileHandle=fopen($l_convFile,"rb");

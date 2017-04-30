@@ -1,5 +1,5 @@
 <?php
-declare(string_types = 1);
+declare(strict_types = 1);
 namespace App\Vc;
 
 use Illuminate\Database\Eloquent\Collection;
