@@ -62,7 +62,7 @@ class RouteTracesVC extends ViewComponent
 	</tr>
 	<tr>
 		<td class="map_ud"><?=__("Distance")?>:</td>
-		<td class="map_ud_value"><?=static::e(Localize::meterToDistance($p_trace->distance))?></td>
+		<td class="map_ud_value"><?=static::e(Localize::meterToDistance((int)$p_trace->distance))?></td>
 	</tr>
 	<tr>
 		<td class="map_ud"><?=__("Download")?>:</td>
