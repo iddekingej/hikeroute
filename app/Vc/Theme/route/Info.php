@@ -9,6 +9,10 @@ use App\Vc\RouteTracesVC;
 class Info extends ThemeItem
 {
     
+   function routeTitle($p_name)
+   {
+       ?><div class="traces_route_title"><?=$this->e($p_name)?></div><?php
+   }
     private function routeInfoRow($p_label, $p_value)
     {
         ?>
@@ -21,6 +25,7 @@ class Info extends ThemeItem
 
     function routeInfo($p_route)
     {
+        $this->routeTitle($p_route->title);
 ?><table><?php         
         $this->routeInfoRow(__("Location"), $p_route->location, 1, 2);
         $this->routeInfoRow(__("Distance"), Localize::meterToDistance((int)$p_route->routeTrace->distance));

@@ -31,6 +31,6 @@ class PageMenu extends ThemeItem
     }
     function menuFooter()
     {
-        ?></td></tr></table><?php 
+        ?><td style='width:100%'></td></tr></table><?php 
     }
 }
