@@ -6,7 +6,7 @@ use App\Vc\Trace\TraceTable;
 <div class="page_hint">{{ __("Please, select first a previous uploaded
 	route trace")}}</div>
 <?php
-$l_traceTable=new TraceTable($traces,"routes.trace.update",["id_route"=>$route->id]);
+$l_traceTable=new TraceTable($traces,$next,["id_route"=>$id_route]);
 $l_traceTable->display();
 ?>
 @endsection

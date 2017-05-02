@@ -65,6 +65,27 @@ class Frm
 <?php
     }
 
+    
+    static function textArea($p_name, $p_label, $p_value, $p_size,$p_errors)
+    {
+        ?>
+<tr>
+	<td class="form_labelCell"> <?=\Form::label($p_name,$p_label);?></td>
+	<td class="form_elementCell">
+		<?php if ($p_errors->has($p_name)){?>
+			<div class="form_error"><?=$p_errors->first($p_name); ?></div>
+		<?php
+        }
+        echo \Form::textarea($p_name, $p_value, [
+            "class" => "form_valueElement"
+        ,   "size"=>$p_size
+        ]);
+        ?>
+			</td>
+</tr>
+<?php
+    }
+    
     static function checkbox($p_name, $p_label, $p_value, Array $p_tags = null)
     {
         ?>

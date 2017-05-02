@@ -138,7 +138,7 @@ class RoutesController extends Controller
             "title" => __("Post a new hiking route"),
             "traces" => $l_traces,
             "id_route" => "",
-            "next" => "route.newdetails"
+            "next" => "routes.newdetails"
         ]);
     }
 
@@ -160,13 +160,8 @@ class RoutesController extends Controller
             return $this->displayError(__("attach this route file to a route"));
         }
         $l_data = [
-            "title" => __("New route"),
-            "id" => "",
-            "routeTitle" => $l_routeTrace->getLocationString(),
-            "comment" => "",
+            "route"=>null,
             "routeTrace" => $l_routeTrace,
-            "routeLocation" => $l_routeTrace->getLocationString(),
-            "publish" => false
         
         ];
         
@@ -272,13 +267,8 @@ class RoutesController extends Controller
         $l_routeTrace = $l_route->routeTrace;
         if (Gate::allows("edit-route", $l_route)) {
             $l_data = [
-                "title" => __("Edit route"),
-                "id" => $l_route->id,
-                "routeTitle" => $l_route->title,
-                "comment" => $l_route->comment,
-                "routeLocation" => $l_route->location,
-                "routeTrace" => $l_routeTrace,
-                "publish" => $l_route->publish
+                "route"=>$l_route,
+                "routeTrace" => $l_routeTrace
             ];
             return View("routes.form", $l_data);
         } else {
