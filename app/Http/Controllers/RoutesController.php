@@ -197,7 +197,7 @@ class RoutesController extends Controller
         if (! $l_routeTrace->canRoute(\Auth::user())) {
             return $this->displayError(__("attach this route file to a route"));
         }
-        Route::create([
+        $l_route=Route::create([
             "id_user" => \Auth::user()->id,
             "title" => $p_request->input("routeTitle"),
             "comment" => $p_request->input("comment"),
@@ -205,7 +205,7 @@ class RoutesController extends Controller
             "id_routetrace" => $l_routeTrace->id,
             "publish" => $p_request->input("publish") ? 1 : 0
         ]);
-        return Redirect::to("/routes/");
+        return Redirect::route("display.overview",["id"=>$l_route->id]);
     }
 
     // --------(edit route)----------------------------
