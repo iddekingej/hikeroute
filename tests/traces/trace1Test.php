@@ -7,6 +7,7 @@ use App\Vc\Trace\ListPage;
 use App\Models\RouteTraceTableCollection;
 use App\Vc\Trace\UploadPage;
 use Illuminate\Database\Eloquent\Collection;
+use App\Vc\Route\SelectTracePage;
 
 
 class trace1Test extends TestCase
@@ -68,6 +69,13 @@ class trace1Test extends TestCase
     function testUploadPage()
     {
         $l_page=new UploadPage(new Collection());
+        $l_page->display();
+        $this->assertEquals(1,1);
+    }
+    
+    function testTraceSelection()
+    {
+        $l_page=new SelectTracePage([$this->trace1,$this->trace2], "routes.trace.update", 134);
         $l_page->display();
         $this->assertEquals(1,1);
     }

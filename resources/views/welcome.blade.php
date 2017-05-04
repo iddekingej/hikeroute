@@ -1,11 +1,5 @@
-@extends("layouts.page")
-@section("content")
+<?php 
+use App\Vc\HomePage;
 
-
-<?php
-\App\Vc\RouteVC::routeSearch();
-\App\Vc\RouteVC::searchByLocation($tree, $locations);
-\App\Vc\RouteVC::printRoutesSummary($routes);
-?>
-
-@endsection
+$l_page=new HomePage($tree,$locations,$routes);
+$l_page->display();

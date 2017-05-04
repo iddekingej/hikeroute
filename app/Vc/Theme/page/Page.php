@@ -53,6 +53,10 @@ foreach($p_js as $l_js){
 	</div>
 <?php       
     }
+    function note($p_message)
+    {
+        ?><div class="page_hint"><?=$this->e($p_message)?></div><?php
+    }
     
     function pageFooter()
     {
@@ -61,5 +65,8 @@ foreach($p_js as $l_js){
 </html>
 <?php      
     }
+    
+    
+
 }
 ?>

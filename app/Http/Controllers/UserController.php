@@ -78,7 +78,7 @@ class UserController extends Controller
      * @return unknown|\Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     function savePassword(Request $p_request)
-    {
+    {        
         $l_rules = [
             "password" => [
                 "required"

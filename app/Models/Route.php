@@ -118,6 +118,9 @@ class Route extends Model
 
     function canEdit(?User $p_user): bool
     {
+        if($p_user===null){
+            return false;
+        }
         if ($p_user->isAdmin()) {
             return true;
         }

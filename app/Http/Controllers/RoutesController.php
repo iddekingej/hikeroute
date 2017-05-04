@@ -223,7 +223,8 @@ class RoutesController extends Controller
         $l_traces = RouteTraceTableCollection::getByUser(\Auth::user());
         return View("routes.selecttrace", [            
             "traces" => $l_traces,
-            "route" => $l_route            
+            "id_route" => $l_route->id,  
+            "next"=>"routes.trace.update"
         ]);
     }
 
@@ -248,9 +249,7 @@ class RoutesController extends Controller
         }
         $l_route->id_routetrace = $l_routeTrace->id;
         $l_route->save();
-        return Redirect::route("display.overview", [
-            "p_id" => $l_route->id
-        ]);
+        return Redirect::route("display.trace", ["p_id" => $l_route->id]);
     }
 
     /**
@@ -265,14 +264,14 @@ class RoutesController extends Controller
         $this->checkInteger($p_id);
         $l_route = Route::findOrFail($p_id);
         $l_routeTrace = $l_route->routeTrace;
-        if (Gate::allows("edit-route", $l_route)) {
+        if($l_route->canEdit(\Auth::user())){
             $l_data = [
                 "route"=>$l_route,
                 "routeTrace" => $l_routeTrace
             ];
             return View("routes.form", $l_data);
         } else {
-            return $this->displayError(__("edit this route"));
+            return $this->displayError(__("Bit allowed to edit this route"));
         }
     }
 
