@@ -18,16 +18,21 @@ abstract class HtmlMenuPage extends HtmlPage
     
     function setup()
     {
-        $l_group=$this->addMenuGroup(__("Profile"));
-        $l_group->addLogoutItem("logout");
-        $l_group->addTextItem("profile", __("Profile"),"user.profile");
+        if(\Auth::check()){
+            $l_group=$this->addMenuGroup(__("Profile"));
+        
+            $l_group->addLogoutItem("logout");
+            $l_group->addTextItem("profile", __("Profile"),"user.profile");
+        }
         if (\Auth::user() && \Auth::user()->isAdmin()) {
             $l_group=$this->addMenuGroup(__("Administration"));
             $l_group->addTextItem("useradmin", __("Users"),"admin.users");
         }
         $l_group=$this->addMenuGroup(__("Routes"));
-        $l_group->addTextItem("traces",__("Route traces"),"traces.list");
-        $l_group->addTextItem("routes",__("Routes"),"routes");
+        if(\Auth::check()){
+            $l_group->addTextItem("traces",__("Route traces"),"traces.list");
+            $l_group->addTextItem("routes",__("Routes"),"routes");
+        }
         $l_group->addTextItem("start",__("Published routes"),"start");
     }
     function preContent()
