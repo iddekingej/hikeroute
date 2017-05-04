@@ -33,6 +33,15 @@ class LeftMenu extends ThemeItem
         <?php    
     }
     
+    function selectedMenu()
+    {
+        ?><div class="leftmenu_selected"><?php 
+    }
+    
+    function selectedMenuFooter()
+    {
+        ?></div><?php    
+    }
     function logoutMenu()
     {
         ?>

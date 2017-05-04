@@ -6,20 +6,36 @@ use App\Lib\Page;
 
 abstract class HtmlMenuPage extends HtmlPage
 {
+    private $leftMenu=[];
+    protected $currentTag;
+    
+    function addMenuGroup($p_title):MenuGroup
+    {
+        $l_menuGroup=new MenuGroup($p_title,$this->currentTag);
+        $this->leftMenu[]=$l_menuGroup;
+        return $l_menuGroup;
+    }
+    
+    function setup()
+    {
+        $l_group=$this->addMenuGroup(__("Profile"));
+        $l_group->addLogoutItem("logout");
+        $l_group->addTextItem("profile", __("Profile"),"user.profile");
+        if (\Auth::user() && \Auth::user()->isAdmin()) {
+            $l_group=$this->addMenuGroup(__("Administration"));
+            $l_group->addTextItem("useradmin", __("Users"),"admin.users");
+        }
+        $l_group=$this->addMenuGroup(__("Routes"));
+        $l_group->addTextItem("traces",__("Route traces"),"traces.list");
+        $l_group->addTextItem("routes",__("Routes"),"routes");
+        $l_group->addTextItem("start",__("Published routes"),"start");
+    }
     function preContent()
     {
         $this->theme->menu_LeftMenu->MenuHeader();
-        Page::menuGroup(__("Profile"));
-        $this->theme->menu_LeftMenu->logoutMenu();
-        Page::menuItem("user.profile", __("Profile"));
-        if (\Auth::user() && \Auth::user()->isAdmin()) {
-            Page::menuGroup(__("Administration"));
-            Page::menuItem("admin.users", __("Users"));
+        foreach($this->leftMenu as $l_group){
+            $l_group->display();
         }
-        Page::menuGroup(__("Routes"));
-        Page::menuItem("traces.list", __("Route traces"));
-        Page::menuItem("routes", __("Routes"));
-        Page::menuItem("start", __("Published routes"));
         parent::preContent();
         $this->theme->menu_LeftMenu->contentSection();
     }

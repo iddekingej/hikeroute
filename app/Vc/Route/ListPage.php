@@ -19,6 +19,7 @@ class ListPage extends HtmlMenuPage
     function setup()
     {
         $this->title=__("User route traces");
+        $this->currentTag="routes";
         parent::setup();
     }
     

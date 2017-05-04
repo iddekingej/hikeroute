@@ -160,6 +160,10 @@ body, input, table, tr, td, textarea {
 	vertical-align: top;
 }
 
+.leftmenu_selected
+{
+    background-color:#bbbbff;	
+}
 .leftmenu_table {
 	height: 100%;
 	width:100%;

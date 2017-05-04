@@ -8,6 +8,11 @@ use App\Lib\Icons;
 
 class AllUserPage extends HtmlMenuPage
 {
+    function setup()
+    {
+        $this->currentTag="useradmin";
+        parent::setup();
+    }
     function content()
     {
         $l_topMenu=new TopMenu();

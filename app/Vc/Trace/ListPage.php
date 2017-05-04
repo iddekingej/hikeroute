@@ -15,6 +15,12 @@ class ListPage extends HtmlMenuPage{
         parent::__construct();
     }
     
+    function setup()
+    {
+        $this->currentTag="traces";
+        $this->title=__("Route traces");
+        parent::setup();
+    }
     function content()
     {
         $l_menu=new TopMenu();
