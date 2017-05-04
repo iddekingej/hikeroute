@@ -1,6 +1,6 @@
-@extends("layouts.pagemenu",["title"=>__("User profile")])
-@section("pagebody")
-<?php
-\App\Vc\UserVC::profile($user);
-?>
-@endsection
+<?php 
+
+use App\Vc\User\ProfilePage;
+
+$l_page=new ProfilePage($user);
+$l_page->display();

@@ -26,7 +26,7 @@ class Album extends HtmlComponent{
     
     function display()
     {
-        foreach($this->route->routeImages()->get() as $l_routeImage)
+        foreach($this->route->routeImages()->orderBy("position")->get() as $l_routeImage)
         {
             $this->image($l_routeImage);
         }

@@ -24,6 +24,7 @@ class RouteImageTableCollection extends TableCollection
         $l_thumbName=tempnam(sys_get_temp_dir(),"hike");
         imagejpeg($l_img,$l_thumbName);
         $l_thumbnail=ImageTableCollection::addImage($l_thumbName,"test.jpg");
-        return RouteImage::create(["id_route"=>$p_route->id,"position"=>0,"id_image"=>$l_image->id,"id_thumbnail"=>$l_thumbnail->id]);
+        $l_maxPos=RouteImage::where("id_route","=",$p_route->id)->max("position");
+        return RouteImage::create(["id_route"=>$p_route->id,"position"=>$l_maxPos+1,"id_image"=>$l_image->id,"id_thumbnail"=>$l_thumbnail->id]);
     }
 }
