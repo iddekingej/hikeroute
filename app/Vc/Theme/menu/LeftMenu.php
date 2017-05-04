@@ -38,12 +38,12 @@ class LeftMenu extends ThemeItem
         ?>
     
         <div class="leftmenu_item_con">
-				<a class="leftmenu_item" href="{{ route('logout') }}"
+				<a class="leftmenu_item" href="#"
 					onclick="event.preventDefault();document.getElementById('logout-form').submit();">
 					<?=$this->e(__("Logout"))?></a>
 			</div>
-			<form id="logout-form" action="{{ route('logout') }}" method="POST"
-				style="display: none;">{{ csrf_field() }}</form>			
+			<form id="logout-form" action="<?=route('logout')?>" method="POST"
+				style="display: none;"><?=csrf_field()?></form>			
 		<?php 
     }
 }		
