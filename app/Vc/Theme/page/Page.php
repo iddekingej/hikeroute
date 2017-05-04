@@ -42,9 +42,9 @@ foreach($p_js as $l_js){
 					<?php if(!\Auth::user()){?>
 					| <a class="buttonLink"	href="<?=route('login')?>"><?=__("Login")?></a>
 					&nbsp; <a class="buttonLink" href="<?=route('register')?>"><?=__("Register")?></a>
-					 <? } else {?>
-					 <a href="{{ Route('user.profile') }}"	class="apptitle_name">
-					 <?=\Auth::user()?\Auth::user()->name:__("Guest")?>
+					 <?php } else {?>
+					 <a href="<?=Route('user.profile')?>"	class="apptitle_name">
+					 <?=\Auth::user()->name?>
 					</a>
 					<?php }?>
 				</td>
