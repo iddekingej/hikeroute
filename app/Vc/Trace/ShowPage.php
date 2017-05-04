@@ -20,6 +20,12 @@ class ShowPage extends HtmlMenuPage
         $this->title=__("Route trace");
     }
     
+    function setup()
+    {
+        $this->currentTag="traces";
+        parent::setup();
+    }
+    
     function content()
     {
         $this->theme->trace_Show->container();

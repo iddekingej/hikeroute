@@ -19,6 +19,12 @@ abstract class DisplayPage extends HtmlMenuPage
         $this->extraCss[]="/css/ol.js";
     }
 
+    function setup()
+    {
+        $this->currentTag="routes";
+        parent::setup();
+    }
+      
     function preContent()
     {
         parent::preContent();
