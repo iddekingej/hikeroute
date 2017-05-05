@@ -38,6 +38,22 @@ class LeftMenu extends ThemeItem
         ?><div class="leftmenu_selected"><?php 
     }
     
+    /**
+     * Menu item
+     *
+     * @param unknown $p_route
+     *            route to link
+     * @param unknown $p_title
+     */
+    static function menuItem($p_route, $p_title)
+    {
+?>
+<div class="leftmenu_item_con">
+	<a class="leftmenu_item" href='<?=route($p_route)?>'><?=htmlspecialchars($p_title)?></a>
+</div>
+<?php
+    }
+    
     function selectedMenuFooter()
     {
         ?></div><?php    

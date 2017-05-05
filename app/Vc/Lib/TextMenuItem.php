@@ -20,6 +20,6 @@ class TextMenuItem extends MenuItem
     
     function display()
     {
-        Page::menuItem($this->route,$this->text);
+        $this->theme->menu_LeftMenu->menuItem($this->route,$this->text);
     }
 }
