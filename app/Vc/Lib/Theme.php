@@ -12,13 +12,20 @@ class Theme
         return $this->$p_name;
     }
     
-    function textRouteLink($p_route,Array $p_params,$p_text)
+    function attribute($p_name,$p_value)
     {
-        $this->textLink(Route($p_route,$p_params),$p_text);
+        echo $p_name,'="',$this->e($p_value).'" ';
     }
-    function textLink($p_url,$p_text)
+    
+
+    function textRouteLink($p_route,Array $p_params,$p_text,$p_class)
     {
-        ?><a href="<?=$this->e($p_url)?>"><?=$this->e($p_text)?></a><?php
+        $this->textLink(Route($p_route,$p_params),$p_text,$p_class);
+    }
+    
+    function textLink($p_url,$p_text,$p_class="")
+    {
+        ?><a <?php if($p_class != ""){ $this->attribute("class",$p_class);}?> href="<?=$this->e($p_url)?>"><?=$this->e($p_text)?></a><?php
     }
     
     function imageTextLink($p_url,$p_image,$p_text)

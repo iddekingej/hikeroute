@@ -39,14 +39,15 @@ foreach($p_js as $l_js){
 			<tr>
 				<td class="apptitle_title"><?=__("Hiking routes")?></td>
 				<td class="apptitle_name">
-					<?php if(!\Auth::user()){?>
-					| <a class="buttonLink"	href="<?=route('login')?>"><?=__("Login")?></a>
-					&nbsp; <a class="buttonLink" href="<?=route('register')?>"><?=__("Register")?></a>
-					 <?php } else {?>
-					 <a href="<?=Route('user.profile')?>"	class="apptitle_name">
-					 <?=\Auth::user()->name?>
-					</a>
-					<?php }?>
+					<?php 
+					if(!\Auth::user()){
+						$this->textRouteLink("login",[],__("Login"),"buttonLink");
+						echo "&nbsp;|&nbsp;";
+						$this->textRouteLink("register",[],__("Register"),"buttonLink");
+					} else {
+                        $this->textRouteLink("user.profile",[],\Auth::user()->name,"buttonLink");
+					}
+                    ?>
 				</td>
 			</tr>
 		</table>
