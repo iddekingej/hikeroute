@@ -73,7 +73,11 @@ class Route extends Model
      */
     function deleteDepended(): void
     {
+        foreach($this->routeImages as $l_image){            
+            $l_image->deleteAll();
+        }
         $this->delete();
+        
     }
 
     /**

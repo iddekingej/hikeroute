@@ -29,4 +29,9 @@ class album1Test extends TestCase
         $this->assertEquals("image/jpeg", $l_image->mimetype);
         $this->assertEquals($this->getResource(static::IMG1_JPEG), $l_image->decodedImage());
     }
+    
+    function testDeleteRoute()
+    {
+        $this->route->deleteDepended();
+    }
 }

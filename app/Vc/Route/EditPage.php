@@ -6,6 +6,7 @@ use App\Vc\Lib\HtmlPage;
 use App\Lib\Frm;
 use App\Models\RouteTrace;
 use App\Models\Route;
+use App\Vc\Trace\OpenLayer;
 
 class EditPage extends HtmlPage
 {
@@ -18,11 +19,15 @@ class EditPage extends HtmlPage
         $this->route=$p_route;
         $this->routeTrace=$p_routeTrace;
         $this->errors=$p_errors;
+        $this->extraJs[]="/js/ol.js";
+        $this->extraCss[]="/css/ol.js";
         parent::__construct();
     }
     
     function content()
     {
+        $l_trace=new OpenLayer($this->routeTrace);
+        $l_trace->display();
         $l_data=[
             "id"=>$this->route?$this->route->id:""
          ,  "id_routetrace"=>$this->routeTrace?$this->routeTrace->id:""

@@ -129,6 +129,8 @@ class route1Test extends \Tests\TestCase
         $l_page->display();
         $this->assertEquals(1,1);
     }
+    
+
 }
 
 ?>
