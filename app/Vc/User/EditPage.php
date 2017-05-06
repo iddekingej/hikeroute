@@ -15,6 +15,7 @@ class EditPage extends HtmlPage
     {
         $this->user=$p_user;
         $this->errors=$p_errors;
+        $this->setCurrentTag("profile");        
         parent::__construct();
     }
     

@@ -10,7 +10,7 @@ class AllUserPage extends HtmlMenuPage
 {
     function setup()
     {
-        $this->currentTag="useradmin";
+        $this->setCurrentTag("useradmin");
         parent::setup();
     }
     function content()

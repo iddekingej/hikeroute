@@ -93,7 +93,7 @@ class TracesController extends Controller
             $l_path = $p_request->file("routefile")->path();
             $l_content = file_get_contents($l_path);
             $l_routeTrace = RouteTraceTableCollection::addGpxFile($l_content);
-        } catch (Exception $l_e) {
+        } catch (\Throwable $l_e) {
             return Redirect::route("traces.upload")->withErrors([
                 "routefile" => $l_e->getMessage()
             ])->withInput($p_request->all());

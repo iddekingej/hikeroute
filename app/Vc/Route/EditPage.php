@@ -24,6 +24,12 @@ class EditPage extends HtmlPage
         parent::__construct();
     }
     
+    function setup()
+    {
+        $this->title=__("Edit route");
+        parent::setup();
+    }
+    
     function content()
     {
         $l_trace=new OpenLayer($this->routeTrace);

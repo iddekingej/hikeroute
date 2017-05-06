@@ -16,7 +16,7 @@ class PasswordPage extends HtmlPage{
     
     function setup()
     {
-        $this->title=__("Change your password");
+        $this->title=__("Change your password");              
         parent::setup();
     }
     

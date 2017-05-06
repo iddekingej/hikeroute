@@ -21,7 +21,7 @@ abstract class DisplayPage extends HtmlMenuPage
 
     function setup()
     {
-        $this->currentTag="routes";
+        $this->setCurrentTag("routes");
         parent::setup();
     }
       

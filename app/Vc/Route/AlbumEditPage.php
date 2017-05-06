@@ -15,6 +15,12 @@ class AlbumEditPage extends HtmlMenuPage{
         parent::__construct();
     }
     
+    function setup()
+    {
+        $this->setCurrentTag("routes");
+        $this->title=__("Edit album");
+        parent::setup();
+    }
     function content()
     {
         $l_topMenu=new TopMenu();

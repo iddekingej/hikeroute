@@ -59,11 +59,11 @@ class GPXReader
             if (($l_child->nodeType == XML_ELEMENT_NODE) && ($l_child->nodeName == "trkpt")) {
                 $l_lat = $this->getAttributeValue($l_child, "lat");
                 if ($l_lat === null) {
-                    throw new \GPXLoadException("'lat' attribute not found at trkpt node");
+                    throw new GPXLoadException("'lat' attribute not found at trkpt node");
                 }
                 $l_lon = $this->getAttributeValue($l_child, "lon");
                 if ($l_lon === null) {
-                    throw new \GPXLoadException("'lon' attribute not found at trkpt node");
+                    throw new GPXLoadException("'lon' attribute not found at trkpt node");
                 }
                 $l_time = $this->parseTime($l_child);
                 $l_return->addPoint((float) $l_lat, (float) $l_lon, $l_time);
@@ -124,7 +124,7 @@ class GPXReader
         if ($l_element->nodeName == "gpx") {
             return $this->parseTrk($l_element);
         } else {
-            throw new GpxLoadError("GPX file doesn't start with a gpx tag");
+            throw new GPXLoadException("GPX file doesn't start with a gpx tag");
         }
     }
 }

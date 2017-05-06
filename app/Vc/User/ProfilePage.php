@@ -18,7 +18,7 @@ class ProfilePage extends HtmlMenuPage
     
     function setup()
     {
-        $this->currentTag="profile";
+        $this->setCurrentTag("profile");
         $this->title=__("User profile");
         parent::setup();
     }
