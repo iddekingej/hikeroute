@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
+use App\Vc\ViewComponent;
+
 class Theme
 {
     function __get($p_name)
@@ -17,7 +19,24 @@ class Theme
         echo $p_name,'="',$this->e($p_value).'" ';
     }
     
-
+    /**
+     * After clicking a icon, a confirmation message is displayed
+     * After pressing "yes"
+     *
+     * @param unknown $p_message
+     *            Confirmation message to display
+     * @param unknown $p_url
+     *            Url to go after click + confirmation
+     * @param unknown $p_image
+     *            Url of icon/image
+     */
+    function iconConfirm(string $p_message, string $p_url, string $p_image): void
+    {
+        $l_js = ViewComponent::confirmJs($p_message, $p_url);
+        ?><span class="deleteIcon" onclick="<?=$this->e($l_js)?>"><img
+	src='<?=$this->e($p_image)?>'></span><?php
+    }
+    
     function textRouteLink($p_route,Array $p_params,$p_text,$p_class)
     {
         $this->textLink(Route($p_route,$p_params),$p_text,$p_class);

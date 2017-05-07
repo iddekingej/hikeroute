@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
-use App\Lib\Page;
+use App\Vc\ViewComponent;
 
 class TagExcpetion extends \Exception
 {
@@ -45,7 +45,7 @@ class Tag
     function property($p_name,$p_value):Tag
     {
         $this->properties .= " ";        
-        $this->properties .= $p_name.'="'.Page::e($p_value).'"';
+        $this->properties .= $p_name.'="'.ViewComponent::e($p_value).'"';
         return $this;
     }
     
@@ -67,7 +67,7 @@ class Tag
     
     function text($p_content):Tag
     {
-        return $this->content(Page::e($p_content));
+        return $this->content(ViewComponent::e($p_content));
     }
     function __toString():string
     {

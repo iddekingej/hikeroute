@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
-use App\Lib\Page;
-
 class MenuGroup extends HtmlComponent
 {
     private $title;
@@ -33,7 +31,7 @@ class MenuGroup extends HtmlComponent
     
     function display()
     {
-        Page::menuGroup($this->title);
+        $this->theme->menu_LeftMenu->menuGroup($this->title);
         foreach($this->subItems as $l_item){
             if($l_item->getTag()==$this->currentTag){
                 $this->theme->menu_LeftMenu->selectedMenu();

@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
-use App\Lib\Page;
-
 
 /**
  * Displays table from some data.
@@ -21,7 +19,7 @@ use App\Lib\Page;
  * @link - text link
  * @iconlinkconfirm - Ion link with confirm message
  */
-abstract class TableVC extends ViewComponentBase{
+abstract class TableVC extends HtmlComponent{
     private $config=[];
     protected $title;
     protected $data;
@@ -30,6 +28,7 @@ abstract class TableVC extends ViewComponentBase{
     function __construct($p_data)
     {
         $this->data=$p_data;
+        parent::__construct();
     }
     
     function setConfigItem(string $p_name,string $p_field,$p_value)
@@ -53,7 +52,7 @@ abstract class TableVC extends ViewComponentBase{
         <tr>
         <?php 
         foreach($this->config as $l_name=>$l_info){
-            ?><td class="table_header"><?=static::e($l_info["title"])?></td><?php 
+            ?><td class="table_header"><?=$this->theme->e($l_info["title"])?></td><?php 
         }
         ?>
         </tr>
@@ -76,7 +75,7 @@ abstract class TableVC extends ViewComponentBase{
             $l_type=$p_config["type"];
             switch($l_type){
                 case "@text":
-                    echo static::e($p_value);
+                    echo $this->theme->e($p_value);
                     break;
                     
                 case "@html":
@@ -85,17 +84,17 @@ abstract class TableVC extends ViewComponentBase{
                     
                 case "@iconlink":
                     if($p_value != null){
-                        echo static::tag("a")->property("href",$p_value)->inner("img")->property("src",$p_config["icon"])->endInner();
+                        $this->theme->base_Table->iconLink($p_value,$p_config["icon"]);                        
                     }
                     break;
                 case "@iconlinkconfirm":
                     if($p_value != null){
-                        Page::iconConfirm($p_config["confirmmsg"],$p_value,$p_config["icon"]);
+                        $this->theme->iconConfirm($p_config["confirmmsg"],$p_value,$p_config["icon"]);
                     }                       
                     break;
                     
                 case "@link":
-                    ?><a href="<?=static::e($p_value[0])?>"><?=static::e($p_value[1])?></a><?php
+                    ?><a href="<?=$this->theme->e($p_value[0])?>"><?=$this->theme->e($p_value[1])?></a><?php
                     break;
                     
                 default:
@@ -115,7 +114,7 @@ abstract class TableVC extends ViewComponentBase{
     {
         ?><table class='tablevc_table'><?php 
         if($this->title != ""){
-            ?><tr><td class='tablevc_title' colspan='<?=count($this->config)?>'><?=static::e($this->title)?></td></tr><?php
+            ?><tr><td class='tablevc_title' colspan='<?=count($this->config)?>'><?=$this->theme->e($this->title)?></td></tr><?php
         }
         $this->displayTableHeader();
         foreach($this->data as $l_row){

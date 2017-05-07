@@ -30,7 +30,7 @@ class GPXPoint
      * 
      * @return string
      */
-    function getDatePart(): string
+    function getDatePart(): ?string
     {
         $l_pos = strpos($this->timestamp, "T");
         if ($l_pos !== false) {

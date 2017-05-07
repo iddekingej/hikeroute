@@ -6,33 +6,17 @@ use App\Vc\Lib\ThemeItem;
 
 class LeftMenu extends ThemeItem
 {
-    function MenuHeader()
-    {
-       ?>
-<table id="main" class="leftmenu_table">
-	<tr>
-		<td class='leftmenu'>       
-       <?php 
-    }
-    
-    function contentSection()
+    /**
+     * Display menu group
+     *
+     * @param string $p_title
+     */
+    function menuGroup(string $p_title): void
     {
         ?>
-        </td>
-        <td class="pagecontent">
-        <?php    
+<div class="leftmenu_group"><?=static::e($p_title)?></div>
+<?php
     }
-    
-    function menuPageFooter()
-    {
-        ?>
-        </td>
-        </tr>
-        </table>
-        <script type="text/javascript">gui.elementToPageHeight($("main"));</script>        
-        <?php    
-    }
-    
     function selectedMenu()
     {
         ?><div class="leftmenu_selected"><?php 

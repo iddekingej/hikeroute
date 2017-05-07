@@ -7,9 +7,13 @@ use Carbon\Carbon;
 class Localize
 {
 
-    static function shortDate(Carbon $p_date)
+    static function shortDate(?Carbon $p_date)
     {
-        return $p_date->format("d/m/Y");
+        if($p_date===null){
+            return "";
+        } else {
+            return $p_date->format("d/m/Y");
+        }
     }
 
     static function meterToDistance(int $p_distance)

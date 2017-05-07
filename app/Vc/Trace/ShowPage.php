@@ -22,7 +22,7 @@ class ShowPage extends HtmlMenuPage
     
     function setup()
     {
-        $this->currentTag="traces";
+        $this->setCurrentTag("traces");
         parent::setup();
     }
     

@@ -1,6 +1,8 @@
 <?php
 namespace App\Lib;
 
+use App\Vc\ViewComponent;
+
 /**
  * Helper function for views
  */
@@ -21,7 +23,7 @@ class Frm
     }
     static function e(string $p_string): string
     {
-        return \App\Lib\Page::e($p_string);
+        return ViewComponent::e($p_string);
     }
 
     static function title(string $p_title): void

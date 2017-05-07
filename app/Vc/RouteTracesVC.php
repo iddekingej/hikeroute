@@ -5,8 +5,6 @@ namespace App\Vc;
 use App\Vc\ViewComponent;
 use App\Models\RouteTrace;
 use App\Lib\Localize;
-use App\Lib\Page;
-
 
 class RouteTracesVC extends ViewComponent
 {

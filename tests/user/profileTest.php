@@ -5,6 +5,7 @@ use Tests\TestCase;
 use App\Vc\User\PasswordPage;
 use Illuminate\Container\Container;
 use Illuminate\Support\MessageBag;
+use App\Vc\User\EditPage;
 
 class profileTest extends TestCase
 {
@@ -19,6 +20,13 @@ class profileTest extends TestCase
     function testPasswordPage()
     {
         $l_page=new PasswordPage(new MessageBag());
+        $l_page->display();
+        $this->assertEquals(1,1);
+    }
+    
+    function testEditPage()
+    {
+        $l_page=new EditPage(\Auth::user(), new MessageBag());
         $l_page->display();
         $this->assertEquals(1,1);
     }

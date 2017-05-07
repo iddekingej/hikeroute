@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 use App\Vc\Lib\MenuItem;
-use App\Lib\Page;
 
 
 
