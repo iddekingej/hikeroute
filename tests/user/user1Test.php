@@ -2,7 +2,6 @@
 use App\Models\User;
 use Tests\CreatesApplication;
 use Tests\TestCase;
-use App\Vc\User\AllUserTable;
 use App\Vc\User\AllUserPage;
 
 /**

@@ -92,7 +92,12 @@ class ImageController extends Controller
             return $l_view;
         }
         $l_route=$l_routeImage->route;
-        $l_routeImage->deleteAll();
+        \DB::transaction(
+               function() use($l_route,$l_routeImage){
+                    $l_routeImage->deleteAll();
+                    RouteImageTableCollection::renumberImages($l_route);
+               }
+        );               
         return Redirect::route("images.edit",["id_route"=>$l_route->id]);
     }
 }

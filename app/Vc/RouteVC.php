@@ -4,7 +4,6 @@ namespace App\Vc;
 
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Route;
-use App\Lib\Localize;
 
 class RouteVC extends \App\Vc\ViewComponent
 {

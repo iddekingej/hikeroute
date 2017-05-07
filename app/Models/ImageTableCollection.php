@@ -3,7 +3,6 @@ namespace App\Models;
 
 use App\Lib\TableCollection;
 use App\Lib\Magic;
-use Illuminate\Auth\AuthenticationException;
 
 class ImageUploadException extends \Exception
 {

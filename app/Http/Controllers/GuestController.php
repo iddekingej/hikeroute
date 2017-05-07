@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Gate;
 use App\Models\Route;
 use App\Models\RouteFile;
 use App\Models\LocationTableCollection;

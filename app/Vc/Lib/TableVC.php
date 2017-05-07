@@ -48,15 +48,11 @@ abstract class TableVC extends HtmlComponent{
 
     private function displayTableHeader()
     {
-        ?>
-        <tr>
-        <?php 
-        foreach($this->config as $l_name=>$l_info){
-            ?><td class="table_header"><?=$this->theme->e($l_info["title"])?></td><?php 
+        $this->theme->base_Table->headerBegin();
+        foreach($this->config as $l_info){
+            $this->theme->base_Table->columnHeader($l_info["title"]);             
         }
-        ?>
-        </tr>
-    	<?php 
+        $this->theme->base_Table->headerEnd();
     }
     
     /**
@@ -94,7 +90,7 @@ abstract class TableVC extends HtmlComponent{
                     break;
                     
                 case "@link":
-                    ?><a href="<?=$this->theme->e($p_value[0])?>"><?=$this->theme->e($p_value[1])?></a><?php
+                    $this->theme->base_Table->link($p_value[0],$p_value[1]);
                     break;
                     
                 default:
@@ -111,10 +107,10 @@ abstract class TableVC extends HtmlComponent{
     }
     
     function display()
-    {
-        ?><table class='tablevc_table'><?php 
+    {        
+        $this->theme->base_Table->tableHeader();
         if($this->title != ""){
-            ?><tr><td class='tablevc_title' colspan='<?=count($this->config)?>'><?=$this->theme->e($this->title)?></td></tr><?php
+            $this->theme->base_Table->tableTitle(count($this->config),$this->title);            
         }
         $this->displayTableHeader();
         foreach($this->data as $l_row){
@@ -122,12 +118,12 @@ abstract class TableVC extends HtmlComponent{
             if($l_data===null){
                 continue;
             }
-            ?><tr><?php 
+            $this->theme->base_Table->rowHeader();            
             foreach($this->config as $l_name=>$l_config){
                    $this->printRow($l_config,$l_data[$l_name],$l_name);
             }
-            ?></tr><?php 
+            $this->theme->base_Table->rowFooter();            
         }        
-        ?></table><?php 
+        $this->theme->base_Table->tableFooter();        
     }
 }

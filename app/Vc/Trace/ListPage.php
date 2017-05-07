@@ -3,7 +3,6 @@ declare(strict_types=1);
 namespace App\Vc\Trace;
 
 use App\Vc\Lib\HtmlMenuPage;
-use App\Vc\RouteTracesVC;
 use App\Vc\Lib\TopMenu;
 
 class ListPage extends HtmlMenuPage{
