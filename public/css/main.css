@@ -13,17 +13,25 @@ body, input, table, tr, td, textarea {
 .apptitle_table {
 	width: 100%;
 	border-collapse: collapse;
+	background-color:#67d164;
 }
 
 .apptitle_title {
 	text-align: left;
 	 font-size: 15px;
+	 color:#222;
+	 padding-top:2px;
+	 padding-bottom:2px;
+	 padding-left:8px;
 	
 }
 
 .apptitle_name {
 	text-align: right;
-}
+	color:#222;
+     padding-top:2px;
+     padding-bottom:2px;
+     padding-right:8px;}
 
 .album_image{
     display:inline-block;
@@ -162,7 +170,7 @@ body, input, table, tr, td, textarea {
 
 .leftmenu_selected
 {
-    background-color:#bbbbff;	
+    background-color:#dfd;	
 }
 .leftmenu_table {
 	height: 100%;
@@ -419,7 +427,12 @@ body, input, table, tr, td, textarea {
 }
 
 .buttonLink {
-	color: #777;
+	color: #222;
 	padding-left: 3px;
 	text-decoration: none
+}
+
+
+.horControl{
+	padding-left:3px;
 }

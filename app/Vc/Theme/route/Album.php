@@ -14,4 +14,14 @@ class Album extends ThemeItem
            ->property("src",Route("images.thumbnail",["id"=>$p_routeImage->id]))
         ->endInner();
     }
+    
+    function albumImageHeader()
+    {
+        ?><div class="album_image"><?php        
+    }
+    
+    function albumImageFooter()
+    {
+        ?></div><?php
+    }
 }

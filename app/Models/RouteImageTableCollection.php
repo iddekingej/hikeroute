@@ -28,7 +28,7 @@ class RouteImageTableCollection extends TableCollection
         return RouteImage::create(["id_route"=>$p_route->id,"position"=>$l_maxPos+1,"id_image"=>$l_image->id,"id_thumbnail"=>$l_thumbnail->id]);
     }
     
-    static function renumberImages($p_route)
+    static function renumberImages(Route $p_route)
     {
         if(!$p_route->canEdit(\Auth::user())){
             throw new AuthenticationException(__("Not authorize to add images to this route"));
@@ -41,5 +41,22 @@ class RouteImageTableCollection extends TableCollection
             }
             $l_cnt++;
         }
+    }
+    
+    static function movePosition(RouteImage $p_routeImage,$p_direction)
+    {
+        $l_route=$p_routeImage->route;
+        if(!$l_route->canEdit(\Auth::user())){
+            throw new AuthenticationException(__("Not authorize to add images to this route"));
+        }
+        if($p_routeImage->position<=1 && $p_direction==-1){
+            return;
+        }
+        $l_maxPos=RouteImage::where("id_route","=",$l_route->id)->max("position");
+        if($p_routeImage->position>=$l_maxPos && $p_direction==1){
+            return;
+        }
+        \DB::statement(\DB::raw("update route_images set position=2*:cur+:dir-position where id_route=:id_route and position in (:cur,:cur+:dir)"),
+                ["cur"=>$p_routeImage->position,"dir"=>$p_direction,"id_route"=>$l_route->id]);
     }
 }

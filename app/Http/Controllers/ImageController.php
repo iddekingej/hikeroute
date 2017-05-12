@@ -100,4 +100,33 @@ class ImageController extends Controller
         );               
         return Redirect::route("images.edit",["id_route"=>$l_route->id]);
     }
+    
+    function onSummary($p_id_routeImage,$p_flag)
+    {
+        if($this->getCheckRouteImageEdit($p_id_routeImage,$l_routeImage,$l_view)){
+            return $l_view;
+        }
+        $l_routeImage->onsummary=($p_flag==1)?1:0;
+        $l_routeImage->save();                
+        return Redirect::route("images.edit",["id_route"=>$l_routeImage->id_route]);
+    }
+    
+    function move($p_id_routeImage,$p_direction)
+    {
+        if($this->getCheckRouteImageEdit($p_id_routeImage,$l_routeImage,$l_view)){
+            return $l_view;
+        }
+        RouteImageTableCollection::movePosition($l_routeImage, $p_direction);
+        return Redirect::route("images.edit",["id_route"=>$l_routeImage->id_route]);
+    }
+    
+    function moveUp($p_id_routeImage)
+    {
+        return $this->move($p_id_routeImage,1);
+    }
+    
+    function moveDown($p_id_routeImage)
+    {
+        return $this->move($p_id_routeImage,-1);
+    }
 }

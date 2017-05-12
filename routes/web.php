@@ -4,6 +4,7 @@
 Route::pattern("id", "[0-9]+");
 Route::pattern("p_id", "[0-9]+");
 Route::pattern("p_id_route","[0-9]+");
+Route::pattern("p_flag","[01]");
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
@@ -67,6 +68,18 @@ Route::group([
             "uses"=>"ImageController@delImage"
             ]
         );
+        Route::get("onsummary/{p_id_routeImage}/{p_flag}",[
+            "as"=>"images.onsummary"
+        ,   "uses"=>"ImageController@onSummary"
+        ]);
+        
+        Route::get("moveup/{p_id_routeImage}",
+            ["as"=>"images.moveup"
+            ,"uses"=>"ImageController@moveUp"]);
+        
+        Route::get("movedown/{p_id_routeImage}",
+            ["as"=>"images.movedown"
+                ,"uses"=>"ImageController@moveDown"]);
         
     }
 ) ;  
@@ -130,121 +143,9 @@ Route::group([
         "uses" => "UserController@savePassword"
     ]);
 });
-/**
- * URL for user management
- * -List all users
- * -Edit new user
- * -Edit existing user
- * -Delete user
- * -Save user (after edit)
- */
-Route::group([
-    "middleware" => "auth",
-    "prefix" => "/admin/users"
-], function () {
-    Route::get('/', [
-        "as" => "admin.users",
-        "uses" => "AdminController@listusers"
-    ]);
-    Route::get('new', [
-        "as" => "admin.users.new",
-        "uses" => 'AdminController@newuser'
-    ]);
-    Route::get('edit/{p_user}', [
-        "as" => "admin.users.edit",
-        "uses" => "AdminController@edituser"
-    ]);
-    Route::get('delete/{p_user}', [
-        "as" => "admin.users.delete",
-        "uses" => "AdminController@deleteUser"
-    ]);
-    Route::post('add', [
-        "as" => "admin.users.save.add",
-        "uses" => "AdminController@saveUserAdd"
-    ]);
-    Route::post('edit', [
-        "as" => "admin.users.save.edit",
-        "uses" => "AdminController@saveUserEdit"
-    ]);
-});
 
-/**
- * Routes for managing route traces
- */
-Route::group([
-    "middleware" => "auth",
-    "prefix" => "/traces/"
-], function () {
-    Route::get("list", [
-        "as" => "traces.list",
-        "uses" => "TracesController@list"
-    ]);
-    Route::get("download/{p_id}", [
-        "as" => "traces.download",
-        "uses" => "TracesController@download"
-    ]);
-    Route::get("show/{p_id}", [
-        "as" => "traces.show",
-        "uses" => "TracesController@show"
-    ]);
-    Route::get("del/{p_id}", [
-        "as" => "traces.del",
-        "uses" => "TracesController@del"
-    ]);
-    Route::get("upload", [
-        "as" => "traces.upload",
-        "uses" => "TracesController@upload"
-    ]);
-    Route::Post("save", [
-        "as" => "traces.save",
-        "uses" => "TracesController@save"
-    ]);
-});
-
-
-/**
- * URLs for posting and editing hiking routes
- */
-Route::group([
-    "middleware" => "auth",
-    "prefix" => "/routes/"
-], function () {
-    
-    Route::get('new', [
-        "as" => "routes.new",
-        "uses" => "RoutesController@newRoute"
-    ]);
-    Route::get('newdetails/{id}', [
-        "as" => "routes.newdetails",
-        "uses" => "RoutesController@newDetails"
-    ]);
-    Route::post('save/add', [
-        "as" => "routes.save.add",
-        "uses" => "RoutesController@saveAddRoute"
-    ]);
-    Route::post('save/edit', [
-        "as" => "routes.save.edit",
-        "uses" => "RoutesController@saveUpdateRoute"
-    ]);
-    Route::get("trace/edit/{p_id}", [
-        "as" => "routes.trace.edit",
-        "uses" => "RoutesController@traceEdit"
-    ]);
-    Route::get("trace/update/{p_id_route}/{p_id}", [
-        "as" => "routes.trace.update",
-        "uses" => "RoutesController@traceUpdate"
-    ]);
-    Route::get('edit/{id}', [
-        "as" => "routes.edit",
-        "uses" => "RoutesController@editRoute"
-    ]);
-    Route::get("del/{id}", [
-        "as" => "routes.del",
-        "uses" => "RoutesController@delRoute"
-    ]);
-    Route::get('/', [
-        "as" => "routes",
-        "uses" => "RoutesController@listRoutes"
-    ]);
-});
+require("admin.php");
+require("admin.php");
+require("traces.php");
+require("routes.php");
 

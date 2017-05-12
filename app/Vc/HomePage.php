@@ -18,10 +18,29 @@ class HomePage extends HtmlPage
         $this->routes=$p_routes;
         parent::__construct();
     }
+    
+    /**
+     * Display summary information about some routes
+     *
+     * @param array $p_routes
+     */
+    function printRoutesSummary(Collection $p_routes): void
+    {
+        if (count($p_routes) > 0) {
+            
+            $this->theme->route_Search->foundHeader();
+            
+            foreach ($p_routes as $l_route) {
+                $this->theme->route_Search->routeSummary($l_route);
+            }
+            $this->theme->route_Search->foundFooter();
+        }
+    }
+    
     function content()
     {
-        RouteVC::routeSearch();
-        RouteVC::searchByLocation($this->tree, $this->locations);
-        RouteVC::printRoutesSummary($this->routes);
+        $this->theme->route_Search->routeSearch();
+        $this->theme->route_Search->searchByLocation($this->tree, $this->locations);
+        $this->printRoutesSummary($this->routes);
     }
 }

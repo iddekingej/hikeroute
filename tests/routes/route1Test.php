@@ -8,6 +8,9 @@ use App\Vc\Route\TracePage;
 use App\Vc\Route\ListPage;
 use App\Vc\Route\OverviewPage;
 use App\Vc\Route\AlbumPage;
+use App\Vc\HomePage;
+use Illuminate\Database\Eloquent\Collection;
+use App\Models\RouteTableCollection;
 
 class route1Test extends \Tests\TestCase
 {
@@ -130,6 +133,11 @@ class route1Test extends \Tests\TestCase
         $this->assertEquals(1,1);
     }
     
+    function testHomePage()
+    {
+        $l_page=new HomePage(new Collection(), RouteTableCollection::numRoutesByLocation(null), new Collection());
+        $l_page->display();
+    }
 
 }
 

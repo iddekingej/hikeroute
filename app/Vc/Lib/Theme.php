@@ -19,6 +19,10 @@ class Theme
         echo $p_name,'="',$this->e($p_value).'" ';
     }
     
+    function yesNoLink($p_label,$p_route,Array $p_params,$p_value){
+        ?><?=$this->e($p_label)?>:<?=$p_value?$this->e(__("Yes")):$this->e(__("No"))?> - <a href='<?=Route($p_route,array_merge($p_params,["p_flag"=>$p_value?0:1]))?>'><?=$p_value?__("Turn off"):__("Turn on")?></a> <?php
+    }
+    
     /**
      * After clicking a icon, a confirmation message is displayed
      * After pressing "yes"
@@ -37,7 +41,7 @@ class Theme
 	src='<?=$this->e($p_image)?>'></span><?php
     }
     
-    function textRouteLink($p_route,Array $p_params,$p_text,$p_class)
+    function textRouteLink($p_route,Array $p_params,$p_text,$p_class="")
     {
         $this->textLink(Route($p_route,$p_params),$p_text,$p_class);
     }
@@ -65,4 +69,6 @@ class Theme
         }
         return htmlspecialchars("$p_string", ENT_QUOTES | ENT_HTML5);
     }
+    
+
 }

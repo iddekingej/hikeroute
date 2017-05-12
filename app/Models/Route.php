@@ -135,4 +135,10 @@ class Route extends Model
     {
         return $this->hasMany(RouteImage::class,"id_route");
     }
+    
+    function summaryImages()
+    {
+        return $this->routeImages()->where("onsummary","=",1)->orderby("position");   
+    }
+   
 }

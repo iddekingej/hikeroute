@@ -5,6 +5,8 @@ namespace App\Vc\Theme\Route;
 use App\Vc\Lib\ThemeItem;
 use App\Lib\Localize;
 use App\Vc\RouteTracesVC;
+use App\Models\Route;
+use Illuminate\Database\Eloquent\Collection;
 
 class Info extends ThemeItem
 {
@@ -22,7 +24,20 @@ class Info extends ThemeItem
 </tr>			
 <?php
     }
-
+   
+    function albumHeader()
+    {
+        ?><div class="map_ud"><?=$this->e(__("Image overview"))?></div><?php 
+    }
+    
+  
+    function albumLink(Route $p_route)
+    {
+        ?><div><?php 
+        $this->textRouteLink("display.album",["id"=>$p_route->id],__("Compleet album"));
+        ?></div><?php 
+    }
+    
     function routeInfo($p_route)
     {
         $this->routeTitle($p_route->title);

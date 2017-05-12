@@ -25,6 +25,11 @@ abstract class TableVC extends HtmlComponent{
     protected $data;
     protected $custom=[];
     
+    /**
+     * Data to display 
+     * 
+     * @param unknown $p_data
+     */
     function __construct($p_data)
     {
         $this->data=$p_data;
@@ -36,16 +41,30 @@ abstract class TableVC extends HtmlComponent{
         $this->config[$p_name][$p_field]=$p_value;
     }
     
+    /**
+     * Set the configuration of a column
+     * 
+     * @param string $p_name Name of the column
+     * @param array $p_data configurations
+     */
     function setConfigElement(string $p_name,Array $p_data)
     {
         $this->config[$p_name]=$p_data;
     }
+    
+/**
+ * Add the table configution 
+ * 
+ * @param array $p_config Associative array with Configuration of the table (keys are field names)
+ */    
     function addConfig(array $p_config)
     {
         $this->config=array_merge($this->config,$p_config);
     }
     
-
+/**
+ * Display the table header(titles)
+ */
     private function displayTableHeader()
     {
         $this->theme->base_Table->headerBegin();
@@ -105,6 +124,13 @@ abstract class TableVC extends HtmlComponent{
         ?></td><?php 
         
     }
+    
+    /**
+     * Output the html of the table
+     *  
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlComponent::display()
+     */
     
     function display()
     {        

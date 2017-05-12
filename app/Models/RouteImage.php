@@ -13,7 +13,8 @@ class RouteImage extends Model
         "id_route",
         "id_image",
         "id_thumbnail",
-        "position"        
+        "position",
+        "onsummary"
     ];
     
     
