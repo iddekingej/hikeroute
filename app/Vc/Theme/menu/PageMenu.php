@@ -14,8 +14,10 @@ class PageMenu extends ThemeItem
     private function menuItemGen($p_url,$p_description,$p_class)
     {
         ?>
-        <td class="<?=$this->e($p_class)?>">
-        	<nobr><a class='pagemenu_link' href="<?=$this->e($p_url)?>"><?=$this->e($p_description)?></a></nobr>
+        <td class="pagemenu_cell">
+        	<div class="<?=$this->e($p_class)?>">
+        		<nobr><a class='pagemenu_link' href="<?=$this->e($p_url)?>"><?=$this->e($p_description)?></a></nobr>
+        	</div>
         </td>
         <?php      
     }

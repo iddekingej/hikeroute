@@ -43,19 +43,39 @@ body, input, table, tr, td, textarea {
 	width:100%;
 	margin-bottom:10px;
 	margin-top:10px;
+    border-collapse:collapse;
 }
 
 .pagemenu_item{
-	
+	display:absolute;	
+	background-color:#ddd;
+	margin-left:0px;
+    margin-right:0px;
+   	padding:4px;
+   	border-radius:5px 5px 0px 0px;
+   	border-bottom:solid 2px #ddd;
 }
 
+.pagemenu_cell{
+    margin:0px;
+    padding:0px;	
+    vertical-align:top;
+    padding-left:2px;
+}
 .pagemenu_link{
     text-decoration:none;
-    color:#777;	
+    color:#02F;
 }
 
 .pagemenu_selected{
-	background-color:#AAA;
+	display:absolute;
+	height:100%;
+	padding:4px;
+	background-color:#BBB;
+	border-top:groove 2px #ddd;
+	border-left:groove 2px #ddd;
+	border-right:groove 2px #ddd;
+	border-radius:5px 5px 0px 0px;
 }
 
 .page_hint {

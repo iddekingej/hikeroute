@@ -6,7 +6,6 @@ use App\Vc\Lib\ThemeItem;
 use App\Lib\Localize;
 use App\Vc\RouteTracesVC;
 use App\Models\Route;
-use Illuminate\Database\Eloquent\Collection;
 
 class Info extends ThemeItem
 {
@@ -40,7 +39,6 @@ class Info extends ThemeItem
     
     function routeInfo($p_route)
     {
-        $this->routeTitle($p_route->title);
 ?><table><?php         
         $this->routeInfoRow(__("Location"), $p_route->location, 1, 2);
         $this->routeInfoRow(__("Distance"), Localize::meterToDistance((int)$p_route->routeTrace->distance));

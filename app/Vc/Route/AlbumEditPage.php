@@ -9,7 +9,6 @@ use App\Vc\Lib\TopMenu;
 use App\Vc\Lib\TextRouteLink;
 use App\Vc\Lib\VLayout;
 use App\Vc\Lib\YesNoLink;
-use App\Vc\Lib\IconTexLink;
 use App\Vc\Lib\IconTextLink;
 
 class AlbumEditPage extends HtmlMenuPage{

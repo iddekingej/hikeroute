@@ -11,13 +11,13 @@ class TracePage extends DisplayPage
         $this->currentCode="trace";
         parent::setup();
     }
+    
+    function setupTopMenu()
+    {
+        $this->topMenu->addMenuitem("routes.trace.edit", ["id"=>$this->route->id],  __("Upload new gpx file"));
+    }
     function content()
     {
-        if($this->route->canEdit(\Auth::user())){
-            $l_menu=new TopMenu();
-            $l_menu->addMenuitem("routes.trace.edit", ["id"=>$this->route->id],  __("Upload new gpx file"));
-            $l_menu->display();
-        }
         $l_trace=new OpenLayer($this->route->routeTrace);
         $l_trace->display();
         

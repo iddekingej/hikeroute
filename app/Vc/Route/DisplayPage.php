@@ -5,18 +5,20 @@ namespace App\Vc\Route;
 use App\Vc\Lib\PageMenu;
 use App\Models\Route;
 use App\Vc\Lib\HtmlMenuPage;
+use App\Vc\Lib\TopMenu;
 
 abstract class DisplayPage extends HtmlMenuPage
 {
     protected $route;
     protected $currentCode;
-    
+    protected $topMenu;
     function __construct(Route $p_route)
     {
         $this->route=$p_route;
         parent::__construct();
         $this->extraJs[]="/js/ol.js";
         $this->extraCss[]="/css/ol.js";
+        
     }
 
     function setup()
@@ -25,9 +27,20 @@ abstract class DisplayPage extends HtmlMenuPage
         parent::setup();
     }
       
+    function setupTopMenu()
+    {
+        
+    }
+    
     function preContent()
     {
         parent::preContent();
+        if($this->route->canEdit(\Auth::user())){
+            $this->topMenu=new TopMenu();
+            $this->setupTopMenu();
+            $this->topMenu->display();
+        }
+        $this->theme->route_Info->routeTitle($this->route->title);
         $l_pageMenu=new PageMenu();
         $l_pageMenu->setCode($this->currentCode);
         $l_params=["id"=>$this->route->id];

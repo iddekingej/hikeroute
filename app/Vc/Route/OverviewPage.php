@@ -12,17 +12,17 @@ class OverViewPage extends DisplayPage
         parent::setup();
     }
     
+    function setupTopMenu()
+    {
+        $l_params=["id"=>$this->route->id];
+        $this->topMenu->addMenuItem("routes.edit", $l_params, __("Edit route"));
+        $this->topMenu->addMenuitem("routes.trace.edit", $l_params,  __("Upload new gpx file"));
+        $this->topMenu->addConfirmMenuitem("routes.del",$l_params,__("Delete this route"), __("Delete route?"));
+        
+    }
     
     function content()
     {
-        if($this->route->canEdit(\Auth::user())){
-            $l_topMenu=new TopMenu();
-            $l_params=["id"=>$this->route->id];
-            $l_topMenu->addMenuItem("routes.edit", $l_params, __("Edit route"));
-            $l_topMenu->addMenuitem("routes.trace.edit", $l_params,  __("Upload new gpx file"));
-            $l_topMenu->addConfirmMenuitem("routes.del",$l_params,__("Delete this route"), __("Delete route?"));
-            $l_topMenu->display();           
-        }
         $l_routeInfo=new RouteInfo($this->route);
         $l_routeInfo->display();
         $l_images=$this->route->summaryImages;
