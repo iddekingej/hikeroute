@@ -7,7 +7,7 @@ dist: trusty
 service: mysql
          
 before_script:
-- composer update
+- composer install
 - cp travis/env .env
 - sudo cat /etc/mysql/my.cnf
 - sudo grep -v innodb_log_file_size /etc/mysql/my.cnf >my.tmp
