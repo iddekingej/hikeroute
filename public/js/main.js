@@ -134,6 +134,8 @@ function resizeImage(p_width,p_height)
 		this.width=Math.round(this.width*(p_height/this.height));
 		this.height=p_height;
 	}
+	this.style.left=Math.round((p_width-this.width)/2)+"px";
+	this.style.top=Math.round((p_height-this.height)/2)+"px";
 }
 
 function makeImagePopup(p_url)
@@ -158,7 +160,7 @@ function makeImagePopup(p_url)
 	};
 	var l_img=core.dom.create("img",l_div,{style:l_imageCss,src:p_url});
 	l_img.onload=function(){
-		resizeImage.call(this,l_width-80,l_height-80);
+		resizeImage.call(this,l_width-60,l_height-40);
 	}
 	var l_closeCss={
 			position:"absolute",
