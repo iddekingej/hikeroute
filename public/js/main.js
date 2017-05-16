@@ -124,4 +124,51 @@ RouteMap.prototype.displayMap=function()
 	return l_map;
 }
 
+function resizeImage(p_width,p_height)
+{
+	if(this.width>p_width){
+		this.height=Math.round(this.height*(p_width/this.width));
+		this.width=p_width;
+	}
+	if(this.height>p_height){
+		this.width=Math.round(this.width*(p_height/this.height));
+		this.height=p_height;
+	}
+}
 
+function makeImagePopup(p_url)
+{
+	var l_width=page.width();
+	var l_height=page.height();
+	var l_css={
+			position:"absolute",
+			top:"20px",
+			left:"20px",
+			width:(l_width-40)+"px",
+			height:(l_height-40)+"px",
+			backgroundColor:"#000"
+			};
+	
+	
+	var l_div=core.dom.create("div",document.body,{style:l_css});
+	var l_imageCss={
+			position:"absolute",
+			top:"20px",
+			left:"20px",
+	};
+	var l_img=core.dom.create("img",l_div,{style:l_imageCss,src:p_url});
+	l_img.onload=function(){
+		resizeImage.call(this,l_width-80,l_height-80);
+	}
+	var l_closeCss={
+			position:"absolute",
+			top:"5px",
+			left:(l_width-70)+"px",
+			textWeight:"900",
+			fontSize:"24px",
+			color:"#fff"
+	};
+	var l_close=core.dom.create('div',l_div,{style:l_closeCss});
+	core.dom.appendText("X",l_close);
+	l_close.onclick=function(){gui.remove(l_div);}
+}

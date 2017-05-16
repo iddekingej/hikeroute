@@ -9,10 +9,10 @@ class Album extends ThemeItem
 {
     function thumbnail(RouteImage $p_routeImage)
     {
-        echo self::tag("a")->property("href",Route("images.display",["id"=>$p_routeImage->id]))
-        ->inner("img")
-           ->property("src",Route("images.thumbnail",["id"=>$p_routeImage->id]))
-        ->endInner();
+        echo self::tag("img")
+           ->property("onclick","makeImagePopup(".json_encode(Route("images.display",["id"=>$p_routeImage->id])).");")
+           ->property("src",Route("images.thumbnail",["id"=>$p_routeImage->id]));
+        
     }
     
     function albumImageHeader()
