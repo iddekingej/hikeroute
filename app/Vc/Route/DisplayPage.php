@@ -18,7 +18,7 @@ abstract class DisplayPage extends HtmlMenuPage
         parent::__construct();
         $this->extraJs[]="/js/ol.js";
         $this->extraCss[]="/css/ol.js";
-        
+        $this->canEdit=$this->route->canEdit(\Auth::user());
     }
 
     function setup()
@@ -32,10 +32,12 @@ abstract class DisplayPage extends HtmlMenuPage
         
     }
     
+    
     function preContent()
     {
         parent::preContent();
-        if($this->route->canEdit(\Auth::user())){
+        
+        if($this->canEdit){
             $this->topMenu=new TopMenu();
             $this->setupTopMenu();
             $this->topMenu->display();
@@ -46,7 +48,9 @@ abstract class DisplayPage extends HtmlMenuPage
         $l_params=["id"=>$this->route->id];
         $l_pageMenu->addItem("overview", Route("display.overview",$l_params), __("Overview"));
         $l_pageMenu->addItem("trace", Route("display.trace",$l_params), __("Route map"));
-        $l_pageMenu->addItem("album",Route("display.album",$l_params),__("Album"));
+        if($this->canEdit||$this->route->hasImages()){
+            $l_pageMenu->addItem("album",Route("display.album",$l_params),__("Album"));
+        }
         $l_pageMenu->display();
     }
 }

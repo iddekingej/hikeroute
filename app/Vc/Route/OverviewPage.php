@@ -27,7 +27,7 @@ class OverViewPage extends DisplayPage
         $l_routeInfo->display();
         $l_images=$this->route->summaryImages;
         if(!$l_images->isEmpty()){
-            $this->theme->route_Info->albumHeader();
+            $this->theme->route_Info->sectionHeader("Album");            
             $l_album=new ImageList($l_images);
             $l_album->display();
             $this->theme->route_Info->albumLink($this->route);

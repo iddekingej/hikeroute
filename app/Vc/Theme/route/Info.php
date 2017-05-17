@@ -24,12 +24,6 @@ class Info extends ThemeItem
 <?php
     }
    
-    function albumHeader()
-    {
-        ?><div class="map_ud"><?=$this->e(__("Image overview"))?></div><?php 
-    }
-    
-  
     function albumLink(Route $p_route)
     {
         ?><div><?php 
@@ -39,7 +33,8 @@ class Info extends ThemeItem
     
     function routeInfo($p_route)
     {
-?><table><?php         
+?><table><?php       
+        $this->sectionHeader(__("Information"));
         $this->routeInfoRow(__("Location"), $p_route->location, 1, 2);
         $this->routeInfoRow(__("Distance"), Localize::meterToDistance((int)$p_route->routeTrace->distance));
 		$this->routeInfoRow(__("Author"), $p_route->user->name, 1, 2);
@@ -49,12 +44,16 @@ class Info extends ThemeItem
 		<td class="map_ud"><?=$this->e(__("Download route"))?>:</td>
 		<td colspan='4' class="map_ud_value"><?=RouteTracesVC::downloadLink($p_route->routeTrace)?></td>
 	</tr>
-	<tr>
-		<td colspan='2' class='map_ud'><?=$this->e(__("Description"))?></td>
-	<tr>
-		<td class="map_comment"><?=$this->e($p_route->comment)?></td>
-	</tr>							
 </table>
 <?php
+        if($p_route->comment!==null && strlen($p_route->comment)>0){
+            $this->sectionHeader(__("Description"));
+            ?><div class="map_comment"><?=$this->e($p_route->comment)?></div><?php
+        }
+    }
+    
+    function sectionHeader($p_title)
+    {
+        ?><div class="routeall_sectionTitle"><?=$this->e($p_title)?></div><?php    
     }
 }
