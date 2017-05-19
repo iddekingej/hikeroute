@@ -1,8 +1,6 @@
 <?php
 namespace App\Lib;
 
-use App\Vc\ViewComponent;
-
 /**
  * Helper function for views
  */

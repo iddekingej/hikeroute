@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
-use App\Vc\ViewComponent;
-
 class Theme
 {
     function __get($p_name)
@@ -36,7 +34,7 @@ class Theme
      */
     function iconConfirm(string $p_message, string $p_url, string $p_image): void
     {
-        $l_js = ViewComponent::confirmJs($p_message, $p_url);
+        $l_js = $this->confirmJs($p_message, $p_url);
         ?><span class="deleteIcon" onclick="<?=$this->e($l_js)?>"><img
 	src='<?=$this->e($p_image)?>'></span><?php
     }
@@ -70,5 +68,32 @@ class Theme
         return htmlspecialchars("$p_string", ENT_QUOTES | ENT_HTML5);
     }
     
-
+    /**
+     * Make javascript for confirm message
+     *
+     * @param
+     *            String Message in confirmation box
+     * @param
+     *            String Url url location to go when confirmed
+     */
+    function confirmJs($p_message, $p_url)
+    {
+        return "if(confirm(" . json_encode($p_message) . "))window.location=" . json_encode($p_url);
+    }
+    
+    /**
+     * Create tag object
+     *
+     * @param string $p_tag
+     * @return Tag
+     */
+    function tag(string $p_tag):Tag
+    {
+        return new Tag($p_tag);
+    }
+    
+    function div()
+    {
+        return $this->tag("div");
+    }      
 }

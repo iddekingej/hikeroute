@@ -3,9 +3,9 @@ declare(strict_types=1);
 namespace App\Vc\Trace;
 
 use App\Models\RouteTrace;
-use App\Vc\Lib\ViewComponentBase;
+use App\Vc\Lib\HtmlComponent;
 
-class OpenLayer extends ViewComponentBase{
+class OpenLayer extends HtmlComponent{
     private $routeTrace;
     private $id="map";
     
@@ -17,11 +17,13 @@ class OpenLayer extends ViewComponentBase{
     function __construct(RouteTrace $p_trace)
     {
         $this->routeTrace=$p_trace;
+        parent::__construct();
     }
     
     function display()
     {
-        echo self::div()->id($this->id);
+        
+        echo $this->theme->div()->id($this->id);
         ?>
 		<script type='text/javascript'>
 			l_map=new RouteMap(<?=json_encode($this->id)?>);

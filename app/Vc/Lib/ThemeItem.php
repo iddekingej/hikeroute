@@ -27,17 +27,7 @@ class ThemeItem{
         return $this->theme;
     }
     
-    /**
-     * Create tag object
-     * 
-     * @param string $p_tag
-     * @return Tag
-     */
-    function tag(string $p_tag):Tag
-    {
-        return new Tag($p_tag);
-    }
-    
+  
 
     
 

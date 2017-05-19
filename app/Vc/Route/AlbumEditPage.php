@@ -6,7 +6,6 @@ use App\Vc\Lib\HtmlMenuPage;
 use App\Models\Route;
 use App\Lib\Icons;
 use App\Vc\Lib\TopMenu;
-use App\Vc\Lib\TextRouteLink;
 use App\Vc\Lib\VLayout;
 use App\Vc\Lib\YesNoLink;
 use App\Vc\Lib\IconTextLink;

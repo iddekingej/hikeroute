@@ -268,10 +268,11 @@ preventDefault:function(p_event)
 },
 setStyleRules:function(p_styleSheet,p_name,p_data)
 	{
+		var l_item;
 		if("sheet" in p_styleSheet){
-			for(var l_item in p_data) p_styleSheet.sheet.cssRules[0].style[l_item]=p_data[l_item];
+			for(l_item in p_data) p_styleSheet.sheet.cssRules[0].style[l_item]=p_data[l_item];
 		} else {
-			for(var l_item in p_data) p_styleSheet.styleSheet.rules[0].style[l_item]=p_data[l_item];
+			for(l_item in p_data) p_styleSheet.styleSheet.rules[0].style[l_item]=p_data[l_item];
 		}
 	},
 createDivText:function(p_text,p_data,p_parent)
@@ -554,6 +555,7 @@ setFloat:function(p_item,p_float)
 },
 handleTaTab:function (p_event,p_element)
 {
+	var l_range;
 	if(p_event.keyCode==9){
 		var l_st=p_element.scrollTop;
 		if(isIE){

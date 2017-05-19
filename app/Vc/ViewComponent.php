@@ -21,18 +21,6 @@ class ViewComponent
         return htmlspecialchars("$p_string", ENT_QUOTES | ENT_HTML5);
     }
 
-    /**
-     * Make javascript for confirm message
-     *
-     * @param
-     *            String Message in confirmation box
-     * @param
-     *            String Url url location to go when confirmed
-     */
-    static function confirmJs($p_message, $p_url)
-    {
-        return "if(confirm(" . json_encode($p_message) . "))window.location=" . json_encode($p_url);
-    }
 
     /**
      * Print text link
@@ -62,19 +50,7 @@ class ViewComponent
         self::link(Route($p_route, $p_data), $p_text);
     }
 
-    /**
-     * Print html link with edit icon and a text
-     *
-     * @param string $p_route            
-     * @param array $p_parameters            
-     * @param string $p_message            
-     */
-    static function editLink(string $p_route, Array $p_parameters, string $p_message): void
-    {
-        ?><a href="<?=self::e(route($p_route,$p_parameters))?>"><img
-	src='<?=self::e(\App\Lib\Icons::EDIT)?>' /><?=self::e($p_message)?></a><?php
-    }
-    
+
     static function tag(string $p_tag):Tag
     {
         return new Tag($p_tag);
