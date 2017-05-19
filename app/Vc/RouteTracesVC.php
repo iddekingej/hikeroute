@@ -21,22 +21,6 @@ class RouteTracesVC extends ViewComponent
         ]), __("Download file"));
     }
 
-
-
-   
-
-    /**
-     * Js and css file needed for openlayers
-     * This must be placed in the head of the page
-     */
-    static function openLayerExtItems()
-    {
-        ?>
-<script src="/js/ol.js"></script>
-<link href="/css/ol.css" rel='stylesheet'></link>
-<?php
-    }
-
     /**
      * Print information about a trace
      *
@@ -72,36 +56,6 @@ class RouteTracesVC extends ViewComponent
 <?php
     }
 
-    /**
-     * The map is displayed inside this DIV
-     */
-    static function openLayerDiv()
-    {
-        ?>
-<tr>
-	<td class="map_body">
-		<div id='map'></div>
-	</td>
-</tr>
-<?php
-    }
-
-    /**
-     * Print initialise JS for displaying the route
-     *
-     * @param RouteTrace $p_routeTrace            
-     */
-    static function openLayerJs(RouteTrace $p_routeTrace): void
-    {
-        ?>
-<script type='text/javascript'>
-	l_map=new RouteMap("map");
-	l_map.setGpxRoute(<?=json_encode(Route("routes.download",["p_id"=>$p_routeTrace->id_routefile]))?>);
-	l_map.setSize(<?=($p_routeTrace->minlat)?>,<?=($p_routeTrace->maxlat)?> , <?=($p_routeTrace->minlon)?> , <?=($p_routeTrace->maxlon)?>);
-	l_map.displayMap();
-</script>
-<?php
-    }
 
     static function routeList(RouteTrace $p_routeTrace): void
     {
