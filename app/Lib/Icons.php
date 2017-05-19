@@ -6,4 +6,6 @@ class Icons
     const ADDUSER = "/images/adduser.png";
     const DELETE  = "/images/delete.png";
     const EDIT    = "/images/edit.png";
+    const UP      = "/images/up.png";
+    const DOWN    = "/images/down.png";
 }

@@ -40,12 +40,13 @@ class AlbumEditPage extends HtmlMenuPage{
             $this->theme->route_AlbumEdit->imageControls();
             $l_vl=new VLayout();
             $l_vl->addItem(new IconTextLink("images.del", ["id"=>$l_routeImage->id], Icons::DELETE, __("Delete image")));
-            if($l_routeImage->id != $l_last->id){
-                $l_vl->addItem(new TextRouteLink("images.moveup", ["id_routeImae"=>$l_routeImage->id], __("Move down")));
-            }
             if($l_routeImage->position>1){
-                $l_vl->addItem(new TextRouteLink("images.movedown",["id_routeImae"=>$l_routeImage->id],__("Move up")));
+                $l_vl->addItem(new IconTextLink("images.movedown",["id_routeImae"=>$l_routeImage->id],ICONS::UP,__("Move up")));
             }
+            if($l_routeImage->id != $l_last->id){
+                $l_vl->addItem(new IconTextLink("images.moveup", ["id_routeImae"=>$l_routeImage->id],ICONS::DOWN, __("Move down")));
+            }
+            
             $l_vl->addItem(new YesNoLink("images.onsummary",["id_routeImage"=>$l_routeImage->id], __("show on overview page"),$l_routeImage->onsummary) );
             $l_vl->display();
             $this->theme->route_AlbumEdit->imageEditFooter();

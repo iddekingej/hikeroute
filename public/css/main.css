@@ -33,9 +33,29 @@ body, input, table, tr, td, textarea {
      padding-bottom:2px;
      padding-right:8px;}
 
+.album_imageContainer{
+	position:absolute;
+	top:20px;
+	left:20px;
+	background-color:#3f4c35;
+}
+.album_fullImage{
+	position:absolute;
+	left:20px;
+	right:20px;
+}
+.album_close{
+	position:absolute;
+	top:5px;
+	font-size:24px;
+	text-weight:900;
+	color:#FFF;
+	cursor:pointer;
+}
 .album_image{
     display:inline-block;
-    padding:5px;	
+    padding:5px;
+    cursor:pointer;	
 }
 
 .pagemenu_table{

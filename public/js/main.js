@@ -143,34 +143,20 @@ function makeImagePopup(p_url)
 	var l_width=page.width();
 	var l_height=page.height();
 	var l_css={
-			position:"absolute",
-			top:"20px",
-			left:"20px",
 			width:(l_width-40)+"px",
 			height:(l_height-40)+"px",
-			backgroundColor:"#000"
 			};
 	
 	
-	var l_div=core.dom.create("div",document.body,{style:l_css});
-	var l_imageCss={
-			position:"absolute",
-			top:"20px",
-			left:"20px",
-	};
-	var l_img=core.dom.create("img",l_div,{style:l_imageCss,src:p_url});
+	var l_div=core.dom.create("div",document.body,{className:"album_imageContainer",style:l_css});
+	var l_img=core.dom.create("img",l_div,{className:"album_fullImage",src:p_url});
 	l_img.onload=function(){
 		resizeImage.call(this,l_width-60,l_height-40);
 	}
 	var l_closeCss={
-			position:"absolute",
-			top:"5px",
 			left:(l_width-70)+"px",
-			textWeight:"900",
-			fontSize:"24px",
-			color:"#fff"
 	};
-	var l_close=core.dom.create('div',l_div,{style:l_closeCss});
+	var l_close=core.dom.create('div',l_div,{className:"album_close",style:l_closeCss});
 	core.dom.appendText("X",l_close);
 	l_close.onclick=function(){gui.remove(l_div);}
 }
