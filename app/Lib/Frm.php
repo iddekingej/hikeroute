@@ -9,6 +9,21 @@ use App\Vc\ViewComponent;
 class Frm
 {
 
+    /**
+     * HTML Escape string
+     *
+     * @param String $p_string
+     * @return string
+     */
+    static function e($p_string): string
+    {
+        if ($p_string === null) {
+            return "";
+        }
+        return htmlspecialchars("$p_string", ENT_QUOTES | ENT_HTML5);
+    }
+    
+    
     static function label($p_name,$p_label)
     {
         ?>
@@ -21,11 +36,7 @@ class Frm
 			<div class="form_error"><?=$p_errors->first($p_name)?></div>
 		<?php }
     }
-    static function e(string $p_string): string
-    {
-        return ViewComponent::e($p_string);
-    }
-
+    
     static function title(string $p_title): void
     {
         ?><div class="form_title"><?=static::e($p_title)?></div><?php
