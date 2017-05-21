@@ -6,6 +6,7 @@ use App\Vc\Lib\ThemeItem;
 use App\Lib\Localize;
 use App\Vc\RouteTracesVC;
 use App\Models\Route;
+use App\Vc\Trace\TraceDownloadLink;
 
 class Info extends ThemeItem
 {
@@ -25,7 +26,7 @@ class Info extends ThemeItem
     }
    
     function albumLink(Route $p_route)
-    {
+    {        
         ?><div><?php 
         $this->textRouteLink("display.album",["id"=>$p_route->id],__("Compleet album"));
         ?></div><?php 
@@ -39,10 +40,11 @@ class Info extends ThemeItem
         $this->routeInfoRow(__("Distance"), Localize::meterToDistance((int)$p_route->routeTrace->distance));
 		$this->routeInfoRow(__("Author"), $p_route->user->name, 1, 2);
 		$this->routeInfoRow(__("Crearted on"), Localize::shortDate($p_route->created_at));
+		$l_link=new TraceDownloadLink($p_route->routeTrace);
 ?>        		
 	<tr>
 		<td class="map_ud"><?=$this->e(__("Download route"))?>:</td>
-		<td colspan='4' class="map_ud_value"><?=RouteTracesVC::downloadLink($p_route->routeTrace)?></td>
+		<td colspan='4' class="map_ud_value"><?=$l_link->display()?></td>
 	</tr>
 </table>
 <?php

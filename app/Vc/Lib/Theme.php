@@ -17,6 +17,16 @@ class Theme
         echo $p_name,'="',$this->e($p_value).'" ';
     }
     
+    function image($p_src,$p_class="")
+    {
+        echo "<img ";
+        $this->attribute("src",$p_src);
+        if($p_class){
+            $this->attribute("class",$p_class);
+        }
+        echo ">";        
+    }
+    
     function yesNoLink($p_label,$p_route,Array $p_params,$p_value){
         ?><?=$this->e($p_label)?>:<?=$p_value?$this->e(__("Yes")):$this->e(__("No"))?> - <a href='<?=Route($p_route,array_merge($p_params,["p_flag"=>$p_value?0:1]))?>'><?=$p_value?__("Turn off"):__("Turn on")?></a> <?php
     }
@@ -53,6 +63,12 @@ class Theme
     {
         ?><a href="<?=$this->e($p_url)?>"><img src="<?=$this->e($p_image)?>" /><?=$this->e($p_text)?></a><?php   
     }
+
+    function iconTextRouteLink($p_route,array $p_params,$p_image,$p_text)
+    {
+        ?><a href="<?=$this->e(Route($p_route,$p_params))?>"><img src="<?=$this->e($p_image)?>" /></a><a href="<?=$this->e(Route($p_route,$p_params))?>"><?=$this->e($p_text)?></a><?php
+    }
+    
     
     /**
      * HTML Escape string
@@ -90,6 +106,15 @@ class Theme
     function tag(string $p_tag):Tag
     {
         return new Tag($p_tag);
+    }
+    
+    function makeJsCall($p_function ,Array $p_params)
+    {
+        $l_call="";
+        foreach($p_params as $l_param){
+            $l_call .= ($l_call?",":"").json_encode($l_param);   
+        }
+        return $p_function."(".$l_call.")";
     }
     
     function div()

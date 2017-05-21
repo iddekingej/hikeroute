@@ -26,6 +26,22 @@ class ShowPage extends HtmlMenuPage
         parent::setup();
     }
     
+    
+    function routeList(RouteTrace $p_routeTrace): void
+    {
+        $l_routes = $p_routeTrace->routes;
+        $this->theme->trace_Show->routeListTitle();
+        if(count($l_routes)==0){
+            $this->theme->trace_Show->routeNothignFound();
+        } else {
+            $this->theme->trace_Show->routeListHeader();
+            foreach ($p_routeTrace->routes as $l_route) {
+                $this->theme->trace_Show->routeListItem($l_route->id,$l_route->title);
+            }
+            $this->theme->trace_Show->routeListFooter();
+        }
+    }
+    
     function content()
     {
         $this->theme->trace_Show->container();
@@ -36,11 +52,11 @@ class ShowPage extends HtmlMenuPage
         }
         $l_topMenu->display();
         $this->theme->trace_Show->infoHeader();
-        RouteTracesVC::traceInfo($this->trace);
+        $this->theme->trace_Show->traceInfo($this->trace);
 		$this->theme->trace_Show->mapHeader();
 		$l_trace=new OpenLayer($this->trace);
  		$l_trace->display();
-		$this->theme->trace_Show->mapFooter();	
-		RouteTracesVC::routeList($this->trace);
+		$this->theme->trace_Show->mapFooter();
+		$this->routeList($this->trace);		
     }
 }

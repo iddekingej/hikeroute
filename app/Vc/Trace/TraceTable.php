@@ -22,6 +22,7 @@ class TraceTable extends TableVC
             ,"loc2"=>["type"=>"@text","title"=>""]
             ,"loc3"=>["type"=>"@text","title"=>""]
             ,"loc4"=>["type"=>"@text","title"=>""]
+            ,"uploaddate"=>["type"=>"@text","title"=>__("Upload date")]
             ,"startdate"=>["type"=>"@text","title"=>__("Start date")]
             ,"distance"=>["type"=>"@text","title"=>__("Distance")]
         ]);
@@ -37,6 +38,7 @@ class TraceTable extends TableVC
             ,"loc2"=>$p_trace->getLocationByTypeCached("state")
             ,"loc3"=>$p_trace->getLocationByTypeCached("city")
             ,"loc4"=>$p_trace->getLocationByTypeCached("suburb")
+            ,"uploaddate"=>Localize::longDate($p_trace->created_at)
             ,"startdate"=>Localize::shortDate($p_trace->startdate)
             ,"distance"=>Localize::meterToDistance((int)$p_trace->distance)
         ];

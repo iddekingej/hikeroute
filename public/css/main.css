@@ -48,7 +48,7 @@ body, input, table, tr, td, textarea {
 	position:absolute;
 	top:5px;
 	font-size:24px;
-	text-weight:900;
+	font-weight:900;
 	color:#FFF;
 	cursor:pointer;
 }
@@ -58,6 +58,12 @@ body, input, table, tr, td, textarea {
     cursor:pointer;	
 }
 
+.album_views{
+	color:#fff;
+	position:relative;
+	float:right;
+	padding-right:4px;
+}
 .pagemenu_table{
 	border-bottom:solid 1px #000;
 	width:100%;
@@ -253,15 +259,13 @@ body, input, table, tr, td, textarea {
 	color: #777;
 	font-size:16px;
 	border-bottom:solid 1px #777;
-	text-align:center;
+	padding-top:10px;
 }
 /* All routes */
 .routeall_title {
 	font-weight: 700;
 	padding-top: 5px;
 }
-
-
 
 .routeall_body {
 	padding: 5px;

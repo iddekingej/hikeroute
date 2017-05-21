@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Vc\Theme\Page;
 
 use App\Vc\Lib\ThemeItem;
+use App\Lib\Icons;
 
 class Page extends ThemeItem
 {
@@ -45,7 +46,7 @@ foreach($p_js as $l_js){
 						echo "&nbsp;|&nbsp;";
 						$this->textRouteLink("register",[],__("Register"),"buttonLink");
 					} else {
-                        $this->textRouteLink("user.profile",[],\Auth::user()->name,"buttonLink");
+					    $this->iconTextRouteLink("user.profile",[],Icons::USERSMALL,\Auth::user()->name,"buttonLink");
 					}
                     ?>
 				</td>

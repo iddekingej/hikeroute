@@ -9,11 +9,17 @@ class RouteImageTableCollection extends TableCollection
 
     protected static $model = RouteImage::class;
     
-    static function addImage(Route $p_route,$p_file,$p_realName)
+    static function checkCanEdit(Route $p_route)
     {
         if(!$p_route->canEdit(\Auth::user())){
             throw new AuthenticationException(__("Not authorize to add images to this route"));
         }
+        
+    }
+    
+    static function addImage(Route $p_route,$p_file,$p_realName)
+    {
+        static::checkCanEdit($p_route);
         $l_content=file_get_contents($p_file);
         if($l_content===false){
             throw new ValidationException("image",__("Can't read uploaded file"));
@@ -30,9 +36,7 @@ class RouteImageTableCollection extends TableCollection
     
     static function renumberImages(Route $p_route)
     {
-        if(!$p_route->canEdit(\Auth::user())){
-            throw new AuthenticationException(__("Not authorize to add images to this route"));
-        }
+        static::checkCanEdit($p_route);
         $l_cnt=1;
         foreach(RouteImage::where("id_route","=",$p_route->id)->orderBy("position")->get() as $l_route){
             if($l_route->position != $l_cnt){
@@ -46,9 +50,7 @@ class RouteImageTableCollection extends TableCollection
     static function movePosition(RouteImage $p_routeImage,$p_direction)
     {
         $l_route=$p_routeImage->route;
-        if(!$l_route->canEdit(\Auth::user())){
-            throw new AuthenticationException(__("Not authorize to add images to this route"));
-        }
+        static::checkCanEdit($l_route);
         if($p_routeImage->position<=1 && $p_direction==-1){
             return;
         }

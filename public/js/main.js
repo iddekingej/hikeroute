@@ -138,7 +138,7 @@ function resizeImage(p_width,p_height)
 	this.style.top=Math.round((p_height-this.height)/2)+"px";
 }
 
-function makeImagePopup(p_url)
+function makeImagePopup(p_url,p_numViews)
 {
 	var l_width=page.width();
 	var l_height=page.height();
@@ -151,12 +151,17 @@ function makeImagePopup(p_url)
 	var l_div=core.dom.create("div",document.body,{className:"album_imageContainer",style:l_css});
 	var l_img=core.dom.create("img",l_div,{className:"album_fullImage",src:p_url});
 	l_img.onload=function(){
-		resizeImage.call(this,l_width-60,l_height-40);
+		resizeImage.call(this,l_width-70,l_height-40);
 	}
 	var l_closeCss={
-			left:(l_width-70)+"px",
+			left:(l_width-70)+"px"
 	};
 	var l_close=core.dom.create('div',l_div,{className:"album_close",style:l_closeCss});
 	core.dom.appendText("X",l_close);
 	l_close.onclick=function(){gui.remove(l_div);}
+	var l_numViews={
+			top:(l_height-60)+"px"
+	};
+	var l_nv=core.dom.create("div",l_div,{className:"album_views",style:l_numViews});
+	core.dom.appendText("Views:"+p_numViews,l_nv);
 }

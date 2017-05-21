@@ -14,8 +14,14 @@ class RouteImage extends Model
         "id_image",
         "id_thumbnail",
         "position",
-        "onsummary"
+        "onsummary",
+        "num_views"
     ];
+    
+    function incViews()
+    {
+        $this->increment("num_views");
+    }
     
     
     function route():BelongsTo

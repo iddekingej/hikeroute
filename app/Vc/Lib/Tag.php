@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
-use App\Vc\ViewComponent;
 
 class TagExcpetion extends \Exception
 {
@@ -20,6 +19,21 @@ class Tag
     {
         $this->tag=$p_tag;
     }
+
+    /**
+     * HTML Escape string
+     *
+     * @param String $p_string
+     * @return string
+     */
+    static function e($p_string): string
+    {
+        if ($p_string === null) {
+            return "";
+        }
+        return htmlspecialchars("$p_string", ENT_QUOTES | ENT_HTML5);
+    }
+    
     
     function setParent(Tag $p_parent)
     {
@@ -45,7 +59,7 @@ class Tag
     function property($p_name,$p_value):Tag
     {
         $this->properties .= " ";        
-        $this->properties .= $p_name.'="'.ViewComponent::e($p_value).'"';
+        $this->properties .= $p_name.'="'.$this->e($p_value).'"';
         return $this;
     }
     
@@ -67,7 +81,7 @@ class Tag
     
     function text($p_content):Tag
     {
-        return $this->content(ViewComponent::e($p_content));
+        return $this->content($this->e($p_content));
     }
     function __toString():string
     {

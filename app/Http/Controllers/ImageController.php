@@ -64,6 +64,7 @@ class ImageController extends Controller
             $l_image=$l_routeImage->thumbnail;
         } else {
             $l_image=$l_routeImage->image;
+            $l_routeImage->incViews();            
         }
         return response($l_image->decodedImage())->header("Content-Type",$l_image->mimetype);
     }

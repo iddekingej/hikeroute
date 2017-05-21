@@ -12,10 +12,19 @@ class Localize
         if($p_date===null){
             return "";
         } else {
-            return $p_date->format("d/m/Y");
+            return $p_date->format("d-m-Y");
         }
     }
 
+    static function longDate(?Carbon $p_date)
+    {
+        if($p_date===null){
+            return "";
+        } else {
+            return $p_date->format("d-m-Y h:i:s");
+        }
+    }
+    
     static function meterToDistance(int $p_distance)
     {
         return (round($p_distance / 100) / 10) . "KM";

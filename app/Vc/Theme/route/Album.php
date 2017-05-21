@@ -9,8 +9,13 @@ class Album extends ThemeItem
 {
     function thumbnail(RouteImage $p_routeImage)
     {
+        $l_params=[
+            Route("images.display",["id"=>$p_routeImage->id])
+        ,   $p_routeImage->num_views
+        ];
+        $l_call=$this->makeJsCall("makeImagePopup",$l_params);
         echo self::tag("img")
-           ->property("onclick","makeImagePopup(".json_encode(Route("images.display",["id"=>$p_routeImage->id])).");")
+           ->property("onclick","$l_call;")
            ->property("src",Route("images.thumbnail",["id"=>$p_routeImage->id]));
         
     }

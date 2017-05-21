@@ -8,4 +8,5 @@ class Icons
     const EDIT    = "/images/edit.png";
     const UP      = "/images/up.png";
     const DOWN    = "/images/down.png";
+    const USERSMALL= "/images/user-small.png";
 }
