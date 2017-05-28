@@ -17,14 +17,14 @@ class TraceTable extends TableVC
         $this->params=$p_params;
         $this->title=__("Route traces owned by user");
         $this->addConfig([
-             "edit"=>["type"=>"@iconlink","icon"=>\App\Lib\Icons::EDIT,"title"=>""]
-            ,"loc1"=>["type"=>"@text","title"=>""]
-            ,"loc2"=>["type"=>"@text","title"=>""]
-            ,"loc3"=>["type"=>"@text","title"=>""]
-            ,"loc4"=>["type"=>"@text","title"=>""]
-            ,"uploaddate"=>["type"=>"@text","title"=>__("Upload date")]
-            ,"startdate"=>["type"=>"@text","title"=>__("Start date")]
-            ,"distance"=>["type"=>"@text","title"=>__("Distance")]
+             "edit"=>["type"=>static::ICONLINK,"icon"=>\App\Lib\Icons::EDIT,"title"=>""]
+            ,"loc1"=>["type"=>static::TEXT,"title"=>""]
+            ,"loc2"=>["type"=>static::TEXT,"title"=>""]
+            ,"loc3"=>["type"=>static::TEXT,"title"=>""]
+            ,"loc4"=>["type"=>static::TEXT,"title"=>""]
+            ,"uploaddate"=>["type"=>static::TEXT,"title"=>__("Upload date")]
+            ,"startdate"=>["type"=>static::TEXT,"title"=>__("Start date")]
+            ,"distance"=>["type"=>static::TEXT,"title"=>__("Distance")]
         ]);
     }
     

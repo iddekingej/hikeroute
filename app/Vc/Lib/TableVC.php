@@ -24,7 +24,11 @@ abstract class TableVC extends HtmlComponent{
     protected $title;
     protected $data;
     protected $custom=[];
-    
+    const TEXT="@text";
+    const HTML="@html";
+    const ICONLINK="@iconlink";
+    const ICONLINKCONFIRM="@iconlinkconfirm";
+    const LINK="@link";
     /**
      * Data to display 
      * 

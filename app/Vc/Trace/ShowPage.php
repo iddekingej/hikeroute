@@ -4,7 +4,6 @@ namespace App\Vc\Trace;
 
 use App\Vc\Lib\HtmlMenuPage;
 use App\Vc\Lib\TopMenu;
-use App\Vc\RouteTracesVC;
 use App\Models\RouteTrace;
 
 class ShowPage extends HtmlMenuPage

@@ -157,7 +157,7 @@ class RoutesController extends Controller
         $this->checkInteger($p_id);
         $l_routeTrace = RouteTrace::findOrFail($p_id);
         if (! $l_routeTrace->canRoute(\Auth::user())) {
-            return $this->displayError(__("attach this route file to a route"));
+            return $this->displayError(__("Not allowed to attach this route file to a route"));
         }
         $l_data = [
             "route"=>null,
@@ -188,14 +188,14 @@ class RoutesController extends Controller
                 "integer"
             ]
         ];
-        
+        $l_id_routeTrace=$p_request->input("id_routetrace");
         $l_validator = Validator::make($p_request->all(), $l_rules);
         if ($l_validator->fails()) {
-            return Redirect::to("/routes/newdetails/" . $p_request->input("id_routefile"))->withErrors($l_validator)->withInput($p_request->all());
+            return Redirect::route("routes.newdetails",["id_routetrace"=>$l_id_routeTrace])->withErrors($l_validator)->withInput($p_request->all());
         }
-        $l_routeTrace = RouteTrace::findOrFail($p_request->input("id_routetrace"));
+        $l_routeTrace = RouteTrace::findOrFail($l_id_routeTrace);
         if (! $l_routeTrace->canRoute(\Auth::user())) {
-            return $this->displayError(__("attach this route file to a route"));
+            return $this->displayError(__("Not allowed to attach this route trace to a route"));
         }
         $l_route=Route::create([
             "id_user" => \Auth::user()->id,
@@ -295,7 +295,7 @@ class RoutesController extends Controller
         
         $l_validator = Validator::make($p_request->all(), $l_rules);
         if ($l_validator->fails()) {
-            return Redirect::to("/routes/new")->withErrors($l_validator)->withInput($p_request->all());
+            return Redirect::route("routes.edit",["id"=>$l_id])->withErrors($l_validator)->withInput($p_request->all());
         }
         $l_route = Route::findOrFail($l_id);
         $l_route->title = $p_request->input("routeTitle");

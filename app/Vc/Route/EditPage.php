@@ -2,19 +2,21 @@
 declare(strict_types=1);
 namespace App\Vc\Route;
 
-use App\Vc\Lib\HtmlPage;
-use App\Lib\Frm;
 use App\Models\RouteTrace;
 use App\Models\Route;
 use App\Vc\Trace\OpenLayer;
+use Illuminate\Support\ViewErrorBag;
+use App\Vc\Lib\HtmlPage2;
 
-class EditPage extends HtmlPage
+
+
+class EditPage extends HtmlPage2
 {
     private $route;
     private $routeTrace;
     private $errors;
     
-    function __construct(?Route $p_route,?RouteTrace $p_routeTrace,$p_errors)
+    function __construct(?Route $p_route,?RouteTrace $p_routeTrace,ViewErrorBag $p_errors)
     {
         $this->route=$p_route;
         $this->routeTrace=$p_routeTrace;
@@ -30,24 +32,9 @@ class EditPage extends HtmlPage
         parent::setup();
     }
     
-    function content()
+    function setupContent()
     {
-        $l_trace=new OpenLayer($this->routeTrace);
-        $l_trace->display();
-        $l_data=[
-            "id"=>$this->route?$this->route->id:""
-         ,  "id_routetrace"=>$this->routeTrace?$this->routeTrace->id:""
-        ];
-        if($this->route){
-            Frm::header(__("Edit trace"),"routes.save.edit", $l_data);
-        } else {
-            Frm::header(__("New trace"),"routes.save.add", $l_data);
-        }
-        Frm::text("routeTitle", __("Title"), $this->route?$this->route->title:"", $this->errors);
-        Frm::text("routeLocation", __("Location"), $this->route?$this->route->location:"", $this->errors);
-        Frm::checkbox("publish",__("Publish"),$this->route?$this->route->publish:"");
-        Frm::textarea("comment",__("Description"),$this->route?$this->route->comment:"","40x5",$this->errors);
-        Frm::submit(Route("routes"));
-        
+        $this->top->add(new OpenLayer($this->routeTrace));
+        $this->top->add(new RouteForm($this->route,$this->routeTrace,$this->errors));        
     }
 }

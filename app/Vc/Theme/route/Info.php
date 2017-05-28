@@ -4,7 +4,6 @@ namespace App\Vc\Theme\Route;
 
 use App\Vc\Lib\ThemeItem;
 use App\Lib\Localize;
-use App\Vc\RouteTracesVC;
 use App\Models\Route;
 use App\Vc\Trace\TraceDownloadLink;
 

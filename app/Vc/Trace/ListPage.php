@@ -2,10 +2,10 @@
 declare(strict_types=1);
 namespace App\Vc\Trace;
 
-use App\Vc\Lib\HtmlMenuPage;
 use App\Vc\Lib\TopMenu;
+use App\Vc\Lib\HtmlMenuPage2;
 
-class ListPage extends HtmlMenuPage{
+class ListPage extends HtmlMenuPage2{
     private $traces;
 
     function __construct($p_traces)
@@ -20,13 +20,12 @@ class ListPage extends HtmlMenuPage{
         $this->title=__("Route traces");
         parent::setup();
     }
-    function content()
+    function setupContent()
     {
         $l_menu=new TopMenu();
         $l_menu->addMenuItem("traces.upload", [], __("Upload new gpx"));
-        $l_menu->display();
-        $l_trace=new TraceTable($this->traces,"traces.show",[]);
-        $l_trace->display();
+        $this->top->add($l_menu,"100%","0px");
+        $this->top->add(new TraceTable($this->traces,"traces.show",[]));
     }
 
 }

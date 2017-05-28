@@ -10,6 +10,8 @@ use App\Vc\Lib\VLayout;
 use App\Vc\Lib\YesNoLink;
 use App\Vc\Lib\IconTextLink;
 
+
+
 class AlbumEditPage extends HtmlMenuPage{
     private $route;
     function __construct(Route $p_route)

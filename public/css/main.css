@@ -487,3 +487,35 @@ body, input, table, tr, td, textarea {
 .horControl{
 	padding-left:3px;
 }
+
+.sizer_con{
+	padding:0px;
+	margin:0px;
+	border-collapse:collapse;
+	width:100%;
+	height:100%;
+}
+
+.formTable{
+	width:700px;
+}
+
+.formTitle {
+    background-color: #eee;
+    text-align: center;
+    width: 600px;
+    font-size: 14px;
+    padding: 2px
+}
+
+.formLabel{
+	width:100%;
+    font-weight:700;
+    text-align:right;
+}
+
+.formError{
+	color:#f00;
+}
+	
+}
