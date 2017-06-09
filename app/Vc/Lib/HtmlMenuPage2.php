@@ -8,10 +8,23 @@ abstract class HtmlMenuPage2 extends HtmlMenuPage
     
     abstract function setupContent();
     
+    function setup()
+    {
+        parent::setup();
+        $this->top=new VerticalSizer();
+        $this->setupContent();
+        $l_js=$this->top->getJs();
+        if($l_js !== null){
+            $this->extraJs =array_merge($this->extraJs,$l_js);
+        }
+        $l_css=$this->top->getCss();
+        if($l_css !== null){
+            $this->extraCss=array_merge($this->extraCss,$l_css);
+        }
+    }
     final function content()
     {
-       $this->top=new VerticalSizer();
-       $this->setupContent();
-       $this->top->display();
+        $this->top->display();
     }
+    
 }

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
-
-abstract class HtmlComponent
+use App\Lib\Base;
+abstract class HtmlComponent extends Base
 {
     protected $theme;
  
@@ -12,5 +12,14 @@ abstract class HtmlComponent
         $this->theme=new Theme();
     }
     
+    function getJs():array
+    {
+        return [];
+    }
+    
+    function getCss():array
+    {
+        return [];
+    }
     abstract function display();
 }

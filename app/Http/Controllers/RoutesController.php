@@ -42,8 +42,7 @@ class RoutesController extends Controller
     function getRouteInfo(RouteFile $p_routeFile): GPXList
     {
         $l_gpxParser = new GPXReader();
-        $l_gpx = $l_gpxParser->parse($p_routeFile->gpxdata);
-        return $l_gpx;
+        return $l_gpxParser->parse($p_routeFile->gpxdata);
     }
 
     /**

@@ -11,10 +11,10 @@ return [
 ,[[0x42,0x4d],[".bmp"=>"image/bmp"],0,[".bmp"]]
 ,[[0x89,0x50,0x4e,0x47],"image/png",0,[".png"]]
 ,[[0x50,0x4b,0x3,0x4],[
-	".zip"=>'application/zip',
-	".odt"=>'application/vnd.oasis.opendocument.text',
-	".docx"=>"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-	".xlsx"=>"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-	".pptx"=>"application/vnd.openxmlformats-officedocument.presentationml.presentation"],0,false]
+    ".zip"=>'application/zip',
+    ".odt"=>'application/vnd.oasis.opendocument.text',
+    ".docx"=>"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".xlsx"=>"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ".pptx"=>"application/vnd.openxmlformats-officedocument.presentationml.presentation"],0,false]
 ];
 ?>

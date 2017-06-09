@@ -29,8 +29,8 @@ class MenuPage extends ThemeItem
         </td>
         </tr>
         </table>
-        <script type="text/javascript">gui.elementToPageHeight($("main"));</script>        
-        <?php    
+        <script type="text/javascript">gui.elementToPageHeight($("main"));</script>
+        <?php
     }
     
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 declare(strict_types=1);
 namespace App\Vc\Theme\Route;
 
@@ -9,7 +9,7 @@ use App\Vc\Trace\TraceDownloadLink;
 
 class Info extends ThemeItem
 {
-    
+
    function routeTitle($p_name)
    {
        ?><div class="traces_route_title"><?=$this->e($p_name)?></div><?php
@@ -20,7 +20,7 @@ class Info extends ThemeItem
 <tr>       
 	<td class="map_ud"><?=$this->e($p_label)?></td>
 	<td class="map_ud_value"><?=$this->e($p_value)?></td>
-</tr>			
+</tr>
 <?php
     }
    
@@ -37,10 +37,10 @@ class Info extends ThemeItem
         $this->sectionHeader(__("Information"));
         $this->routeInfoRow(__("Location"), $p_route->location, 1, 2);
         $this->routeInfoRow(__("Distance"), Localize::meterToDistance((int)$p_route->routeTrace->distance));
-		$this->routeInfoRow(__("Author"), $p_route->user->name, 1, 2);
-		$this->routeInfoRow(__("Crearted on"), Localize::shortDate($p_route->created_at));
-		$l_link=new TraceDownloadLink($p_route->routeTrace);
-?>        		
+        $this->routeInfoRow(__("Author"), $p_route->user->name, 1, 2);
+        $this->routeInfoRow(__("Crearted on"), Localize::shortDate($p_route->created_at));
+        $l_link=new TraceDownloadLink($p_route->routeTrace);
+?>
 	<tr>
 		<td class="map_ud"><?=$this->e(__("Download route"))?>:</td>
 		<td colspan='4' class="map_ud_value"><?=$l_link->display()?></td>

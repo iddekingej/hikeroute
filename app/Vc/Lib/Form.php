@@ -17,8 +17,13 @@ abstract class Form extends HtmlComponent
     protected $saveText;
     protected $cancelText;
     protected $data=[];
-    protected $error;
+    protected $errors;
     private $elements=[];
+    
+    function getJs():array
+    {
+        return ["js/form.js"];
+    }
     
     function __construct( ViewErrorBag $p_errors)
     {

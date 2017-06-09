@@ -31,7 +31,7 @@ class ShowPage extends HtmlMenuPage
         $l_routes = $p_routeTrace->routes;
         $this->theme->trace_Show->routeListTitle();
         if(count($l_routes)==0){
-            $this->theme->trace_Show->routeNothignFound();
+            $this->theme->trace_Show->routeNothingFound();
         } else {
             $this->theme->trace_Show->routeListHeader();
             foreach ($p_routeTrace->routes as $l_route) {

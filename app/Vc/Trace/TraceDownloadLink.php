@@ -16,8 +16,7 @@ class TraceDownloadLink extends TextRouteLink{
      */
         
     function __construct(RouteTrace $p_trace)
-    {
-        $this->trace=$p_trace;
+    {        
         parent::__construct("traces.download", ["p_id"=>$p_trace->id], __("Download file"));
     }
     

@@ -42,7 +42,7 @@ class TableCollection
     }
 
     /**
-     * Todo whereget
+     * Where statement in combination with a order by
      * 
      * @param unknown $p_id            
      * @param unknown $p_comp            

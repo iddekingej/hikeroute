@@ -7,6 +7,16 @@ class SizerItem extends HtmlComponent
        private $width;
        private $height;
        private $element;
+       
+       function getJs():array
+       {
+           return $this->element->getJs();
+       }
+       
+       function getCss():array
+       {
+           return $this->element->getCss();
+       }
        function __construct(HtmlComponent $p_element)
        {
            $this->element=$p_element;
