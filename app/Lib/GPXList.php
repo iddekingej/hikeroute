@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace App\Lib;
 
-class GPXList
+class GPXList extends Base
 {
 
     private $list = [];

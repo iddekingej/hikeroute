@@ -5,7 +5,7 @@ namespace App\Lib;
 /**
  * Summary information about a route
  */
-class GPXInfo
+class GPXInfo extends Base
 {
 
     public $minLon = null;

@@ -3,12 +3,14 @@ declare(strict_types=1);
 namespace App\Vc\Lib;
 
 
+use App\Lib\Base;
+
 class TagExcpetion extends \Exception
 {
     
 }
 
-class Tag
+class Tag extends Base
 {
     private $properties;
     private $content;

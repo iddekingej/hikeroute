@@ -7,7 +7,7 @@ namespace App\Lib;
  * GPXPoint->lat Latitude
  * GPXPoint->lon Longitude
  */
-class GPXPoint
+class GPXPoint extends Base
 {
 
     public $lat;

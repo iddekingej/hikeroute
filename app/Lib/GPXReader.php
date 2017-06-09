@@ -8,7 +8,7 @@ class GPXLoadException extends \Exception
 /**
  * Reads a gpx file and converts it to a GPXList object (A list of GPX points)
  */
-class GPXReader
+class GPXReader extends Base
 {
 
     /**

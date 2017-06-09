@@ -2,7 +2,9 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
-class ThemeItem{
+use App\Lib\Base;
+
+class ThemeItem extends Base{
     
     protected $theme;
     

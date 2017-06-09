@@ -12,6 +12,8 @@ abstract class DisplayPage extends HtmlMenuPage
     protected $route;
     protected $currentCode;
     protected $topMenu;
+    protected $canEdit;
+    
     function __construct(Route $p_route)
     {
         $this->route=$p_route;

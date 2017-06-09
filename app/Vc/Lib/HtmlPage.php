@@ -2,7 +2,9 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
-abstract class HtmlPage
+use App\Lib\Base;
+
+abstract class HtmlPage extends Base
 {
     protected $theme;
     protected $title;
