@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Lib\TableCollection;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class RouteTableCollection extends TableCollection
 {
@@ -52,7 +53,7 @@ class RouteTableCollection extends TableCollection
      * @param Builder $p_query            
      * @return Builder
      */
-    private static function authQry($p_query)
+    private static function authQry(Builder $p_query)
     {
         $l_qry = $p_query;
         if (\Auth::check()) {
@@ -75,7 +76,7 @@ class RouteTableCollection extends TableCollection
      *            Get all location with this parent. When null: get root parent
      * @return array
      */
-    static function numRoutesByLocation($p_id_parent): Array
+    static function numRoutesByLocation(?int $p_id_parent): Array
     {
         $l_data = [];
         $l_qry = "select l.id,l.name,count(1) num from routes r join routetraces t on (r.id_routetrace=t.id) join tracelocations tl on(t.id=tl.id_routetrace) join locations l on (tl.id_location=l.id)  where";

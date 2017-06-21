@@ -6,14 +6,14 @@ class StaticText extends HtmlComponent
 {
     private $text;
     private $class;
-    function __construct($p_text,$p_class="")
+    function __construct($p_text,string $p_class="")
     {
         $this->text=$p_text;
         $this->class=$p_class;
         parent::__construct();
     }
     
-    function display()
+    function display():void
     {
         if($p_class){
             ?><span class="<?=$this->theme->e($p_class)?>"><?=$this->e($this->text)?></span><?php 

@@ -65,6 +65,11 @@ class Theme
     {
         ?><a href="<?=$this->e($p_url)?>"><img src="<?=$this->e($p_image)?>" /><?=$this->e($p_text)?></a><?php   
     }
+    
+    function iconLink(string $p_route,Array $p_data,string $p_icon):void
+    {
+       ?><a href="<?=$this->e(route($p_route,$p_data))?>"><?php $this->image($p_icon)?></a><?php 
+    }
 
     function iconTextRouteLink($p_route,array $p_params,$p_image,$p_text)
     {
@@ -94,7 +99,7 @@ class Theme
      * @param
      *            String Url url location to go when confirmed
      */
-    function confirmJs($p_message, $p_url)
+    function confirmJs(String $p_message,String $p_url)
     {
         return "if(confirm(" . json_encode($p_message) . "))window.location=" . json_encode($p_url);
     }
@@ -110,7 +115,7 @@ class Theme
         return new Tag($p_tag);
     }
     
-    function makeJsCall($p_function ,Array $p_params)
+    function makeJsCall(String $p_function ,Array $p_params):string
     {
         $l_call="";
         foreach($p_params as $l_param){
@@ -119,7 +124,7 @@ class Theme
         return $p_function."(".$l_call.")";
     }
     
-    function div()
+    function div():Tag
     {
         return $this->tag("div");
     }      

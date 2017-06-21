@@ -4,6 +4,7 @@ use Tests\CreatesApplication;
 use Tests\TestCase;
 use App\Vc\User\AllUserPage;
 
+
 /**
  * CRUD action on user
  */
@@ -41,4 +42,6 @@ class user1Test extends TestCase
         $l_page=new AllUserPage();
         $l_page->display();
     }
+    
+    
 }

@@ -4,6 +4,8 @@ use Tests\TestCase;
 use App\Models\ImageTableCollection;
 use App\Models\RouteTraceTableCollection;
 use App\Models\Route;
+use App\Vc\Album\ImageUploadPage;
+use Illuminate\Support\ViewErrorBag;
 
 class album1Test extends TestCase
 {
@@ -28,6 +30,13 @@ class album1Test extends TestCase
         $l_image=ImageTableCollection::addImage($this->getResourcePath(static::IMG1_JPEG_TMP), static::IMG1_JPEG);
         $this->assertEquals("image/jpeg", $l_image->mimetype);
         $this->assertEquals($this->getResource(static::IMG1_JPEG), $l_image->decodedImage());
+    }
+    
+    function testUloadImageForm()
+    {
+        $l_form=new ImageUploadPage($this->route, new ViewErrorBag());
+        $l_form->display();
+        $this->assertEquals(1,1);
     }
     
     function testDeleteRoute()

@@ -23,19 +23,19 @@ abstract class DisplayPage extends HtmlMenuPage
         $this->canEdit=$this->route->canEdit(\Auth::user());
     }
 
-    function setup()
+    function setup():void
     {
         $this->setCurrentTag("routes");
         parent::setup();
     }
       
-    function setupTopMenu()
+    function setupTopMenu():void
     {
         
     }
     
     
-    function preContent()
+    function preContent():void
     {
         parent::preContent();
         

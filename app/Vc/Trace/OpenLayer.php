@@ -20,7 +20,7 @@ class OpenLayer extends HtmlComponent{
         parent::__construct();
     }
     
-    function display()
+    function display():void
     {
         
         echo $this->theme->div()->id($this->id);

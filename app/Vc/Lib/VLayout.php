@@ -7,12 +7,12 @@ class VLayout extends HtmlComponent
 {
     private $items=[];
     
-    function addItem(HtmlComponent $p_item)
+    function addItem(HtmlComponent $p_item):void
     {
         $this->items[]=$p_item;
     }
     
-    function display()
+    function display():void
     {
         $this->theme->base_VLayout->header();
         foreach($this->items as $l_item){

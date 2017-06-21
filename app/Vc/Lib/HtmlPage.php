@@ -3,7 +3,10 @@ declare(strict_types=1);
 namespace App\Vc\Lib;
 
 use App\Lib\Base;
-
+/**
+ * HtmlPage object 
+ *
+ */
 abstract class HtmlPage extends Base
 {
     protected $theme;
@@ -16,24 +19,43 @@ abstract class HtmlPage extends Base
         $this->theme=new Theme();
     }
     
-    protected abstract function content();
+    
+    /**
+     * Display content of page
+     */
+    
+    
+    protected abstract function content():void;
 
-    function setup()
+    /**
+     * Setup page. This is called before the page HTML is produced
+     */
+    function setup():void
     {
         
     }
     
-    function preContent()
+    /**
+     * This is called after the header, but before content
+     * This method should contain that product html before the content
+     */
+    function preContent():void
     {
         
     }
     
-    function postContent()
+    /**
+     * Called after the "content"  content (footer).
+     */
+    function postContent():void
     {
         
     }
     
-    final function display()
+    /**
+     * Display page
+     */
+    final function display():void
     {
         $this->setup();
         $this->theme->page_Page->pageHeader($this->title,$this->extraJs,$this->extraCss);

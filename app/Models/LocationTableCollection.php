@@ -12,12 +12,13 @@ class LocationTableCollection extends TableCollection
     protected static $locationTypes = null;
 
     /**
-     * Converts location name into location id
+     * TODO move to LocationTypeTable
+     * Converts location name into location id 
      *
      * @param String $p_description            
      * @return mixed
      */
-    private static function getLocationType($p_description)
+    private static function getLocationType(String $p_description):int
     {
         if (self::$locationTypes == null) {
             self::$locationTypes = LocationTypeTableCollection::getIndexedList();
@@ -38,7 +39,7 @@ class LocationTableCollection extends TableCollection
      *            Location name
      * @return Location Location object
      */
-    private static function getLocationModel($p_id_parent, $p_type, $p_name)
+    private static function getLocationModel(?int $p_id_parent, string $p_type, string $p_name)
     {
         $l_id = self::getLocationType($p_type);
         $l_model = self::$model;

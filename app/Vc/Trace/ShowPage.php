@@ -19,7 +19,7 @@ class ShowPage extends HtmlMenuPage
         $this->title=__("Route trace");
     }
     
-    function setup()
+    function setup():void
     {
         $this->setCurrentTag("traces");
         parent::setup();
@@ -41,7 +41,7 @@ class ShowPage extends HtmlMenuPage
         }
     }
     
-    function content()
+    function content():void
     {
         $this->theme->trace_Show->container();
         $l_topMenu=new TopMenu();

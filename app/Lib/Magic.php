@@ -45,7 +45,7 @@ class Magic extends Base{
      * @return String|NULL
      */
 
-    function findMimeByMagick($p_file):?int
+    function findMimeByMagick(String $p_file):?int
     {
         $l_convFile=$p_file;
         $l_fileHandle=fopen($l_convFile,"rb");
@@ -78,7 +78,7 @@ class Magic extends Base{
     }
 
 
-    function getAllowedExtensions($p_file)
+    function getAllowedExtensions(String $p_file)
     {
         $l_no=$this->findMimeByMagick($p_file);
         if(!is_null($l_no)){
@@ -108,7 +108,7 @@ class Magic extends Base{
         return array_unique($l_return);
     }
     
-    function getMime($p_file,$p_realName=null):?string
+    function getMime(String $p_file,?String $p_realName=null):?string
     {
 
         $l_ext="";

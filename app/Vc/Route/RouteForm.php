@@ -32,7 +32,7 @@ class RouteForm extends Form
         parent::__construct($p_errors);
     }
     
-    function setup()
+    function setup():void
     {
         $this->addElements([
             "routeTitle"=>["type"=>"@text","label"=>__("Title")]

@@ -6,16 +6,16 @@ namespace App\Vc\Lib;
 class TopMenu extends HtmlComponent
 {
     private $items=[];
-    function addMenuItem($p_route,Array $p_params,$p_description,$p_icon="")
+    function addMenuItem($p_route,Array $p_params,$p_description,$p_icon=""):void
     {
         $this->items[]=[$p_route,$p_params,$p_description,$p_icon,false];
     }
     
-    function addConfirmMenuitem($p_route,Array $p_params,$p_description,$p_confirmMessage,$p_icon="")
+    function addConfirmMenuitem($p_route,Array $p_params,$p_description,$p_confirmMessage,$p_icon=""):void
     {
         $this->items[]=[$p_route,$p_params,$p_description,$p_icon,true,$p_confirmMessage];
     }
-    function display()
+    function display():void
     {
         if($this->items){
             $this->theme->menu_TopMenu->topMenuHeader();

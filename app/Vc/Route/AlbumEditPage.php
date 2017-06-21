@@ -6,9 +6,8 @@ use App\Vc\Lib\HtmlMenuPage;
 use App\Models\Route;
 use App\Lib\Icons;
 use App\Vc\Lib\TopMenu;
-use App\Vc\Lib\VLayout;
-use App\Vc\Lib\YesNoLink;
-use App\Vc\Lib\IconTextLink;
+use App\Vc\Lib\IconTextLinks;
+
 
 class AlbumEditPage extends HtmlMenuPage{
     private $route;
@@ -18,13 +17,13 @@ class AlbumEditPage extends HtmlMenuPage{
         parent::__construct();
     }
     
-    function setup()
+    function setup():void
     {
         $this->setCurrentTag("routes");
         $this->title=__("Edit album");
         parent::setup();
     }
-    function content()
+    function content():void
     {
         $l_topMenu=new TopMenu();
         $l_topMenu->addMenuItem("images.add",["id"=>$this->route->id], __("Add image"));        
@@ -37,17 +36,16 @@ class AlbumEditPage extends HtmlMenuPage{
             $this->theme->route_AlbumEdit->imageEditHeader();
             $this->theme->route_Album->thumbnail($l_routeImage);
             $this->theme->route_AlbumEdit->imageControls();
-            $l_vl=new VLayout();
-            $l_vl->addItem(new IconTextLink("images.del", ["id"=>$l_routeImage->id], Icons::DELETE, __("Delete image")));
+            $l_list=new IconTextLinks();
+            $l_list->addItem(ICONS::DELETE,"images.del", ["id"=>$l_routeImage->id],__("Delete"));
             if($l_routeImage->position>1){
-                $l_vl->addItem(new IconTextLink("images.movedown",["id_routeImae"=>$l_routeImage->id],ICONS::UP,__("Move up")));
+                $l_list->addItem(ICONS::UP,"images.movedown",["id_routeImage"=>$l_routeImage->id],__("Move up"));
             }
             if($l_routeImage->id != $l_last->id){
-                $l_vl->addItem(new IconTextLink("images.moveup", ["id_routeImae"=>$l_routeImage->id],ICONS::DOWN, __("Move down")));
+                $l_list->addItem(ICONS::DOWN,"images.moveup",["id_routeImage"=>$l_routeImage->id],__("Move down"));
             }
-            
-            $l_vl->addItem(new YesNoLink("images.onsummary",["id_routeImage"=>$l_routeImage->id], __("show on overview page"),$l_routeImage->onsummary) );
-            $l_vl->display();
+            $l_list->addItem("","images.onsummary",["p_id_routeImage"=>$l_routeImage->id,"p_flag"=>$l_routeImage->onsummary?0:1],$l_routeImage->onsummary?__("Remove image from overview page"):__("Add  to overview page"));
+            $l_list->display();
             $this->theme->route_AlbumEdit->imageEditFooter();
         }
     }

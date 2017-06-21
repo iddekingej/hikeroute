@@ -11,6 +11,8 @@ use App\Vc\Route\AlbumPage;
 use App\Vc\HomePage;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\RouteTableCollection;
+use App\Vc\Route\AlbumEditPage;
+use App\Models\RouteImageTableCollection;
 
 class route1Test extends \Tests\TestCase
 {
@@ -111,11 +113,21 @@ class route1Test extends \Tests\TestCase
             $this->assertEquals(1,1);
     }
     
+    
+    
     function testPageAlbum()
     {
             $l_page=new AlbumPage($this->route);
             $l_page->display();
             $this->assertEquals(1,1);
+    }
+    
+    function testPageAlbumEdit()
+    {
+        RouteImageTableCollection::addImage($this->route, $this->getResourcePath(static::IMG1_JPEG_TMP), static::IMG1_JPEG);
+        $l_page=new AlbumEditPage($this->route);
+        $l_page->display();
+        $this->assertEquals(1,1);
     }
     
     function testPageOverview()

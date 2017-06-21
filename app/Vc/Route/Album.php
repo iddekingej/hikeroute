@@ -13,7 +13,6 @@ class Album extends ImageList{
         $this->route=$p_route;
         parent::__construct($p_route->routeImages()->orderBy("position")->get());
     }
-    
 
 }
 ?>

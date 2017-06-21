@@ -6,13 +6,13 @@ use App\Vc\Lib\ImageList;
 
 class OverViewPage extends DisplayPage
 {
-    function setup()
+    function setup():void
     {
         $this->currentCode="overview";
         parent::setup();
     }
     
-    function setupTopMenu()
+    function setupTopMenu():void
     {
         $l_params=["id"=>$this->route->id];
         $this->topMenu->addMenuItem("routes.edit", $l_params, __("Edit route"));
@@ -21,7 +21,7 @@ class OverViewPage extends DisplayPage
         
     }
     
-    function content()
+    function content():void
     {
         $l_routeInfo=new RouteInfo($this->route);
         $l_routeInfo->display();

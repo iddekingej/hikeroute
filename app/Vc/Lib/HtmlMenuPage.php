@@ -2,8 +2,17 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
+/**
+ * Page with a menu on the left side
+ * 
+ */
 abstract class HtmlMenuPage extends HtmlPage
 {
+    /**
+     * Left menu object
+     * 
+     * @var LeftMenu
+     */
     private $leftMenu;
     
     function __construct()
@@ -11,13 +20,23 @@ abstract class HtmlMenuPage extends HtmlPage
         $this->leftMenu=new LeftMenu();
         parent::__construct();
     }
-    
+    /**
+     * Set current tag=which menu item is selected
+     * 
+     * @param unknown $p_currentTag
+     */
     function setCurrentTag($p_currentTag):void
     {
         $this->leftMenu->setCurrentTag($p_currentTag);
     }
     
-    function setup()
+    /**
+     * Set default menu items
+     * 
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlPage::setup()
+     */
+    function setup():void
     {
 
         if(\Auth::check()){
@@ -37,7 +56,8 @@ abstract class HtmlMenuPage extends HtmlPage
         }
         $l_group->addTextItem("start",__("Published routes"),"start");
     }
-    function preContent()
+    
+    function preContent():void
     {
         $this->theme->page_MenuPage->MenuHeader();
         $this->leftMenu->display();
@@ -45,7 +65,7 @@ abstract class HtmlMenuPage extends HtmlPage
         $this->theme->page_MenuPage->contentSection();
     }
     
-    function postContent()
+    function postContent():void
     {
         parent::postContent();
         $this->theme->page_MenuPage->menuPageFooter();

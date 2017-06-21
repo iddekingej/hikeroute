@@ -17,13 +17,13 @@ class ProfilePage extends HtmlMenuPage
         parent::__construct();
     }
     
-    function setup()
+    function setup():void
     {
         $this->setCurrentTag("profile");
         $this->title=__("User profile");
         parent::setup();
     }
-    function content()
+    function content():void
     {
         $this->theme->user_Profile->profileHeader();
         $this->theme->user_Profile->profileRow(__("Nick name"), $this->user->name);

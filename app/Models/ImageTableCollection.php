@@ -14,7 +14,7 @@ class ImageTableCollection extends TableCollection
 
     protected static $model = Location::class;
     
-    static function addImage($p_file,$p_realName):Image
+    static function addImage(String $p_file,?String $p_realName):Image
     {     
         $l_content=file_get_contents($p_file);
         if($l_content===false){

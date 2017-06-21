@@ -16,7 +16,7 @@ class RouteInfo extends HtmlComponent
     
     /**
      */
-    function display()
+    function display():void
     {
         $this->theme->route_Info->routeInfo($this->route);
     }

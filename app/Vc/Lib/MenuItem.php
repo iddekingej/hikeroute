@@ -6,13 +6,13 @@ abstract class MenuItem extends HtmlComponent
 {
     private $tag;
     
-    function __construct($p_tag)
+    function __construct(string $p_tag)
     {
         $this->tag=$p_tag;
         parent::__construct();
     }
     
-    function getTag()
+    function getTag():string
     {
         return $this->tag;
     }

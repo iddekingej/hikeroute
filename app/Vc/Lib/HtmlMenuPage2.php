@@ -2,13 +2,28 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
+/**
+ * HtmlMenuPage with pure VC components
+ * 
+ *
+ */
 abstract class HtmlMenuPage2 extends HtmlMenuPage
 {
+    /**
+     * This is the top most element. All page lement must be added to this sizer
+     * 
+     * @var VerticalSizer
+     */
     protected $top;
     
     abstract function setupContent();
     
-    function setup()
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlMenuPage::setup()
+     */
+    function setup():void
     {
         parent::setup();
         $this->top=new VerticalSizer();
@@ -22,7 +37,7 @@ abstract class HtmlMenuPage2 extends HtmlMenuPage
             $this->extraCss=array_merge($this->extraCss,$l_css);
         }
     }
-    final function content()
+    final function content():void
     {
         $this->top->display();
     }

@@ -14,13 +14,13 @@ class ListPage extends HtmlMenuPage2{
         parent::__construct();
     }
     
-    function setup()
+    function setup():void
     {
         $this->setCurrentTag("traces");
         $this->title=__("Route traces");
         parent::setup();
     }
-    function setupContent()
+    function setupContent():void
     {
         $l_menu=new TopMenu();
         $l_menu->addMenuItem("traces.upload", [], __("Upload new gpx"));

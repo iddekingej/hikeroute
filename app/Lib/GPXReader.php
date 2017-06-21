@@ -115,7 +115,7 @@ class GPXReader extends Base
         throw new GPXLoadException("TRK node under GPX not found");
     }
 
-    function parse($p_data)
+    function parse(?String $p_data)
     {
         $l_dom = new \DOMDocument();
         $l_dom->loadXML($p_data);

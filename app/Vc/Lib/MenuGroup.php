@@ -24,12 +24,12 @@ class MenuGroup extends HtmlComponent
         $this->addItem(new TextMenuItem($p_tag,$p_text,$p_route));
     }
     
-    function addLogoutItem($p_tag)
+    function addLogoutItem($p_tag):void
     {
         $this->addItem(new LogoutMenuItem($p_tag));
     }
     
-    function display()
+    function display():void
     {
         $this->theme->menu_LeftMenu->menuGroup($this->title);
         foreach($this->subItems as $l_item){

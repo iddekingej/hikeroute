@@ -21,7 +21,7 @@ class PageMenu extends HtmlComponent
         $this->code=$p_code;
     }
     
-    function display()
+    function display():void
     {
         $this->theme->menu_PageMenu->menuHeader();
         foreach($this->items as $l_code=>$l_item){

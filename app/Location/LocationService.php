@@ -16,7 +16,7 @@ class LocationService
      * @param string $p_name
      *            Use this namend configuration item (defined in config/hr.php and configuration "locationServices"
      */
-    static function setLocationService($p_name)
+    static function setLocationService(String $p_name)
     {
         $l_data = \Config::get("hr.locationServices");
         $l_config = $l_data[$p_name];

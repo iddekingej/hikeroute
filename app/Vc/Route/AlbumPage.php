@@ -7,19 +7,19 @@ use App\Vc\Lib\TopMenu;
 
 class AlbumPage extends DisplayPage
 {
-    function setup()
+    function setup():void
     {
         parent::setup();        
         $this->currentCode="album";
     }
 
-    function setupTopMenu()
+    function setupTopMenu():void
     {
         $this->topMenu->addMenuItem("images.add",["id"=>$this->route->id], __("Add image"));
         $this->topMenu->addMenuItem("images.edit",["id"=>$this->route->id], __("Edit album"));
     }
     
-    function content()
+    function content():void
     {
         $l_album=new Album($this->route);
         $l_album->display();

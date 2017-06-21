@@ -16,8 +16,15 @@ class RouteImageTableCollection extends TableCollection
         }
         
     }
-    
-    static function addImage(Route $p_route,$p_file,$p_realName)
+    /**
+     * @todo move to Route and RouteTableCollection
+     * @param Route $p_route
+     * @param String $p_file
+     * @param String $p_realName
+     * @throws ValidationException
+     * @return unknown
+     */
+    static function addImage(Route $p_route,String $p_file,?String $p_realName)
     {
         static::checkCanEdit($p_route);
         $l_content=file_get_contents($p_file);

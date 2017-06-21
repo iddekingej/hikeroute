@@ -40,7 +40,7 @@ abstract class TableVC extends HtmlComponent{
         parent::__construct();
     }
     
-    function setConfigItem(string $p_name,string $p_field,$p_value)
+    function setConfigItem(string $p_name,string $p_field,$p_value):void
     {
         $this->config[$p_name][$p_field]=$p_value;
     }
@@ -51,7 +51,7 @@ abstract class TableVC extends HtmlComponent{
      * @param string $p_name Name of the column
      * @param array $p_data configurations
      */
-    function setConfigElement(string $p_name,Array $p_data)
+    function setConfigElement(string $p_name,Array $p_data):void
     {
         $this->config[$p_name]=$p_data;
     }
@@ -61,7 +61,7 @@ abstract class TableVC extends HtmlComponent{
  * 
  * @param array $p_config Associative array with Configuration of the table (keys are field names)
  */    
-    function addConfig(array $p_config)
+    function addConfig(array $p_config):void
     {
         $this->config=array_merge($this->config,$p_config);
     }
@@ -69,7 +69,7 @@ abstract class TableVC extends HtmlComponent{
 /**
  * Display the table header(titles)
  */
-    private function displayTableHeader()
+    private function displayTableHeader():void
     {
         $this->theme->base_Table->headerBegin();
         foreach($this->config as $l_info){
@@ -88,7 +88,7 @@ abstract class TableVC extends HtmlComponent{
      */
     protected abstract function getData($p_info);
    
-    function printRow($p_config,$p_value,$p_name)
+    function printRow($p_config,$p_value,$p_name):void
     {
         ?><td class="table_cell"><?php 
             $l_type=$p_config["type"];
@@ -136,7 +136,7 @@ abstract class TableVC extends HtmlComponent{
      * @see \App\Vc\Lib\HtmlComponent::display()
      */
     
-    function display()
+    function display():void
     {        
         $this->theme->base_Table->tableHeader();
         if($this->title != ""){

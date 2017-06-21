@@ -37,12 +37,12 @@ class Tag extends Base
     }
     
     
-    function setParent(Tag $p_parent)
+    function setParent(Tag $p_parent):void
     {
         $this->parent=$p_parent;
     }
     
-    function inner($p_tag)
+    function inner(String $p_tag):Tag
     {
         $l_tag=new Tag($p_tag);
         $l_tag->setParent($this);
@@ -58,7 +58,7 @@ class Tag extends Base
         return $this->parent;
     }
     
-    function property($p_name,$p_value):Tag
+    function property(String $p_name,$p_value):Tag
     {
         $this->properties .= " ";        
         $this->properties .= $p_name.'="'.$this->e($p_value).'"';

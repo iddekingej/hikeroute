@@ -14,13 +14,13 @@ class PasswordPage extends HtmlPage{
         parent::__construct();
     }
     
-    function setup()
+    function setup():void
     {
         $this->title=__("Change your password");              
         parent::setup();
     }
     
-    function content()
+    function content():void
     {
         Frm::header(__("Change your password"),"user.savepassword", []);
         Frm::password("password", __("New password"), $this->errors, "", "");

@@ -7,7 +7,7 @@ use App\Vc\Lib\MenuItem;
 
 class LogoutMenuItem extends MenuItem
 {
-    function display()
+    function display():void
     {
         $this->theme->menu_LeftMenu->logoutMenu();
     }

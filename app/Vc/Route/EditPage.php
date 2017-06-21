@@ -26,13 +26,13 @@ class EditPage extends HtmlPage2
         parent::__construct();
     }
     
-    function setup()
+    function setup():void
     {
         $this->title=__("Edit route");
         parent::setup();
     }
     
-    function setupContent()
+    function setupContent():void
     {
         $this->top->add(new OpenLayer($this->routeTrace));
         $this->top->add(new RouteForm($this->route,$this->routeTrace,$this->errors));        

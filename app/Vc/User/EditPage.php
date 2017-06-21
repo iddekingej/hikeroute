@@ -5,20 +5,21 @@ namespace App\Vc\User;
 use App\Vc\Lib\HtmlPage;
 use App\Lib\Frm;
 use App\Models\User;
+use Illuminate\Support\ViewErrorBag;
 
 class EditPage extends HtmlPage
 {
     private $user;
     private $errors;
     
-    function __construct(User $p_user,$p_errors)
+    function __construct(User $p_user,ViewErrorBag $p_errors)
     {
         $this->user=$p_user;
         $this->errors=$p_errors;
         parent::__construct();
     }
     
-    function content()
+    function content():void
     {
         Frm::header(__("Edit profile"),"user.saveprofile", []);
         Frm::text("name", __("Nick name"), $this->user->name, $this->errors);

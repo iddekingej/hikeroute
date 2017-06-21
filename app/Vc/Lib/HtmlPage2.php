@@ -8,7 +8,7 @@ abstract class HtmlPage2 extends HtmlPage
     abstract function setupContent();
     
     
-    function setup()
+    function setup():void
     {
         parent::setup();
         $this->top=new VerticalSizer();
@@ -22,7 +22,7 @@ abstract class HtmlPage2 extends HtmlPage
             $this->extraCss=array_merge($this->extraCss,$l_css);
         }
     }
-    final function content()
+    final function content():void
     {
         $this->top->display();
     }

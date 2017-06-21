@@ -33,19 +33,19 @@ abstract class Sizer extends HtmlComponent
     }
     
     
-    protected function rowHeader()
+    protected function rowHeader():void
     {
         $this->theme->base_Sizer->rowHeader();
     }
     
-    protected function rowFooter()
+    protected function rowFooter():void
     {
         $this->theme->base_Sizer->rowFooter();
     }
     
-    abstract function displayItems();
+    abstract function displayItems():void;
     
-    function display()
+    function display():void
     {
         $this->theme->base_Sizer->sizerHeader();
         $this->displayItems();

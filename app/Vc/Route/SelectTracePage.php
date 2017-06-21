@@ -19,13 +19,13 @@ class SelectTracePage extends HtmlPage
         parent::__construct();
     }
     
-    function setup()
+    function setup():void
     {
         $this->title=__("Select a route trace");
         parent::setup();
     }
     
-    function content()
+    function content():void
     {
 	   $this->theme->page_Page->note(__("Please, select first a previous uploaded route trace"));
 	   $l_traceTable=new TraceTable($this->traces,$this->next,["id_route"=>$this->id_route]);

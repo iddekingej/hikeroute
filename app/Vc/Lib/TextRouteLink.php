@@ -17,7 +17,7 @@ class TextRouteLink extends HtmlComponent
         parent::__construct();
     }
     
-    function display()
+    function display():void
     {
         $this->theme->textRouteLink($this->route,$this->data,$this->text);
     }

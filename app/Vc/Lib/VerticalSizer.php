@@ -4,7 +4,7 @@ namespace App\Vc\Lib;
 
 class VerticalSizer extends Sizer
 {
-    function displayItems()
+    function displayItems():void
     {
         foreach($this->subItems as $l_item){
             $this->rowHeader();

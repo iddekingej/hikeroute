@@ -6,17 +6,17 @@ use App\Vc\Lib\TopMenu;
 
 class TracePage extends DisplayPage
 {
-    function setup()
+    function setup():void
     {
         $this->currentCode="trace";
         parent::setup();
     }
     
-    function setupTopMenu()
+    function setupTopMenu():void
     {
         $this->topMenu->addMenuitem("routes.trace.edit", ["id"=>$this->route->id],  __("Upload new gpx file"));
     }
-    function content()
+    function content():void
     {
         $l_trace=new OpenLayer($this->route->routeTrace);
         $l_trace->display();

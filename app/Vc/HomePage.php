@@ -37,7 +37,7 @@ class HomePage extends HtmlPage
         }
     }
     
-    function content()
+    function content():void
     {
         $this->theme->route_Search->routeSearch();
         $this->theme->route_Search->searchByLocation($this->tree, $this->locations);

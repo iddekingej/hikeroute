@@ -9,6 +9,10 @@ class FormException extends \Exception
     
 }
 
+/**
+ * Display a input form 
+ *
+ */
 abstract class Form extends HtmlComponent
 {
     protected $title;
@@ -20,6 +24,11 @@ abstract class Form extends HtmlComponent
     protected $errors;
     private $elements=[];
     
+    /**
+     * Get the JS used by form
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlComponent::getJs()
+     */
     function getJs():array
     {
         return ["js/form.js"];
@@ -30,11 +39,22 @@ abstract class Form extends HtmlComponent
         $this->errors=$p_errors;
         parent::__construct();
     }
-    
+    /**
+     * Add form element to form
+     * 
+     * @param unknown $p_name Name of element
+     * @param array $p_data Element configuration
+     */
     function addElement($p_name,Array $p_data):void
     {
         $this->elements[$p_name]=$p_data;
     }
+    
+    /**
+     * Add Multiple element to form
+     * 
+     * @param array $p_data
+     */
     
     function addElements(Array $p_data)
     {
@@ -43,7 +63,12 @@ abstract class Form extends HtmlComponent
         }
     }
     
-    function preForm()
+    /**
+     * Called before form is displayed
+     * 
+     * @return array Return data used in form
+     */
+    protected function preForm()
     {
         $l_data=$this->data;
         foreach($l_data as $l_name=>&$l_value){
@@ -59,6 +84,14 @@ abstract class Form extends HtmlComponent
         return $p_name[$p_deffinition];
     }
     
+    /**
+     * Generates HTML for element
+     * 
+     * @param unknown $p_name Name of element
+     * @param array $p_definition Array with element definition
+     * @param unknown $p_value Value stored in element
+     * @throws FormException
+     */
     function element($p_name,array $p_definition,$p_value){
         $l_error="";
         $l_type=$p_definition["type"];
@@ -85,9 +118,17 @@ abstract class Form extends HtmlComponent
         }
         $this->theme->base_Form->rowFooter();
     }
-    
+    /**
+     * Setup elements here (user addElement or addElements)
+     */
     abstract function setup();
     
+    
+    /**
+     * Display form
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlComponent::display()
+     */
     function display()
     {
         $this->setup();

@@ -28,7 +28,7 @@ class GPXInfo extends Base
      * @param unknown $p_lat            
      * @param unknown $p_lon            
      */
-    function update(float $p_lat, float $p_lon)
+    function update(float $p_lat, float $p_lon):void
     {
         if ($this->minLat == null) {
             $this->minLat = $p_lat;
@@ -52,7 +52,7 @@ class GPXInfo extends Base
         $this->prevLon = $p_lon;
     }
 
-    private function distance(float $p_lat1, float $p_lon1, float $p_lat2, float $p_lon2)
+    private function distance(float $p_lat1, float $p_lon1, float $p_lat2, float $p_lon2):void
     {
         $l_r = 6371000;
         $l_f1 = $p_lat1 / 180 * pi();

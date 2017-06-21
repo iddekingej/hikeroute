@@ -2,6 +2,11 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
+/**
+ * Displays a list of thumbnails to album images
+ * 
+ *
+ */
 class ImageList extends HtmlComponent
 {
     private $images;
@@ -11,7 +16,7 @@ class ImageList extends HtmlComponent
         parent::__construct();
     }
     
-    function display()
+    function display():void
     {
         foreach($this->images as $l_image)
         {

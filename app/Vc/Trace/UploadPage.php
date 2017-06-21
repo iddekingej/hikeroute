@@ -14,13 +14,14 @@ class UploadPage extends HtmlPage{
         parent::__construct();
     }
 
-    function setup()
+    function setup():void
     {
         $this->title=__("Upload route");
         parent::setup();
     }
     
-    function content(){
+    function content():void
+    {
         Frm::header(__("Upload new trace"),"traces.save", []);
         Frm::file("routefile",__("GPX file"),$this->errors);
         Frm::submit(Route("traces.list"));

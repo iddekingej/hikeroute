@@ -8,12 +8,12 @@ use App\Lib\Icons;
 
 class AllUserPage extends HtmlMenuPage
 {
-    function setup()
+    function setup():void
     {
         $this->setCurrentTag("useradmin");
         parent::setup();
     }
-    function content()
+    function content():void
     {
         $l_topMenu=new TopMenu();
         $l_topMenu->addMenuItem("admin.users.new", [], __("Add new user"),Icons::ADDUSER);

@@ -16,14 +16,14 @@ class ListPage extends HtmlMenuPage
         parent::__construct();
     }
     
-    function setup()
+    function setup():void
     {
         $this->title=__("User route traces");
         $this->setCurrentTag("routes");
         parent::setup();
     }
     
-    function content()
+    function content():void
     {
         $l_topMenu=new TopMenu();
         $l_topMenu->addMenuItem("routes.new",[], __("Add new route"));

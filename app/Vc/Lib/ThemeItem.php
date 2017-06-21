@@ -13,7 +13,7 @@ class ThemeItem extends Base{
         $this->theme=$p_theme;       
     }
     
-    function __call($p_function,$p_args)
+    function __call(String $p_function,Array $p_args)
     {
         return call_user_func_array([$this->theme,$p_function],$p_args);
     }
@@ -24,7 +24,7 @@ class ThemeItem extends Base{
      * @return \App\Vc\Lib\Theme
      */
     
-    function getTheme()
+    function getTheme():Theme
     {
         return $this->theme;
     }

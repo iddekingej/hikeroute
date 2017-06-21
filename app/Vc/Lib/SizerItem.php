@@ -23,7 +23,7 @@ class SizerItem extends HtmlComponent
            parent::__construct();
        }
        
-       function display()
+       function display():void
        {
            $l_style="";
            if($this->width){

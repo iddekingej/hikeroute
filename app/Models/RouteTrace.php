@@ -130,7 +130,7 @@ class RouteTrace extends Model
      *            location name by locationtype
      * @return Collection
      */
-    function getLocationByTypeCached($p_type): string
+    function getLocationByTypeCached(String $p_type): string
     {
         $l_cached = $this->getLocationsIndexCached();
         if (isset($l_cached[$p_type])) {
