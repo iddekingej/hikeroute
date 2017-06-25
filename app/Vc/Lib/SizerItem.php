@@ -73,15 +73,15 @@ class SizerItem extends HtmlComponent
          */
        function display():void
        {
-           $l_style="";
+           $l_style="vertical-align:top;";
            if($this->width){
-               $l_style .= "width:".$this->theme->e($this->width);
+               $l_style .= "width:".$this->theme->e($this->width).";";
            }
            if($this->height){
-               $l_style .= "height:".$this->theme->e($this->height);
+               $l_style .= "height:".$this->theme->e($this->height).";";
            }     
            if($this->align != Align::LEFT){
-               $l_style .= "text-align:".$this->align;
+               $l_style .= "text-align:".$this->align.";";
            }
            $this->theme->base_Sizer->cellHeader($l_style);
            $this->element->display();
