@@ -59,7 +59,7 @@ class RouteTableCollection extends TableCollection
         if (\Auth::check()) {
             if (! \Auth::user()->isAdmin()) {
                 $l_qry = $l_qry->orWhere(function ($p_qry) {
-                    $p_qry->where("published", "=", 1);
+                    $p_qry->where("publish", "=", 1);
                     $p_qry->where("id_user", "=", \Auth::user()->id);
                 });
             }

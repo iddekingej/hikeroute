@@ -83,6 +83,7 @@ class route1Test extends \Tests\TestCase
         $this->assertEquals("ZZ", $l_locations[1]->location->name);
         $l_return = TraceLocationTableCollection::getByTraceTypeIndexed($this->trace);
         $this->assertEquals("QQ", $l_return["country"]->name);
+        $l_routes=RouteTableCollection::getAccessibleByLocation($l_locations[0]->location->id);
     }
 
     function test4()
