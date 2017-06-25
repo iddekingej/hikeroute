@@ -49,7 +49,7 @@ class Info extends ThemeItem
 <?php
         if($p_route->comment!==null && strlen($p_route->comment)>0){
             $this->sectionHeader(__("Description"));
-            ?><div class="map_comment"><?=$this->e($p_route->comment)?></div><?php
+            ?><div class="map_comment"><?=nl2br($this->e($p_route->comment))?></div><?php
         }
     }
     
