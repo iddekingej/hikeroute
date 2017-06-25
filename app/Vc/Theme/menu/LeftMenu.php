@@ -29,11 +29,11 @@ class LeftMenu extends ThemeItem
      *            route to link
      * @param unknown $p_title
      */
-    static function menuItem($p_route, $p_title)
+    static function menuItem(string $p_route, Array $p_params, string $p_title)
     {
 ?>
 <div class="leftmenu_item_con">
-	<a class="leftmenu_item" href='<?=route($p_route)?>'><?=htmlspecialchars($p_title)?></a>
+	<a class="leftmenu_item" href='<?=route($p_route,$p_params)?>'><?=htmlspecialchars($p_title)?></a>
 </div>
 <?php
     }

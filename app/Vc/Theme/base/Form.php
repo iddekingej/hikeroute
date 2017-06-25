@@ -59,6 +59,12 @@ class Form extends ThemeItem
         $l_checked=$p_checked?'checked="1"':"";            
         ?><input type="checkbox" name="<?=$this->e($p_name)?>" value="1" <?=$l_checked?> /><?php   
     }
+    
+    function fileInput($p_name)
+    {
+        ?><input type='file' name='<?=$this->e($p_name)?>' /><?php    
+    }
+    
     function textAreaElement($p_name,$p_value,$p_css)
     {
         ?><textarea  name="<?=$this->e($p_name)?>" style="<?=$p_css?>"><?=$this->e($p_value)?></textarea><?php

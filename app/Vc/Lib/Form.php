@@ -113,6 +113,9 @@ abstract class Form extends HtmlComponent
                 $l_css .= "height:".$this->dv($p_definition,"height","100px").";";
                 $this->theme->base_Form->textAreaElement($p_name,$p_value,$l_css);
                 break;
+            case "@file":
+                $this->theme->base_form->fileInput($p_name);
+                break;
             default:
                 throw new FormException("Invalid element type '$l_type' for element $p_name");
         }

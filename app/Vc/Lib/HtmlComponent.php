@@ -19,7 +19,7 @@ abstract class HtmlComponent extends Base
  
     function __construct()
     {
-        $this->theme=new Theme();
+        $this->theme=Theme::new();
     }
     
     /**

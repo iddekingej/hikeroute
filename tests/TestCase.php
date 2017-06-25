@@ -3,7 +3,19 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use App\Models\User;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use Illuminate\Session\Store;
+use Illuminate\Session\SessionManager;
 
+
+/**
+ * 
+ * Testcase base class
+ *
+ */
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
@@ -12,17 +24,33 @@ abstract class TestCase extends BaseTestCase
     const IMG1_JPEG= "DSC02062.JPG";
     const IMG1_JPEG_TMP="DSC02062.XXX";
     private $adminUser = false;
-
+    protected $store;
+    protected $session;
+    
+    /**
+     * Get test resources (file) path
+     * @param string $p_name name of resources (relative to the resource folder)
+     * @return string
+     */
     function getResourcePath($p_name)
     {
         return __DIR__ . "/resources/$p_name";
     }
-
+    /**
+     * Get test resources (file) content
+     * @param string $p_name name of resources (relative to the resource folder)
+     * @return string
+     */
     function getResource($p_name)
     {
         return file_get_contents($this->getResourcePath($p_name));
     }
 
+    /**
+     * Get test resources (file) size
+     * @param string $p_name name of resources (relative to the resource folder)
+     * @return string
+     */
     function getResourceLen($p_name)
     {
         return filesize($this->getResourcePath($p_name));
@@ -38,7 +66,7 @@ abstract class TestCase extends BaseTestCase
 
     function loginToAdmin()
     {
-        \Auth::login($this->getAdminUser());
+        \Auth::login($this->getAdminUser());        
     }
     
     function routeRegexStr($p_route,Array $p_params)
@@ -56,7 +84,10 @@ abstract class TestCase extends BaseTestCase
 
     function setUp()
     {
+        parent::setup();
         $this->createApplication();
+        $l_store=new TestSession();
+        app("request")->setSession($l_store);
         $this->loginToAdmin();
     }
 }

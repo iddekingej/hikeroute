@@ -2,10 +2,32 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
-
+/**
+ * Base object for all theme (html) output
+ * @author jeroen
+ *
+ */
 
 class Theme 
 {
+    private static $theme;
+    /**
+     * Get theme singleton     
+     */
+    static function new()
+    {
+        if(static::$theme===null){
+            static::$theme=new Theme();
+        }
+        return static::$theme;
+    }
+    /**
+     * Theme objects are accessed by $theme->namespace1_namespace2_className->method()
+     * This routine creates object new \\App\Vcc\Theme\namespace1\namespace2\className()
+     * 
+     * @param unknown $p_name 
+     * @return ThemeItem
+     */
     function __get($p_name)
     {
         $l_name=str_replace("_", "\\", $p_name);
@@ -13,12 +35,23 @@ class Theme
         $this->$p_name=new $l_className($this);
         return $this->$p_name;
     }
-    
-    function attribute($p_name,$p_value)
+    /**
+     * Outputs html attribute and escapes value
+     * 
+     * @param string  $p_name attribute name     
+     * @param unknown $p_value attribute value
+     */
+    function attribute(string $p_name,$p_value)
     {
         echo $p_name,'="',$this->e($p_value).'" ';
     }
     
+    /**
+     * Outputs image tag
+     * 
+     * @param string $p_src   Image url
+     * @param string $p_class Css class of image
+     */
     function image($p_src,$p_class="")
     {
         echo "<img ";
@@ -27,10 +60,6 @@ class Theme
             $this->attribute("class",$p_class);
         }
         echo ">";        
-    }
-    
-    function yesNoLink($p_label,$p_route,Array $p_params,$p_value){
-        ?><?=$this->e($p_label)?>:<?=$p_value?$this->e(__("Yes")):$this->e(__("No"))?> - <a href='<?=Route($p_route,array_merge($p_params,["p_flag"=>$p_value?0:1]))?>'><?=$p_value?__("Turn off"):__("Turn on")?></a> <?php
     }
     
     /**
@@ -51,16 +80,36 @@ class Theme
 	src='<?=$this->e($p_image)?>'></span><?php
     }
     
+    /**
+     * Displays a link. The Url is given as a route
+     * @param unknown $p_route   Name of the route
+     * @param array $p_params    Route parameter
+     * @param unknown $p_text    Text of url
+     * @param string $p_class    Css class of url. Default no class
+     */
     function textRouteLink($p_route,Array $p_params,$p_text,$p_class="")
     {
         $this->textLink(Route($p_route,$p_params),$p_text,$p_class);
     }
     
+    /**
+     * Displays link. 
+     *  
+     * @param unknown $p_url    URL of link
+     * @param unknown $p_text   Text of link
+     * @param string $p_class   Css class of url. Default no class
+     */
     function textLink($p_url,$p_text,$p_class="")
     {
         ?><a <?php if($p_class != ""){ $this->attribute("class",$p_class);}?> href="<?=$this->e($p_url)?>"><?=$this->e($p_text)?></a><?php
     }
     
+    /**
+     * A link consists of a image following by a text
+     * @param unknown $p_url    URL of link
+     * @param unknown $p_image  Image displayed in link
+     * @param unknown $p_text   Text in link
+     */
     function imageTextLink($p_url,$p_image,$p_text)
     {
         ?><a href="<?=$this->e($p_url)?>"><img src="<?=$this->e($p_image)?>" /><?=$this->e($p_text)?></a><?php   
@@ -115,6 +164,13 @@ class Theme
         return new Tag($p_tag);
     }
     
+    /**
+     * Make a call to a js function
+     * 
+     * @param String $p_function  function name 
+     * @param array $p_params     parameters
+     * @return string             js call
+     */
     function makeJsCall(String $p_function ,Array $p_params):string
     {
         $l_call="";
@@ -124,6 +180,11 @@ class Theme
         return $p_function."(".$l_call.")";
     }
     
+    /**
+     * Produce <div> tag
+     * 
+     * @return Tag
+     */
     function div():Tag
     {
         return $this->tag("div");

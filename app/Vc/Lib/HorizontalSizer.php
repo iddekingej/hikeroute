@@ -9,6 +9,12 @@ namespace App\Vc\Lib;
  */
 class VerticalSizer extends Sizer
 {
+    /**
+     * Displayer sizer subitems
+     * 
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\Sizer::displayItems()
+     */
     function displayItems():void
     {
         $this->rowHeader();        
