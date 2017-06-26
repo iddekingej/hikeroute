@@ -31,6 +31,9 @@ class GuestController extends Controller
     public function search(Request $p_request)
     {
         $l_search = $p_request->input("search");
+        if($l_search==""){
+            return $this->start();
+        }
         $l_routes = RouteTableCollection::search($l_search);
         $l_data = [
             "title" => __("All available routes"),

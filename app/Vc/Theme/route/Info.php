@@ -42,7 +42,7 @@ class Info extends ThemeItem
         $l_link=new TraceDownloadLink($p_route->routeTrace);
 ?>
 	<tr>
-		<td class="map_ud"><?=$this->e(__("Download route"))?>:</td>
+		<td class="map_ud"><?=$this->e(__("Download route"))?></td>
 		<td colspan='4' class="map_ud_value"><?=$l_link->display()?></td>
 	</tr>
 </table>
