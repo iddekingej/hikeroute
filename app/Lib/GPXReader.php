@@ -50,7 +50,7 @@ class GPXReader extends Base
      * @throws \GPXLoadException
      * @return \App\Lib\GPXList List of gpx points found in this file.
      */
-    private function parsePoints(\DOMNode $p_parent)
+    private function parsePoints(\DOMNode $p_parent,GPXList $p_list)
     {
         $l_child = $p_parent->firstChild;
         $l_return = new GPXList();
@@ -66,11 +66,11 @@ class GPXReader extends Base
                     throw new GPXLoadException("'lon' attribute not found at trkpt node");
                 }
                 $l_time = $this->parseTime($l_child);
-                $l_return->addPoint((float) $l_lat, (float) $l_lon, $l_time);
+                $p_list->addPoint((float) $l_lat, (float) $l_lon, $l_time);
             }
             $l_child = $l_child->nextSibling;
-        }
-        return $l_return;
+            
+        }        
     }
 
     /**
@@ -84,13 +84,14 @@ class GPXReader extends Base
     private function parseTrkSeg(\DOMNode $p_parent)
     {
         $l_child = $p_parent->firstChild;
+        $l_list=new GPXList();
         while ($l_child) {
             if (($l_child->nodeType == XML_ELEMENT_NODE) && ($l_child->nodeName == "trkseg")) {
-                return $this->parsePoints($l_child);
+                $this->parsePoints($l_child,$l_list);
             }
             $l_child = $l_child->nextSibling;
         }
-        throw new GPXLoadException("trkseg under trk not found");
+        return $l_list;
     }
 
     /**
@@ -108,13 +109,20 @@ class GPXReader extends Base
         
         while ($l_child) {
             if (($l_child->nodeType == XML_ELEMENT_NODE) && ($l_child->nodeName == "trk")) {
-                return $this->parseTrkSeg($l_child);
+                    return $this->parseTrkSeg($l_child);                    
             }
             $l_child = $l_child->nextSibling;
         }
         throw new GPXLoadException("TRK node under GPX not found");
     }
 
+    /**
+     * Parse GPXData 
+     * 
+     * @param String $p_data GPXData
+     * @throws GPXLoadException
+     * @return \App\Lib\GPXList
+     */
     function parse(?String $p_data)
     {
         $l_dom = new \DOMDocument();

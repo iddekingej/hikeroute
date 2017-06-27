@@ -17,6 +17,6 @@ class Base
     }
     
     final function __GET($p_name){
-        throw new UnkownPropertyException($this,$p_name);
+        throw new UnknownPropertyException($this,$p_name);
     }
 }

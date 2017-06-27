@@ -6,7 +6,12 @@ namespace App\Vc\User;
 use App\Lib\Icons;
 use App\Vc\Lib\HtmlMenuPage;
 use App\Models\User;
-
+/**
+ * Display profile page of current user
+ * 
+ * @author jeroen
+ *
+ */
 class ProfilePage extends HtmlMenuPage
 {
     private $user;
@@ -17,12 +22,24 @@ class ProfilePage extends HtmlMenuPage
         parent::__construct();
     }
     
+    /**
+     * Setup profile page
+     * 
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlMenuPage::setup()
+     */
     function setup():void
     {
         $this->setCurrentTag("profile");
         $this->title=__("User profile");
         parent::setup();
     }
+    
+    /** 
+     * Output profile page 
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlPage::content()
+     */
     function content():void
     {
         $this->theme->user_Profile->profileHeader();

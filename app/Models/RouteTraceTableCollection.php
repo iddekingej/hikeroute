@@ -20,7 +20,12 @@ class RouteTraceTableCollection extends TableCollection
 {
 
     protected static $model = RouteTrace::class;
-
+/**
+ * Upload a new GPXFile to a RouteTrace 
+ * 
+ * @param RouteTrace $p_routeTrace  Uploade GPx file to this trace
+ * @param string $p_gpxData         GPX data to upload to tace
+ */
     public static function updateGpxFile(RouteTrace $p_routeTrace, string $p_gpxData): void
     {
         $l_routeFile = $p_routeTrace->routeFile;
@@ -44,8 +49,13 @@ class RouteTraceTableCollection extends TableCollection
         $p_routeTrace->id_location = $l_id_location;
         $p_routeTrace->setByGPX($l_gpxList);
     }
-
-    public static function addGpxFile(string $p_gpxData): ?RouteTrace
+/**
+ * Upload new GPX file and create a RouteTrace object
+ * 
+ * @param string $p_gpxData
+ * @return RouteTrace 
+ */
+    public static function addGpxFile(string $p_gpxData): RouteTrace
     {
         $l_gpxParser = new GPXReader();
         $l_gpxList = $l_gpxParser->parse($p_gpxData);
@@ -84,11 +94,23 @@ class RouteTraceTableCollection extends TableCollection
         return $l_trace;
     }
 
+    /**
+     * Get all the traces owner by user
+     * 
+     * @param User $p_user
+     * @return Collection|NULL
+     */
     static function getByUser(User $p_user): ?Collection
     {
         return self::where("id_user", "=", $p_user->id)->orderBy("startdate")->get();
     }
     
+    /**
+     * Checks if a user  owns a trace
+     * 
+     * @param User $p_user
+     * @return bool True - User owns a trace
+     */
     static function userHasRouteTraces(User $p_user): bool
     {
         return !(self::where("id_user", "=", $p_user->id)->limit(1)

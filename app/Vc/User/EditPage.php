@@ -6,7 +6,10 @@ use App\Vc\Lib\HtmlPage;
 use App\Lib\Frm;
 use App\Models\User;
 use Illuminate\Support\ViewErrorBag;
-
+/**
+ * Edit userdata by administrator
+  *
+ */
 class EditPage extends HtmlPage
 {
     private $user;
@@ -19,6 +22,12 @@ class EditPage extends HtmlPage
         parent::__construct();
     }
     
+    /**
+     * Form for changing user data by administrator
+     * 
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlPage::content()
+     */
     function content():void
     {
         Frm::header(__("Edit profile"),"user.saveprofile", []);

@@ -3,9 +3,17 @@ declare(strict_types=1);
 namespace App\Vc\User;
 
 use App\Vc\Lib\TableVC;
-
+/**
+ * List of all users
+  *
+ */
 class AllUserTable extends TableVC
 {
+    /**
+     * Setup table column definition.
+     * This table contains the email adres, nick name,firstname and lastname.
+     * Also a icon to delete the user.
+     */
     function __construct()
     {
         parent::__construct(\App\Models\User::orderBy("name")->get());
@@ -19,7 +27,11 @@ class AllUserTable extends TableVC
            ]
         );
     }
-    
+/**
+ * Create data row for table
+ * {@inheritDoc}
+ * @see \App\Vc\Lib\TableVC::getData()
+ */    
     function getData($p_user)
     {
         return ["del"=>$p_user->canDelete()?route("admin.users.delete",["id"=>$p_user->id]):NULL

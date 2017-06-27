@@ -157,17 +157,33 @@ class RouteTrace extends Model
         TraceLocationTableCollection::deleteByTrace($this);
         $this->delete();
     }
-
+/**
+ * Determine if the user can view this trace
+ * 
+ * @param User $p_user
+ * @return boolean
+ */
     function canViewTrace(User $p_user)
     {
         return ($this->id_user == $p_user->id) || $p_user->getIsAdmin();
     }
 
+/**
+ * Determines if the user can use this trace in a route
+ * 
+ * @param User $p_user
+ * @return boolean True is user in p_user can use this trace in a route
+ */
     function canRoute(User $p_user)
     {
         return ($this->id_user == $p_user->id) || $p_user->getIsAdmin();
     }
-
+/**
+ * Determines if the user has delete rights for this TraceRoute
+ * 
+ * @param User $p_user
+ * @return boolean   True user in $p_user as delete rights
+ */
     function canDelete(User $p_user)
     {
         return ($this->id_user == $p_user->id) || $p_user->getIsAdmin();

@@ -21,6 +21,7 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
     const TRACE1 = "2_nov._2016_09_01_26.gpx";
     const TRACE2 = "2_nov._2016_10_24_21.gpx";
+    const TRACE3 = "10_sep._2016_14_00_02.gpx";
     const IMG1_JPEG= "DSC02062.JPG";
     const IMG1_JPEG_TMP="DSC02062.XXX";
     private $adminUser = false;
@@ -43,7 +44,11 @@ abstract class TestCase extends BaseTestCase
      */
     function getResource($p_name)
     {
-        return file_get_contents($this->getResourcePath($p_name));
+        $l_content=file_get_contents($this->getResourcePath($p_name));
+        if($l_content===false){
+            throw new \Exception("Resource $p_name not found");
+        }
+        return $l_content;
     }
 
     /**

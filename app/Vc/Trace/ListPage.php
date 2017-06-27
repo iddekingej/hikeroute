@@ -4,7 +4,10 @@ namespace App\Vc\Trace;
 
 use App\Vc\Lib\TopMenu;
 use App\Vc\Lib\HtmlMenuPage2;
-
+/**
+ * A page with a list of all route traces belonging to the current users 
+ *
+ */
 class ListPage extends HtmlMenuPage2{
     private $traces;
 
@@ -20,6 +23,12 @@ class ListPage extends HtmlMenuPage2{
         $this->title=__("Route traces");
         parent::setup();
     }
+    
+    /**
+     * This page contains a menu and a list of all traces
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlMenuPage2::setupContent()
+     */
     function setupContent():void
     {
         $l_menu=new TopMenu();

@@ -9,6 +9,7 @@ use App\Vc\Trace\UploadPage;
 use Illuminate\Database\Eloquent\Collection;
 use App\Vc\Route\SelectTracePage;
 use App\Vc\Trace\ShowPage;
+use App\Lib\GPXReader;
 
 
 class trace1Test extends TestCase
@@ -87,4 +88,12 @@ class trace1Test extends TestCase
         $l_page->display();
         $this->assertEquals(1,1);
     }
-}
+    
+    function testParseGPX()
+    {        
+        $l_reader=new GPXReader();
+        $l_res=$l_reader->parse($this->getResource(static::TRACE3));
+        $this->assertEquals(730,count($l_res->getList()));
+        $this->assertEquals(6.447162,$l_res->getInfo()->maxLon);
+    }
+ }
