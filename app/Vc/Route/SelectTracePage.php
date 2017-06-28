@@ -2,10 +2,12 @@
 declare(strict_types=1);
 namespace App\Vc\Route;
 
-use App\Vc\Lib\HtmlPage;
+
+use App\Vc\Lib\HtmlPage2;
+use App\Vc\Lib\Note;
 use App\Vc\Trace\TraceTable;
 
-class SelectTracePage extends HtmlPage
+class SelectTracePage extends HtmlPage2
 {
     private $traces;
     private $next;
@@ -25,10 +27,9 @@ class SelectTracePage extends HtmlPage
         parent::setup();
     }
     
-    function content():void
+    function setupContent():void
     {
-	   $this->theme->page_Page->note(__("Please, select first a previous uploaded route trace"));
-	   $l_traceTable=new TraceTable($this->traces,$this->next,["id_route"=>$this->id_route]);
-	   $l_traceTable->display();
+        $this->top->add(new Note(__("Please, select first a previous uploaded route trace")),'100%',"0px");
+        $this->top->add(new TraceTable($this->traces,$this->next,["id_route"=>$this->id_route]));
     }
 }
