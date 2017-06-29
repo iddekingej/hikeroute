@@ -9,7 +9,7 @@ use Illuminate\Session\Store;
 
 /**
  * 
- * Testcase base class
+ * Test case base class
  *
  */
 abstract class TestCase extends BaseTestCase
