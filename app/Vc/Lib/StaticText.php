@@ -15,8 +15,8 @@ class StaticText extends HtmlComponent
     
     function display():void
     {
-        if($p_class){
-            ?><span class="<?=$this->theme->e($p_class)?>"><?=$this->e($this->text)?></span><?php 
+        if($this->class){
+            ?><span class="<?=$this->theme->e($this->class)?>"><?=$this->theme->e($this->text)?></span><?php 
         } else {
             echo $this->theme->e($this->text);
         }

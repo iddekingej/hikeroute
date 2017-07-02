@@ -7,7 +7,7 @@ namespace App\Vc\Lib;
  * Orient all sub elements horizontally
  * @See App\Vc\Lib\Sizer
  */
-class VerticalSizer extends Sizer
+class HorizontalSizer extends Sizer
 {
     /**
      * Displayer sizer subitems

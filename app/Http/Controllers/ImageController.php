@@ -130,4 +130,31 @@ class ImageController extends Controller
     {
         return $this->move($p_id_routeImage,-1);
     }
+    
+    private function rotate($p_id_routeImage,$p_degrees)
+    {
+        $l_routeImage=RouteImage::find($p_id_routeImage);
+        if($l_routeImage){
+            \DB::transaction(
+                function() use($l_routeImage,$p_degrees){
+                    $l_routeImage->image->rotate($p_degrees);
+                    $l_routeImage->image->save();
+                    $l_routeImage->thumbnail->setImageIM($l_routeImage->image->makeIMThumbnail());
+                    $l_routeImage->thumbnail->save();
+                 }
+                );
+        }
+        return Redirect::route("images.edit",["id_route"=>$l_routeImage->id_route]);
+    }
+    
+    function rotr($p_id_routeImage)
+    {
+      return $this->rotate($p_id_routeImage,90);    
+    }
+
+    function rotl($p_id_routeImage)
+    {
+        return $this->rotate($p_id_routeImage,270);        
+    }
+    
 }

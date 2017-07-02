@@ -5,12 +5,12 @@ namespace App\Vc\Route;
 use App\Models\Route;
 use App\Vc\Lib\TopMenu;
 
-class AlbumPage extends DisplayPage
+class AlbumPage extends DisplayPage2
 {
     function setup():void
     {
+        $this->currentCode="album";        
         parent::setup();        
-        $this->currentCode="album";
     }
 
     function setupTopMenu():void
@@ -19,9 +19,10 @@ class AlbumPage extends DisplayPage
         $this->topMenu->addMenuItem("images.edit",["id"=>$this->route->id], __("Edit album"));
     }
     
-    function content():void
+    function setupContent():void
     {
+        parent::setupContent();
         $l_album=new Album($this->route);
-        $l_album->display();
+        $this->top->add($l_album,"","100%");        
     }
 }

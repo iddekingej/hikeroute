@@ -38,7 +38,7 @@ class Info extends ThemeItem
         $this->routeInfoRow(__("Location"), $p_route->location, 1, 2);
         $this->routeInfoRow(__("Distance"), Localize::meterToDistance((int)$p_route->routeTrace->distance));
         $this->routeInfoRow(__("Author"), $p_route->user->name, 1, 2);
-        $this->routeInfoRow(__("Crearted on"), Localize::shortDate($p_route->created_at));
+        $this->routeInfoRow(__("Created on"), Localize::shortDate($p_route->created_at));
         $l_link=new TraceDownloadLink($p_route->routeTrace);
 ?>
 	<tr>

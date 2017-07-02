@@ -11,4 +11,6 @@ class Icons
     const USERSMALL= "/images/user-small.png";
     const STARTPOINT = "/images/startpoint.png"; 
     const ENDPOINT   = "/images/endpoint.png";
+    const ROTR       = "/images/rotr.png";
+    const ROTL       = "/images/rotl.png";
 }

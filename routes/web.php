@@ -80,7 +80,14 @@ Route::group([
         Route::get("movedown/{p_id_routeImage}",
             ["as"=>"images.movedown"
                 ,"uses"=>"ImageController@moveDown"]);
-        
+        Route::get("rotr/{p_id_routeImage}",
+            ["as"=>"images.rotr"
+                ,"uses"=>"ImageController@rotr"]
+            );
+        Route::get("rotl/{p_id_routeImage}",
+            ["as"=>"images.rotl"
+                ,"uses"=>"ImageController@rotl"]
+            );
     }
 ) ;  
     

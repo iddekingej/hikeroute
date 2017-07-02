@@ -11,6 +11,15 @@ class OpenLayer extends HtmlComponent{
     private $icons=[];
     private $markers=[];
     
+    function getJs():array
+    {
+        return ["/js/ol.js"];
+    }
+    
+    function getCss():array
+    {
+        return ["/css/ol.css"];
+    }
     
     function addMarkers(String $p_icon,float $p_lat,float $p_lon)
     {
