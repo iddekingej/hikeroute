@@ -10,6 +10,12 @@ class DisplayController extends Controller
     
     use RouteGC;
     
+    /**
+     * Display the Album of a route
+     * 
+     * @param unknown $p_id_route
+     * @return unknown
+     */
     function album($p_id_route)
     {
         if($this->getCheckRouteShow($p_id_route,$l_route,$l_view)){
@@ -17,7 +23,11 @@ class DisplayController extends Controller
         }
         return view("display.album",["route"=>$l_route]);
     }
-    
+    /**
+     * Display the trace of a route
+     * @param unknown $p_id_route
+     * @return unknown
+     */
     function trace($p_id_route)
     {
         if($this->getCheckRouteShow($p_id_route,$l_route,$l_view)){

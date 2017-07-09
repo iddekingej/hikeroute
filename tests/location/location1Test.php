@@ -1,6 +1,10 @@
 <?php
 use PHPUnit\Framework\TestCase;
 use App\Models\LocationTableCollection;
+use App\Models\LocationTypeTableCollection;
+use App\Lib\GPXPoint;
+use App\Location\LocationService;
+use App\Models\LocationType;
 
 class location1Test extends \Tests\TestCase
 {
@@ -38,18 +42,29 @@ class location1Test extends \Tests\TestCase
     function test2location()
     {
         \App\Location\LocationService::setLocationService("nomatim");
-        $l_gpx = new \App\Lib\GPXPoint(40 + 44 / 60, - 73 + 51 / 60, "");
-        $l_data = (\App\Location\LocationService::locationStringFromGPX($l_gpx));
+        $l_gpx = new GPXPoint(40 + 44 / 60, - 73 + 51 / 60, "");
+        $l_data = (LocationService::locationStringFromGPX($l_gpx));
         $this->assertEquals($l_data->fullname, "/United States of America/New York/Village of East Hampton");
         sleep(1);
     }
 
     function test3location()
     {
-        $l_gpx = new \App\Lib\GPXPoint(0, 0, "");
-        $l_data = (\App\Location\LocationService::locationStringFromGPX($l_gpx));
+        $l_gpx = new GPXPoint(0, 0, "");
+        $l_data = (LocationService::locationStringFromGPX($l_gpx));
         $this->assertEquals($l_data->fullname, "");
         sleep(1);
     }
+    /**
+     * Checks getLocationType: convert description to locationType Id
+     */
+    function test4LocationType()
+    {
+        $l_id=LocationTypeTableCollection::getLocationType("city");
+        $this->assertNotNull($l_id);
+        $l_item=LocationType::findOrFail($l_id);
+        $this->assertEquals("city", $l_item->description);
+    }
+    
 }
 ?>

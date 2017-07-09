@@ -14,22 +14,7 @@ class LocationTableCollection extends TableCollection
 
     protected static $model = Location::class;
 
-    protected static $locationTypes = null;
 
-    /**
-     * TODO move to LocationTypeTable
-     * Converts location name into location id 
-     *
-     * @param String $p_description            
-     * @return mixed
-     */
-    private static function getLocationType(String $p_description):int
-    {
-        if (self::$locationTypes == null) {
-            self::$locationTypes = LocationTypeTableCollection::getIndexedList();
-        }
-        return self::$locationTypes[$p_description];
-    }
 
     /**
      * Checks if location combination ($p_id_parent,$p_type,$p_name)
@@ -46,7 +31,7 @@ class LocationTableCollection extends TableCollection
      */
     private static function getLocationModel(?int $p_id_parent, string $p_type, string $p_name)
     {
-        $l_id = self::getLocationType($p_type);
+        $l_id = LocationTypeTableCollection::getLocationType($p_type);
         $l_model = self::$model;
         
         $l_where = $l_model::where("id_locationtype", "=", $l_id)->where("name", "=", $p_name);

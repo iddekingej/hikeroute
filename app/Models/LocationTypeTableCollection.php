@@ -14,6 +14,29 @@ class LocationTypeTableCollection extends TableCollection
     private static $indexedList = null;
 
     /**
+     * Cache for getLocationType
+     * @var Array
+     */
+    protected static $locationTypes = null;
+    
+    /**
+     * Converts location name into location id
+     *
+     * @param String $p_description
+     * @return mixed
+     */
+    static function getLocationType(String $p_description):int
+    {
+        if (self::$locationTypes == null) {
+            self::$locationTypes = static::getIndexedList();
+        }
+        if(isset(self::$locationTypes[$p_description])){
+            return self::$locationTypes[$p_description];
+        } 
+        return null;
+    }
+    
+    /**
      * Get list of location type indexed by index name
      *
      * @return array
