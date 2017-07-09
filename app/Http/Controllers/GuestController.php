@@ -27,7 +27,12 @@ class GuestController extends Controller
         
         return view("welcome", $l_data);
     }
-
+    /**
+     * Search all routes by text
+     * 
+     * @param Request $p_request
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function search(Request $p_request)
     {
         $l_search = $p_request->input("search");
