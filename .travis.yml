@@ -20,6 +20,6 @@ before_script:
 - mysql -e "create database hikeroute"
 - ./artisan -vvv --force --step --no-interaction migrate 
 - ./artisan -vvv --force --step --no-interaction migrate:refresh
-- ./artisan makeuser admin admin@example.com 1>pass
-- ./artisan makeuser user user@example.com 0>pass
+- ./artisan makeuser admin admin@example.com 1 >pass
+- ./artisan makeuser user user@example.com 0 >pass
 - mysql --database=hikeroute -e "desc routefiles"
