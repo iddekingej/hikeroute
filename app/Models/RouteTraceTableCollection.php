@@ -16,6 +16,10 @@ class RouteTraceException extends \Exception
     }
 }
 
+/**
+ * Represent RouteTrace Table
+ *
+ */
 class RouteTraceTableCollection extends TableCollection
 {
 

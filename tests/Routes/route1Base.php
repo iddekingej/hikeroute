@@ -1,4 +1,5 @@
 <?php
+namespace Tests\routes;
 use PHPUnit\Framework\TestCase;
 use App\Models\RouteTraceTableCollection;
 use App\Models\LocationTableCollection;
@@ -13,13 +14,11 @@ use Illuminate\Database\Eloquent\Collection;
 use App\Models\RouteTableCollection;
 use App\Vc\Route\AlbumEditPage;
 use App\Models\RouteImageTableCollection;
-
-class route1Test extends \Tests\TestCase
+echo "ZZZZZZZZZZZZZZZ";
+class Route1Base extends \Tests\TestCase
 {
 
-
     private $trace;
-
     private $route;
 
     function setup()

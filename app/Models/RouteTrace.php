@@ -8,7 +8,11 @@ use App\Lib\GPXList;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+/**
+ * RouteTrace table=GPX File
+ * 
+ *
+ */
 class RouteTrace extends Model
 {
 
@@ -32,6 +36,11 @@ class RouteTrace extends Model
         "startdate"
     ];
 
+    /**
+     * This route trace belgong to this uses
+     * 
+     * @return BelongsTo
+     */
     function user(): BelongsTo
     {
         return $this->belongsTo(User::class, "id_user");
@@ -65,6 +74,10 @@ class RouteTrace extends Model
         $this->save();
     }
 
+    /**
+     * Checks if route trace belongs to a route
+     * @return bool  true - route trace belongs to a route / false - The route trace doesn't belong to a route 
+     */
     function hasRoutes(): bool
     {
         return Route::where("id_routetrace", $this->id)->exists();
@@ -103,7 +116,10 @@ class RouteTrace extends Model
         }
         return $l_return;
     }
-
+    /**
+     * Get location of starting point
+     * @return array
+     */
     function getLocationsIndexed(): Array
     {
         return TraceLocationTableCollection::getByTraceTypeIndexed($this);

@@ -4,7 +4,6 @@ namespace App\Vc\Album;
 
 use App\Models\Route;
 use App\Vc\Lib\HtmlPage2;
-use App\Vc\Lib\Align;
 
 /**
  * Page for uploading a image

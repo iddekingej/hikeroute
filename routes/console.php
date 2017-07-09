@@ -40,7 +40,7 @@ Artisan::command("recalcallgpx", function () {
  * Create an admin account with a name or email
  */
 
-Artisan::command("makeadmin{name}{email}", function ($name, $email) {
+Artisan::command("makeuser{name}{email}{admin}", function ($name, $email,$admin) {
     
     if (! User::where("name", $name)->get()->isEmpty()) {
         echo "Nick name already exists\n";
@@ -56,7 +56,10 @@ Artisan::command("makeadmin{name}{email}", function ($name, $email) {
             "password" => bcrypt($l_password)
         ]);
         echo "Password = $l_password \n";
-        foreach (Right::all() as $l_right)
-            UserRight::addUserRight($l_user, $l_right);
+        foreach (Right::all() as $l_right){
+            if($admin==1 || $l_right->tag=="post"){
+                UserRight::addUserRight($l_user, $l_right);
+            }
+        }
     }
 })->describe("Create admin user");

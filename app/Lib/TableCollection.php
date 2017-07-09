@@ -53,6 +53,7 @@ class TableCollection extends Base
     {
         return static::$model::where($p_id, $p_comp, $p_value)->orderBy($p_orderBy)->get();
     }
+    
 }
 
 ?>

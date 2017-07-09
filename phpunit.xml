@@ -12,7 +12,7 @@
 	<testsuites>
 		<testsuite name="User Tests">
 			<directory suffix="Test.php">./tests/location</directory>
-			<directory suffix="Test.php">./tests/routes</directory>
+			<directory suffix="Test.php">./tests/Routes</directory>
 			<directory suffix="Test.php">./tests/user</directory>
 			<directory suffic="Test.php">./tests/userright</directory>
 			<directory suffic="Test.php">./tests/traces</directory>

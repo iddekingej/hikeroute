@@ -20,6 +20,8 @@ abstract class TestCase extends BaseTestCase
     const TRACE3 = "10_sep._2016_14_00_02.gpx";
     const IMG1_JPEG= "DSC02062.JPG";
     const IMG1_JPEG_TMP="DSC02062.XXX";
+    const USER_ADMIN="admin";
+    const USER_USER="user";
     private $adminUser = false;
     protected $store;
     protected $session;
@@ -57,10 +59,15 @@ abstract class TestCase extends BaseTestCase
         return filesize($this->getResourcePath($p_name));
     }
 
+    function getTestUserName()
+    {
+        return static::USER_ADMIN;
+    }
+    
     function getAdminUser()
     {
         if ($this->adminUser === false) {
-            $this->adminUser = User::where("name", "=", "admin")->get()->first();
+            $this->adminUser = User::where("name", "=", $this->getTestUserName())->get()->first();
         }
         return $this->adminUser;
     }

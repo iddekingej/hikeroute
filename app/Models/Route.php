@@ -62,6 +62,13 @@ class Route extends Model
         }
     }
 
+    /**
+     * TODO: move to RouteTbleCollection
+     * 
+     * Get published routes 
+     * 
+     * @return unknown
+     */
     static function getPublished()
     {
         return self::where("publish", 1)->orderBy("id", "asc")->get();
@@ -119,7 +126,12 @@ class Route extends Model
         }
         return false;
     }
-
+/**
+ * Checks if the user can edit the route
+ * 
+ * @param User $p_user User to check for
+ * @return bool   true - user can edit the route false- user can't edit the route
+ */
     function canEdit(?User $p_user): bool
     {
         if($p_user===null){
@@ -131,16 +143,29 @@ class Route extends Model
         return $this->id_user == $p_user->id;
     }
     
+/**
+ * Records from the 'RouteImage' table that belongs to the route
+ * 
+ * @return \Illuminate\Database\Eloquent\Relations\HasMany
+ */    
     function routeImages()
     {
         return $this->hasMany(RouteImage::class,"id_route");
     }
     
+/**
+ * Checks if the route has images
+ * @return true - route has images false - route has no images
+ */   
     function hasImages()
     {
         return RouteImage::where("id_route", $this->id)->exists();        
     }
     
+/**
+ * Get the images that are published at the summary page of the route (onsummary=1)
+ * @return unknown
+ */
     function summaryImages()
     {
         return $this->routeImages()->where("onsummary","=",1)->orderby("position");   

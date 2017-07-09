@@ -40,6 +40,13 @@ class TraceLocationTableCollection extends TableCollection
     {
         return static::where("id_routetrace", "=", $p_routeTrace->id)->get();
     }
+    
+    /**
+     * Get TraceLocations by location ID
+     * 
+     * @param unknown $p_id Location ID
+     * @return unknown
+     */
 
     static function byLocation($p_id)
     {
@@ -47,6 +54,12 @@ class TraceLocationTableCollection extends TableCollection
     }
 
     /**
+     * TODO : Change name/Still used?
+     * 
+     * Get Location by routeTrace index by location type description
+     * 
+     * @param RouteTrace $p_routeTrace
+     * @return array
      */
     static function getByTraceTypeIndexed(RouteTrace $p_routeTrace): Array
     {

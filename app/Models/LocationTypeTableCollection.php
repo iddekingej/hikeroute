@@ -2,7 +2,10 @@
 namespace App\Models;
 
 use App\Lib\TableCollection;
-
+/**
+ * This class represents the location table 
+ *
+ */
 class LocationTypeTableCollection extends TableCollection
 {
 

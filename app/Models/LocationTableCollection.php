@@ -4,6 +4,11 @@ namespace App\Models;
 use App\Lib\TableCollection;
 use Illuminate\Database\Eloquent\Collection;
 
+
+/**
+ *  Manages location table
+ *
+ */
 class LocationTableCollection extends TableCollection
 {
 
@@ -96,7 +101,7 @@ class LocationTableCollection extends TableCollection
     }
 
     /**
-     * Translate location id's to locations
+     * Translate location id's to location objects
      * 
      * @param array $p_ids            
      * @return array

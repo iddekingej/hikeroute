@@ -8,7 +8,14 @@ class RouteImageTableCollection extends TableCollection
 {
 
     protected static $model = RouteImage::class;
-    
+    /**
+     * TODO make RouteImage::canEdit
+     * 
+     * Check if image can be edited or else raise exception
+     * 
+     * @param Route $p_route
+     * @throws AuthenticationException
+     */
     static function checkCanEdit(Route $p_route)
     {
         if(!$p_route->canEdit(\Auth::user())){
@@ -41,6 +48,11 @@ class RouteImageTableCollection extends TableCollection
         return RouteImage::create(["id_route"=>$p_route->id,"position"=>$l_maxPos+1,"id_image"=>$l_image->id,"id_thumbnail"=>$l_thumbnail->id]);
     }
     
+    /**
+     * Renumber images after modification
+     * 
+     * @param Route $p_route Renumber images belonging to this route
+     */
     static function renumberImages(Route $p_route)
     {
         static::checkCanEdit($p_route);
@@ -54,6 +66,12 @@ class RouteImageTableCollection extends TableCollection
         }
     }
     
+    /**
+     * Change image position.
+     * 
+     * @param RouteImage $p_routeImage Change position of this routeImage
+     * @param unknown $p_direction   +1 =>Up -1 =>down
+     */
     static function movePosition(RouteImage $p_routeImage,$p_direction)
     {
         $l_route=$p_routeImage->route;

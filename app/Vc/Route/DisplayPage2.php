@@ -7,7 +7,6 @@ use App\Models\Route;
 use App\Vc\Lib\TopMenu;
 use App\Vc\Lib\StaticText;
 use App\Vc\Lib\PageMenu;
-use App\Vc\Lib\Spacer;
 
 abstract class DisplayPage2 extends HtmlMenuPage2{
     protected $route;
