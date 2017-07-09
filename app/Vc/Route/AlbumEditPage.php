@@ -11,6 +11,7 @@ use App\Vc\Lib\HtmlMenuPage2;
 use App\Vc\Lib\HorizontalSizer;
 use App\Vc\Lib\Align;
 use App\Vc\Lib\Spacer;
+use App\Vc\Lib\StaticText;
 
 class AlbumEditPage extends HtmlMenuPage2{
     private $route;
@@ -26,12 +27,25 @@ class AlbumEditPage extends HtmlMenuPage2{
         $this->title=__("Edit album");
         parent::setup();
     }
+    
+    /**
+     * Create Album edit page
+     * 
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlMenuPage2::setupContent()
+     */
     function setupContent():void
     {
+        //Menu
         $l_topMenu=new TopMenu();
         $l_topMenu->addMenuItem("images.add",["id"=>$this->route->id], __("Add image"));        
         $l_topMenu->addMenuItem("display.album",["id"=>$this->route->id], __("Back to route"));
-        $this->top->add($l_topMenu,'100%','0');        
+        $this->top->add($l_topMenu,'100%','0');
+        
+        //Rotue title
+        $this->top->add(new StaticText($this->route->title,"traces_route_title"),"100%","0px");
+        
+        //Display all images
         $l_data=$this->route->routeImages()->orderBy("position")->get() ;
         $l_last=$l_data->last();
         foreach($l_data as $l_routeImage)
@@ -39,6 +53,8 @@ class AlbumEditPage extends HtmlMenuPage2{
             $l_sizer=new HorizontalSizer();
             $this->top->add($l_sizer);
             $l_sizer->add(new Thumbnail($l_routeImage),"0px","0px",Align::RIGHT);
+            
+            //Display image edit menu
             $l_list=new IconTextLinks();
             $l_sizer->add($l_list,"100%","0px");
             $l_list->addItem(ICONS::DELETE,"images.del", ["id"=>$l_routeImage->id],__("Delete"));
@@ -50,7 +66,7 @@ class AlbumEditPage extends HtmlMenuPage2{
             }
             $l_list->addItem("","images.onsummary",["p_id_routeImage"=>$l_routeImage->id,"p_flag"=>$l_routeImage->onsummary?0:1],$l_routeImage->onsummary?__("Remove image from overview page"):__("Add  to overview page"));
             $l_list->addItem(Icons::ROTR, "images.rotr",["p_id_routeImage"=>$l_routeImage->id],__("Rotate right"));
-            $l_list->addItem(Icons::ROTL, "images.rotl",["p_id_routeImage"=>$l_routeImage->id],__("Rotate right"));
+            $l_list->addItem(Icons::ROTL, "images.rotl",["p_id_routeImage"=>$l_routeImage->id],__("Rotate left"));
         }
         $this->top->add(new Spacer(Spacer::VERTICAL),"","100%");
     }

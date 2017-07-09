@@ -36,5 +36,19 @@ class ImageTableCollection extends TableCollection
         
         return Image::create(["mimetype"=>$l_mime,"image"=>convert_uuencode($l_content)]);
     }
+    
+    static function deleteByRouteImage(RouteImage $p_routeImage):void
+    {
+        $l_ids=[];
+        if($p_routeImage->id_image){
+            $l_ids[]=$p_routeImage->id_image;
+        }
+        if($p_routeImage->id_thumbnail){
+            $l_ids[]=$p_routeImage->id_thumbnail;
+        }
+        if($l_ids){
+            static::$model::whereIn("id",$l_ids)->delete();
+        }
+    }
 }
 

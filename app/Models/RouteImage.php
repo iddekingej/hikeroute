@@ -66,6 +66,6 @@ class RouteImage extends Model
     function deleteAll():void
     {
         $this->delete();
-        $this->image->delete();        
+        ImageTableCollection::deleteByRouteImage($this);
     }
 }
