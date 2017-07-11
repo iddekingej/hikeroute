@@ -126,7 +126,7 @@ class AdminController extends Controller
         if ($p_user->id != \Auth::user()->id) {
             $p_user->deleteDepended();
         }
-        return Redirect::to("/admin/users/");
+        return Redirect::route("admin.users");
     }
 
     /**
@@ -162,7 +162,7 @@ class AdminController extends Controller
         
         if ($l_validator->fails()) {
             
-            return Redirect::to("/admin/users/new")->withErrors($l_validator)->withInput($p_request->all());
+            return Redirect::Route("admin.users.new")->withErrors($l_validator)->withInput($p_request->all());
         }
         
         $l_user = User::create([
@@ -174,7 +174,7 @@ class AdminController extends Controller
             "password" => bcrypt($p_request->input("password"))
         ]);
         $this->saveRights($p_request, $l_user);
-        return Redirect::to("/admin/users/");
+        return Redirect::Route("admin.users");
     }
 
     /**
