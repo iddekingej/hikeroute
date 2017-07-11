@@ -144,7 +144,7 @@ class User extends Authenticatable
      */
     function deleteRights()
     {
-        \App\Models\UserRight::deleteUserRights($this->id);
+        UserRightTableCollection::deleteUserRights($this);
     }
 
     /**

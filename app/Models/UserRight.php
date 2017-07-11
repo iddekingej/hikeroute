@@ -38,16 +38,6 @@ class UserRight extends Model
         return $this->belongsTo(Right::class, "id_right");
     }
 
-    /**
-     * Delete all the rights belonging to a user.
-     *
-     * @param integer $p_id_user
-     *            user id
-     */
-    static function deleteUserRights(int $p_id_user): void
-    {
-        DB::table("user_rights")->where("id_user", "=", $p_id_user)->delete();
-    }
 
     /**
      * Grant a right to a user by adding a

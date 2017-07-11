@@ -38,8 +38,8 @@ class AlbumEditPage extends HtmlMenuPage2{
     {
         //Menu
         $l_topMenu=new TopMenu();
-        $l_topMenu->addMenuItem("images.add",["id"=>$this->route->id], __("Add image"));        
         $l_topMenu->addMenuItem("display.album",["id"=>$this->route->id], __("Back to route"));
+        $l_topMenu->addMenuItem("images.add",["id"=>$this->route->id], __("Add image"));        
         $this->top->add($l_topMenu,'100%','0');
         
         //Rotue title

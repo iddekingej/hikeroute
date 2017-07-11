@@ -37,7 +37,7 @@ class GuestController extends Controller
     {
         $l_search = $p_request->input("search");
         if($l_search==""){
-            return $this->start();
+            return $this->start();//Empty search string=>just show the start page
         }
         $l_routes = RouteTableCollection::search($l_search);
         $l_data = [
@@ -51,7 +51,14 @@ class GuestController extends Controller
         
         return view("welcome", $l_data);
     }
-
+/**
+ * 
+ * @param int $p_id1
+ * @param int $p_id2
+ * @param int $p_id3
+ * @param int $p_id4
+ * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+ */
     public function location(int $p_id1, int $p_id2 = null, int $p_id3 = null, int $p_id4 = null)
     {
         $l_ids = [];
