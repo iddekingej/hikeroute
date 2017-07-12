@@ -65,23 +65,26 @@ class AdminController extends Controller
      *            User id to edit.
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory view to display
      */
-    function editUser(User $p_user)
+    function editUser($p_id_user)
     {
         $this->checkAuthentication();
         
+        $this->checkInteger($p_id_user);
         $l_rights = $this->getRightsArray();
-        $l_userRights = $p_user->userRights;
+        
+        $l_user=User::findOrFail($p_id_user);
+        $l_userRights = $l_user->userRights;
         foreach ($l_userRights as $l_userRight) {
             $l_rights[$l_userRight->id_right][1] = true;
         }
         
         return view("admin.user", [
-            "id" => $p_user->id,
-            "name" => $p_user->name,
-            "firstname" => $p_user->firstname,
-            "lastname" => $p_user->lastname,
-            "email" => $p_user->email,
-            "enabled" => $p_user->enabled,
+            "id" => $l_user->id,
+            "name" => $l_user->name,
+            "firstname" => $l_user->firstname,
+            "lastname" => $l_user->lastname,
+            "email" => $l_user->email,
+            "enabled" => $l_user->enabled,
             "title" => "Edit user",
             "rights" => $l_rights,
             "cmd" => "edit"
@@ -192,8 +195,7 @@ class AdminController extends Controller
         
         $l_validator = User::validateRequest($p_request, (int) $l_id, $p_request->has("resetpassword"));
         if ($l_validator->fails()) {
-            
-            return Redirect::to("/admin/users/edit/$l_id")->withErrors($l_validator)->withInput($p_request->all());
+            return Redirect::Route("admin.users.edit",["p_id_user"=>$l_id])->withErrors($l_validator)->withInput($p_request->all());
         }
         $l_user = User::findOrFail($l_id);
         $l_user->name = $p_request->input("name");
@@ -206,6 +208,6 @@ class AdminController extends Controller
         }
         $l_user->save();
         $this->saveRights($p_request, $l_user);
-        return Redirect::to("/admin/users/");
+        return Redirect::Route("admin.users");
     }
 }

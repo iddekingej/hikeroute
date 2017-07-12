@@ -117,7 +117,7 @@ class RoutesController extends Controller
         
         if (Gate::allows("edit-route", $l_route)) {
             $l_route->deleteDepended();
-            return Redirect::to("/routes/");
+            return Redirect::Route("routes");
         } else {
             return $this->displayError(__("delete this route"));
         }

@@ -46,7 +46,7 @@ class UserController extends Controller
         $l_validator = User::validateRequest($p_request, \Auth::user()->id, false);
         if ($l_validator->fails()) {
             
-            return Redirect::to("/user/profile/edit")->withErrors($l_validator)->withInput($p_request->all());
+            return Redirect::Route("user.profileedit")->withErrors($l_validator)->withInput($p_request->all());
         }
         
         $l_user = \Auth::user();
@@ -90,7 +90,7 @@ class UserController extends Controller
         ];
         $l_validator = Validator::make($p_request->all(), $l_rules);
         if ($l_validator->fails()) {
-            return Redirect::to("/user/profile/password/edit")->withErrors($l_validator)->withInput($p_request->all());
+            return Redirect::Route("user.editpassword")->withErrors($l_validator)->withInput($p_request->all());
         }
         $l_user = \Auth::user();
         $l_user->password = bcrypt($p_request->input("password"));
