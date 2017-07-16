@@ -6,7 +6,7 @@ namespace App\Vc\Lib;
  * Text link with an icon in front 
  *
  */
-class IconTextLinks extends HtmlComponent
+class IconTextLink extends HtmlComponent
 {
     private $route;
     private $data;

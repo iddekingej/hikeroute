@@ -46,6 +46,7 @@ abstract class TestCase extends BaseTestCase
         if($l_content===false){
             throw new \Exception("Resource $p_name not found");
         }
+        
         return $l_content;
     }
 

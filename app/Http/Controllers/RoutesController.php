@@ -46,49 +46,6 @@ class RoutesController extends Controller
     }
 
     /**
-     * handle GPX file upload.
-     * Checks if the file is readable, checks and parses the GPX file.
-     * When the validation fails the upload form (with rout in p_errorDirect)
-     * is displayed with an error message
-     *
-     * @param Request $p_request
-     *            Upload request
-     * @param String $p_errorRedirect
-     *            Redirect address when upload fails
-     * @param String $p_content
-     *            Returns the content of the GPX file
-     * @param String $p_gpx
-     *            Parsed gpx data
-     * @return Redirect|NULL When validation fails, a redirect is return
-     *         otherwise a null is returned.
-     */
-    function getCheckRouteFile(Request $p_request, $p_errorRedirect, &$p_content, &$p_gpxInfo)
-    {
-        $l_path = $p_request->file("routefile")->path();
-        $p_content = file_get_contents($l_path);
-        
-        $l_message = null;
-        if ($p_content === false) {
-            $l_message = __("Uploading routefile failed");
-        } else {
-            try {
-                $l_gpxParser = new GPXReader();
-                $p_gpxInfo = $l_gpxParser->parse($p_content);
-            } catch (\Exception $l_e) {
-                $l_message = __("Invalid gpx file:") . $l_e->getMessage();
-            }
-        }
-        
-        if ($l_message !== null) {
-            return Redirect::to($p_errorRedirect)->withErrors([
-                "routefile" => $l_message
-            ])->withInput($p_request->all());
-        }
-        
-        return null;
-    }
-
-    /**
      * Displays a list of routes belonging to the current user
      *
      * @return View View with list of routes
