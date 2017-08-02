@@ -62,33 +62,8 @@ class LocationService
         return self::query($p_point->lat, $p_point->lon);
     }
 
-    static function locationStringFromGPX(GPXPoint $p_point): ?Address
+    static function locationFromGPX(GPXPoint $p_point): ?LocationResult
     {
-        $l_location = self::fromGPX($p_point);
-        
-        if ($l_location != null && isset($l_location->address)) {
-            $l_address = new Address();
-            
-            $l_data = $l_location->address;
-            if (isset($l_data->country)) {
-                $l_address->data["country"] = $l_data->country;
-                $l_address->fullname .= "/" . $l_data->country;
-            }
-            if (isset($l_data->state)) {
-                $l_address->data["state"] = $l_data->state;
-                $l_address->fullname .= "/" . $l_data->state;
-            }
-            if (isset($l_data->city)) {
-                $l_address->data["city"] = $l_data->city;
-                $l_address->fullname .= "/" . $l_data->city;
-            }
-            if (isset($l_data->suburb)) {
-                $l_address->data["suburb"] = $l_data->suburb;
-                $l_address->fullname .= "/" . $l_data->suburb;
-            }
-        } else {
-            $l_address=null;
-        }
-        return $l_address;
+        return self::fromGPX($p_point);
     }
 }

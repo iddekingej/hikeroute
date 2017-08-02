@@ -6,6 +6,7 @@ use App\Lib\Control;
 use App\Lib\TableCollection;
 use App\Location\LocationService;
 use Illuminate\Database\Eloquent\Collection;
+use App\Lib\GPXList;
 
 class RouteTraceException extends \Exception
 {
@@ -24,11 +25,40 @@ class RouteTraceTableCollection extends TableCollection
 {
 
     protected static $model = RouteTrace::class;
+    
+    /**
+     * Get location from GPX List
+     * 
+     * @param GPXList $p_gpxList   List of GPX points to process
+     * @param int $p_id_location   Location ID
+     * @param array $p_locations   Location information
+     */
+    
+    private static function getLocationFromGpxList(GPXList $p_gpxList,&$p_id_location,&$p_locations):void
+    {
+        $l_id_location = null;
+        $l_locations   = null;
+        if (Control::addressServiceEnabled()  && $p_gpxList->getStart()) {
+            $l_locData = LocationService::locationFromGPX($p_gpxList->getStart());
+            if($l_locData){
+                $l_locations = LocationTableCollection::getLocation($l_locData);
+                if ($l_locations !== null) {
+                    $l_location = end($l_locations);
+                    if($l_location){
+                        $l_id_location = $l_location->id;
+                    }
+                }
+            }
+        }
+        $p_id_location=$l_id_location;
+        $p_locations=$l_locations;
+    }
+    
 /**
  * Upload a new GPXFile to a RouteTrace 
  * 
- * @param RouteTrace $p_routeTrace  Uploade GPx file to this trace
- * @param string $p_gpxData         GPX data to upload to tace
+ * @param RouteTrace $p_routeTrace  Upload GPx file to this trace
+ * @param string $p_gpxData         GPX data to upload to trace
  */
     public static function updateGpxFile(RouteTrace $p_routeTrace, string $p_gpxData): void
     {
@@ -37,27 +67,13 @@ class RouteTraceTableCollection extends TableCollection
         $l_routeFile->save();
         $l_gpxParser = new GPXReader();
         $l_gpxList = $l_gpxParser->parse($p_gpxData);
-        if (Control::addressServiceEnabled()) {
-            $l_locData = LocationService::locationStringFromGPX($l_gpxList->getStart());
-            if($l_locData){
-                $l_locations = LocationTableCollection::getLocation($l_locData->data);
-                if ($l_locations !== null) {
-                    $l_location = end($l_locations);
-                    $l_id_location = $l_location->id;
-                } else {
-                    $l_id_location = null;
-                }
-            } else {
-                $l_id_location = null;
-            }
         
-        } else {
-            $l_id_location = null;
-        }
-        
+        static::getLocationFromGpxList($l_gpxList, $l_id_location, $l_locations);
+
         $p_routeTrace->id_location = $l_id_location;
         $p_routeTrace->setByGPX($l_gpxList);
     }
+    
 /**
  * Upload new GPX file and create a RouteTrace object
  * 
@@ -68,28 +84,9 @@ class RouteTraceTableCollection extends TableCollection
     {
         $l_gpxParser = new GPXReader();
         $l_gpxList = $l_gpxParser->parse($p_gpxData);
-        if (Control::addressServiceEnabled() ) {
-            $l_locData = LocationService::locationStringFromGPX($l_gpxList->getStart());
-            if($l_locData){
-                $l_locations = LocationTableCollection::getLocation($l_locData->data);
-                if ($l_locations !== null) {
-                    $l_location = end($l_locations);
-                    if($l_location){
-                        $l_id_location = $l_location->id;
-                    } else{
-                        $l_id_location = null;
-                    }
-                } else {
-                    $l_id_location = null;
-                }
-            } else {
-                $l_id_location=null;
-                $l_locations=null;
-            }
-        } else {
-            $l_id_location = null;
-            $l_locations = null;
-        }
+        
+        static::getLocationFromGpxList($l_gpxList, $l_id_location, $l_locations);
+     
         $l_routeFile = RouteFile::create([
             "gpxdata" => $p_gpxData
         ]);

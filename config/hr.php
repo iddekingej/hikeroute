@@ -10,7 +10,7 @@ return [
             "fields"=>[
                 "country" => "country",
                 "state" => "state",
-                "village" => "city",
+                "city" => "city",
                 "suburb" => "suburb"
             ]
         ],

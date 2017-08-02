@@ -3,6 +3,7 @@ namespace App\Models;
 
 use App\Lib\TableCollection;
 use Illuminate\Database\Eloquent\Collection;
+use App\Location\LocationResult;
 
 
 /**
@@ -62,12 +63,12 @@ class LocationTableCollection extends TableCollection
      *            Associative Array of location name (Location type=>location name)
      * @return array Array of locations
      */
-    static function getLocation(Array $p_data): Array
+    static function getLocation(LocationResult $p_data): Array
     {
         $l_id_parent = null;
         $l_location = null;
         $l_locations = [];
-        foreach ($p_data as $l_type => $l_name) {
+        foreach ($p_data->getLocationData() as $l_type => $l_name) {
             $l_location = self::getLocationModel($l_id_parent, $l_type, $l_name);
             $l_locations[] = $l_location;
             $l_id_parent = $l_location->id;

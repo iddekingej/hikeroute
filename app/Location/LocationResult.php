@@ -9,20 +9,13 @@ namespace App\Location;
 
 class LocationResult
 {
-    /**
-     * stdClass object.
-     * This object contains the address information.
-     * field names depends on the service configuration
-     * ToDo: make this field private
-     * 
-     * @var stdObject
+    /**     
+     * This array contains the address information.
+     * Data depends on the service configuration 
+     * @var array
      */
-    public $address;
+    private $address=[];
     
-    function __construct()
-    {
-        $this->address=new \stdClass();
-    }
     
     /**
      * 
@@ -31,6 +24,30 @@ class LocationResult
      */
     function addLocation(string $p_name,$p_value):void
     {
-        $this->address->$p_name = $p_value;
+        $this->address[$p_name] = $p_value;
+    }
+    
+    function getLocation(string $p_name)
+    {
+        return $this->address[$p_name];
+    }
+    
+    function hasLocation(string $p_name):bool
+    {
+        return array_key_exists($p_name,$this->address);
+    }
+    
+    function getLocationData()
+    {
+        return $this->address;
+    }    
+    
+    function getFullName()
+    {
+        $l_fullName="";
+        foreach($this->address as $l_name){
+            $l_fullName = "/$l_name".$l_fullName;
+        }
+        return $l_fullName;
     }
 }

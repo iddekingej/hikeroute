@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Collection;
 use App\Models\RouteTableCollection;
 use App\Vc\Route\AlbumEditPage;
 use App\Models\RouteImageTableCollection;
+use App\Location\LocationResult;
 echo "ZZZZZZZZZZZZZZZ";
 class Route1Base extends \Tests\TestCase
 {
@@ -71,10 +72,10 @@ class Route1Base extends \Tests\TestCase
 
     function test3Tracelocation()
     {
-        $l_locations = LocationTableCollection::getLocation([
-            "country" => "QQ",
-            "city" => "ZZ"
-        ]);
+        $l_result=new LocationResult();
+        $l_result->addLocation("country", "QQ");
+        $l_result->addLocation("city", "ZZ");
+        $l_locations = LocationTableCollection::getLocation($l_result);
         TraceLocationTableCollection::addTraceLocations($this->trace, $l_locations);
         $l_locations = $this->trace->getLocations();
         $this->assertEquals(2, count($l_locations));

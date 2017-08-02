@@ -72,7 +72,7 @@ class AdminController extends Controller
         $this->checkInteger($p_id_user);
         $l_rights = $this->getRightsArray();
         
-        $l_user=User::findOrFail($p_id_user);
+        $l_user = User::findOrFail($p_id_user);
         $l_userRights = $l_user->userRights;
         foreach ($l_userRights as $l_userRight) {
             $l_rights[$l_userRight->id_right][1] = true;
