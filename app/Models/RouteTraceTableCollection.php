@@ -39,13 +39,18 @@ class RouteTraceTableCollection extends TableCollection
         $l_gpxList = $l_gpxParser->parse($p_gpxData);
         if (Control::addressServiceEnabled()) {
             $l_locData = LocationService::locationStringFromGPX($l_gpxList->getStart());
-            $l_locations = LocationTableCollection::getLocation($l_locData->data);
-            if ($l_locations !== null) {
-                $l_location = end($l_locations);
-                $l_id_location = $l_location->id;
+            if($l_locData){
+                $l_locations = LocationTableCollection::getLocation($l_locData->data);
+                if ($l_locations !== null) {
+                    $l_location = end($l_locations);
+                    $l_id_location = $l_location->id;
+                } else {
+                    $l_id_location = null;
+                }
             } else {
                 $l_id_location = null;
             }
+        
         } else {
             $l_id_location = null;
         }
@@ -63,14 +68,23 @@ class RouteTraceTableCollection extends TableCollection
     {
         $l_gpxParser = new GPXReader();
         $l_gpxList = $l_gpxParser->parse($p_gpxData);
-        if (Control::addressServiceEnabled()) {
+        if (Control::addressServiceEnabled() ) {
             $l_locData = LocationService::locationStringFromGPX($l_gpxList->getStart());
-            $l_locations = LocationTableCollection::getLocation($l_locData->data);
-            if ($l_locations !== null) {
-                $l_location = end($l_locations);
-                $l_id_location = $l_location->id;
+            if($l_locData){
+                $l_locations = LocationTableCollection::getLocation($l_locData->data);
+                if ($l_locations !== null) {
+                    $l_location = end($l_locations);
+                    if($l_location){
+                        $l_id_location = $l_location->id;
+                    } else{
+                        $l_id_location = null;
+                    }
+                } else {
+                    $l_id_location = null;
+                }
             } else {
-                $l_id_location = null;
+                $l_id_location=null;
+                $l_locations=null;
             }
         } else {
             $l_id_location = null;
@@ -80,7 +94,8 @@ class RouteTraceTableCollection extends TableCollection
             "gpxdata" => $p_gpxData
         ]);
         $l_info = $l_gpxList->getInfo();
-        
+        $l_start= $l_gpxList->getStart();
+        $l_end=$l_gpxList->getEnd();
         $l_trace = RouteTrace::create([
             "id_routefile" => $l_routeFile->id,
             "id_location" => $l_id_location,
@@ -89,6 +104,10 @@ class RouteTraceTableCollection extends TableCollection
             "maxlon" => $l_info->maxLon,
             "minlat" => $l_info->minLat,
             "maxlat" => $l_info->maxLat,
+            "start_lat"=> $l_start?$l_start->lat:null,
+            "start_lon"=> $l_start?$l_start->lon:null,
+            "end_lat"  => $l_end?$l_end->lat:null,
+            "end_lon"  => $l_end?$l_end->lon:null,
             "distance" => $l_info->distance,
             "id_user" => \Auth::user()->id
         ]);

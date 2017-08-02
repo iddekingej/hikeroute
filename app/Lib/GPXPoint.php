@@ -3,7 +3,7 @@ declare(strict_types = 1);
 namespace App\Lib;
 
 /**
- * One cooridate from the GPX file
+ * One coordinate from the GPX file
  * GPXPoint->lat Latitude
  * GPXPoint->lon Longitude
  */
@@ -26,9 +26,9 @@ class GPXPoint extends Base
     /**
      * Get the date from the time stamp (time stamp is formated as 2016-05-28T10:53:25.000Z
      * This function returns everything before the 'T'= date.
-     * When date value is empty or there is not 'T' in the date text a empty string is returned
+     * When date value is empty or there is not 'T' in the date text a null is returned
      * 
-     * @return string
+     * @return string|NULL Data part of time stamp or null when there is no 'T' in the time stamp.
      */
     function getDatePart(): ?string
     {

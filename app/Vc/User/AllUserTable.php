@@ -28,7 +28,9 @@ class AllUserTable extends TableVC
         );
     }
 /**
- * Create data row for table
+ * Create data row for table containing a delete button, email adres,nic, firstname and lastname
+ * of every user.
+ * 
  * {@inheritDoc}
  * @see \App\Vc\Lib\TableVC::getData()
  */    

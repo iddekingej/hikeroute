@@ -29,7 +29,11 @@ class RouteTrace extends Model
         "maxlat",
         "minlon",
         "maxlon",
-        "id_user"
+        "id_user",
+        "start_lat",
+        "start_lon",
+        "end_lat",
+        "end_lon"
     ];
 
     protected $dates = [
@@ -70,6 +74,24 @@ class RouteTrace extends Model
         $this->minlat = $l_gpxInfo->minLat;
         $this->maxlat = $l_gpxInfo->maxLat;
         $this->distance = $l_gpxInfo->distance;
+        
+        $l_start=$p_gpxList->getStart();
+        if($l_start){
+            $this->start_lon = $l_start->lon;
+            $this->start_lat = $l_start->lat;
+        } else {
+            $this->start_lon = null;
+            $this->start_lat = null;
+        }
+        
+        $l_end= $p_gpxList->getEnd();
+        if($l_end){
+            $this->end_lon = $l_end->lon;
+            $this->end_lat = $l_end->lat;
+        } else {
+            $this->end_lon = null;
+            $this->end_lat = null;
+        }
         $this->startdate = $p_gpxList->getStart()->getDatePart();
         $this->save();
     }

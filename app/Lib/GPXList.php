@@ -8,7 +8,7 @@ class GPXList extends Base
     private $list = [];
 
     private $info;
-
+    
     function __construct()
     {
         $this->info = new GPXInfo();
@@ -28,6 +28,11 @@ class GPXList extends Base
     function getStart(): GPXPoint
     {
         return reset($this->list);
+    }
+    
+    function getEnd():GPXPoint
+    {
+        return end($this->list);
     }
 
     function getInfo()

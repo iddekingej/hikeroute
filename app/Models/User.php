@@ -148,7 +148,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if we can delete the user
+     * Check if we can delete the user:
      * - If it has no postings
      *
      * @return boolean true user can be deleted

@@ -36,7 +36,11 @@ class ImageTableCollection extends TableCollection
         
         return Image::create(["mimetype"=>$l_mime,"image"=>convert_uuencode($l_content)]);
     }
-    
+    /**
+     * Remove all images belonging to a  route image
+     * 
+     * @param RouteImage $p_routeImage Remove images belonging to a routeImage
+     */
     static function deleteByRouteImage(RouteImage $p_routeImage):void
     {
         $l_ids=[];

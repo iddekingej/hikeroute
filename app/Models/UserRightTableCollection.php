@@ -17,8 +17,8 @@ class UserRightTableCollection extends TableCollection
     /**
      * Delete all the rights belonging to a user.
      *
-     * @param integer $p_id_user
-     *            user id
+     * @param User $p_user  All rights of this user is deleted
+     *            
      */
     static function deleteUserRights(User $p_user)
     {

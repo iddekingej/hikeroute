@@ -57,7 +57,7 @@ class LocationService
      * @param GPXPoint $p_point            
      * @return \stdClass Location info
      */
-    static function fromGpx(GPXPoint $p_point): ?\stdClass
+    static function fromGpx(GPXPoint $p_point): ?LocationResult
     {
         return self::query($p_point->lat, $p_point->lon);
     }
@@ -66,8 +66,9 @@ class LocationService
     {
         $l_location = self::fromGPX($p_point);
         
-        $l_address = new Address();
-        if ($l_location && isset($l_location->address)) {
+        if ($l_location != null && isset($l_location->address)) {
+            $l_address = new Address();
+            
             $l_data = $l_location->address;
             if (isset($l_data->country)) {
                 $l_address->data["country"] = $l_data->country;
@@ -85,6 +86,8 @@ class LocationService
                 $l_address->data["suburb"] = $l_data->suburb;
                 $l_address->fullname .= "/" . $l_data->suburb;
             }
+        } else {
+            $l_address=null;
         }
         return $l_address;
     }

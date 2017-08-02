@@ -36,7 +36,12 @@ class HomePage extends HtmlPage
             $this->theme->route_Search->foundFooter();
         }
     }
-    
+    /**
+     * Display the home page, containing a full text search and by a list of locations
+     * 
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlPage::content()
+     */
     function content():void
     {
         $this->theme->route_Search->routeSearch();
