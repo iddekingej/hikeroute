@@ -131,23 +131,23 @@ Route::group([
 ], function () {
     Route::get("/", [
         "as" => "user.profile",
-        "uses" => "UserController@displayProfile"
+        "uses" => "ProfileController@displayProfile"
     ]);
     Route::get("edit", [
         "as" => "user.editprofile",
-        "uses" => "UserController@editProfile"
+        "uses" => "ProfileController@editProfile"
     ]);
     Route::post("save", [
         "as" => "user.saveprofile",
-        "uses" => "UserController@saveProfile"
+        "uses" => "ProfileController@saveProfile"
     ]);
     Route::get("password/edit", [
         "as" => "user.editpassword",
-        "uses" => "UserController@editPassword"
+        "uses" => "ProfileController@editPassword"
     ]);
     Route::post("password/save", [
         "as" => "user.savepassword",
-        "uses" => "UserController@savePassword"
+        "uses" => "ProfileController@savePassword"
     ]);
 });
 

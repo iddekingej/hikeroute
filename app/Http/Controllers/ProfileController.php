@@ -5,15 +5,19 @@ use App\Models\User;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-
-class UserController extends Controller
+/**
+ * This controller is used for handling the profile page.
+ *
+ */
+class ProfileController extends Controller
 {
 
     /**
-     * Display user profile, nothing yet...
+     * Display user profile data.
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     * @return View
      */
+    
     function displayProfile()
     {
         return View("user.profile", [
@@ -22,10 +26,11 @@ class UserController extends Controller
     }
 
     /**
-     * Display the profile edit form for the current user
+     * Display the profile edit form for the current user.
      *
      * @return View
      */
+    
     function editProfile()
     {
         return View("user.edit", [
@@ -71,12 +76,13 @@ class UserController extends Controller
     }
 
     /**
-     * Save password after edit password is submitted
+     * Save password after edit password form is submitted.
      *
      * @param Request $p_request
      *            Submit request of edit password form
      * @return unknown|\Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
+    
     function savePassword(Request $p_request)
     {        
         $l_rules = [
@@ -88,10 +94,12 @@ class UserController extends Controller
                 "same:password"
             ]
         ];
+        
         $l_validator = Validator::make($p_request->all(), $l_rules);
         if ($l_validator->fails()) {
             return Redirect::Route("user.editpassword")->withErrors($l_validator)->withInput($p_request->all());
         }
+        
         $l_user = \Auth::user();
         $l_user->password = bcrypt($p_request->input("password"));
         $l_user->save();

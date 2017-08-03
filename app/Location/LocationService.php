@@ -5,18 +5,24 @@ namespace App\Location;
 use App\Lib\Control;
 use App\Lib\GPXPoint;
 
+/**
+ * Get names (country, city,state etc..) from position.
+ * This class class is a facade to the configured LocationQueryService type.
+ *
+ */
 class LocationService
 {
 
     private static $locationQueryService;
 
     /**
-     * Set location by configuration name
+     * Set the  LocationQueryService type .
      * 
      * @param string $p_name
      *            Use this namend configuration item (defined in config/hr.php and configuration "locationServices"
      */
-    static function setLocationService(String $p_name)
+    
+    static function setLocationService(String $p_name):void
     {
         $l_data = \Config::get("hr.locationServices");
         $l_config = $l_data[$p_name];
@@ -25,24 +31,24 @@ class LocationService
     }
 
     /**
-     * the LocationQueryService objects queries the location query.
-     * Depending on the configuration the service object is created in this method.
+     * Set the locationQueryService type, depending on configuration.
      */
-    private static function initLocationQueryService()
+    
+    private static function initLocationQueryService():void
     {
         static::setLocationService(Control::locationServiceType());
     }
 
     /**
      * Queries the location.
-     * This is a front end for
-     * the configured LocationQueryService
+     * This is a front end for the configured LocationQueryService
      *
-     * @param float $p_lat            
-     * @param float $p_lon            
-     * @return unknown
+     * @param float $p_lat     Latitude of position 
+     * @param float $p_lon     Longitude of position
+     * @return LocationResult  Returns names of position
      */
-    static function query(float $p_lat, float $p_lon)
+    
+    static function query(float $p_lat, float $p_lon):?LocationResult
     {
         if (static::$locationQueryService === null) {
             static::initLocationQueryService();
@@ -51,19 +57,15 @@ class LocationService
     }
 
     /**
-     * Location info from position.
-     * Same as @see AddressService::fromLocation
+     * Location name by GPXPoiont.
+     * Same as @see LocationService::query
      *
      * @param GPXPoint $p_point            
      * @return \stdClass Location info
      */
-    static function fromGpx(GPXPoint $p_point): ?LocationResult
-    {
-        return self::query($p_point->lat, $p_point->lon);
-    }
 
     static function locationFromGPX(GPXPoint $p_point): ?LocationResult
     {
-        return self::fromGPX($p_point);
+        return self::query($p_point->lat, $p_point->lon);        
     }
 }

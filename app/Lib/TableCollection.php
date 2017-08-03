@@ -2,6 +2,9 @@
 declare(strict_types = 1);
 namespace App\Lib;
 
+
+use Illuminate\Database\Eloquent\Collection;
+
 class TableCollection extends Base
 {
 
@@ -25,8 +28,13 @@ class TableCollection extends Base
     {
         static::$model::chunk($p_num, $p_function);
     }
-
-    static function whereNull($p_field)
+/**
+ * Return all rows with fields are null
+ * 
+ * @param string  $p_field
+ * @return unknown
+ */
+    static function whereNull(string $p_field)
     {
         return static::$model::whereNull($p_field);
     }
@@ -35,7 +43,16 @@ class TableCollection extends Base
     {
         return static::$model::whereIn($p_field, $p_data);
     }
-
+/**
+ * Select from model with simple where clause 
+ * Condition is  field <comp operator> Value
+ * 
+ * @param unknown $p_field   Table field part of condition 
+ * @param unknown $p_comp    condition operator (e.q. =) 
+ * @param unknown $p_value   value part of operator
+ * 
+ * @return unknown
+ */
     static function where($p_field, $p_comp, $p_value)
     {
         return static::$model::where($p_field, $p_comp, $p_value);
@@ -54,6 +71,10 @@ class TableCollection extends Base
         return static::$model::where($p_id, $p_comp, $p_value)->orderBy($p_orderBy)->get();
     }
     
+    static function all():Collection
+    {
+        return static::$model::all();
+    }
 }
 
 ?>
