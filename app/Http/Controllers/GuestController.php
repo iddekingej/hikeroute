@@ -14,6 +14,7 @@ class GuestController extends Controller
     /**
      * Displays a list of all routes at front page
      */
+    
     public function start()
     {
         $l_data = [
@@ -27,6 +28,7 @@ class GuestController extends Controller
         
         return view("welcome", $l_data);
     }
+    
     /**
      * Search all routes by text
      * 
@@ -51,7 +53,9 @@ class GuestController extends Controller
         
         return view("welcome", $l_data);
     }
+    
 /**
+ * Display route depending on location selection
  * 
  * @param int $p_id1
  * @param int $p_id2
@@ -92,9 +96,9 @@ class GuestController extends Controller
      * loaded via a XHR call.
      *
      * @param integer $p_id            
-     * @return unknown
+     * @return string
      */
-    function downloadRoute(int $p_id)
+    function downloadRoute(int $p_id):string
     {
         $l_route = RouteFile::findOrFail($p_id);
         return $l_route->gpxdata;

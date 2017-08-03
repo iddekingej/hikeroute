@@ -16,6 +16,7 @@ class DisplayController extends Controller
      * @param unknown $p_id_route
      * @return unknown
      */
+    
     function album($p_id_route)
     {
         if($this->getCheckRouteShow($p_id_route,$l_route,$l_view)){
@@ -23,11 +24,13 @@ class DisplayController extends Controller
         }
         return view("display.album",["route"=>$l_route]);
     }
+    
     /**
      * Display the trace of a route
      * @param unknown $p_id_route
      * @return unknown
      */
+    
     function trace($p_id_route)
     {
         if($this->getCheckRouteShow($p_id_route,$l_route,$l_view)){
@@ -44,6 +47,7 @@ class DisplayController extends Controller
      * @param integer $p_id
      * @return \Illuminate\View\View View to display
      */
+    
     function summary($p_id_route)
     {
         if($this->getCheckRouteShow($p_id_route,$l_route,$l_view)){
