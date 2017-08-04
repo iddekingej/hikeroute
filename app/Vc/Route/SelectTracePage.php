@@ -7,6 +7,11 @@ use App\Vc\Lib\HtmlPage2;
 use App\Vc\Lib\Note;
 use App\Vc\Trace\TraceTable;
 
+/**
+ * When adding a route ,first this page is displayed in which the route
+ * trace can be slected
+ *
+ */
 class SelectTracePage extends HtmlPage2
 {
     private $traces;
@@ -20,12 +25,22 @@ class SelectTracePage extends HtmlPage2
         $this->id_route=$p_id_route;
         parent::__construct();
     }
-    
+    /**
+     * Setup the page title
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlPage2::setup()
+     */
     function setup():void
     {
         $this->title=__("Select a route trace");
         parent::setup();
     }
+    
+    /**
+     * Displays the selection table 
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlPage2::setupContent()
+     */
     
     function setupContent():void
     {

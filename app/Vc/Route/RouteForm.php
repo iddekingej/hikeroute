@@ -6,10 +6,20 @@ use App\Vc\Lib\Form;
 use App\Models\Route;
 use App\Models\RouteTrace;
 use Illuminate\Support\ViewErrorBag;
-
+/**
+ * Form for entering data about a Route
+ *
+ */
 class RouteForm extends Form
 {
-    
+    /**
+     * Setup form data
+     * 
+     * @param Route $p_route           Route to edit or null for a new route.
+     * @param RouteTrace $p_trace      null when editing route.
+     *                                 When editing a new route, the trace used in this route   
+     * @param ViewErrorBag $p_errors   Errors displayed in form
+     */
     function __construct(?Route $p_route,RouteTrace $p_trace,ViewErrorBag $p_errors)
     {        
         if($p_route){
@@ -32,6 +42,11 @@ class RouteForm extends Form
         parent::__construct($p_errors);
     }
     
+    /**
+
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\Form::setup()
+     */
     function setup():void
     {
         $this->addElements([

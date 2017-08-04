@@ -1,50 +1,42 @@
-<?php 
+<?php
 declare(strict_types=1);
 namespace App\Vc\Route;
 
-use App\Vc\Lib\PageMenu;
+use App\Vc\Lib\HtmlMenuPage2;
 use App\Models\Route;
-use App\Vc\Lib\HtmlMenuPage;
 use App\Vc\Lib\TopMenu;
+use App\Vc\Lib\StaticText;
+use App\Vc\Lib\PageMenu;
 
-abstract class DisplayPage extends HtmlMenuPage
-{
+/**
+ * A number of pages are used for displaying information about a route.
+ * This a base class for it.
+ *
+ */
+abstract class DisplayPage extends HtmlMenuPage2{
     protected $route;
+    protected $canEdit;
     protected $currentCode;
     protected $topMenu;
-    protected $canEdit;
     
     function __construct(Route $p_route)
     {
         $this->route=$p_route;
         parent::__construct();
-        $this->extraJs[]="/js/ol.js";
-        $this->extraCss[]="/css/ol.js";
         $this->canEdit=$this->route->canEdit(\Auth::user());
     }
-
-    function setup():void
-    {
-        $this->setCurrentTag("routes");
-        parent::setup();
-    }
-      
-    function setupTopMenu():void
-    {
-        
-    }
     
     
-    function preContent():void
+    abstract function setupTopMenu();
+    
+    function setupContent()
     {
-        parent::preContent();
-        
         if($this->canEdit){
             $this->topMenu=new TopMenu();
-            $this->setupTopMenu();
-            $this->topMenu->display();
+            $this->setupTopMenu();            
+            $this->top->add($this->topMenu,"100%","0px");
         }
-        $this->theme->route_Info->routeTitle($this->route->title);
+        $this->top->add(new StaticText($this->route->title,"traces_route_title"),"100%","0px");        
         $l_pageMenu=new PageMenu();
         $l_pageMenu->setCode($this->currentCode);
         $l_params=["id"=>$this->route->id];
@@ -53,6 +45,7 @@ abstract class DisplayPage extends HtmlMenuPage
         if($this->canEdit||$this->route->hasImages()){
             $l_pageMenu->addItem("album",Route("display.album",$l_params),__("Album"));
         }
-        $l_pageMenu->display();
+        $this->top->add($l_pageMenu,"100%","0px");
+        
     }
 }

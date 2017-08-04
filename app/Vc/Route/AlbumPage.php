@@ -5,7 +5,7 @@ namespace App\Vc\Route;
 use App\Models\Route;
 use App\Vc\Lib\TopMenu;
 
-class AlbumPage extends DisplayPage2
+class AlbumPage extends DisplayPage
 {
     function setup():void
     {
@@ -17,7 +17,7 @@ class AlbumPage extends DisplayPage2
     /**
      * Setup menu above the album
      * {@inheritDoc}
-     * @see \App\Vc\Route\DisplayPage2::setupTopMenu()
+     * @see \App\Vc\Route\DisplayPage::setupTopMenu()
      */
     
     function setupTopMenu():void
@@ -29,7 +29,7 @@ class AlbumPage extends DisplayPage2
      * Display Album, this is done by the @see Album object 
      * 
      * {@inheritDoc}
-     * @see \App\Vc\Route\DisplayPage2::setupContent()
+     * @see \App\Vc\Route\DisplayPage::setupContent()
      */
     function setupContent():void
     {

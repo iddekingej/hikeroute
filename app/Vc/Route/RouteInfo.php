@@ -4,7 +4,10 @@ namespace App\Vc\Route;
 
 use App\Vc\Lib\HtmlComponent;
 use App\Models\Route;
-
+/**
+ * Display overview data about a route 
+ *
+ */
 class RouteInfo extends HtmlComponent
 {
     private $route;
@@ -14,8 +17,7 @@ class RouteInfo extends HtmlComponent
         parent::__construct();
     }
     
-    /**
-     */
+
     function display():void
     {
         $this->theme->route_Info->routeInfo($this->route);

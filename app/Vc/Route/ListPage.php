@@ -6,10 +6,20 @@ use App\Models\Route;
 use App\Vc\Lib\TopMenu;
 use App\Vc\Lib\HtmlMenuPage;
 
+/**
+ * Displays a list of routes.
+ *
+ */
 class ListPage extends HtmlMenuPage
 {
     private $routes;
-    
+ 
+    /**
+     * Setup page 
+     * 
+     * @param unknown $p_routes A list of Route objects.
+     *                          This routes are displayed on the page
+     */
     function __construct($p_routes)
     {
         $this->routes=$p_routes;
@@ -23,6 +33,13 @@ class ListPage extends HtmlMenuPage
         parent::setup();
     }
     
+    /**
+     * This page consists of a top menu (For the add new route option)
+     * And a list of routes
+     * 
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlPage::content()
+     */
     function content():void
     {
         $l_topMenu=new TopMenu();
