@@ -517,5 +517,23 @@ body, input, table, tr, td, textarea {
 .formError{
 	color:#f00;
 }
-	
+
+.infotable_table{
+	margin-bottom:10px;
+}
+
+.infotable_title{
+	border-bottom:solid 1px #000;
+	color:#777;
+	font-weight:700;
+	text-align:center;
+}
+
+.infotable_table td:first-child{
+	font-weight:700;
+	padding-right:10px;
+}
+
+.infotable_table td:last-child{
+    color:#777;	
 }

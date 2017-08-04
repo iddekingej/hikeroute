@@ -189,4 +189,14 @@ class Theme
     {
         return $this->tag("div");
     }      
+    
+    function jsStart()
+    {
+        ?><script type='text/javascript'><?php 
+    }
+    
+    function jsEnd()
+    {
+        ?></script><?php 
+    }
 }

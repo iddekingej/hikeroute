@@ -22,22 +22,11 @@ class Frm
     }
     
     
-    static function label($p_name,$p_label)
-    {
-        ?>
-                <td class="form_labelCell"><?=\Form::label($p_name,$p_label)?></td>
-        <?php 
-    }
     static function error($p_name,$p_errors)
     {
 		 if ($p_errors->has($p_name)){?>
 			<div class="form_error"><?=$p_errors->first($p_name)?></div>
 		<?php }
-    }
-    
-    static function title(string $p_title): void
-    {
-        ?><div class="form_title"><?=static::e($p_title)?></div><?php
     }
 
     static function password($p_name, $p_label, $p_errors, $p_id, $p_style)
@@ -77,25 +66,6 @@ class Frm
     }
 
     
-    static function textArea($p_name, $p_label, $p_value, $p_size,$p_errors)
-    {
-        ?>
-<tr>
-	<td class="form_labelCell"> <?=\Form::label($p_name,$p_label);?></td>
-	<td class="form_elementCell">
-		<?php if ($p_errors->has($p_name)){?>
-			<div class="form_error"><?=$p_errors->first($p_name); ?></div>
-		<?php
-        }
-        echo \Form::textarea($p_name, $p_value, [
-            "class" => "form_valueElement"
-        ,   "size"=>$p_size
-        ]);
-        ?>
-			</td>
-</tr>
-<?php
-    }
     
     static function checkbox($p_name, $p_label, $p_value, Array $p_tags = null)
     {
@@ -130,7 +100,7 @@ class Frm
     {
         ?>
         <tr>
-        <?php  self::label($p_name,$p_label); ?>
+        <?php  \Form::label($p_name,$p_label); ?>
         <td class="form_labelElement">
             <?php self::error($p_name,$p_errors);?>
             <?=\Form::file($p_name)?>

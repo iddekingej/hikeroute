@@ -6,13 +6,17 @@ namespace App\Vc\User;
 use App\Lib\Icons;
 use App\Vc\Lib\HtmlMenuPage;
 use App\Models\User;
+use App\Vc\Lib\HtmlMenuPage2;
+use App\Vc\Lib\InfoTable;
+use App\Vc\Lib\IconTextLink;
+use App\Vc\Lib\Spacer;
 /**
  * Display profile page of current user
  * 
  * @author jeroen
  *
  */
-class ProfilePage extends HtmlMenuPage
+class ProfilePage extends HtmlMenuPage2
 {
     private $user;
     
@@ -40,16 +44,19 @@ class ProfilePage extends HtmlMenuPage
      * {@inheritDoc}
      * @see \App\Vc\Lib\HtmlPage::content()
      */
-    function content():void
+    function setupContent():void
     {
-        $this->theme->user_Profile->profileHeader();
-        $this->theme->user_Profile->profileRow(__("Nick name"), $this->user->name);
-        $this->theme->user_Profile->profileRow(__("First name"), $this->user->firstname);
-        $this->theme->user_Profile->profileRow(__("Last name"), $this->user->lastname);
-        $this->theme->user_Profile->profileRow(__("Email address"), $this->user->email);
-        $this->theme->user_Profile->profileEnd();
-        $this->theme->imageTextLink(route("user.editprofile"),Icons::EDIT ,__("Edit profile"));
-        $this->theme->imageTextLink(route("user.editpassword"),Icons::EDIT ,__("Edit password"));
-        $this->theme->user_Profile->profileFooter();
+        
+        
+        $l_table=new InfoTable();
+        $this->top->add($l_table,'100%','0px');
+        $l_table->setTitle(__("User profile"));
+        $l_table->addText(__("Nick name"), $this->user->name);
+        $l_table->addText(__("First name"), $this->user->firstname);
+        $l_table->addText(__("Last name"), $this->user->lastname);
+        $l_table->addText(__("Email address"), $this->user->email);
+        $this->top->add(new IconTextLink("user.editprofile",[],Icons::EDIT,__("Edit profile")),'100%','0px');
+        $this->top->add(new IconTextLink("user.editpassword",[],Icons::EDIT ,__("Edit password")),'100%','0px');
+        $this->top->add(new Spacer(Spacer::VERTICAL));
     }
 }

@@ -6,9 +6,9 @@ use App\Vc\Lib\ThemeItem;
 
 class Form extends ThemeItem
 {
-    function formHeader($p_url)
+    function formHeader($p_id,$p_url)
     {
-        ?><form method="post" action="<?=$this->e($p_url)?>" enctype="multipart/form-data">
+        ?><form id="<?=$this->e($p_id)?>" method="post" action="<?=$this->e($p_url)?>" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="<?=$this->e(csrf_token())?>" />
         <?php 
     }
@@ -17,9 +17,9 @@ class Form extends ThemeItem
         ?><table class="formTable"><tr><td class="formTitle" colspan='2'><?=$this->e($p_title)?></td></tr><?php 
     }
     
-    function rowHeader($p_field,$p_label,$p_error)
+    function rowHeader($p_field,$p_label,$p_error,$p_id)
     {
-        ?><tr><td >
+        ?><tr id="<?=$this->e($p_id)?>"><td >
         	<div class="formLabel">
         	<label for="<?=$this->e($p_field)?>">
         	<?=$this->e($p_label)?>
@@ -32,7 +32,7 @@ class Form extends ThemeItem
     
     function elementHeader()
     {
-        ?><td><?php 
+        ?><td ><?php 
     }
     function rowFooter()
     {
@@ -49,25 +49,25 @@ class Form extends ThemeItem
        ?><input type='button' value="<?=$this->e($p_text)?>" onclick="<?=$this->e($p_js)?>"/> <?php 
     }
     
-    function textElement($p_name,$p_value)
+    function textElement($p_id,$p_name,$p_value)
     {
         ?><input type="text" name="<?=$this->e($p_name)?>" value="<?=$this->e($p_value)?>" /><?php
     }
     
-    function checkboxElement($p_name,$p_checked)
+    function checkboxElement($p_id,$p_name,$p_checked)
     {
         $l_checked=$p_checked?'checked="1"':"";            
-        ?><input type="checkbox" name="<?=$this->e($p_name)?>" value="1" <?=$l_checked?> /><?php   
+        ?><input id="<?=$this->e($p_id)?>" type="checkbox" name="<?=$this->e($p_name)?>" value="1" <?=$l_checked?> /><?php   
     }
     
-    function fileInput($p_name)
+    function fileInput($p_id,$p_name)
     {
-        ?><input type='file' name='<?=$this->e($p_name)?>' /><?php    
+        ?><input id="<?=$this->e($p_id)?>" type='file' name='<?=$this->e($p_name)?>' /><?php    
     }
     
-    function textAreaElement($p_name,$p_value,$p_css)
+    function textAreaElement($p_id,$p_name,$p_value,$p_css)
     {
-        ?><textarea  name="<?=$this->e($p_name)?>" style="<?=$p_css?>"><?=$this->e($p_value)?></textarea><?php
+        ?><textarea  id="<?=$this->e($p_id)?>" name="<?=$this->e($p_name)?>" style="<?=$p_css?>"><?=$this->e($p_value)?></textarea><?php
     }
     
     function submitFooter()
