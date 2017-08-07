@@ -37,6 +37,12 @@ abstract class HtmlMenuPage2 extends HtmlMenuPage
             $this->extraCss=array_merge($this->extraCss,$l_css);
         }
     }
+    
+    /**
+     * Display all compontents
+     * {@inheritDoc}
+     * @see \App\Vc\Lib\HtmlPage::content()
+     */
     final function content():void
     {
         $this->top->display();

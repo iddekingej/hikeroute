@@ -8,10 +8,16 @@ class Form extends ThemeItem
 {
     function formHeader($p_id,$p_url)
     {
-        ?><form id="<?=$this->e($p_id)?>" method="post" action="<?=$this->e($p_url)?>" enctype="multipart/form-data">
+        ?><form class="formForm" id="<?=$this->e($p_id)?>" method="post" action="<?=$this->e($p_url)?>" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="<?=$this->e(csrf_token())?>" />
         <?php 
     }
+    
+    function hidden($p_name,$p_value)
+    {
+        ?><input type='hidden' name="<?=$this->e($p_name)?>" value="<?=$this->e($p_value)?>" /><?php 
+    }
+    
     function  header($p_title)
     {
         ?><table class="formTable"><tr><td class="formTitle" colspan='2'><?=$this->e($p_title)?></td></tr><?php 
@@ -19,14 +25,13 @@ class Form extends ThemeItem
     
     function rowHeader($p_field,$p_label,$p_error,$p_id)
     {
-        ?><tr id="<?=$this->e($p_id)?>"><td >
-        	<div class="formLabel">
+        ?><tr id="<?=$this->e($p_id)?>"><td class="formLabel">
+        	
         	<label for="<?=$this->e($p_field)?>">
         	<?=$this->e($p_label)?>
         	</label>
         	
-        	<?php if($p_error){?><div class="formError"><?=$this->e($p_error)?></div><?php }?>
-        	</div>
+        	<?php if($p_error){?><div class="formError"><?=$this->e($p_error)?></div><?php }?>        	
         	</td><?php 
     }
     
@@ -51,7 +56,12 @@ class Form extends ThemeItem
     
     function textElement($p_id,$p_name,$p_value)
     {
-        ?><input type="text" name="<?=$this->e($p_name)?>" value="<?=$this->e($p_value)?>" /><?php
+        ?><input id="<?=$this->e($p_id)?>" type="text" name="<?=$this->e($p_name)?>" value="<?=$this->e($p_value)?>" style="width:100%"/><?php
+    }
+    
+    function password($p_id,$p_name,$p_value)
+    {
+        ?><input type="password" name="<?=$this->e($p_name)?>" value="<?=$this->e($p_value)?>" style="width:100%" /><?php
     }
     
     function checkboxElement($p_id,$p_name,$p_checked)
@@ -70,6 +80,11 @@ class Form extends ThemeItem
         ?><textarea  id="<?=$this->e($p_id)?>" name="<?=$this->e($p_name)?>" style="<?=$p_css?>"><?=$this->e($p_value)?></textarea><?php
     }
     
+    
+    function sectionTitle(string $p_title):void
+    {
+        ?><tr><td colspan=2><div class="formSectionTitle"> <?=$this->e($p_title)?> </div></td></tr><?php    
+    }
     function submitFooter()
     {
      ?></td></tr><?php   

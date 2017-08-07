@@ -68,6 +68,7 @@ class AdminController extends Controller
             "enabled" => $l_user->enabled,
             "title" => "Edit user",
             "rights" => $l_rights,
+            "user"=>$l_user,
             "cmd" => "edit"
         ]);
     }
@@ -92,6 +93,7 @@ class AdminController extends Controller
             "enabled" => "",
             "title" => "New user",
             "cmd" => "add",
+            "user"=>null,
             "rights" => $l_rights
         ]);
     }
@@ -157,7 +159,7 @@ class AdminController extends Controller
             "lastname" => $p_request->input("lastname"),
             "email" => $p_request->input("email"),
             "enabled" => $p_request->input("enabled") ? 1 : 0,
-            "password" => bcrypt($p_request->input("password"))
+            "password" => bcrypt($p_request->input("password"))            
         ]);
         $this->saveRights($p_request, $l_user);
         return Redirect::Route("admin.users");

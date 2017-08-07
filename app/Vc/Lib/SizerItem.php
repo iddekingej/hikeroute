@@ -31,12 +31,6 @@ class SizerItem extends HtmlComponent
        
        private $align=Align::LEFT;
        
-       /**
-        * Get all js used by element
-        * 
-        * {@inheritDoc}
-        * @see \App\Vc\Lib\HtmlComponent::getJs()
-        */
 
        /**
         * 
@@ -47,6 +41,13 @@ class SizerItem extends HtmlComponent
            $this->element=$p_element;
            parent::__construct();
        }
+       
+       /**
+        * Get all js used by element
+        *
+        * {@inheritDoc}
+        * @see \App\Vc\Lib\HtmlComponent::getJs()
+        */
        
        
        function getJs():array
@@ -67,7 +68,7 @@ class SizerItem extends HtmlComponent
     
         /**
          * Display element inside sizer space
-         * 
+         * TODO: handle horizontal align
          * {@inheritDoc}
          * @see \App\Vc\Lib\HtmlComponent::display()
          */
@@ -80,40 +81,75 @@ class SizerItem extends HtmlComponent
            if($this->height){
                $l_style .= "height:".$this->theme->e($this->height).";";
            }     
-           if($this->align != Align::LEFT){
-               $l_style .= "text-align:".$this->align.";";
-           }
+   
            $this->theme->base_Sizer->cellHeader($l_style);
            $this->element->display();
+          
            $this->theme->base_Sizer->cellFooter();
        }
        
+       /**
+        * Set horizontal align of element inside its sizer space
+        * 
+        * @param string $p_align
+        */
        function setAlign(string $p_align)
        {
           $this->align=$p_align;
        }
+       
+       /**
+        *  Set horizontal align.
+        *  
+        * @return string
+        */
        
        function getAlign()
        {
            return $this->align;
        }
        
+       /**
+        * Get Horizontal width (in css unit of size space.
+        * 
+        * @return string
+        */
+       
        function getWidth()
        {
            return $this->width;
        }
+       
+       /**
+        * Get height of size space in which the item is placed.
+        * 
+        * @return string
+        */
        
        function getHeight()
        {
            return $this->height;
        }
        
-       function setWidth($p_width)
+       /**
+        * Set width of sizer space in which the element is placed.
+        * 
+        * @param string  $p_width Width in CSS units.
+        * 
+        */
+       
+       function setWidth(string $p_width):void
        {
            $this->width=$p_width;
        }
        
-       function setHeight($p_height)
+       /**
+        * Set height of sizer space in which the element is placed
+        * 
+        * @param string $p_height Height in CSS units.
+        */
+       
+       function setHeight($p_height):void
        {
            $this->height=$p_height;
        }

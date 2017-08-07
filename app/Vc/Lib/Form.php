@@ -16,7 +16,7 @@ class FormException extends \Exception
 abstract class Form extends HtmlComponent
 {
     private static $idCnt=0;
-    protected $id;
+    protected $id=null;
     protected $title;
     protected $url;
     protected $cancelUrl;
@@ -25,6 +25,28 @@ abstract class Form extends HtmlComponent
     protected $data=[];
     protected $errors;
     private $elements=[];
+    private $hidden=[];
+    
+    /**
+     * Setup form
+     * 
+     * @param ViewErrorBag $p_errors Errors displayed in form (used after submit and return to form)
+     */
+    function __construct( ViewErrorBag $p_errors)
+    {
+        $this->errors=$p_errors;
+        self::$idCnt++;
+        $this->id="form_".self::$idCnt."_";
+        parent::__construct();
+    }
+    /**
+     * Add a hidden value 
+     * @param string  $p_name   name of hidden value
+     * @param unknown $p_valeu  value of the hidden element
+     */
+    function addHidden(string $p_name,$p_value){
+        $this->hidden[$p_name]=$p_value;
+    }
     
     /**
      * Get the JS used by form
@@ -36,13 +58,7 @@ abstract class Form extends HtmlComponent
         return ["/js/form.js"];
     }
     
-    function __construct( ViewErrorBag $p_errors)
-    {
-        $this->errors=$p_errors;
-        self::$idCnt++;
-        $this->id="form_".self::$idCnt."_";
-        parent::__construct();
-    }
+    
     /**
      * Add form element to form
      * 
@@ -107,7 +123,7 @@ abstract class Form extends HtmlComponent
      */
     private function elementId(string $p_name):string
     {
-        return $this->id."r_".$p_name;
+        return $this->id.$p_name;
     }
     
     
@@ -122,31 +138,42 @@ abstract class Form extends HtmlComponent
     function element($p_name,array $p_definition,$p_value){
         $l_error="";
         $l_type=$p_definition["type"];
+
         if($this->errors->has($p_name)){
             $l_error=$this->errors->first($p_name);
         }
         $this->theme->base_Form->rowHeader($p_name,$p_definition["label"],$l_error,$this->elementRowId($p_name));
         $this->theme->base_Form->elementHeader();
         $l_id=$this->elementId($p_name);
+        
         switch($l_type){
             case "@text":
                 $this->theme->base_Form->textElement($l_id,$p_name,$p_value);
                 break;
+                
+            case "@password":
+                $this->theme->base_Form->password($l_id,$p_name,$p_value);
+                break;
+                
             case "@checkbox":
                 $this->theme->base_Form->checkboxElement($l_id,$p_name,$p_value);
                 break;
+                
             case "@textarea":
                 
                 $l_css="width:".$this->dv($p_definition,"width","100%").";";
                 $l_css .= "height:".$this->dv($p_definition,"height","100px").";";
                 $this->theme->base_Form->textAreaElement($l_id,$p_name,$p_value,$l_css);
                 break;
+                
             case "@file":
                 $this->theme->base_form->fileInput($l_id,$p_name);
                 break;
+                
             default:
                 throw new FormException("Invalid element type '$l_type' for element $p_name");
         }
+        
         $this->theme->base_Form->rowFooter();
     }
     /**
@@ -155,19 +182,40 @@ abstract class Form extends HtmlComponent
     abstract function setup();
     
     
+    function generateConditionJs()
+    {
+        ?>l_form.checkConditions=function(){
+        	var form=this.form;
+        <?php
+        foreach($this->elements as $l_name=>$l_data){
+            if(isset($l_data["condition"])){
+                ?>this.showElement(<?=json_encode($l_name)?>,<?=$l_data["condition"]?>);
+                <?php 
+            }       
+        }
+        ?>};<?php
+    }
+    
     /**
      * Display form
      * {@inheritDoc}
      * @see \App\Vc\Lib\HtmlComponent::display()
      */
     function display()
-    {
+    {        
         $this->setup();
         $l_data=$this->preForm();
         $this->theme->base_Form->formHeader($this->id,$this->url);
+        foreach($this->hidden as $l_name=>$l_value){
+            $this->theme->base_Form->hidden($l_name,$l_value);
+        }
         $this->theme->base_Form->header($this->title);
         foreach($this->elements as $l_name=>$l_definition){
-            $this->element($l_name,$l_definition,$l_data[$l_name]);
+            if($l_definition["type"]=="@section"){
+                $this->theme->base_Form->sectionTitle($l_definition["title"]);
+            } else{
+                $this->element($l_name,$l_definition,$l_data[$l_name]);
+            }
         }
         $this->theme->base_Form->submitHeader($this->saveText?$this->saveText:__("Save"));        
         if($this->cancelUrl){
@@ -183,7 +231,9 @@ abstract class Form extends HtmlComponent
         ?>
         var l_form=new form(<?=json_encode($this->id)?>);
         l_form.elementNames=<?=json_encode(array_keys($this->elements))?>;
-        l_form.setup();
+        <?php 
+        $this->generateConditionJs();
+        ?>        l_form.setup();
         <?php 
         $this->theme->jsEnd();
     }

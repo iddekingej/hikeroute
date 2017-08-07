@@ -496,6 +496,20 @@ body, input, table, tr, td, textarea {
 	height:100%;
 }
 
+/* 
+    CSS items for the form component
+*/
+
+/*
+    CSS for formelement
+*/  
+.formForm{
+	width:700px;
+}
+
+/*
+    CSS for table element in form
+*/   
 .formTable{
 	width:700px;
 }
@@ -509,11 +523,17 @@ body, input, table, tr, td, textarea {
 }
 
 .formLabel{
-	width:100%;
+	width:200px;
     font-weight:700;
     text-align:right;
 }
 
+
+.formSectionTitle{
+    text-align:center;
+    font-weight:700;
+    border-bottom:solid 1px #000;	
+}
 .formError{
 	color:#f00;
 }
