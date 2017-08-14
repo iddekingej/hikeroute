@@ -6,6 +6,7 @@ use App\Lib\Localize;
 use App\Models\RouteTrace;
 use App\Vc\Lib\Engine\Data\DynamicValue;
 use App\Vc\Lib\Widgets\Lists\Table;
+use App\Vc\Lib\Engine\Data\DataStore;
 
 /**
  * List of route traces.
@@ -18,14 +19,9 @@ class XMLTraceTable extends Table
     private $route;
     private $params;
     
-    function __construct($p_traces="",string $p_route="",Array $p_params=[])
+    function setTitle(DynamicValue $p_title)
     {
-        parent::__construct($p_traces);
-        
-        $this->route=$p_route;
-        $this->params=$p_params;
-        $this->title=__("Route traces owned by user");
-
+        $this->title=$p_title;
     }
     
     function setParams(DynamicValue $p_params)
@@ -110,12 +106,12 @@ class XMLTraceTable extends Table
     /**
      * For each row get the data 
      */
-    function getData($p_trace)
+    function getData($p_trace,DataStore $p_store)
     {
-        $l_params=$this->params;
+        $l_params=$this->params->getValue($p_store);
         $l_params["id"]=$p_trace->id;
         return [
-             "edit"=>Route( $this->route,$l_params)
+             "edit"=>Route( $this->route->getValue($p_store),$l_params)
             ,"loc1"=>$p_trace->getLocationByTypeCached("country")
             ,"loc2"=>$p_trace->getLocationByTypeCached("state")
             ,"loc3"=>$p_trace->getLocationByTypeCached("city")

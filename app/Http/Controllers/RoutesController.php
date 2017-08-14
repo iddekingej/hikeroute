@@ -89,13 +89,7 @@ class RoutesController extends Controller
      */
     function newRoute()
     {
-        $l_traces = RouteTraceTableCollection::getByUser(\Auth::user());
-        return View("routes.selecttrace", [
-            "title" => __("Post a new hiking route"),
-            "traces" => $l_traces,
-            "id_route" => "",
-            "next" => "routes.newdetails"
-        ]);
+        XMLView("trace/SelectTrace.xml",["next"=>"routes.newdetails","id_route"=>""]);       
     }
 
     /**
@@ -175,10 +169,8 @@ class RoutesController extends Controller
         $l_route = Route::findOrFail($p_id);
         if (! $l_route->canEdit(\Auth::user())) {
             return $this->notAllowedToChangeRoute();
-        }
-        $l_traces = RouteTraceTableCollection::getByUser(\Auth::user());
-        return View("routes.selecttrace", [            
-            "traces" => $l_traces,
+        }        
+        XMLView("trace/SelectTrace.xml", [                        
             "id_route" => $l_route->id,  
             "next"=>"routes.trace.update"
         ]);

@@ -6,6 +6,7 @@ namespace App\Vc\Lib\Widgets\Lists;
 use App\Vc\Lib\Engine\Data\DataStore;
 use App\Vc\Lib\HtmlComponent;
 use App\Vc\Lib\Widgets\Base\Widget;
+use App\Vc\Lib\Engine\Data\DynamicValue;
 
 /**
  * Displays table from some data.
@@ -33,16 +34,12 @@ abstract class Table extends Widget{
     const ICONLINK="@iconlink";
     const ICONLINKCONFIRM="@iconlinkconfirm";
     const LINK="@link";
-    /**
-     * Data to display 
-     * 
-     * @param unknown $p_data
-     */
-    function __construct($p_data=[])
+    
+    function setData(DynamicValue $p_data)
     {
         $this->data=$p_data;
-        parent::__construct();
     }
+    
     
     function setConfigItem(string $p_name,string $p_field,$p_value):void
     {
@@ -90,7 +87,7 @@ abstract class Table extends Widget{
      * @param unknown $p_info
      * @return NULL|Array
      */
-    protected abstract function getData($p_info);
+    protected abstract function getData($p_info,DataStore $p_store);
     
     /**
      * This function is used for setting up the table
@@ -152,13 +149,14 @@ abstract class Table extends Widget{
     {
         $this->setup();
         $this->theme->base_Table->tableHeader();
-        if($this->title != ""){
-            $this->theme->base_Table->tableTitle(count($this->config),$this->title);            
+        if($this->title ){
+            $l_title=$this->title->getValue($p_store);
+            $this->theme->base_Table->tableTitle(count($this->config),$l_title);            
         }
         $this->displayTableHeader();
-        $l_data=$this->data->getValue($p_store);
-        foreach($this->data as $l_row){
-            $l_data=$this->getData($l_row);
+        $l_rows=$this->data->getValue($p_store);       
+        foreach($l_rows as $l_row){            
+            $l_data=$this->getData($l_row,$p_store);
             if($l_data===null){
                 continue;
             }

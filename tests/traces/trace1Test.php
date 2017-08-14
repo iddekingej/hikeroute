@@ -76,8 +76,7 @@ class trace1Test extends TestCase
     
     function testTraceSelection()
     {
-        $l_page=new SelectTracePage([$this->trace1,$this->trace2], "routes.trace.update", 134);
-        $l_page->display();
+        XMLView("trace/SelectTrace.xml",["next"=>"routes.trace.update", "id_route"=>134]);
         $this->assertEquals(1,1);
     }
     
