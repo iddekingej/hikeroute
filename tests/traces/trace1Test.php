@@ -70,8 +70,7 @@ class trace1Test extends TestCase
     
     function testUploadPage()
     {
-        $l_page=new UploadPage(new Collection());
-        $l_page->display();
+        XMLView("trace/Upload.xml");
         $this->assertEquals(1,1);
     }
     
