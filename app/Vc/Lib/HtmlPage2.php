@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
+use App\Vc\Lib\Engine\Data\DataStore;
+
 abstract class HtmlPage2 extends HtmlPage
 {
     protected $top;
@@ -22,8 +24,8 @@ abstract class HtmlPage2 extends HtmlPage
             $this->extraCss=array_merge($this->extraCss,$l_css);
         }
     }
-    final function content():void
+    final function content(?DataStore $p_store=null):void
     {
-        $this->top->display();
+        $this->top->display($p_store);
     }
 }

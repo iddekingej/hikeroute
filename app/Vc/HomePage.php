@@ -4,6 +4,7 @@ namespace App\Vc;
 
 use App\Vc\Lib\HtmlPage;
 use Illuminate\Database\Eloquent\Collection;
+use App\Vc\Lib\Engine\Data\DataStore;
 
 class HomePage extends HtmlPage
 {
@@ -38,11 +39,10 @@ class HomePage extends HtmlPage
     }
     /**
      * Display the home page, containing a full text search and by a list of locations
-     * 
-     * {@inheritDoc}
-     * @see \App\Vc\Lib\HtmlPage::content()
+     * Contains a search input and search by a list of locations
+     *  After selecting a location or submitting a search result a list of 
      */
-    function content():void
+    function content(?DataStore $p_store=null):void
     {
         $this->theme->route_Search->routeSearch();
         $this->theme->route_Search->searchByLocation($this->tree, $this->locations);

@@ -1,0 +1,4 @@
+<fragment type="@fragment">
+    <element type="@note" text="Please, select first a previous uploaded route trace" />
+    <element type="@traceTable" traces="${traces}" route="${route}" params="${params}" />
+</fragment>

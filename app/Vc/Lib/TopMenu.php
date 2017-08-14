@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
+use App\Vc\Lib\Engine\Data\DataStore;
+
 /**
  * 
  * Another horizontal menu 
@@ -10,6 +12,12 @@ namespace App\Vc\Lib;
 
 class TopMenu extends HtmlComponent
 {
+    function __construct()
+    {
+        parent::__construct();
+        $this->setContainerWidth("100%");
+        $this->setContainerHeight("0px");
+    }
     /**
      * Menu items
      * @var array
@@ -49,7 +57,7 @@ class TopMenu extends HtmlComponent
      * {@inheritDoc}
      * @see \App\Vc\Lib\HtmlComponent::display()
      */
-    function display():void
+    function display(?DataStore $p_store=null):void
     {
         if($this->items){
             $this->theme->menu_TopMenu->topMenuHeader();

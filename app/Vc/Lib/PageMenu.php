@@ -1,6 +1,8 @@
 <?php 
 declare(strict_types=1);
 namespace App\Vc\Lib;
+use App\Vc\Lib\Engine\Data\DataStore;
+
 /**
  * Horizontal menu
  * @author jeroen
@@ -51,7 +53,7 @@ class PageMenu extends HtmlComponent
      * {@inheritDoc}
      * @see \App\Vc\Lib\HtmlComponent::display()
      */
-    function display():void
+    function display(?DataStore $p_store=null):void
     {
         $this->theme->menu_PageMenu->menuHeader();
         foreach($this->items as $l_code=>$l_item){

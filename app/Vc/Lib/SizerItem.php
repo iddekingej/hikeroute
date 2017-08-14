@@ -2,9 +2,11 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
+use App\Vc\Lib\Engine\Data\DataStore;
+
 /**
  * When a item is added to a Sizer, it's wrapped in a SizerItem
- *
+ * TODO: Move properties to HTMLComponent and merge this with Sizer
  */
 class SizerItem extends HtmlComponent
 {
@@ -39,6 +41,11 @@ class SizerItem extends HtmlComponent
        function __construct(HtmlComponent $p_element)
        {
            $this->element=$p_element;
+           
+           $this->width=$p_element->getContainerWidth();
+           $this->height=$p_element->getContainerHeight();
+           $this->align=$p_element->getContainerAlign();
+           
            parent::__construct();
        }
        
@@ -72,7 +79,7 @@ class SizerItem extends HtmlComponent
          * {@inheritDoc}
          * @see \App\Vc\Lib\HtmlComponent::display()
          */
-       function display():void
+       function display(?DataStore $p_store=null):void
        {
            $l_style="vertical-align:top;";
            if($this->width){
@@ -82,8 +89,8 @@ class SizerItem extends HtmlComponent
                $l_style .= "height:".$this->theme->e($this->height).";";
            }     
    
-           $this->theme->base_Sizer->cellHeader($l_style);
-           $this->element->display();
+           $this->theme->base_Sizer->cellHeader($l_style);            
+           $this->element->display($p_store);
           
            $this->theme->base_Sizer->cellFooter();
        }

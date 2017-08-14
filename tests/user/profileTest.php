@@ -20,7 +20,7 @@ class profileTest extends TestCase
     
     function testPasswordPage()
     {
-        $l_page=new PasswordPage(new MessageBag());
+        $l_page=new PasswordPage(new ViewErrorBag());
         $l_page->display();
         $this->assertEquals(1,1);
     }

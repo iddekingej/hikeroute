@@ -5,15 +5,16 @@ namespace App\Vc\User;
 use App\Vc\Lib\HtmlPage;
 use App\Models\User;
 use App\Lib\Frm;
+use App\Vc\Lib\Engine\Data\DataStore;
 
 /**
  * Change password of current user
  */
 class PasswordPage extends HtmlPage{
-    private $errors;
+    
     function __construct($p_errors)
-    {        
-        $this->errors=$p_errors;
+    {                
+        $this->setErrors($p_errors);
         parent::__construct();
     }
     /**
@@ -33,15 +34,14 @@ class PasswordPage extends HtmlPage{
     /***
      * Display password change form
      * 
-     * {@inheritDoc}
-     * @see \App\Vc\Lib\HtmlPage::content()
+     * TODO Change to pure VC
      */
     
-    function content():void
+    function content(?DataStore $p_store=null):void
     {
         Frm::header(__("Change your password"),"user.savepassword", []);
-        Frm::password("password", __("New password"), $this->errors, "", "");
-        Frm::password("passwordconf", __("Confirm password"), $this->errors, "", "");
+        Frm::password("password", __("New password"), $this->getErrors(), "", "");
+        Frm::password("passwordconf", __("Confirm password"), $this->getErrors(), "", "");
         Frm::submit(Route("user.profile"));
         
     }

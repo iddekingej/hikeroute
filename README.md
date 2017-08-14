@@ -2,6 +2,9 @@
 A web site for publishing hiking routes (not yet functional)
 It is written with  in php and the Laveral framework
 
-" Hikeroutes" isn't really functional yet and there is not much information here on this moment. Please wait until 0.02...
+This project also serves as a simple example project for a personal research into component based layout system that uses  XML files.
 
-Please look add doc folder for more information.
+Because i'm rewriting the use  VC from PHP to XML, the structure is going to change completely (It's not good enough ot this moments).
+
+    
+

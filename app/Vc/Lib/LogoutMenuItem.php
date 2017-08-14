@@ -2,12 +2,16 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 use App\Vc\Lib\MenuItem;
+use App\Vc\Lib\Engine\Data\DataStore;
 
-
+/**
+ * Displays a logout menu item 
+ *
+ */
 
 class LogoutMenuItem extends MenuItem
 {
-    function display():void
+    function display(?DataStore $p_store=null):void
     {
         $this->theme->menu_LeftMenu->logoutMenu();
     }

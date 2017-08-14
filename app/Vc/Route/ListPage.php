@@ -4,13 +4,13 @@ namespace App\Vc\Route;
 
 use App\Models\Route;
 use App\Vc\Lib\TopMenu;
-use App\Vc\Lib\HtmlMenuPage;
+use App\Vc\Lib\HtmlMenuPage2;
 
 /**
  * Displays a list of routes.
  *
  */
-class ListPage extends HtmlMenuPage
+class ListPage extends HtmlMenuPage2
 {
     private $routes;
  
@@ -36,16 +36,13 @@ class ListPage extends HtmlMenuPage
     /**
      * This page consists of a top menu (For the add new route option)
      * And a list of routes
-     * 
-     * {@inheritDoc}
-     * @see \App\Vc\Lib\HtmlPage::content()
+
      */
-    function content():void
+    function setupContent():void
     {
         $l_topMenu=new TopMenu();
         $l_topMenu->addMenuItem("routes.new",[], __("Add new route"));
-        $l_topMenu->display();
-        $l_tab=new RouteTable($this->routes);
-        $l_tab->display();
+        $this->top->add($l_topMenu);
+        $this->top->add(new RouteTable($this->routes));        
     }
 }

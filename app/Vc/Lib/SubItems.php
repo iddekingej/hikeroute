@@ -2,9 +2,19 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
+/**
+ * SubItems trait used in sizers 
+ * This trait is deprecated. 
+ *
+ */
 trait SubItems{
     protected $subItems=[];
     
+    /**
+     * Get the URL of JS files Used in child elements
+     *   
+     * @return array List of JS File url's
+     */
     function getJs():array
     {
         $l_js=[];
@@ -23,11 +33,16 @@ trait SubItems{
         return array_unique($l_css);
     }
     
-    function add(HtmlComponent $p_component,$p_width="",$p_height="",String $p_align=Align::LEFT){
+    function add(HtmlComponent $p_component,$p_width=null,$p_height=null,String $p_align=Align::LEFT){
         $l_component=new SizerItem($p_component);
-        $l_component->setWidth($p_width);
-        $l_component->setHeight($p_height);
+        if($p_width !== null){
+            $l_component->setWidth($p_width);
+        }
+        if($p_height != null){
+            $l_component->setHeight($p_height);
+        }
         $l_component->setAlign($p_align);
+        $l_component->setParent($this);
         $this->subItems[]=$l_component;
         return $l_component;
     }

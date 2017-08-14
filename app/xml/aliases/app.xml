@@ -1,0 +1,3 @@
+<aliases base="App\Vc\">
+    <element name="traceTable" value="Trace\XMLTraceTable" />
+</aliases>

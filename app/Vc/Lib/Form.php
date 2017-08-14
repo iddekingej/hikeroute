@@ -3,21 +3,25 @@ declare(strict_types=1);
 namespace App\Vc\Lib;
 
 use Illuminate\Support\ViewErrorBag;
+use App\Vc\Form\FormException;
+use App\Vc\Form\FormElement;
+use App\Vc\Lib\Engine\Data\DataStore;
+use App\Vc\Lib\Engine\Data\DynamicStaticValue;
+use App\Vc\Lib\Engine\Data\DynamicValue;
+use App\Vc\Lib\Engine\Data\MapData;
 
-class FormException extends \Exception
-{
-    
-}
 
 /**
  * Display a input form 
  *
  */
-abstract class Form extends HtmlComponent
+class Form extends HtmlComponent
 {
     private static $idCnt=0;
     protected $id=null;
     protected $title;
+    protected $route;
+    protected $routeParams;
     protected $url;
     protected $cancelUrl;
     protected $saveText;
@@ -26,19 +30,55 @@ abstract class Form extends HtmlComponent
     protected $errors;
     private $elements=[];
     private $hidden=[];
+    static  private $buildIn=[
+        "@checkbox"=>"FormCheckbox",
+        "@file"=>"FormFile",
+        "@password"=>"FormPassword",
+        "@section"=>"FormSection",
+        "@text"=>"FormText",
+        "@textarea"=>"FormTextArea"
+    ];
+    
+    
     
     /**
      * Setup form
      * 
-     * @param ViewErrorBag $p_errors Errors displayed in form (used after submit and return to form)
+     * @param ViewErrorBag|null $p_errors Errors displayed in form (used after submit and return to form)
      */
-    function __construct( ViewErrorBag $p_errors)
+    function __construct( ?ViewErrorBag $p_errors=null)
     {
-        $this->errors=$p_errors;
+        if($p_errors==null){
+            $this->errors=new ViewErrorBag();   
+        } else {
+            $this->errors=$p_errors;
+        }
         self::$idCnt++;
         $this->id="form_".self::$idCnt."_";
         parent::__construct();
     }
+     
+    function setData(Array $p_data):void
+    {
+        $this->data=new DynamicStaticValue($p_data);
+    }
+    
+    
+    function getData()
+    {
+        return $this->data;
+    }
+    
+    function setUrl(string $p_url):void
+    {
+        $this->url=$p_url;
+    }
+    
+    function getUrl():string
+    {
+        return $this->url;
+    }
+    
     /**
      * Add a hidden value 
      * @param string  $p_name   name of hidden value
@@ -58,6 +98,33 @@ abstract class Form extends HtmlComponent
         return ["/js/form.js"];
     }
     
+    /**
+     * Add a form element to a form
+     * 
+     * @param HtmlComponent $p_component
+     * @throws FormException
+     * @return HtmlComponent
+     */
+    function add(HtmlComponent $p_component):HtmlComponent
+    {
+        if(!($p_component instanceof FormElement)){
+            throw new FormException("Element is not a instance of FormElement");
+        }
+        if($p_component->getName()==""){
+            throw new FormException(__("Form element of type ':type' has a empty name ",["type"=>get_class($p_component)]));
+        }        
+        $p_component->setId($this->elementId($p_component->getName()));
+        $p_component->setRowId($this->elementRowId($p_component->getName()));
+        $p_component->setName($p_component->getName());
+        if($this->errors->has($p_component->getName())){
+            $l_error=$this->errors->first($p_component->getName());
+            $p_component->setError($l_error);
+        }
+        $this->elements[$p_component->getName()]=$p_component;
+        
+        return $p_component;
+    }
+        
     
     /**
      * Add form element to form
@@ -67,7 +134,21 @@ abstract class Form extends HtmlComponent
      */
     function addElement($p_name,Array $p_data):void
     {
-        $this->elements[$p_name]=$p_data;
+        $l_type=$p_data["type"];
+        if($l_type[0]=="@"){
+            $l_class="\\App\\Vc\\Form\\".self::$buildIn[$l_type];
+        } else {
+            $l_class=$l_type;
+        }
+        $l_object=new $l_class();
+        $l_object->setName($p_name);
+        foreach($p_data as $l_key=>$l_value){
+            if($l_key != "type"){
+                $l_method="set${l_key}";
+                $l_object->$l_method($l_value);
+            }
+        }
+        $this->add($l_object);
     }
     
     /**
@@ -88,7 +169,7 @@ abstract class Form extends HtmlComponent
      * 
      * @return array Return data used in form
      */
-    protected function preForm():Array
+    protected function preForm(?MapData $p_store):Array
     {
         $l_data=$this->data;
         foreach($l_data as $l_name=>&$l_value){
@@ -97,12 +178,7 @@ abstract class Form extends HtmlComponent
         return $l_data;
     }
     
-    private function dv(Array $p_deffinition,string $p_name,$p_default){
-        if(!isset($p_name[$p_deffinition])){
-            return $p_default;
-        }
-        return $p_name[$p_deffinition];
-    }
+
     
     /**
      * Get the dom ID of the element row.
@@ -128,68 +204,20 @@ abstract class Form extends HtmlComponent
     
     
     /**
-     * Generates HTML for element
-     * 
-     * @param unknown $p_name Name of element
-     * @param array $p_definition Array with element definition
-     * @param unknown $p_value Value stored in element
-     * @throws FormException
-     */
-    function element($p_name,array $p_definition,$p_value){
-        $l_error="";
-        $l_type=$p_definition["type"];
-
-        if($this->errors->has($p_name)){
-            $l_error=$this->errors->first($p_name);
-        }
-        $this->theme->base_Form->rowHeader($p_name,$p_definition["label"],$l_error,$this->elementRowId($p_name));
-        $this->theme->base_Form->elementHeader();
-        $l_id=$this->elementId($p_name);
-        
-        switch($l_type){
-            case "@text":
-                $this->theme->base_Form->textElement($l_id,$p_name,$p_value);
-                break;
-                
-            case "@password":
-                $this->theme->base_Form->password($l_id,$p_name,$p_value);
-                break;
-                
-            case "@checkbox":
-                $this->theme->base_Form->checkboxElement($l_id,$p_name,$p_value);
-                break;
-                
-            case "@textarea":
-                
-                $l_css="width:".$this->dv($p_definition,"width","100%").";";
-                $l_css .= "height:".$this->dv($p_definition,"height","100px").";";
-                $this->theme->base_Form->textAreaElement($l_id,$p_name,$p_value,$l_css);
-                break;
-                
-            case "@file":
-                $this->theme->base_form->fileInput($l_id,$p_name);
-                break;
-                
-            default:
-                throw new FormException("Invalid element type '$l_type' for element $p_name");
-        }
-        
-        $this->theme->base_Form->rowFooter();
-    }
-    /**
      * Setup elements here (user addElement or addElements)
      */
-    abstract function setup();
-    
+    function setup(){
+        
+    }    
     
     function generateConditionJs()
     {
         ?>l_form.checkConditions=function(){
         	var form=this.form;
         <?php
-        foreach($this->elements as $l_name=>$l_data){
-            if(isset($l_data["condition"])){
-                ?>this.showElement(<?=json_encode($l_name)?>,<?=$l_data["condition"]?>);
+        foreach($this->elements as $l_name=>$l_element){
+            if($l_element->getCondition()){
+                ?>this.showElement(<?=json_encode($l_name)?>,<?=$l_element->getCondition()?>);
                 <?php 
             }       
         }
@@ -201,21 +229,31 @@ abstract class Form extends HtmlComponent
      * {@inheritDoc}
      * @see \App\Vc\Lib\HtmlComponent::display()
      */
-    function display()
+    function display(?DataStore $p_store=null)
     {        
+        
+        /**
+         * This code is needed for getting the error data to the 
+         */
+        if(!$this->errors){
+            $this->errors=$this->getPage()->getErrors();
+        }
+        
         $this->setup();
-        $l_data=$this->preForm();
+        $l_data=$this->preForm($p_store);
         $this->theme->base_Form->formHeader($this->id,$this->url);
         foreach($this->hidden as $l_name=>$l_value){
             $this->theme->base_Form->hidden($l_name,$l_value);
         }
         $this->theme->base_Form->header($this->title);
-        foreach($this->elements as $l_name=>$l_definition){
-            if($l_definition["type"]=="@section"){
-                $this->theme->base_Form->sectionTitle($l_definition["title"]);
-            } else{
-                $this->element($l_name,$l_definition,$l_data[$l_name]);
+        foreach($this->elements as $l_name=>$l_element){
+            if($l_element->hasData()){
+                if(!array_key_exists($l_element->getName(),$l_data)){
+                    throw new FormException(__("Data not found for element ':name' for type ':type'",["name"=>$l_element->getName(),"type"=>get_class($l_element)]));
+                }
+                $l_element->setValue($l_data[$l_element->getName()]);
             }
+            $l_element->display();
         }
         $this->theme->base_Form->submitHeader($this->saveText?$this->saveText:__("Save"));        
         if($this->cancelUrl){

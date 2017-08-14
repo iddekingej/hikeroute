@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
+use App\Vc\Lib\Engine\Data\DataStore;
+
 /**
  * Horizontal sizer.
  * Orient all sub elements horizontally
@@ -15,7 +17,7 @@ class HorizontalSizer extends Sizer
      * {@inheritDoc}
      * @see \App\Vc\Lib\Sizer::displayItems()
      */
-    function displayItems():void
+    function displayItems(?DataStore $p_store=null):void
     {
         $this->rowHeader();        
         foreach($this->subItems as $l_item){

@@ -3,10 +3,12 @@ declare(strict_types=1);
 namespace App\Vc\Lib;
 
 
+use App\Vc\Lib\Engine\Data\DataStore;
+
 /**
  *  Group of menu items used in LeftMenu
- *  Groups are added to the left menu
- *  Items are added to the group
+ *  Groups are added to the LeftMenu
+ *  Items are added to the MenuGroup 
  */
 class MenuGroup extends HtmlComponent
 {
@@ -78,7 +80,7 @@ class MenuGroup extends HtmlComponent
      * {@inheritDoc}
      * @see \App\Vc\Lib\HtmlComponent::display()
      */
-    function display():void
+    function display(?DataStore $p_store=null):void
     {
         $this->theme->menu_LeftMenu->menuGroup($this->title);
         foreach($this->subItems as $l_item){

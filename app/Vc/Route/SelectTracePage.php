@@ -4,15 +4,16 @@ namespace App\Vc\Route;
 
 
 use App\Vc\Lib\HtmlPage2;
-use App\Vc\Lib\Note;
-use App\Vc\Trace\TraceTable;
+use App\Vc\Lib\Engine\Gui\XMLResourcePage;
+use App\Vc\Lib\Engine\Data\DataStore;
+use App\Vc\Lib\Engine\Data\MapData;
 
 /**
  * When adding a route ,first this page is displayed in which the route
  * trace can be slected
  *
  */
-class SelectTracePage extends HtmlPage2
+class SelectTracePage extends XMLResourcePage
 {
     private $traces;
     private $next;
@@ -23,8 +24,21 @@ class SelectTracePage extends HtmlPage2
         $this->traces=$p_traces;
         $this->next=$p_next;
         $this->id_route=$p_id_route;
+        $this->setResourceFile("trace/SelectTrace.xml");     
         parent::__construct();
     }
+    
+    
+    function makeData(?DataStore $p_parent)
+    {
+        return new MapData($p_parent,[
+            "traces"=>$this->traces
+            ,   "route"=>$this->next
+            ,   "params"=>["id_route"=>$this->id_route]
+        ]);
+        
+    }
+    
     /**
      * Setup the page title
      * {@inheritDoc}
@@ -36,15 +50,4 @@ class SelectTracePage extends HtmlPage2
         parent::setup();
     }
     
-    /**
-     * Displays the selection table 
-     * {@inheritDoc}
-     * @see \App\Vc\Lib\HtmlPage2::setupContent()
-     */
-    
-    function setupContent():void
-    {
-        $this->top->add(new Note(__("Please, select first a previous uploaded route trace")),'100%',"0px");
-        $this->top->add(new TraceTable($this->traces,$this->next,["id_route"=>$this->id_route]));
-    }
 }

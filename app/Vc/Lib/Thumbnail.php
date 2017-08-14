@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Vc\Lib;
 
 use App\Models\RouteImage;
+use App\Vc\Lib\Engine\Data\DataStore;
 
 class Thumbnail extends HtmlComponent
 {
@@ -14,7 +15,7 @@ class Thumbnail extends HtmlComponent
         parent::__construct();
     }
     
-    function display()
+    function display(?DataStore $p_store=null)
     {
         $this->theme->route_Album->thumbnail($this->routeImage);
     }

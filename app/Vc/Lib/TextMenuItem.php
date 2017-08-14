@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 use App\Vc\Lib\MenuItem;
+use App\Vc\Lib\Engine\Data\DataStore;
 
 /**
  * MenuItem for LeftMenu
@@ -26,7 +27,7 @@ class TextMenuItem extends MenuItem
         parent::__construct($p_tag);
     }
     
-    function display():void
+    function display(?DataStore $p_store=null):void
     {
         $this->theme->menu_LeftMenu->menuItem($this->route,$this->params,$this->text);
     }

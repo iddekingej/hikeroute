@@ -2,11 +2,16 @@
 declare(strict_types=1);
 namespace App\Vc\Trace;
 
-use App\Vc\Lib\HtmlMenuPage;
 use App\Vc\Lib\TopMenu;
 use App\Models\RouteTrace;
+use App\Vc\Lib\InfoTable;
+use App\Vc\Lib\StaticText;
+use App\Lib\Localize;
+use App\Vc\Lib\BulletList;
+use App\Vc\Lib\TextRouteLink;
+use App\Vc\Lib\HtmlMenuPage2;
 
-class ShowPage extends HtmlMenuPage
+class ShowPage extends HtmlMenuPage2
 {
     private $trace;
     
@@ -28,34 +33,37 @@ class ShowPage extends HtmlMenuPage
     
     function routeList(RouteTrace $p_routeTrace): void
     {
+        $this->top->add(new StaticText(__("Routes using this trace"),"traces_route_title"));
+            
         $l_routes = $p_routeTrace->routes;
-        $this->theme->trace_Show->routeListTitle();
         if(count($l_routes)==0){
-            $this->theme->trace_Show->routeNothingFound();
+            $this->top->add(new StaticText(__("Nothing found")));            
         } else {
-            $this->theme->trace_Show->routeListHeader();
-            foreach ($p_routeTrace->routes as $l_route) {
-                $this->theme->trace_Show->routeListItem($l_route->id,$l_route->title);
+            $l_list=new BulletList();
+            foreach($l_routes as $l_route){
+                $l_list->add(new TextRouteLink("display.overview",["p_id_route"=>$l_route->id],$l_route->title));
             }
-            $this->theme->trace_Show->routeListFooter();
+            $this->top->add($l_list);
         }
     }
     
-    function content():void
-    {
-        $this->theme->trace_Show->container();
+    function setupContent():void
+    {     
         $l_topMenu=new TopMenu();
         $l_topMenu->addMenuItem("routes.newdetails",["id"=>$this->trace->id], __("Add as route"));
         if (!$this->trace->hasRoutes()) {
             $l_topMenu->addConfirmMenuitem('traces.del', ['id' => $this->trace->id],__("Delete this route trace"), __("Delete this route trace?"));
         }
-        $l_topMenu->display();
-        $this->theme->trace_Show->infoHeader();
-        $this->theme->trace_Show->traceInfo($this->trace);
-		$this->theme->trace_Show->mapHeader();
-		$l_trace=new OpenLayer($this->trace);
- 		$l_trace->display();
-		$this->theme->trace_Show->mapFooter();
+        $this->top->add($l_topMenu);        
+        $l_table=new InfoTable();
+        $l_table->addText(__("Uploaded by"),$this->trace->user->name);
+        $l_table->addText(__("Location"),$this->trace->getLocationString());
+        $l_table->addText(__("Recorded at"),Localize::shortDate($this->trace->startdate));
+        $l_table->addText(__("Distance"),Localize::meterToDistance((int)$this->trace->distance));
+        $l_table->add(new StaticText(__("Download")));
+        $l_table->add(new TraceDownloadLink($this->trace));
+        $this->top->add($l_table);  
+        $this->top->add(new OpenLayer($this->trace));
 		$this->routeList($this->trace);		
     }
 }

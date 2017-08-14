@@ -26,6 +26,12 @@ abstract class TestCase extends BaseTestCase
     protected $store;
     protected $session;
     
+    
+    function getRelativeResourcePath($p_name)
+    {
+        return "/tests/resources/$p_name";
+    }
+    
     /**
      * Get test resources (file) path
      * @param string $p_name name of resources (relative to the resource folder)

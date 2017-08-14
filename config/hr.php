@@ -3,6 +3,8 @@ return [
     "addressServiceOnTest" => false,
     "useAddressService" => true,
     "locationServiceType" => env("LOCATION_TYPE", "nomatim"),
+    "xmlBasePath"=>"app/xml/",
+    "xmlCache"=>"storage/xml/",
     "locationServices" => [
         "nomatim" => [
             "type" => "App\\Location\\LocationQueryNominatim",

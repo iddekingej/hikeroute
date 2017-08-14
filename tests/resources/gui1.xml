@@ -1,0 +1,4 @@
+<fragment type="@fragment">
+    <element type="@test_TestComponent" text="${text}"/>
+    <element type="TestComponent" text="${text}"/>
+</fragment>

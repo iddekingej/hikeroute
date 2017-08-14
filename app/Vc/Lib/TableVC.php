@@ -3,6 +3,8 @@ declare(strict_types=1);
 namespace App\Vc\Lib;
 
 
+use App\Vc\Lib\Engine\Data\DataStore;
+
 /**
  * Displays table from some data.
  * Usages:
@@ -34,7 +36,7 @@ abstract class TableVC extends HtmlComponent{
      * 
      * @param unknown $p_data
      */
-    function __construct($p_data)
+    function __construct($p_data=[])
     {
         $this->data=$p_data;
         parent::__construct();
@@ -87,7 +89,15 @@ abstract class TableVC extends HtmlComponent{
      * @return NULL|Array
      */
     protected abstract function getData($p_info);
-   
+    
+    /**
+     * This function is used for setting up the table
+     */
+    function setup()
+    {
+        
+    }
+    
     function printRow($p_config,$p_value,$p_name):void
     {
         ?><td class="table_cell"><?php 
@@ -136,8 +146,9 @@ abstract class TableVC extends HtmlComponent{
      * @see \App\Vc\Lib\HtmlComponent::display()
      */
     
-    function display():void
-    {        
+    function display(?DataStore $p_store=null):void
+    {
+        $this->setup();
         $this->theme->base_Table->tableHeader();
         if($this->title != ""){
             $this->theme->base_Table->tableTitle(count($this->config),$this->title);            

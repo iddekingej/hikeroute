@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 use App\Vc\Lib\HtmlComponent;
+use App\Vc\Lib\Engine\Data\DataStore;
 
 /**
  * A component that displays as link, with route url
@@ -46,7 +47,7 @@ class TextRouteLink extends HtmlComponent
      * {@inheritDoc}
      * @see \App\Vc\Lib\HtmlComponent::display()
      */
-    function display():void
+    function display(?DataStore $p_store=null):void
     {
         $this->theme->textRouteLink($this->route,$this->data,$this->text);
     }

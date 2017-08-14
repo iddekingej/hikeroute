@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         
         $p_gate->define("edit-route", function (User $p_user, Route $p_route) {
             
-            return $p_route->id_user == $p_user->id || $p_user->isAdmin();
+            return ($p_route->id_user == $p_user->id) || $p_user->isAdmin();
         });
         //
     }

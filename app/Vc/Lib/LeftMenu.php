@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
+use App\Vc\Lib\Engine\Data\DataStore;
+
 /**
  * 'LeftMenu' class. Displays a vertical menu 
  *
@@ -48,7 +50,7 @@ class LeftMenu extends HtmlComponent
      * {@inheritDoc}
      * @see \App\Vc\Lib\HtmlComponent::display()
      */
-    function display():void
+    function display(?DataStore $p_store=null):void
     {
         foreach($this->leftMenu as $l_group){
             $l_group->display();

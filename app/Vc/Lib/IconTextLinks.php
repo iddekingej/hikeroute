@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Vc\Lib;
 
 use App\Vc\Lib\HtmlComponent;
+use App\Vc\Lib\Engine\Data\DataStore;
 
 /**
  *  A vertical list of links with a icon in front of the link 
@@ -27,7 +28,7 @@ class IconTextLinks extends HtmlComponent
     /**
      * Display Icon text links
      */
-    final function display():void
+    final function display(?DataStore $p_store=null):void
     {
         $this->theme->base_IconTextLinks->header();
         foreach($this->items as $l_item){

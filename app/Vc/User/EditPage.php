@@ -6,6 +6,7 @@ use App\Vc\Lib\HtmlPage;
 use App\Lib\Frm;
 use App\Models\User;
 use Illuminate\Support\ViewErrorBag;
+use App\Vc\Lib\Engine\Data\DataStore;
 /**
  * Edit userdata by administrator
   *
@@ -24,11 +25,9 @@ class EditPage extends HtmlPage
     
     /**
      * Form for changing user data by administrator
-     * 
-     * {@inheritDoc}
-     * @see \App\Vc\Lib\HtmlPage::content()
+     * TODO Change to pure VC compontents
      */
-    function content():void
+    function content(?DataStore $p_store=null):void
     {
         Frm::header(__("Edit profile"),"user.saveprofile", []);
         Frm::text("name", __("Nick name"), $this->user->name, $this->errors);

@@ -4,12 +4,25 @@ namespace App\Vc\Trace;
 
 use App\Models\RouteTrace;
 use App\Vc\Lib\HtmlComponent;
+use App\Vc\Lib\Engine\Data\DataStore;
 
 class OpenLayer extends HtmlComponent{
     private $routeTrace;
     private $id="map";
     private $icons=[];
     private $markers=[];
+    
+    function __construct(?RouteTrace $p_trace=null)
+    {
+        parent::__construct();
+        $this->routeTrace=$p_trace;
+        $this->setContainerHeight("0px");
+    }
+    
+    function setTrace(RouteTrace $p_trace)
+    {
+        $this->routeTrace=$p_trace;
+    }
     
     function getJs():array
     {
@@ -35,13 +48,9 @@ class OpenLayer extends HtmlComponent{
         return $this->routeTrace;
     }
     
-    function __construct(RouteTrace $p_trace)
-    {
-        $this->routeTrace=$p_trace;
-        parent::__construct();
-    }
+
     
-    function display():void
+    function display(?DataStore $p_store=null):void
     {
         
         echo $this->theme->div()->id($this->id);

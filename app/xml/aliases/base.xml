@@ -1,0 +1,8 @@
+<aliases base="App\Vc\Lib\">
+    <element name="condition"  value="Condition" />
+    <element name="fragment"   value="Engine\Gui\GUIFragment" />
+    <element name="imageList"  value="ImageList" />
+    <element name="infoTable"  value="InfoTable" />
+	<element name="note"       value="Note" />
+	<element name="staticText" value="StaticText" />	
+</aliases>

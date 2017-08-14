@@ -4,6 +4,7 @@ namespace App\Vc\Route;
 
 use App\Vc\Lib\HtmlComponent;
 use App\Models\Route;
+use App\Vc\Lib\Engine\Data\DataStore;
 /**
  * Display overview data about a route 
  *
@@ -18,7 +19,7 @@ class RouteInfo extends HtmlComponent
     }
     
 
-    function display():void
+    function display(?DataStore $p_store=null):void
     {
         $this->theme->route_Info->routeInfo($this->route);
     }
