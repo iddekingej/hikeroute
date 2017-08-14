@@ -29,10 +29,10 @@ class AlterRouteTracesStartEnd extends Migration
     public function down()
     {
         Schema::table('routetraces', function (Blueprint $p_table) {
-            $p_table->drop("start_lat");
-            $p_table->drop("start_lon");
-            $p_table->drop("end_lat");
-            $p_table->drop("end_lon");
+            $p_table->dropColumn("start_lat");
+            $p_table->dropColumn("start_lon");
+            $p_table->dropColumn("end_lat");
+            $p_table->dropColumn("end_lon");
         });
     }
 }
