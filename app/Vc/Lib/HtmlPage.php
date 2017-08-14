@@ -22,7 +22,7 @@ abstract class HtmlPage extends HtmlComponent
     }
     
     
-    final function setErrors(ViewErrorBag $p_errors):void
+    final function setErrors(?ViewErrorBag $p_errors):void
     {
         $this->errors=$p_errors;
     }
