@@ -65,7 +65,11 @@ class TracesController extends Controller
 
     function upload()
     {
-        return View("traces.upload");
+
+        if(isset($l_data["errors"])){
+        var_dump($l_data["errors"]); 
+        }
+        XMLView("trace/Upload.xml");
     }
 
     /**
