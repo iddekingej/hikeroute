@@ -43,4 +43,6 @@ class PageLoader
         file_put_contents($l_cached,"<?php\n".$l_code,LOCK_EX);
         return $l_cached;
     }
+    
+
 }
