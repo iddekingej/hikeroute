@@ -1,0 +1,10 @@
+<fragment type="@fragment">
+    <datalayer type="App\Vc\Trace\ShowDataLayer" />
+    <element type="@staticText" text="Routes using this trace" class="traces_route_title" />
+    <element type="@bulletList">
+        <element type="@dynamicBulletItem" data="${usedInRoutes}">
+            <element type="@staticText" text="${title}" />
+        </element>
+    </element>
+    
+</fragment>

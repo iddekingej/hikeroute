@@ -31,9 +31,12 @@ class TracesController extends Controller
         if (! $l_trace->canViewTrace(\Auth::user())) {
             return $this->displayError(__("to view this route trace"));
         }
-        return View("traces.show", [
-            "routeTrace" => $l_trace
-        ]);
+        
+        XMLView("trace/Show.xml",["trace"=>$l_trace]);
+        
+       // return View("traces.show", [
+       //     "routeTrace" => $l_trace
+       // ]);
     }
 
     function download($p_id)

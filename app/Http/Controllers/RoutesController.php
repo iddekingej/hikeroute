@@ -10,7 +10,6 @@ use App\Models\Route;
 use App\Lib\GPXReader;
 use App\Models\RouteFile;
 use App\Models\Location;
-use App\Models\RouteTraceTableCollection;
 use App\Models\RouteTrace;
 use App\Lib\GPXList;
 

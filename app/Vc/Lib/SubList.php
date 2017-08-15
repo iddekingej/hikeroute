@@ -9,6 +9,16 @@ namespace App\Vc\Lib;
 trait SubList{
     protected $subItems=[];
     
+    /**
+     * Function used for checking the widget when added to the parent
+     *  
+     * @param HtmlComponent $p_compontent Check this widget
+     */
+    protected function validateSubItem(HtmlComponent $p_compontent)
+    {
+        
+    }
+    
 /**
  * Collect Java script files used by subelements
  * These java script are included in the header of the page 
@@ -55,6 +65,7 @@ trait SubList{
  * @return \App\Vc\Lib\HtmlComponent Is the same as $p_component
  */    
     function add(HtmlComponent $p_component){
+        $this->validateSubItem($p_component);
         $this->subItems[]=$p_component;
         $p_component->setParent($this);
         return $p_component;

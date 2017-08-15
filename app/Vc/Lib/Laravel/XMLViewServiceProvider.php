@@ -24,5 +24,6 @@ class XMLViewServiceProvider extends ServiceProvider
     public function register()
     {
         require_once("XMLView.php");
+        $this->commands([CleanCacheCommand::class]);
     }
 }

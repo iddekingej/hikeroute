@@ -7,6 +7,7 @@ use App\Vc\Lib\Engine\XMLClassParser;
 use App\Vc\Lib\Engine\XMLClassHandler;
 use App\Vc\Lib\Engine\Data\DataLayer;
 use App\Vc\Lib\Widgets\Base\Widget;
+use App\Vc\Lib\Widgets\Base\GUIFragment;
 
 class XMLGUIParser extends XMLClassParser
 {

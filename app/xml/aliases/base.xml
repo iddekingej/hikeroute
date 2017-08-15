@@ -1,8 +1,7 @@
-<aliases base="App\Vc\Lib\">
-    <element name="condition"  value="Condition" />
-    <element name="fragment"   value="Engine\Gui\GUIFragment" />
-    <element name="imageList"  value="ImageList" />
-    <element name="infoTable"  value="InfoTable" />
-	<element name="note"       value="Note" />
-	<element name="staticText" value="StaticText" />	
+<aliases base="App\Vc\Lib\Widgets\">
+    <element name="fragment"   value="Base\GUIFragment" />
+	<element name="note"       value="Text\Note" />
+	<element name="staticText" value="Text\StaticText" />
+    <element name="bulletList" value="Lists\BulletList" />	
+    <element name="dynamicBulletItem" value="Lists\DynamicBulletItem" />
 </aliases>

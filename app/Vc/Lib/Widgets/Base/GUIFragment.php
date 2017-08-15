@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Vc\Lib\Engine\Gui;
+namespace App\Vc\Lib\Widgets\Base;
 
 use App\Vc\Lib\HtmlComponent;
 use App\Vc\Lib\VerticalSizer;

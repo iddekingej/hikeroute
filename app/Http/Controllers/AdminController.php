@@ -16,11 +16,14 @@ use App\Models\RightTableCollection;
 
 class AdminController extends Controller
 {
-
-    public function __construct()
+/**
+ * Setup authentication middleware.
+ * User must be logged in and must have administration rights
+ */
+    function __construct()
     {
         $this->middleware('auth');
-        $this->middleware("admin");
+        $this->middleware("admin");        
     }
 
     /**
@@ -100,9 +103,9 @@ class AdminController extends Controller
 
     /**
      * Deletes an user.
-     * The user can't delete their own user record.
+     * A user can't delete their own user record.
      *
-     * @param integer $p_id            
+     * @param User  $p_user  DThis user is going to be deleted          
      * @return redirect redirects to the user overview
      */
     
@@ -117,13 +120,13 @@ class AdminController extends Controller
 
     /**
      * Save rights belonging to user.
-     * First all existing rights are deleted and then
-     * the new rights inserted again.
+     * First all existing rights are deleted and 
+     * the new rights are inserted again.
      *
      * @param Request $p_request
      *            Post request from form (contains data to save)
      * @param \App\User $p_user
-     *            User
+     *            Update the rights of this user
      */
     
     private function saveRights(Request $p_request, User $p_user)
@@ -140,8 +143,8 @@ class AdminController extends Controller
      * After submitting a new user, this method
      * validates the data and inserts the user in the "user" table.
      *
-     * @param Request $p_request            
-     * @return Redirect
+     * @param Request $p_request  Post request from the admin.user form.
+     * @return Redirect           Redirect to the users overview
      */
     
     function saveUserAdd(Request $p_request)
