@@ -5,13 +5,20 @@ namespace App\Vc\Trace;
 use App\Vc\Lib\Engine\Data\DataLayer;
 use App\Vc\Lib\Engine\Data\DataStore;
 use App\Vc\Lib\Engine\Data\MapData;
+use App\Lib\Localize;
 
 class ShowDataLayer implements DataLayer{
     function processData(?DataStore $p_parent):DataStore
     {
-        $l_map=new MapData($p_parent);
-        $l_list=[];
         $l_trace=$p_parent->getValue("trace");
+        $l_map=new MapData($p_parent,
+            ["uploadedBy"=>$l_trace->user->name
+            ,"location"=>$l_trace->getLocationString()
+            ,"recordedAt"=>Localize::shortDate($l_trace->startdate)
+            ,"distance"=>Localize::meterToDistance((int)$l_trace->distance)
+            ]);
+        $l_list=[];
+        
         foreach($l_trace->routes as $l_route){
             $l_list[]=new MapData($l_map,["title"=>$l_route->title]);
         }

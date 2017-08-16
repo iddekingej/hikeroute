@@ -3,9 +3,9 @@
 namespace App\Vc\Lib\Widgets\Base;
 
 use App\Vc\Lib\HtmlComponent;
-use App\Vc\Lib\VerticalSizer;
 use App\Vc\Lib\Engine\Data\DataStore;
 use App\Vc\Lib\Widgets\Base\Widget;
+use App\Vc\Lib\Widgets\Sizer\VerticalSizer;
 
 
 /**

@@ -1,10 +1,10 @@
 <?php 
 
-use App\Vc\Lib\HtmlComponent;
 use App\Vc\Lib\Engine\Data\DataStore;
 use App\Vc\Lib\Engine\Data\DynamicValue;
+use App\Vc\Lib\Widgets\Base\Widget;
 
-class TestComponent extends HtmlComponent
+class TestComponent extends Widget
 {
     private $text;
     
@@ -18,7 +18,7 @@ class TestComponent extends HtmlComponent
         return $this->text;
     }
     
-    function display(?DataStore $p_store=null)
+    function displayContent(?DataStore $p_store=null)
     {
         echo $this->text->getValue($p_store);
     }

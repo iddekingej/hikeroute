@@ -27,6 +27,17 @@ class InfoTable extends ThemeItem
        ?></tr><?php 
    }
    
+   function itemHeader($p_label)
+   {
+    ?><tr><td class="infotable_label"><?=static::e($p_label)?></td><td class="infotable_value"><?php    
+   }
+   
+   
+   function itemFooter()
+   {
+       ?></td></tr><?php 
+   }
+   
    function footer()
    {
        ?></table><?php 

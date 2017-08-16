@@ -549,11 +549,11 @@ body, input, table, tr, td, textarea {
 	text-align:center;
 }
 
-.infotable_table td:first-child{
+.infotable_label{
 	font-weight:700;
 	padding-right:10px;
 }
 
-.infotable_table td:last-child{
+.infotable_value{
     color:#777;	
 }
