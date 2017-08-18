@@ -1,4 +1,4 @@
 <?php 
 return [
-    "aliasFiles"=>["app/xml/aliases/base.xml","app/xml/aliases/app.xml","app/xml/aliases/form.xml"]
+    "aliasFiles"=>["../xmlview/src/xml/aliases/base.xml","app/xml/aliases/app.xml","../xmlview/src/xml/aliases/form.xml"]
 ]   ;
