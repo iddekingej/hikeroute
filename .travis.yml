@@ -16,6 +16,9 @@ before_script:
 - sudo cp my.tmp /etc/mysql/my.cnf
 - sudo /etc/init.d/mysql start
 - sudo cat /etc/mysql/my.cnf
+- pushd .
+- git clone https://github.com/iddekingej/xmlview.git
+- popd
 - ./artisan key:generate
 - mysql -e "create database hikeroute"
 - ./artisan -vvv --force --step --no-interaction migrate 
