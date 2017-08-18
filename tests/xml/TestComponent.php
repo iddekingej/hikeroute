@@ -1,8 +1,10 @@
 <?php 
 
-use App\Vc\Lib\Engine\Data\DataStore;
-use App\Vc\Lib\Engine\Data\DynamicValue;
-use App\Vc\Lib\Widgets\Base\Widget;
+
+
+use XMLView\Widgets\Base\Widget;
+use XMLView\Engine\Data\DynamicValue;
+use XMLView\Engine\Data\DataStore;
 
 class TestComponent extends Widget
 {

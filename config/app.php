@@ -177,7 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        App\Vc\Lib\Laravel\XMLViewServiceProvider::class
+        XMLView\Laravel\XMLViewServiceProvider::class
     ],
 
     /*

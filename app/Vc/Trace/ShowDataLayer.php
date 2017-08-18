@@ -2,10 +2,11 @@
 declare(strict_types=1);
 namespace App\Vc\Trace;
 
-use App\Vc\Lib\Engine\Data\DataLayer;
-use App\Vc\Lib\Engine\Data\DataStore;
-use App\Vc\Lib\Engine\Data\MapData;
+
 use App\Lib\Localize;
+use XMLView\Engine\Data\DataLayer;
+use XMLView\Engine\Data\DataStore;
+use XMLView\Engine\Data\MapData;
 
 class ShowDataLayer implements DataLayer{
     function processData(?DataStore $p_parent):DataStore

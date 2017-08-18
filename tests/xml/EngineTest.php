@@ -1,12 +1,13 @@
 <?php 
 use Tests\TestCase;
-use App\Vc\Lib\Engine\Gui\XMLGUIParser;
-use App\Vc\Lib\Engine\Alias\AliasManager;
-use App\Vc\Lib\Engine\Alias\AliasList;
-use App\Vc\Lib\Engine\Alias\AliasException;
-use App\Vc\Lib\Engine\Gui\XMLResourcePage;
-use App\Vc\Lib\Engine\Data\MapData;
-use App\Vc\Lib\Widgets\Base\GUIFragment;
+use XMLView\Engine\Alias\AliasManager;
+use XMLView\Engine\Gui\XMLResourcePage;
+use XMLView\Engine\Gui\XMLGUIParser;
+use XMLView\Engine\Data\MapData;
+use XMLView\Engine\Alias\AliasException;
+use XMLView\Engine\Alias\AliasList;
+use XMLView\Widgets\Base\GUIFragment;
+
 
 require_once __DIR__."/TestComponent.php";
 class EngineTest extends TestCase

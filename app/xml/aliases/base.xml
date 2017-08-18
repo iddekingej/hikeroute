@@ -1,4 +1,4 @@
-<aliases base="App\Vc\Lib\Widgets\">
+<aliases base="XMLView\Widgets\">
     <element name="infoTable"         value="Lists\InfoTable" />
     <element name="infoTableText"     value="Lists\InfoTableText" />
     <element name="fragment"          value="Base\GUIFragment" />

@@ -1,4 +1,4 @@
-<aliases base="App\Vc\Lib\Widgets\Form\">
+<aliases base="XMLView\Widgets\Form\">
     <element name="form"         value="Form" />
     <element name="formCheckBox" value="FormCheckBox" />
     <element name="formFile"     value="FormFile" />

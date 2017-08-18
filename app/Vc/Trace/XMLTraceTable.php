@@ -4,9 +4,9 @@ namespace App\Vc\Trace;
 
 use App\Lib\Localize;
 use App\Models\RouteTrace;
-use App\Vc\Lib\Engine\Data\DynamicValue;
-use App\Vc\Lib\Widgets\Lists\Table;
-use App\Vc\Lib\Engine\Data\DataStore;
+use XMLView\Widgets\Lists\Table;
+use XMLView\Engine\Data\DataStore;
+use XMLView\Engine\Data\DynamicValue;
 
 /**
  * List of route traces.
