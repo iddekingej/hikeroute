@@ -1,3 +1,4 @@
 <aliases base="App\Vc\">
     <element name="traceTable" value="Trace\XMLTraceTable" />
+    <element name="openLayer" value="Trace\XMLOpenLayer" />
 </aliases>

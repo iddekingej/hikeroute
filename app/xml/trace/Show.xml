@@ -1,4 +1,5 @@
 <fragment type="@fragment">
+<!-- TODO display message when list is empty -->
     <datalayer type="App\Vc\Trace\ShowDataLayer" />
     <element type="@infoTable"  title="Route trace information">
         <element type="@infoTableText" label="Uploaded by" text="${uploadedBy}" />
@@ -6,14 +7,14 @@
         <element type="@infoTableText" label="Recorded at" text="${recordedAt}" />
         <element type="@infoTableText" label="Distance" text="${distance}" />
         <element type="@infoTableWidget" label="Download file">
-            <element type="@textRouteLink" route="traces.download"  parameters="${downloadParams}" text="Download file"/>
+            <element type="@textRouteLink" route="traces.download"  parameters="${downloadParams}" text="Download file"/>            
         </element>
     </element>
     <element type="@staticText" text="Routes using this trace" class="traces_route_title" />
-    <element type="@bulletList">
+    <element type="@bulletList" >
         <element type="@dynamicBulletItem" data="${usedInRoutes}">
-            <element type="@staticText" text="${title}" />
+            <element type="@textRouteLink" route="display.overview"  parameters="${params}" text="${title}"/>
         </element>
     </element>
-    
+    <element type="@openLayer" trace="${trace}" />
 </fragment>

@@ -1,12 +1,19 @@
-<?php 
+<?php
 declare(strict_types=1);
 namespace App\Vc\Trace;
 
 use App\Models\RouteTrace;
-use App\Vc\Lib\HtmlComponent;
-use App\Vc\Lib\Engine\Data\DataStore;
 
-class OpenLayer extends HtmlComponent{
+use XMLView\Widgets\Base\Widget;
+use XMLView\Engine\Data\DynamicValue;
+use XMLView\Engine\Data\DataStore;
+
+class XMLOpenLayer extends Widget{
+    /**
+     * Route Trace displayed
+     *
+     * @var DynamicValue
+     */
     private $routeTrace;
     private $id="map";
     private $icons=[];
@@ -19,9 +26,14 @@ class OpenLayer extends HtmlComponent{
         $this->setContainerHeight("0px");
     }
     
-    function setTrace(RouteTrace $p_trace)
+    function setTrace(DynamicValue $p_trace)
     {
         $this->routeTrace=$p_trace;
+    }
+    
+    function getRouteTrace():?DynamicValue
+    {
+        return $this->routeTrace;
     }
     
     function getJs():array
@@ -43,16 +55,13 @@ class OpenLayer extends HtmlComponent{
     {
         $this->icons[$p_name]=[$p_url,$p_sizeX,$p_sizeY,$p_offsetX,$p_offsetY];
     }
-    function getRouteTrace():RouteTrace
-    {
-        return $this->routeTrace;
-    }
     
-
     
-    function display(?DataStore $p_store=null):void
+    
+    
+    function displayContent(DataStore $p_store):void
     {
-        
+        $l_routeTrace=$this->getAttValue("routeTrace", $p_store,RouteTrace::class,true);
         echo $this->theme->div()->id($this->id);
         ?>
 		<script type='text/javascript'>
@@ -70,8 +79,8 @@ class OpenLayer extends HtmlComponent{
             } 
 		?>
 			l_map=new RouteMap(<?=json_encode($this->id)?>);
-			l_map.setGpxRoute(<?=json_encode(Route("routes.download",["p_id"=>$this->routeTrace->id_routefile]))?>);
-			l_map.setSize(<?=($this->routeTrace->minlat)?>,<?=($this->routeTrace->maxlat)?> , <?=($this->routeTrace->minlon)?> , <?=($this->routeTrace->maxlon)?>);
+			l_map.setGpxRoute(<?=json_encode(Route("routes.download",["p_id"=>$l_routeTrace->id_routefile]))?>);
+			l_map.setSize(<?=($l_routeTrace->minlat)?>,<?=($l_routeTrace->maxlat)?> , <?=($l_routeTrace->minlon)?> , <?=($l_routeTrace->maxlon)?>);
 			l_map.displayMap();
 		<?php 
 		  if($this->markers){

@@ -82,8 +82,7 @@ class trace1Test extends TestCase
     
     function testShowPage()
     {
-        $l_page=new ShowPage($this->trace1);
-        $l_page->display();
+        XMLView("trace/Show.xml",["trace"=>$this->trace1]);
         $this->assertEquals(1,1);
     }
     

@@ -18,11 +18,15 @@ class ShowDataLayer implements DataLayer{
             ,"recordedAt"=>Localize::shortDate($l_trace->startdate)
             ,"distance"=>Localize::meterToDistance((int)$l_trace->distance)
             ,"downloadParams"=>["p_id"=>$l_trace->id]
+           ,"hasroutes"=>!($l_trace->routes->isEmpty())
+                ,"hasNoRoutes"=>$l_trace->routes->isEmpty()
             ]);
         $l_list=[];
         
         foreach($l_trace->routes as $l_route){
-            $l_list[]=new MapData($l_map,["title"=>$l_route->title]);
+            $l_list[]=new MapData($l_map,
+                ["title"=>$l_route->title
+                ,"params"=>["p_id_route"=>$l_route->id]]);
         }
         $l_map->setValue("usedInRoutes",$l_list);
         return $l_map;
