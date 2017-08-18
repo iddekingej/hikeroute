@@ -5,6 +5,9 @@
         <element type="@infoTableText" label="Location" text="${location}" />
         <element type="@infoTableText" label="Recorded at" text="${recordedAt}" />
         <element type="@infoTableText" label="Distance" text="${distance}" />
+        <element type="@infoTableWidget" label="Download file">
+            <element type="@textRouteLink" route="traces.download"  parameters="${downloadParams}" text="Download file"/>
+        </element>
     </element>
     <element type="@staticText" text="Routes using this trace" class="traces_route_title" />
     <element type="@bulletList">

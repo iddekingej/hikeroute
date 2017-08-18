@@ -17,6 +17,7 @@ class ShowDataLayer implements DataLayer{
             ,"location"=>$l_trace->getLocationString()
             ,"recordedAt"=>Localize::shortDate($l_trace->startdate)
             ,"distance"=>Localize::meterToDistance((int)$l_trace->distance)
+            ,"downloadParams"=>["p_id"=>$l_trace->id]
             ]);
         $l_list=[];
         
