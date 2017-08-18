@@ -8,6 +8,7 @@ service: mysql
          
 before_script:
 - pushd .
+- cd ..
 - git clone https://github.com/iddekingej/xmlview.git
 - popd
 - composer install
