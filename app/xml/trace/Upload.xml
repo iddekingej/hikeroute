@@ -1,6 +1,6 @@
-<fragment type="@fragment" >
+<page type="@page" title="Uplaod trace" >
     <element type="@form" url="${url}" data="${form}">
         <datalayer type="App\Vc\Trace\UploadLayer" />
         <element type="@formFile" label="GPX Trace file" name="routefile" />
     </element>
-</fragment>
+</page>

@@ -7,6 +7,7 @@ use App\Models\RouteTrace;
 use XMLView\Widgets\Base\Widget;
 use XMLView\Engine\Data\DynamicValue;
 use XMLView\Engine\Data\DataStore;
+use Illuminate\Cache\DatabaseStore;
 
 class XMLOpenLayer extends Widget{
     /**
@@ -36,12 +37,12 @@ class XMLOpenLayer extends Widget{
         return $this->routeTrace;
     }
     
-    function getJs():array
+    function getJs(DataStore $p_store):array
     {
         return ["/js/ol.js"];
     }
     
-    function getCss():array
+    function getCss(DataStore $p_store):array
     {
         return ["/css/ol.css"];
     }

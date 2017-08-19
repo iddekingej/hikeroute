@@ -6,7 +6,7 @@ use App\Models\RouteTrace;
 use App\Vc\Lib\HtmlComponent;
 use App\Vc\Lib\Engine\Data\DataStore;
 
-class OpenLayer extends HtmlComponent{
+class  OpenLayer extends HtmlComponent{
     private $routeTrace;
     private $id="map";
     private $icons=[];
