@@ -3,7 +3,6 @@
 use App\Vc\User\ProfilePage;
 use Tests\TestCase;
 use App\Vc\User\PasswordPage;
-use Illuminate\Support\MessageBag;
 use App\Vc\User\EditPage;
 use Illuminate\Support\ViewErrorBag;
 use App\Vc\User\AllUserPage;

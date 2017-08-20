@@ -1,4 +1,4 @@
-<page type="@page"  title="Show route trace">
+<page type="@hrPage"  title="Show route trace">
 <!-- TODO display message when list is empty -->
     <datalayer type="App\Vc\Trace\ShowDataLayer" />
     <element type="@infoTable"  title="Route trace information">

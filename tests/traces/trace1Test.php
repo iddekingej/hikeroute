@@ -5,10 +5,6 @@ use Tests\TestCase;
 use App\Models\RouteTrace;
 use App\Vc\Trace\ListPage;
 use App\Models\RouteTraceTableCollection;
-use App\Vc\Trace\UploadPage;
-use Illuminate\Database\Eloquent\Collection;
-use App\Vc\Route\SelectTracePage;
-use App\Vc\Trace\ShowPage;
 use App\Lib\GPXReader;
 
 

@@ -7,7 +7,6 @@ use App\Models\RouteTrace;
 use XMLView\Widgets\Base\Widget;
 use XMLView\Engine\Data\DynamicValue;
 use XMLView\Engine\Data\DataStore;
-use Illuminate\Cache\DatabaseStore;
 
 class XMLOpenLayer extends Widget{
     /**

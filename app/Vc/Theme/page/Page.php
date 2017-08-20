@@ -7,11 +7,12 @@ use App\Lib\Icons;
 
 class Page extends ThemeItem
 {
+    
     function pageHeader($p_title,Array $p_js,Array $p_css)
     {
-?>
+        ?>
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,7 +36,17 @@ foreach($p_js as $l_js){
 ?>
 </head>
 <body>
-	<div class="apptitle">
+<?php 
+        $this->themeHeader();
+    }
+    
+    /**
+     * This is for transition from PHP VC to XML VC's. Can be removed when completed
+     */
+    function themeHeader()
+    {
+        ?>
+        <div class="apptitle">
 		<table class="apptitle_table">
 			<tr>
 				<td class="apptitle_title"><?=__("Hiking routes")?></td>
@@ -53,8 +64,9 @@ foreach($p_js as $l_js){
 			</tr>
 		</table>
 	</div>
-<?php       
+        <?php 
     }
+    
     function note($p_message)
     {
         ?><div class="page_hint"><?=$this->e($p_message)?></div><?php
@@ -69,6 +81,6 @@ foreach($p_js as $l_js){
     }
     
     
-
+    
 }
 ?>

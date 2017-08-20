@@ -1,4 +1,4 @@
-<page type="@page" title="Select trace">
+<page type="@hrPage" title="Select trace">
     <element type="@note" text="Please, select first a previous uploaded route trace" />
     <element type="@traceTable" title= "Route traces owned by user" traces="${traces}" route="${route}" params="${params}" >
         <datalayer type="App\Vc\Route\SelectTraceDataLayer" />
