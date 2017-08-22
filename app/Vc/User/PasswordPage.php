@@ -5,7 +5,7 @@ namespace App\Vc\User;
 use App\Vc\Lib\HtmlPage;
 use App\Models\User;
 use App\Lib\Frm;
-use App\Vc\Lib\Engine\Data\DataStore;
+use XMLView\Engine\Data\DataStore;;
 
 /**
  * Change password of current user

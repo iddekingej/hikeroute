@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace App\Vc\Lib;
 
-use App\Vc\Lib\Engine\Data\DataStore;
+use XMLView\Engine\Data\DataStore;;
 
 /**
  * When a item is added to a Sizer, it's wrapped in a SizerItem

@@ -1,6 +1,10 @@
 <?php 
 declare(strict_types=1);
 namespace App\Vc\Form;
+use XMLView\Engine\Data\DataStore;
+
+
+
 
 /**
  * Class used for a form section title
@@ -41,7 +45,7 @@ class FormSection extends FormElement
      * Display the section title
      */
     
-    function display()
+    function display(?DataStore $p_data=null)
     {
         $this->theme->base_Form->sectionTitle($this->title);        
     }

@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace App\Vc\Lib;
 
 use App\Vc\Lib\HtmlComponent;
-use App\Vc\Lib\Engine\Data\DataStore;
+use XMLView\Engine\Data\DataStore;;
 
 /**
  *  A vertical list of links with a icon in front of the link 

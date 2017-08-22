@@ -4,7 +4,7 @@ namespace App\Vc\Trace;
 
 use App\Models\RouteTrace;
 use App\Vc\Lib\HtmlComponent;
-use App\Vc\Lib\Engine\Data\DataStore;
+use XMLView\Engine\Data\DataStore;;
 
 class  OpenLayer extends HtmlComponent{
     private $routeTrace;

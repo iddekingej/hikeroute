@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace App\Vc\Lib;
 
 use App\Models\Image;
-use App\Vc\Lib\Engine\Data\DataStore;
+use XMLView\Engine\Data\DataStore;;
 
 /**
  * Displays a list of thumbnails  of a given list images

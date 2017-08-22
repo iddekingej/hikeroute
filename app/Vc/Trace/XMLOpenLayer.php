@@ -7,6 +7,7 @@ use App\Models\RouteTrace;
 use XMLView\Widgets\Base\Widget;
 use XMLView\Engine\Data\DynamicValue;
 use XMLView\Engine\Data\DataStore;
+use XMLView\Engine\Data\DynamicStaticValue;
 
 class XMLOpenLayer extends Widget{
     /**
@@ -23,7 +24,7 @@ class XMLOpenLayer extends Widget{
     {
         parent::__construct();
         $this->routeTrace=$p_trace;
-        $this->setContainerHeight("0px");
+        $this->setContainerHeight(new DynamicStaticValue("0px"));
     }
     
     function setTrace(DynamicValue $p_trace)

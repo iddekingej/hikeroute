@@ -4,7 +4,7 @@ namespace App\Vc;
 
 use App\Vc\Lib\HtmlPage;
 use Illuminate\Database\Eloquent\Collection;
-use App\Vc\Lib\Engine\Data\DataStore;
+use XMLView\Engine\Data\DataStore;;
 
 class HomePage extends HtmlPage
 {

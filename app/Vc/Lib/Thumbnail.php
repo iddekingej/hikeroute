@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace App\Vc\Lib;
 
 use App\Models\RouteImage;
-use App\Vc\Lib\Engine\Data\DataStore;
+use XMLView\Engine\Data\DataStore;;
 
 class Thumbnail extends HtmlComponent
 {

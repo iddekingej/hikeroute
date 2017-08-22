@@ -6,7 +6,7 @@ use App\Vc\Lib\HtmlPage;
 use App\Lib\Frm;
 use App\Models\User;
 use Illuminate\Support\ViewErrorBag;
-use App\Vc\Lib\Engine\Data\DataStore;
+use XMLView\Engine\Data\DataStore;;
 /**
  * Edit userdata by administrator
   *
