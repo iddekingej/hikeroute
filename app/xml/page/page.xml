@@ -3,15 +3,18 @@
     <element type='@horizontalSizer' containerwidth='100%'>
         <element type='@verticalSizer' containerWidth='200px'>
             <element type='@leftMenu' containerWidth='200px'>
-                <element type='@menuGroup' title='Profile'>
+                <element type='@menuGroup' title='Profile' visible='${islogin}' >
                     <element type='@textMenuItem' tag='profile' text='Profile' route='user.profile' />
+                    <element type='@logoutMenuItem'  />
                 </element>
                 <element type='@menuGroup' visible="${isadmin}" title="Administration">
                     <element type='@textMenuItem' tag='useradmin' text="Users"  route="admin.users" />
+                    
                 </element>
                 <element type='@menuGroup' title='Routes'>
-                    <element type='@textMenuItem' tag='traces' text='Route traces' route='traces.list' />
-                    <element type='@textMenuItem' tag='routes' text='Routes' route='routes' />
+                    <element type='@textMenuItem' visible='${islogin}' tag='traces' text='Route traces' route='traces.list' />
+                    <element type='@textMenuItem' visible='${islogin}' tag='routes' text='Routes' route='routes' />
+                    <element type='@textMenuItem' tag='start' text='Published routes' route='start' />
                 </element>
             </element>
         </element>

@@ -15,6 +15,7 @@
     <element name="leftMenu"           value="Menu\LeftMenu" />
     <element name="menuGroup"          value="Menu\MenuGroup" />
     <element name="textMenuItem"       value="Menu\TextMenuItem" />
+    <element name="logoutMenuItem"     value="Menu\LogoutMenuItem" />
     <element name="horizontalSizer"    value="Sizer\HorizontalSizer" />
     <element name="verticalSizer"      value="Sizer\VerticalSizer" />
 </aliases>
