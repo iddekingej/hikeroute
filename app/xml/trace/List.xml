@@ -1,0 +1,9 @@
+<page file="page/page.xml"  title="__Traces overview">
+    <element ref="content"> 
+        <datalayer type="App\Vc\Trace\ListLayer"/>
+        <topMenu>
+            <topMenuTextItem text="__Upload new gpx" route="traces.upload"/>
+        </topMenu>
+        <traceTable traces="${traces}" route="traces.show" />
+    </element>
+</page>  

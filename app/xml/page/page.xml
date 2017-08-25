@@ -3,18 +3,18 @@
     <element type='@horizontalSizer' containerwidth='100%'>
         <element type='@verticalSizer' containerWidth='200px'>
             <element type='@leftMenu' containerWidth='200px'>
-                <element type='@menuGroup' title='Profile' visible='${islogin}' >
-                    <element type='@textMenuItem' tag='profile' text='Profile' route='user.profile' />
+                <element type='@menuGroup' title='__Profile' visible='${islogin}' >
+                    <element type='@textMenuItem' tag='profile' text='__Profile' route='user.profile' />
                     <element type='@logoutMenuItem'  />
                 </element>
-                <element type='@menuGroup' visible="${isadmin}" title="Administration">
-                    <element type='@textMenuItem' tag='useradmin' text="Users"  route="admin.users" />
+                <element type='@menuGroup' visible="${isadmin}" title="__Administration">
+                    <element type='@textMenuItem' tag='useradmin' text="__Users"  route="admin.users" />
                     
                 </element>
                 <element type='@menuGroup' title='Routes'>
-                    <element type='@textMenuItem' visible='${islogin}' tag='traces' text='Route traces' route='traces.list' />
-                    <element type='@textMenuItem' visible='${islogin}' tag='routes' text='Routes' route='routes' />
-                    <element type='@textMenuItem' tag='start' text='Published routes' route='start' />
+                    <element type='@textMenuItem' visible='${islogin}' tag='traces' text='__Route traces' route='traces.list' />
+                    <element type='@textMenuItem' visible='${islogin}' tag='routes' text='__Routes' route='routes' />
+                    <element type='@textMenuItem' tag='start' text='__Published routes' route='start' />
                 </element>
             </element>
         </element>

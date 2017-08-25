@@ -53,9 +53,7 @@ class trace1Test extends TestCase
     
     function testListPage()
     {
-        $l_page=new ListPage(RouteTraceTableCollection::getByUser(\Auth::user()));
-        $l_page->display();
-        
+        XMLView("trace/List.xml");
         $this->outputContainsRoute(
             [
                 ["traces.show",["id"=>$this->trace2->id]]

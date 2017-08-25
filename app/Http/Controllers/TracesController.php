@@ -18,10 +18,12 @@ class TracesController extends Controller
  */
     function list()
     {
+        XMLView("trace/List.xml");
+        /*
         $l_traces = RouteTraceTableCollection::getByUser(\Auth::user());
         return View("traces.list", [
             "traces" => $l_traces
-        ]);
+        ]);*/
     }
 
     function show($p_id)

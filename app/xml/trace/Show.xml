@@ -1,24 +1,22 @@
 <page file="page/page.xml"  title="Show route trace">
     <element ref="content"> 
         <datalayer type="App\Vc\Trace\ShowDataLayer" />
-		<element type="@infoTable" title="Route trace information">
-			<element type="@infoTableText" label="Uploaded by" text="${uploadedBy}" />
-			<element type="@infoTableText" label="Location" text="${location}" />
-			<element type="@infoTableText" label="Recorded at" text="${recordedAt}" />
-			<element type="@infoTableText" label="Distance" text="${distance}" />
-			<element type="@infoTableWidget" label="Download file">
-				<element type="@textRouteLink" route="traces.download"
-					parameters="${downloadParams}" text="Download file" />
-			</element>
-		</element>
-		<element type="@staticText" text="Routes using this trace"
-			class="traces_route_title" />
-		<element type="@bulletList">
-			<element type="@dynamicBulletItem" data="${usedInRoutes}">
-				<element type="@textRouteLink" route="display.overview"
+		<infoTable  title="Route trace information">
+			<infoTableText label="__Uploaded by" text="${uploadedBy}" />
+			<infoTableText  label="__Location" text="${location}" />
+			<infoTableText  label="__Recorded at" text="${recordedAt}" />
+			<infoTableText  label="__Distance" text="${distance}" />
+			<infoTableText  label="__Download file">
+				<textRouteLink route="traces.download" parameters="${downloadParams}" text="__Download file" />
+			</infoTableText>
+		</infoTable>
+		<staticText  text="__Routes using this trace" class="traces_route_title" />
+		<bulletList>
+			<dynamicBulletItem data="${usedInRoutes}">
+				<textRouteLink  route="display.overview"
 					parameters="${params}" text="${title}" />
-			</element>
-		</element>
-		<element type="@openLayer" trace="${trace}" />
+			</dynamicBulletItem>
+		</bulletList>
+		<openLayer trace="${trace}" />
 	</element>
 </page>

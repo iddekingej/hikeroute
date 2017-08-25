@@ -29,7 +29,7 @@ class XMLTraceTable extends Table
         $this->params=$p_params;
     }
     
-    function getParams():DynamicValue
+    function getParams():?DynamicValue
     {
         return $this->params;
     }
@@ -108,7 +108,10 @@ class XMLTraceTable extends Table
      */
     function getData($p_trace,DataStore $p_store)
     {
-        $l_params=$this->params->getValue($p_store);
+        $l_params=$this->getAttValue("params", $p_store,"array",false);
+        if($l_params===null){
+            $l_params=[];
+        }
         $l_params["id"]=$p_trace->id;
         return [
              "edit"=>Route( $this->route->getValue($p_store),$l_params)
