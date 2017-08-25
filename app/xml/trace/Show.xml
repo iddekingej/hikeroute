@@ -6,9 +6,9 @@
 			<infoTableText  label="__Location" text="${location}" />
 			<infoTableText  label="__Recorded at" text="${recordedAt}" />
 			<infoTableText  label="__Distance" text="${distance}" />
-			<infoTableText  label="__Download file">
+			<infoTableWidget  label="__Download file">
 				<textRouteLink route="traces.download" parameters="${downloadParams}" text="__Download file" />
-			</infoTableText>
+			</infoTableWidget>
 		</infoTable>
 		<staticText  text="__Routes using this trace" class="traces_route_title" />
 		<bulletList>
