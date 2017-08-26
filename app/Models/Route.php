@@ -49,7 +49,10 @@ class Route extends Model
         return $this->belongsTo(RouteTrace::class, "id_routetrace");
     }
 
-
+    function getRouteTrace()
+    {
+        return $this->routeTrace;
+    }
 
     /**
      * Recalc data from gpx file,like min,max lat/lon and distance

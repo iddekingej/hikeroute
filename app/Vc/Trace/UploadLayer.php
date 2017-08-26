@@ -10,6 +10,6 @@ use XMLView\Engine\Data\DataStore;
 class UploadLayer implements DataLayer{
     function processData(?DataStore $p_parent):DataStore
     {
-        return new MapData($p_parent,["form"=>["route"=>""],"url"=>Route("traces.save")]);        
+        return new MapData($p_parent,["form"=>["route"=>""],"url"=>Route("traces.save"),"routefile"=>""]);        
     }
 }

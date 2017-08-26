@@ -210,15 +210,10 @@ class RoutesController extends Controller
     {
         $this->checkInteger($p_id);
         $l_route = Route::findOrFail($p_id);
-        $l_routeTrace = $l_route->routeTrace;
         if($l_route->canEdit(\Auth::user())){
-            $l_data = [
-                "route"=>$l_route,
-                "routeTrace" => $l_routeTrace
-            ];
-            return View("routes.form", $l_data);
+            XMLView("route/Edit.xml",["route"=>$l_route]);
         } else {
-            return $this->displayError(__("Bit allowed to edit this route"));
+            return $this->displayError(__("Not allowed to edit this route"));
         }
     }
 
@@ -235,7 +230,7 @@ class RoutesController extends Controller
         $l_id = $p_request->input("id");
         $this->checkInteger($l_id);
         $l_rules = [
-            "routeTitle" => [
+            "title" => [
                 "required"
             ]
         ];
@@ -245,9 +240,9 @@ class RoutesController extends Controller
             return Redirect::route("routes.edit",["id"=>$l_id])->withErrors($l_validator)->withInput($p_request->all());
         }
         $l_route = Route::findOrFail($l_id);
-        $l_route->title = $p_request->input("routeTitle");
+        $l_route->title = $p_request->input("title");
         $l_route->comment = $p_request->input("comment");
-        $l_route->location = $p_request->input("routeLocation");
+        $l_route->location = $p_request->input("location");
         $l_route->publish = $p_request->input("publish") ? 1 : 0;
         $l_route->save();
         return Redirect::route("display.overview",["id"=>$l_id]);
