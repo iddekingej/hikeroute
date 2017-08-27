@@ -1,5 +1,5 @@
 <page type="@hrPage" title="Uplaod trace" >
-    <form url="${url}" data="${form}" title="__Upload file">
+    <form url="${url}" title="__Upload file">
         <datalayer type="App\Vc\Trace\UploadLayer" />
         <formFile label="__GPX Trace file" name="routefile" />
     </form>

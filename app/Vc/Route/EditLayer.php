@@ -14,6 +14,7 @@ class EditLayer extends Base implements  DataLayer
         $l_route=$p_parent->getValue("route");
         $l_store=new DataItemStore($p_parent,$l_route);
         $l_store->setValue("url", route("routes.save.edit",["id"=>$l_route->id,"id_routetrace"=>$l_route->routeTrace->id]));
+        $l_store->setValue("cancelUrl",Route("routes"),[]);
         return $l_store;
     }
 }

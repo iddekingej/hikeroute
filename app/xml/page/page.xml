@@ -1,24 +1,23 @@
-<page type="@hrPage">
+<hrPage>
     <datalayer type="App\Vc\Base\PageDataLayer" />
-    <element type='@horizontalSizer' containerwidth='100%'>
-        <element type='@verticalSizer' containerWidth='200px'>
-            <element type='@leftMenu' containerWidth='200px'>
-                <element type='@menuGroup' title='__Profile' visible='${islogin}' >
-                    <element type='@textMenuItem' tag='profile' text='__Profile' route='user.profile' />
-                    <element type='@logoutMenuItem'  />
-                </element>
-                <element type='@menuGroup' visible="${isadmin}" title="__Administration">
-                    <element type='@textMenuItem' tag='useradmin' text="__Users"  route="admin.users" />
+    <horizontalSizer containerwidth='100%'>
+        <verticalSizer containerWidth='200px'>
+            <leftMenu  containerWidth='200px'>
+                <menuGroup title='__Profile' visible='${islogin}' >
+                    <textMenuItem tag='profile' text='__Profile' route='user.profile' />
+                    <logoutMenuItem />
+                </menuGroup>
+                <menuGroup visible="${isadmin}" title="__Administration">
+                    <textMenuItem tag='useradmin' text="__Users"  route="admin.users" />
                     
-                </element>
-                <element type='@menuGroup' title='Routes'>
-                    <element type='@textMenuItem' visible='${islogin}' tag='traces' text='__Route traces' route='traces.list' />
-                    <element type='@textMenuItem' visible='${islogin}' tag='routes' text='__Routes' route='routes' />
-                    <element type='@textMenuItem' tag='start' text='__Published routes' route='start' />
-                </element>
-            </element>
-        </element>
-        <element name="content" type='@verticalSizer' containerWidth="">
-        </element>
-    </element>
-</page>
+                </menuGroup>
+                <menuGroup  title='Routes'>
+                    <textMenuItem visible='${islogin}' tag='traces' text='__Route traces' route='traces.list' />
+                    <textMenuItem visible='${islogin}' tag='routes' text='__Routes' route='routes' />
+                    <textMenuItem tag='start' text='__Published routes' route='start' />
+                </menuGroup>
+            </leftMenu>
+        </verticalSizer>
+        <verticalSizer name="content" containerWidth="" />        
+    </horizontalSizer>
+</hrPage>
