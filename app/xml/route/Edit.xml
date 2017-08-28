@@ -1,7 +1,9 @@
 <page type="@hrPage">
 	<datalayer type="App\Vc\Route\EditLayer" />
 	<openLayer trace="${routeTrace}" />
-	<form title="__Edit route" url="${url}" cancelUrl="${cancelUrl}">
+	<form title="__Edit route" >
+		<url for="setUrl" route="routes.save.edit" id="${id}" id_routetrace="${id_routetrace}" />
+		<url for="setCancelUrl" route="routes" />	
 		<formText name='title' label="__Title" />		
 		<formText name="location" label="__Location" />
 		<formCheckBox name="publish" label="__Publish?" />
