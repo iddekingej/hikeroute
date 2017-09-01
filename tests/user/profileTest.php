@@ -12,9 +12,9 @@ class profileTest extends TestCase
     
     function testProfilePage()
     {
-        $l_page=new ProfilePage($this->getAdminUser());
-        $l_page->display();
-        $this->assertEquals(1,1);
+        $l_name=$this->getAdminUser()->name;
+        $this->expectOutputRegex('/'.$l_name.'/s');
+        XMLView("user/profile.xml",["user"=>$this->getAdminUser()]);
     }
     
     function testPasswordPage()

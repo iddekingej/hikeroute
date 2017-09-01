@@ -2,10 +2,10 @@
     <datalayer type="App\Vc\Base\PageDataLayer" />
     <horizontalSizer containerwidth='100%'>
         <verticalSizer containerWidth='200px'>
-            <leftMenu  containerWidth='200px'>
+            <leftMenu  name="mainMenu" containerWidth='200px'>
                 <menuGroup title='__Profile' visible='${islogin}' >
                     <textMenuItem tag='profile' text='__Profile' route='user.profile' />
-                    <logoutMenuItem />
+                    <logoutMenuItem tag="logOut"  />
                 </menuGroup>
                 <menuGroup visible="${isadmin}" title="__Administration">
                     <textMenuItem tag='useradmin' text="__Users"  route="admin.users" />

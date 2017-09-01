@@ -20,7 +20,7 @@ class ProfileController extends Controller
     
     function displayProfile()
     {
-        return View("user.profile", [
+        XMLView("user/profile.xml",[
             "user" => \Auth::user()
         ]);
     }

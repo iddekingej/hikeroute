@@ -1,4 +1,5 @@
 <page file="page/page.xml"  title="__Traces overview">
+    <element ref="mainMenu" currentTag="traces" />s
     <element ref="content"> 
         <datalayer type="App\Vc\Trace\ListLayer"/>
         <topMenu>

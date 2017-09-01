@@ -1,0 +1,19 @@
+<page file="page/page.xml"  title="__Traces overview">
+    <element ref="mainMenu" currentTag="traces" />s
+    <element ref="content"> 
+        <datalayer type="App\Vc\User\ProfileDataLayer"/>
+        <infoTable  title="__Profile" >
+            <infoTableText label="__Nick name" text="${name}" />
+            <infoTableText label="__First name" text="${firstname}" />
+            <infoTableText label="__Last name" text="${lastname}" />
+            <infoTableText label="__Email address" text="${email}" />
+         </infoTable>
+         <iconTextLink icon="/images/edit.png" text="__Edit profile">
+            <url for="setUrl" route="user.editprofile"/>
+         </iconTextLink>
+         <iconTextLink icon="/images/edit.png" text="__Edit password">
+            <url for="setUrl" route="user.editpassword"/>
+         </iconTextLink>
+         
+    </element>
+</page>
