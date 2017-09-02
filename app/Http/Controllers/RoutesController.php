@@ -12,6 +12,7 @@ use App\Models\RouteFile;
 use App\Models\Location;
 use App\Models\RouteTrace;
 use App\Lib\GPXList;
+use XMLView\View\ResourceView;
 
 /**
  * Handles uploading ,deleting, editing etc..
@@ -88,7 +89,7 @@ class RoutesController extends Controller
      */
     function newRoute()
     {
-        XMLView("trace/SelectTrace.xml",["next"=>"routes.newdetails","id_route"=>""]);       
+        return new ResourceView("trace/SelectTrace.xml",["next"=>"routes.newdetails","id_route"=>""]);       
     }
 
     /**
@@ -169,7 +170,7 @@ class RoutesController extends Controller
         if (! $l_route->canEdit(\Auth::user())) {
             return $this->notAllowedToChangeRoute();
         }        
-        XMLView("trace/SelectTrace.xml", [                        
+        return new ResourceView("trace/SelectTrace.xml", [                        
             "id_route" => $l_route->id,  
             "next"=>"routes.trace.update"
         ]);
@@ -211,7 +212,7 @@ class RoutesController extends Controller
         $this->checkInteger($p_id);
         $l_route = Route::findOrFail($p_id);
         if($l_route->canEdit(\Auth::user())){
-            XMLView("route/Edit.xml",["route"=>$l_route]);
+            return new ResourceView("route/Edit.xml",["route"=>$l_route]);
         } else {
             return $this->displayError(__("Not allowed to edit this route"));
         }

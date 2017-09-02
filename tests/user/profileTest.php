@@ -1,12 +1,14 @@
 <?php 
 
-use App\Vc\User\ProfilePage;
 use Tests\TestCase;
-use App\Vc\User\PasswordPage;
 use App\Vc\User\EditPage;
 use Illuminate\Support\ViewErrorBag;
 use App\Vc\User\AllUserPage;
+use XMLView\View\ResourceView;
 
+/**
+ *  Test user profile page
+ */
 class profileTest extends TestCase
 {
     
@@ -19,7 +21,7 @@ class profileTest extends TestCase
     
     function testPasswordPage()
     {
-        $l_page=new PasswordPage(new ViewErrorBag());
+        $l_page=new ResourceView("user/password.xml");
         $l_page->display();
         $this->assertEquals(1,1);
     }

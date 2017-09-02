@@ -8,6 +8,7 @@ use App\Models\RouteTrace;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Validator;
+use XMLView\View\ResourceView;
 
 class TracesController extends Controller
 {
@@ -18,12 +19,7 @@ class TracesController extends Controller
  */
     function list()
     {
-        XMLView("trace/List.xml");
-        /*
-        $l_traces = RouteTraceTableCollection::getByUser(\Auth::user());
-        return View("traces.list", [
-            "traces" => $l_traces
-        ]);*/
+        return new ResourceView("trace/List.xml");
     }
 
     function show($p_id)
@@ -34,11 +30,7 @@ class TracesController extends Controller
             return $this->displayError(__("to view this route trace"));
         }
         
-        XMLView("trace/Show.xml",["trace"=>$l_trace]);
-        
-       // return View("traces.show", [
-       //     "routeTrace" => $l_trace
-       // ]);
+        return new ResourceView("trace/Show.xml",["trace"=>$l_trace]);
     }
 
     function download($p_id)
@@ -70,7 +62,7 @@ class TracesController extends Controller
 
     function upload()
     {
-        XMLView("trace/Upload.xml");
+        return new ResourceView("trace/Upload.xml");
     }
 
     /**

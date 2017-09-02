@@ -5,6 +5,7 @@ use App\Models\User;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use XMLView\View\ResourceView;
 /**
  * This controller is used for handling the profile page.
  *
@@ -20,7 +21,7 @@ class ProfileController extends Controller
     
     function displayProfile()
     {
-        XMLView("user/profile.xml",[
+        return new ResourceView("user/profile.xml",[
             "user" => \Auth::user()
         ]);
     }
@@ -72,7 +73,7 @@ class ProfileController extends Controller
      */
     function editPassword()
     {
-        return View("user.password");
+        return new ResourceView("user/password.xml");
     }
 
     /**
@@ -103,8 +104,7 @@ class ProfileController extends Controller
         $l_user = \Auth::user();
         $l_user->password = bcrypt($p_request->input("password"));
         $l_user->save();
-        return View("user.profile", [
-            "user" => \Auth::user()
-        ]);
+        
+        return $this->displayProfile();
     }
 }
