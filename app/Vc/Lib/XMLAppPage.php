@@ -12,7 +12,7 @@ use XMLView\Widgets\Base\XMLResourcePage;
  */
 class XMLAppPage extends XMLResourcePage
 {
-    function themeHeader()
+    function themeHeader():void
     {
         $this->theme->app_page_XMLPage->themeHeader();
     }
