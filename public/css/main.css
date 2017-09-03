@@ -561,3 +561,7 @@ td{
 .infotable_value{
     color:#777;	
 }
+
+.block_center{
+    margin: 0 auto;
+}
