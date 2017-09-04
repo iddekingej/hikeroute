@@ -34,9 +34,7 @@ class ProfileController extends Controller
     
     function editProfile()
     {
-        return View("user.edit", [
-            "user" => \Auth::user()
-        ]);
+        return new ResourceView("user/edit.xml",["user"=>\Auth::user()]);
     }
 
     /**
@@ -61,9 +59,7 @@ class ProfileController extends Controller
         $l_user->lastname = $p_request->input("lastname");
         $l_user->email = $p_request->input("email");
         $l_user->save();
-        return View("user.profile", [
-            "user" => \Auth::user()
-        ]);
+        return $this->displayProfile();        
     }
 
     /**

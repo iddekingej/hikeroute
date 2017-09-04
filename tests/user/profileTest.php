@@ -1,10 +1,9 @@
 <?php 
 
 use Tests\TestCase;
-use App\Vc\User\EditPage;
-use Illuminate\Support\ViewErrorBag;
 use App\Vc\User\AllUserPage;
 use XMLView\View\ResourceView;
+use App\Models\User;
 
 /**
  *  Test user profile page
@@ -28,7 +27,7 @@ class profileTest extends TestCase
     
     function testEditPage()
     {
-        $l_page=new EditPage(\Auth::user(), new ViewErrorBag());
+        $l_page= new ResourceView("user/edit.xml",["user"=>$this->getAdminUser()]);
         $l_page->display();
         $this->assertEquals(1,1);
     }
@@ -38,5 +37,21 @@ class profileTest extends TestCase
         $l_page=new AllUserPage();
         $l_page->display();
         $this->assertEquals(1,1);
+    }
+    
+    function testEditProfilePage()
+    {
+       \Auth::logout();
+        
+        $l_password = bcrypt("test");       
+        $l_user = User::create([
+            'name' => "vvvv",
+            'email' => "wwww@xx.com",
+            'password' => $l_password,
+            "firstname" => "Afn",
+            "lastname" => "Lnf"
+        ]);
+        $this->actingAs($l_user)->post("user/profile/save",["name"=>"xx.name","firstname"=>"XX","lastname"=>"ZZ","email"=>"xx@ee.com"]);
+        
     }
 }

@@ -1,0 +1,11 @@
+<hrPage>
+    <form containerAlign="center" title="__Change your password">
+        <datalayer type="App\Vc\User\ProfileDataLayer"/>
+        <url for="setUrl" route="user.saveprofile"/>
+        <url for="setCancelUrl" route="user.profile" />
+        <formText name="name" label="__Nick name" />
+        <formText name="firstname" label="__First name"/>
+        <formText name="lastname" label="__Last name" />
+        <formText name="email" label="__Email" />
+    </form>
+</hrPage>
