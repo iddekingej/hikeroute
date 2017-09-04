@@ -21,7 +21,7 @@ class ProfileController extends Controller
     
     function displayProfile()
     {
-        return new ResourceView("user/profile.xml",[
+        return new ResourceView("profile/profile.xml",[
             "user" => \Auth::user()
         ]);
     }
@@ -34,7 +34,7 @@ class ProfileController extends Controller
     
     function editProfile()
     {
-        return new ResourceView("user/edit.xml",["user"=>\Auth::user()]);
+        return new ResourceView("profile/edit.xml",["user"=>\Auth::user()]);
     }
 
     /**
@@ -69,7 +69,7 @@ class ProfileController extends Controller
      */
     function editPassword()
     {
-        return new ResourceView("user/password.xml");
+        return new ResourceView("profile/password.xml");
     }
 
     /**
