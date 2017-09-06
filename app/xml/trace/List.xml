@@ -3,7 +3,9 @@
     <element ref="content"> 
         <datalayer type="App\Vc\Trace\ListLayer"/>
         <topMenu>
-            <topMenuTextItem text="__Upload new gpx" route="traces.upload"/>
+            <topMenuTextItem text="__Upload new gpx">
+                <url for="setUrl" route="traces.upload" />
+            </topMenuTextItem>
         </topMenu>
         <traceTable traces="${traces}" route="traces.show" />
     </element>

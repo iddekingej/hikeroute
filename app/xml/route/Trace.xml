@@ -1,0 +1,11 @@
+<page file="route/RoutePage.xml">
+    <element ref="tabMenu" currentTag="trace" />
+    <element ref="topMenu">
+        <topMenuTextItem text="__Upload new gpx file">
+            <url route="routes.trace.edit" p_id="${id}"/>
+        </topMenuTextItem>
+    </element>
+    <element ref="content">
+        <openLayer trace="${routeTrace}" />
+    </element>
+</page>

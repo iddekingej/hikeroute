@@ -1,0 +1,19 @@
+<page file="page/page.xml">
+<element ref="content">
+    <topMenu   name="topMenu"/>
+    <datalayer type="App\Vc\Route\EditLayer" />
+    <staticText text="${title}" class="traces_route_title" />    
+	<tabMenu name="tabMenu">
+		<tabMenuItem text="__Overview" tag="overview">
+			<url for="setUrl" route="display.overview" id="${id}" />
+		</tabMenuItem>
+		<tabMenuItem text="__Route map" tag="trace">
+			<url for="setUrl" route="display.trace" id="${id}" />
+		</tabMenuItem>
+		<!-- TODO: When no album item only display when edit -->
+		<tabMenuItem text="__Album" tag="album">
+			<url for="setUrl" route="display.album" id="${id}" />
+		</tabMenuItem>
+	</tabMenu>
+</element>
+</page>

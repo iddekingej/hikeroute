@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Route;
 use Illuminate\View\View;
 use App\Lib\RouteGC;
+use XMLView\View\ResourceView;
 
 class DisplayController extends Controller
 {
@@ -36,7 +37,7 @@ class DisplayController extends Controller
         if($this->getCheckRouteShow($p_id_route,$l_route,$l_view)){
             return $l_view;
         }
-        return view("display.trace",["route"=>$l_route]);
+        return new ResourceView("route/Trace.xml",["route"=>$l_route]);
     }
     
     /**

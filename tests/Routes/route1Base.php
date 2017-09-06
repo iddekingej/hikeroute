@@ -15,6 +15,7 @@ use App\Models\RouteTableCollection;
 use App\Vc\Route\AlbumEditPage;
 use App\Models\RouteImageTableCollection;
 use App\Location\LocationResult;
+use XMLView\View\ResourceView;
 echo "ZZZZZZZZZZZZZZZ";
 class Route1Base extends \Tests\TestCase
 {
@@ -108,8 +109,8 @@ class Route1Base extends \Tests\TestCase
     }
     
     function testPageTrace()
-    {
-            $l_page=new TracePage($this->route);
+    {            
+            $l_page= new ResourceView("route/Trace.xml",["route"=>$this->route]);
             $l_page->display();
             $this->assertEquals(1,1);
     }
