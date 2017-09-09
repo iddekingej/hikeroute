@@ -68,15 +68,14 @@ class RoutesController extends Controller
      *            the ID of the route to delete
      * @return Redirect|View Redirect to route overview(if successful) or a error message (when failed)
      */
-    function delRoute(int $p_id)
-    {
-        $l_route = Route::findOrFail($p_id);
+    function delRoute(Route $p_route)
+    {        
         
-        if (Gate::allows("edit-route", $l_route)) {
-            $l_route->deleteDepended();
+        if ($p_route->canEdit(\Auth::user())) {
+            $p_route->deleteDepended();
             return Redirect::Route("routes");
         } else {
-            return $this->displayError(__("delete this route"));
+            return $this->displayError(__("Not allowed to delete this route"));
         }
     }
 
@@ -102,20 +101,17 @@ class RoutesController extends Controller
      *            ID of route file added in the previous step.
      * @return unknown
      */
-    function newDetails(string $p_id)
+    function newDetails(RouteTrace $p_routeTrace)
     {
-        $this->checkInteger($p_id);
-        $l_routeTrace = RouteTrace::findOrFail($p_id);
-        if (! $l_routeTrace->canRoute(\Auth::user())) {
+
+        if (! $p_routeTrace->canRoute(\Auth::user())) {
             return $this->displayError(__("Not allowed to attach this route file to a route"));
         }
-        $l_data = [
+        return new ResourceView("route/Edit.xml",[
             "route"=>null,
-            "routeTrace" => $l_routeTrace,
-        
-        ];
-        
-        return View("routes.form", $l_data);
+            "routeTrace" => $p_routeTrace,
+            
+        ]);
     }
 
     /**
@@ -130,7 +126,7 @@ class RoutesController extends Controller
     function saveAddRoute(Request $p_request)
     {
         $l_rules = [
-            "routeTitle" => [
+            "title" => [
                 "required"
             ],
             "id_routetrace" => [
@@ -149,9 +145,9 @@ class RoutesController extends Controller
         }
         $l_route=Route::create([
             "id_user" => \Auth::user()->id,
-            "title" => $p_request->input("routeTitle"),
+            "title" => $p_request->input("title"),
             "comment" => $p_request->input("comment"),
-            "location" => $p_request->input("routeLocation"),
+            "location" => $p_request->input("location"),
             "id_routetrace" => $l_routeTrace->id,
             "publish" => $p_request->input("publish") ? 1 : 0
         ]);
@@ -164,14 +160,13 @@ class RoutesController extends Controller
         return $this->displayError(__("Not allowed to change this route"));
     }
 
-    function traceEdit($p_id)
-    {
-        $l_route = Route::findOrFail($p_id);
-        if (! $l_route->canEdit(\Auth::user())) {
+    function traceEdit(Route $p_route)
+    {        
+        if (! $p_route->canEdit(\Auth::user())) {
             return $this->notAllowedToChangeRoute();
         }        
         return new ResourceView("trace/SelectTrace.xml", [                        
-            "id_route" => $l_route->id,  
+            "id_route" => $p_route->id,  
             "next"=>"routes.trace.update"
         ]);
     }
@@ -183,21 +178,17 @@ class RoutesController extends Controller
      * @param int $p_id            
      * @return \App\Http\Controllers\unknown|unknown
      */
-    function traceUpdate($p_id_route, $p_id)
-    {
-        $this->checkInteger($p_id);
-        $this->checkInteger($p_id);
-        $l_route = Route::findOrFail($p_id_route);
-        $l_routeTrace = RouteTrace::findOrFail($p_id);
-        if (! $l_route->canEdit(\Auth::user())) {
+    function traceUpdate(Route $p_route, RouteTrace $p_routeTrace)
+    {        
+        if (! $p_route->canEdit(\Auth::user())) {
             return $this->notAllowedToChangeRoute();
         }
-        if (! $l_routeTrace->canRoute(\Auth::user())) {
+        if (! $p_routeTrace->canRoute(\Auth::user())) {
             return $this->displayError(__("Not allowed to use this trace for a new route"));
         }
-        $l_route->id_routetrace = $l_routeTrace->id;
-        $l_route->save();
-        return Redirect::route("display.trace", ["p_id" => $l_route->id]);
+        $p_route->id_routetrace = $p_routeTrace->id;
+        $p_route->save();
+        return Redirect::route("display.trace", ["p_id" => $p_route->id]);
     }
 
     /**
@@ -207,12 +198,10 @@ class RoutesController extends Controller
      *            Route ID.
      * @return unknown
      */
-    function editRoute($p_id)
-    {
-        $this->checkInteger($p_id);
-        $l_route = Route::findOrFail($p_id);
-        if($l_route->canEdit(\Auth::user())){
-            return new ResourceView("route/Edit.xml",["route"=>$l_route]);
+    function editRoute(Route $p_route)
+    {               
+        if($p_route->canEdit(\Auth::user())){
+            return new ResourceView("route/Edit.xml",["route"=>$p_route]);
         } else {
             return $this->displayError(__("Not allowed to edit this route"));
         }

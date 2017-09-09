@@ -112,7 +112,7 @@ class XMLTraceTable extends Table
         if($l_params===null){
             $l_params=[];
         }
-        $l_params["id"]=$p_trace->id;
+        $l_params["p_routeTrace"]=$p_trace->id;
         return [
              "edit"=>Route( $this->route->getValue($p_store),$l_params)
             ,"loc1"=>$p_trace->getLocationByTypeCached("country")

@@ -33,6 +33,7 @@ class RouteControllerTest extends \Tests\TestCase
     
     function testEditRoute()
     {
-        $this->controller->editRoute($this->route->id);
+        $this->controller->editRoute($this->route);
     }
+    
 }

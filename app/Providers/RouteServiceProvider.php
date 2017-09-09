@@ -4,6 +4,7 @@ namespace App\Providers;
 use Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use App\Models\User;
+use App\Models\RouteTrace;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::model("p_route", \App\Models\Route::class);
+        Route::model("p_routeTrace",RouteTrace::class);
         Route::model("p_user", User::class);
         parent::boot();
     }

@@ -11,7 +11,7 @@ Route::group([
         "as" => "routes.new",
         "uses" => "RoutesController@newRoute"
     ]);
-    Route::get('newdetails/{id}', [
+    Route::get('newdetails/{p_routeTrace}', [
         "as" => "routes.newdetails",
         "uses" => "RoutesController@newDetails"
     ]);
@@ -23,19 +23,19 @@ Route::group([
         "as" => "routes.save.edit",
         "uses" => "RoutesController@saveUpdateRoute"
     ]);
-    Route::get("trace/edit/{p_id}", [
+    Route::get("trace/edit/{p_route}", [
         "as" => "routes.trace.edit",
         "uses" => "RoutesController@traceEdit"
     ]);
-    Route::get("trace/update/{p_id_route}/{p_id}", [
+    Route::get("trace/update/{p_route}/{p_routeTrace}", [
         "as" => "routes.trace.update",
         "uses" => "RoutesController@traceUpdate"
     ]);
-    Route::get('edit/{id}', [
+    Route::get('edit/{p_route}', [
         "as" => "routes.edit",
         "uses" => "RoutesController@editRoute"
     ]);
-    Route::get("del/{id}", [
+    Route::get("del/{p_route}", [
         "as" => "routes.del",
         "uses" => "RoutesController@delRoute"
     ]);
