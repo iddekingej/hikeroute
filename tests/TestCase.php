@@ -25,7 +25,7 @@ abstract class TestCase extends BaseTestCase
     private $adminUser = false;
     protected $store;
     protected $session;
-    
+    protected $testUser;
     
     function getRelativeResourcePath($p_name)
     {
@@ -81,7 +81,8 @@ abstract class TestCase extends BaseTestCase
 
     function loginToAdmin()
     {
-        \Auth::login($this->getAdminUser());        
+        $this->testUser=$this->getAdminUser();
+        \Auth::login($this->testUser);        
     }
     
     function routeRegexStr($p_route,Array $p_params)

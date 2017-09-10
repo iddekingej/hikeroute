@@ -12,13 +12,15 @@
 	<testsuites>
 		<testsuite name="allTests">
 			<directory suffix="Test.php">./tests/location</directory>
-			<directory suffix="Test.php">./tests/Routes</directory>
 			<directory suffix="Test.php">./tests/user</directory>
 			<directory suffix="Test.php">./tests/userright</directory>
 			<directory suffix="Test.php">./tests/traces</directory>
 			<directory suffix="Test.php">./tests/album</directory>
 			<directory suffix="Test.php">./tests/home</directory>
 		
+		</testsuite>
+		<testsuite name="routes">
+		          <directory suffix="Test.php">./tests/Routes</directory>		
 		</testsuite>
 	</testsuites>
 	<filter>

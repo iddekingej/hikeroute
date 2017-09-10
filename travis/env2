@@ -1,12 +1,7 @@
-APP_ENV=test
-APP_KEY=
-APP_DEBUG=true
-APP_LOG_LEVEL=debug
-APP_URL=http://localhost
-
 APP_ENV=local
 APP_KEY=base64:yRexoWG52A8RNrc66aTiwlYY18CMM9lqHZ4varXxfCQ=
 APP_DEBUG=true
+APP_LOG=single
 APP_LOG_LEVEL=debug
 APP_URL=http://localhost
 

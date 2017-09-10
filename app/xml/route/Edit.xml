@@ -1,6 +1,7 @@
 <page type="@hrPage">
 	<datalayer type="App\Vc\Route\EditLayer" />
 	<openLayer trace="${routeTrace}" />
+
 	<form title="__Edit route" >
 		<url for="setUrl" route="${url}" id="${id}" id_routetrace="${id_routetrace}" />
 		<url for="setCancelUrl" route="routes" />	

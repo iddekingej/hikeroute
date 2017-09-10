@@ -13,6 +13,11 @@ use XMLView\View\ResourceView;
 class ProfileController extends Controller
 {
 
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display user profile data.
      *

@@ -16,13 +16,13 @@ use App\Vc\Route\AlbumEditPage;
 use App\Models\RouteImageTableCollection;
 use App\Location\LocationResult;
 use XMLView\View\ResourceView;
-echo "ZZZZZZZZZZZZZZZ";
+
 class Route1Base extends \Tests\TestCase
 {
 
     private $trace;
     private $route;
-
+    
     function setup()
     {
         parent::setup();
@@ -39,10 +39,7 @@ class Route1Base extends \Tests\TestCase
         ]);
     }
 
-    /**
-     * In the test method some test data is saved.
-     * Load data and check values
-     */
+
     function testGetRoute()
     {
         $l_route = Route::findOrFail($this->route->id);
@@ -92,9 +89,6 @@ class Route1Base extends \Tests\TestCase
         $this->assertEquals($this->route->routeTrace->id, $this->trace->id);
     }
 
-    /**
-     * Test if update route details will work
-     */
     function testUpdateInfo()
     {
         $this->route->title = "X2";
@@ -109,10 +103,10 @@ class Route1Base extends \Tests\TestCase
     }
     
     function testPageTrace()
-    {            
+    {           
+            $this->expectOutputRegex("/".$this->route->title."/s");
             $l_page= new ResourceView("route/Trace.xml",["route"=>$this->route]);
-            $l_page->display();
-            $this->assertEquals(1,1);
+            $l_page->display();            
     }
     
     
@@ -127,32 +121,32 @@ class Route1Base extends \Tests\TestCase
     function testPageAlbumEdit()
     {
         RouteImageTableCollection::addImage($this->route, $this->getResourcePath(static::IMG1_JPEG_TMP), static::IMG1_JPEG);
+        $this->expectOutputRegex("/".$this->route->title."/s");
         $l_page=new AlbumEditPage($this->route);
-        $l_page->display();
-        $this->assertEquals(1,1);
+        $l_page->display();        
     }
     
     function testPageOverview()
     {
+        $this->expectOutputRegex("/".$this->route->title."/s");
         $l_page=new OverviewPage($this->route);
-        $l_page->display();
-        $this->assertEquals(1,1);
+        $l_page->display();        
         
     }
     
     function testPageList()
     {
+        $this->expectOutputRegex("/routes\/new/s");
         $l_page= new ListPage(\Auth::user()->routes());
-        $l_page->display();
-        $this->assertEquals(1,1);
+        $l_page->display();        
     }
     
     function testHomePage()
     {
+        $this->expectOutputRegex("/".$this->testUser->name."./s");        
         $l_page=new HomePage(new Collection(), RouteTableCollection::numRoutesByLocation(null), new Collection());
         $l_page->display();
     }
-
 }
 
 ?>

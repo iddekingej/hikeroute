@@ -19,8 +19,8 @@ class TestSession extends Session
         return false;
     }
     
-    function getOldInput($p_key)
+    function getOldInput($p_key,$p_default=null)
     {
-        return null;        
+        return $p_default;        
     }
 }
