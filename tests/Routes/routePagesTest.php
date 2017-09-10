@@ -38,7 +38,7 @@ class routePagesTest extends \Tests\TestCase
     }
     function testEditRoute()
     {
-        $this->actingAs($this->getAdminUser())->get("/routes/edit/".$this->route->id)->assertStatus(200)->assertSee(static::ROUTETITLE)->dump();
+        $this->actingAs($this->getAdminUser())->get("/routes/edit/".$this->route->id)->assertStatus(200)->assertSee(static::ROUTETITLE);
     }
     
     function testRoutesNewDatails()
