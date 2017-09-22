@@ -19,11 +19,7 @@ class XMLTraceTable extends Table
     private $route;
     private $params;
     
-    function setTitle(DynamicValue $p_title)
-    {
-        $this->title=$p_title;
-    }
-    
+
     function setParams(DynamicValue $p_params)
     {
         $this->params=$p_params;

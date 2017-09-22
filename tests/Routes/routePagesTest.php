@@ -68,10 +68,9 @@ class routePagesTest extends \Tests\TestCase
     }
     
 
-
     function testDelRoute()
     {
-        $this->actingAs($this->getAdminUser())->get("/routes/del/".$this->route->id)->assertRedirect(Route("routes"));
+        $this->actingAs($this->getAdminUser())->get("/routes/del/".$this->route->id)->assertRedirect(Route("routes"))->dump();
        
     }
    

@@ -4,7 +4,7 @@ namespace App\Vc\Route;
 
 use App\Vc\Lib\HtmlComponent;
 use App\Models\Route;
-use XMLView\Engine\Data\DataStore;;
+use XMLView\Engine\Data\DataStore;
 /**
  * Display overview data about a route 
  *

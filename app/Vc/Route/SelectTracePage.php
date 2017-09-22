@@ -5,7 +5,7 @@ namespace App\Vc\Route;
 
 use App\Vc\Lib\HtmlPage2;
 use App\Vc\Lib\Engine\Gui\XMLResourcePage;
-use XMLView\Engine\Data\DataStore;;
+use XMLView\Engine\Data\DataStore;
 use App\Vc\Lib\Engine\Data\MapData;
 
 /**

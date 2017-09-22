@@ -1,4 +1,4 @@
-<page file="page/page.xml"  title="Show route trace">
+<page file="page/page.xml"  title="__Show route trace">
     <element ref="mainMenu" currentTag="traces"/>
     <element ref="content"> 
         <datalayer type="App\Vc\Trace\ShowDataLayer" />

@@ -5,7 +5,6 @@ use App\Models\RouteTraceTableCollection;
 use App\Models\LocationTableCollection;
 use App\Models\TraceLocationTableCollection;
 use App\Models\Route;
-use App\Vc\Route\TracePage;
 use App\Vc\Route\ListPage;
 use App\Vc\Route\OverviewPage;
 use App\Vc\Route\AlbumPage;
