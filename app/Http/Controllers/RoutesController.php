@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
 use \Illuminate\View\View;
-use Illuminate\Support\Facades\Gate;
 use App\Models\Route;
 use App\Lib\GPXReader;
 use App\Models\RouteFile;

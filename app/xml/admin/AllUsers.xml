@@ -1,0 +1,12 @@
+<page file="page/page.xml"  title="__User administration">
+    <element ref="mainMenu" currentTag="useradmin"/>
+    <element ref="content"> 
+    
+	    <topMenu   name="topMenu">
+	            <topMenuTextItem text="__Upload new gpx file">
+	                <url route="admin.users.new" />
+	            </topMenuTextItem>
+	    </topMenu>
+	    <element type="App\Vc\User\XMLAllUserTable" />
+    </element>    
+</page>

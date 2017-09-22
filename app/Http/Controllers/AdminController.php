@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserRight;
 use App\Models\Right;
 use App\Models\RightTableCollection;
+use XMLView\View\ResourceView;
 
 /**
  * Controller for site administration
@@ -34,9 +35,10 @@ class AdminController extends Controller
     
     function listUsers()
     {
-        return view("admin.userlist", [
+        return new ResourceView("admin/AllUsers.xml");
+/*        return view("admin.userlist", [
             "users" => \App\Models\User::orderBy("name")->get()
-        ]);
+        ]);*/
     }
 
     /**

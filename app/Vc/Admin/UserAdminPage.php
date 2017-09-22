@@ -13,7 +13,7 @@ class UserAdminPage extends HtmlPage2
     private $user;
     private $errors;
     
-    function __construct(string $p_cmd, User $p_user, ViewErrorBag $p_errors)
+    function __construct(string $p_cmd, ?User $p_user, ViewErrorBag $p_errors)
     {
         $this->user=$p_user;
         $this->cmd=$p_cmd;

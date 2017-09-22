@@ -1,7 +1,7 @@
 <?php 
 declare(strict_types=1);
 namespace App\Vc\Lib;
-use XMLView\Engine\Data\DataStore;;
+use XMLView\Engine\Data\DataStore;
 
 /**
  * Horizontal menu

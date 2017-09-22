@@ -11,7 +11,6 @@ class ProfileDataLayer implements DataLayer{
     function processData(DataStore $p_parent):DataStore
     {
         $l_user=$p_parent->getValue("user");        
-        $l_item=new DataItemStore($p_parent, $l_user);
-        return $l_item;
+        return new DataItemStore($p_parent, $l_user);        
     }
 }
