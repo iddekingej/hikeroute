@@ -65,8 +65,8 @@ class XMLOpenLayer extends Widget{
         $l_routeTrace=$this->getAttValue("routeTrace", $p_store,RouteTrace::class,true);
         echo $this->theme->div()->id($this->id);
         ?>
-		<script type='text/javascript'>
-			var icons={};
+<script type='text/javascript'>
+var icons={};
         <?php
         
             if($this->icons){

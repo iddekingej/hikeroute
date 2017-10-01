@@ -22,11 +22,12 @@ abstract class TestCase extends BaseTestCase
     const IMG1_JPEG_TMP="DSC02062.XXX";
     const USER_ADMIN="admin";
     const USER_USER="user";
-    private $adminUser = false;
+    private $testingUser = false;
+    
     protected $store;
     protected $session;
     protected $testUser;
-    
+   
     function getRelativeResourcePath($p_name)
     {
         return "/tests/resources/$p_name";
@@ -71,17 +72,17 @@ abstract class TestCase extends BaseTestCase
         return static::USER_ADMIN;
     }
     
-    function getAdminUser()
+    function getTestingUser()
     {
-        if ($this->adminUser === false) {
-            $this->adminUser = User::where("name", "=", $this->getTestUserName())->get()->first();
+        if ($this->testingUser === false) {
+            $this->testingUser = User::where("name", "=", $this->getTestUserName())->get()->first();
         }
-        return $this->adminUser;
+        return $this->testingUser;
     }
 
-    function loginToAdmin()
+    function loginToTestingUser()
     {
-        $this->testUser=$this->getAdminUser();
+        $this->testUser=$this->getTestingUser();
         \Auth::login($this->testUser);        
     }
     
@@ -104,6 +105,6 @@ abstract class TestCase extends BaseTestCase
         $this->createApplication();
         $l_store=new TestSession();
         app("request")->setSession($l_store);
-        $this->loginToAdmin();
+        $this->loginToTestingUser();
     }
 }

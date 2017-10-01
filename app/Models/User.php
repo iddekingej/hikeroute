@@ -105,7 +105,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    function routes()
+    function routes():HasMany
     {
         return $this->hasMany(Route::class, "id_user");
     }
@@ -116,9 +116,9 @@ class User extends Authenticatable
      * @param String $p_tag            
      * @return boolean
      */
-    private function checkHasRight($p_tag)
+    function checkHasRight(string $p_tag):bool
     {
-        foreach ($this->userRights as $l_userRight) {
+        foreach ($this->userRights as $l_userRight) {            
             if ($l_userRight->right->tag == $p_tag) {
                 return true;
             }

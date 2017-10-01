@@ -30,8 +30,8 @@ class trace1Test extends TestCase
     
     function testUserTrace()
     {
-        $this->assertEquals($this->getAdminUser()->id,$this->trace1->user->id,"trace1");
-        $this->assertEquals($this->getAdminUser()->id,$this->trace2->user->id,"trace2");
+        $this->assertEquals($this->getTestingUser()->id,$this->trace1->user->id,"trace1");
+        $this->assertEquals($this->getTestingUser()->id,$this->trace2->user->id,"trace2");
     }
     
     function testGetByUser()

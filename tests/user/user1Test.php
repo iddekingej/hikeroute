@@ -2,7 +2,7 @@
 use App\Models\User;
 use Tests\CreatesApplication;
 use Tests\TestCase;
-use App\Vc\User\AllUserPage;
+use XMLView\View\ResourceView;
 
 
 /**
@@ -33,14 +33,15 @@ class user1Test extends TestCase
 
     function testGetUserRights()
     {
-        $l_ur = $this->getAdminUser()->userRights();
+        $l_ur = $this->getTestingUser()->userRights();
         $this->assertNotNull($l_ur);
     }
     
-    function testListAllUsers()
+    function testAllUserPage()
     {
-        $l_page=new AllUserPage();
+        $l_page=new ResourceView("admin/AllUsers.xml");
         $l_page->display();
+        $this->assertEquals(1,1);
     }
     
     

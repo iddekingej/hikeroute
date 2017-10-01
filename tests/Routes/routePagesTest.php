@@ -15,7 +15,7 @@ class routePagesTest extends \Tests\TestCase
     function setup()
     {
         parent::setup();
-        $this->loginToAdmin();
+        $this->loginToTestingUser();
         $l_content=$this->getResource(self::TRACE1);
         $this->trace = RouteTraceTableCollection::addGpxFile($l_content);        
         $this->route = Route::create([
@@ -38,12 +38,12 @@ class routePagesTest extends \Tests\TestCase
     }
     function testEditRoute()
     {
-        $this->actingAs($this->getAdminUser())->get("/routes/edit/".$this->route->id)->assertStatus(200)->assertSee(static::ROUTETITLE);
+        $this->actingAs($this->getTestingUser())->get("/routes/edit/".$this->route->id)->assertStatus(200)->assertSee(static::ROUTETITLE);
     }
     
     function testRoutesNewDatails()
     {
-        $this->actingAs($this->getAdminUser())->get("/routes/newdetails/".$this->trace->id)->assertStatus(200);        
+        $this->actingAs($this->getTestingUser())->get("/routes/newdetails/".$this->trace->id)->assertStatus(200);        
     }
     
     function testEditLayer()
@@ -59,18 +59,18 @@ class routePagesTest extends \Tests\TestCase
     
     function testEditTrace()
     {        
-        $this->actingAs($this->getAdminUser())->get("/routes/trace/edit/".$this->route->id)->assertStatus(200)->assertSee("update/".$this->route->id);
+        $this->actingAs($this->getTestingUser())->get("/routes/trace/edit/".$this->route->id)->assertStatus(200)->assertSee("update/".$this->route->id);
     }
     
     function testUpdateTrace()
     {
-        $this->actingAs($this->getAdminUser())->get("/routes/trace/update/".$this->route->id."/".$this->trace->id)->assertRedirect("display/trace/".$this->route->id);
+        $this->actingAs($this->getTestingUser())->get("/routes/trace/update/".$this->route->id."/".$this->trace->id)->assertRedirect("display/trace/".$this->route->id);
     }
     
 
     function testDelRoute()
     {
-        $this->actingAs($this->getAdminUser())->get("/routes/del/".$this->route->id)->assertRedirect(Route("routes"));
+        $this->actingAs($this->getTestingUser())->get("/routes/del/".$this->route->id)->assertRedirect(Route("routes"));
        
     }
    

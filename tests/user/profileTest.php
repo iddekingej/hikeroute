@@ -1,7 +1,6 @@
 <?php 
 
 use Tests\TestCase;
-use App\Vc\User\AllUserPage;
 use XMLView\View\ResourceView;
 use App\Models\User;
 
@@ -13,9 +12,9 @@ class profileTest extends TestCase
     
     function testProfilePage()
     {
-        $l_name=$this->getAdminUser()->name;
+        $l_name=$this->getTestingUser()->name;
         $this->expectOutputRegex('/'.$l_name.'/s');
-        XMLView("profile/profile.xml",["user"=>$this->getAdminUser()]);
+        XMLView("profile/profile.xml",["user"=>$this->getTestingUser()]);
     }
     
     function testPasswordPage()
@@ -27,17 +26,12 @@ class profileTest extends TestCase
     
     function testEditPage()
     {
-        $l_page= new ResourceView("profile/edit.xml",["user"=>$this->getAdminUser()]);
+        $l_page= new ResourceView("profile/edit.xml",["user"=>$this->getTestingUser()]);
         $l_page->display();
         $this->assertEquals(1,1);
     }
     
-    function testAllUserPage()
-    {
-        $l_page=new AllUserPage();
-        $l_page->display();
-        $this->assertEquals(1,1);
-    }
+
     
     function testEditProfilePage()
     {

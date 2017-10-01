@@ -26,13 +26,13 @@ class Form extends ThemeItem
     function rowHeader($p_field,$p_label,$p_error,$p_id)
     {
         ?><tr id="<?=$this->e($p_id)?>"><td class="formLabel">
-        	
-        	<label for="<?=$this->e($p_field)?>">
-        	<?=$this->e($p_label)?>
-        	</label>
-        	
-        	<?php if($p_error){?><div class="formError"><?=$this->e($p_error)?></div><?php }?>        	
-        	</td><?php 
+            
+            <label for="<?=$this->e($p_field)?>">
+            <?=$this->e($p_label)?>
+           </label>
+           
+           <?php if($p_error){?><div class="formError"><?=$this->e($p_error)?></div><?php }?>        	
+           </td><?php 
     }
     
     function elementHeader()

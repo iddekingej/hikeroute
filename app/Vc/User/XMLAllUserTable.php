@@ -27,10 +27,11 @@ class XMLAllUserTable extends Table
         $this->setTitle(new DynamicStaticValue(__("All users")));
         $this->addConfig([
             "del"=>["type"=>"@iconlinkconfirm","confirmmsg"=>__("Delete this user?"),"icon"=>\App\Lib\Icons::DELETE,"title"=>""]
-           ,"email"=>["type"=>"@link","title"=>"email"]
-           ,"nick"=>["type"=>"@text","title"=>"nick"]
-           ,"firstname"=>["type"=>"@text","title"=>"firstname"]
-           ,"lastname"=>["type"=>"@text","title"=>"lastname"]         
+           ,"email"=>["type"=>"@link","title"=>__("email")]
+           ,"nick"=>["type"=>"@text","title"=>__("nick")]
+           ,"firstname"=>["type"=>"@text","title"=>__("firstname")]
+           ,"lastname"=>["type"=>"@text","title"=>__("lastname")]
+           ,"enabled"=>["type"=>"@text","title"=>__("Enabled")]
            ]
         );
     }
@@ -48,6 +49,7 @@ class XMLAllUserTable extends Table
             ,"nick"=>$p_user->name
             ,"firstname"=>$p_user->firstname
             ,"lastname"=>$p_user->lastname
+            ,"enabled"=>$p_user->enabled?"X":""
           ];
     }
 }

@@ -32,7 +32,7 @@ Route::group([
         "as" => "admin.users.save.add",
         "uses" => "AdminController@saveUserAdd"
     ]);
-    Route::post('edit', [
+    Route::post('edit/{p_user}', [
         "as" => "admin.users.save.edit",
         "uses" => "AdminController@saveUserEdit"
     ]);

@@ -9,6 +9,9 @@ use App\Models\UserRight;
 use App\Models\Right;
 use App\Models\RightTableCollection;
 use XMLView\View\ResourceView;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Controller for site administration
@@ -36,9 +39,6 @@ class AdminController extends Controller
     function listUsers()
     {
         return new ResourceView("admin/AllUsers.xml");
-/*        return view("admin.userlist", [
-            "users" => \App\Models\User::orderBy("name")->get()
-        ]);*/
     }
 
     /**
@@ -56,9 +56,12 @@ class AdminController extends Controller
     {
  
         $this->checkInteger($p_id_user);
+        $l_user = User::findOrFail($p_id_user);
+        return new ResourceView("admin/UserAdmin.xml",["user"=>$l_user]);
+        
         $l_rights = RightTableCollection::getRightsSelectionArray();
         
-        $l_user = User::findOrFail($p_id_user);
+        
         $l_userRights = $l_user->userRights;
         foreach ($l_userRights as $l_userRight) {
             $l_rights[$l_userRight->id_right][1] = true;
@@ -88,6 +91,8 @@ class AdminController extends Controller
     
     function newUser()
     {        
+        return new ResourceView("admin/UserAdmin.xml",["user"=>null]);
+        
         $l_rights = RightTableCollection::getRightsSelectionArray();
         return view("admin.user", [
             "id" => "",
@@ -176,29 +181,32 @@ class AdminController extends Controller
      *
      * @param Request $p_request
      *            Data posted from the "edit user" form.
-     * @return unknown
+     * @Param User  $p_user
+     *            User to edit.
+     * @return Response
      */
     
-    function saveUserEdit(Request $p_request)
+    function saveUserEdit(Request $p_request,User $p_user)
     {
-        $l_id = $p_request->input("id");
-        $this->checkInteger($l_id);
+        $l_validator = User::validateRequest($p_request, $p_user->id, $p_request->has("resetpassword"));
+        if ($l_validator->fails()) {      
+            return Redirect::Route("admin.users.edit",["p_id_user"=>$p_user->id])->withErrors($l_validator)->withInput($p_request->all());
+        }
         
-        $l_validator = User::validateRequest($p_request, (int) $l_id, $p_request->has("resetpassword"));
-        if ($l_validator->fails()) {
-            return Redirect::Route("admin.users.edit",["p_id_user"=>$l_id])->withErrors($l_validator)->withInput($p_request->all());
-        }
-        $l_user = User::findOrFail($l_id);
-        $l_user->name = $p_request->input("name");
-        $l_user->firstname = $p_request->input("firstname");
-        $l_user->lastname = $p_request->input("lastname");
-        $l_user->email = $p_request->input("email");
-        $l_user->enabled = $p_request->input("enabled") ? 1 : 0;
+        $p_user->name = $p_request->input("name");
+        $p_user->firstname = $p_request->input("firstname");
+        $p_user->lastname = $p_request->input("lastname");
+        $p_user->email = $p_request->input("email");
+        $p_user->enabled = $p_request->input("enabled") ? 1 : 0;
         if ($p_request->has("resetpassword")) {
-            $l_user->password = bcrypt($p_request->input("password"));
+            $p_user->password = bcrypt($p_request->input("password"));
         }
-        $l_user->save();
-        $this->saveRights($p_request, $l_user);
+        DB::transaction(
+               function() use($p_user,$p_request){
+                    $p_user->save();
+                    $this->saveRights($p_request, $p_user);
+                }
+        );
         return Redirect::Route("admin.users");
     }
 }

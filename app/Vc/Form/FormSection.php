@@ -3,9 +3,6 @@ declare(strict_types=1);
 namespace App\Vc\Form;
 use XMLView\Engine\Data\DataStore;
 
-
-
-
 /**
  * Class used for a form section title
  *

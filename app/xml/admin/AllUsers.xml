@@ -3,7 +3,7 @@
     <element ref="content"> 
     
 	    <topMenu   name="topMenu">
-	            <topMenuTextItem text="__Upload new gpx file">
+	            <topMenuTextItem text="__Add new user">
 	                <url route="admin.users.new" />
 	            </topMenuTextItem>
 	    </topMenu>
