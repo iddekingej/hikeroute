@@ -2,6 +2,7 @@
 <datalayer type="App\Vc\Admin\UserLayer"/>
 <form title="__Edit user">
     <url for='setUrl' route="admin.users.save.${cmd}" p_id_user="${id}"/>
+    <url for="setCancelUrl" route="admin.users"/>
     <formText name="name" label="__Nick name"/>
     <formText name="email" label="__Email address"/>
     <formText name="firstname" label="__First name"/>
