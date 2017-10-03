@@ -5,6 +5,7 @@ return [
     "locationServiceType" => env("LOCATION_TYPE", "nomatim"),
     "xmlBasePath"=>"app/xml/",
     "xmlCache"=>"storage/xml/",
+    "xmlViewPath"=>"app/xml/views/",
     "locationServices" => [
         "nomatim" => [
             "type" => "App\\Location\\LocationQueryNominatim",

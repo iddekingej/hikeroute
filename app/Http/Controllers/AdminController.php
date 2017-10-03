@@ -11,7 +11,6 @@ use App\Models\RightTableCollection;
 use XMLView\View\ResourceView;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 /**
  * Controller for site administration
@@ -57,28 +56,7 @@ class AdminController extends Controller
  
         $this->checkInteger($p_id_user);
         $l_user = User::findOrFail($p_id_user);
-        return new ResourceView("admin/UserAdmin.xml",["user"=>$l_user]);
-        
-        $l_rights = RightTableCollection::getRightsSelectionArray();
-        
-        
-        $l_userRights = $l_user->userRights;
-        foreach ($l_userRights as $l_userRight) {
-            $l_rights[$l_userRight->id_right][1] = true;
-        }
-        
-        return view("admin.user", [
-            "id" => $l_user->id,
-            "name" => $l_user->name,
-            "firstname" => $l_user->firstname,
-            "lastname" => $l_user->lastname,
-            "email" => $l_user->email,
-            "enabled" => $l_user->enabled,
-            "title" => "Edit user",
-            "rights" => $l_rights,
-            "user"=>$l_user,
-            "cmd" => "edit"
-        ]);
+        return new ResourceView("admin/UserAdmin.xml",["user"=>$l_user]);            
     }
 
     /**
@@ -93,19 +71,6 @@ class AdminController extends Controller
     {        
         return new ResourceView("admin/UserAdmin.xml",["user"=>null]);
         
-        $l_rights = RightTableCollection::getRightsSelectionArray();
-        return view("admin.user", [
-            "id" => "",
-            "name" => "",
-            "firstname" => "",
-            "lastname" => "",
-            "email" => "",
-            "enabled" => "",
-            "title" => "New user",
-            "cmd" => "add",
-            "user"=>null,
-            "rights" => $l_rights
-        ]);
     }
 
     /**

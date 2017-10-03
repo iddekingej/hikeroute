@@ -10,7 +10,7 @@ use XMLView\Engine\Data\DataStore;
  * The url of the link is given by a route name and route parameters.
  *
  */
-class IconTextLink extends HtmlComponent
+class IconTextLinkx extends HtmlComponent
 {
     private $route;
     private $parameters;
