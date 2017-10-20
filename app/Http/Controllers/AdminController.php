@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
 use App\Models\UserRight;
 use App\Models\Right;
-use App\Models\RightTableCollection;
 use XMLView\View\ResourceView;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\DB;

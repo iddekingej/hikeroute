@@ -1,4 +1,9 @@
 <page type="@hrPage" title="Select trace">
+    <topMenu name="tabMenu">
+        <topMenuTextItem text="__Cancel">
+            <url for="setUrl" route="routes" />
+        </topMenuTextItem>
+    </topMenu>
     <element type="@note" text="__Please, select first a previous uploaded route trace" />
     <element type="@traceTable" title= "__Route traces owned by user" traces="${traces}" route="${route}" params="${params}" >
         <datalayer type="App\Vc\Route\SelectTraceDataLayer" />
