@@ -1,7 +1,6 @@
 <page file="page/page.xml">
 <element ref="content">
     <topMenu   name="topMenu"/>
-    <datalayer type="App\Vc\Route\EditLayer" />
     <staticText text="${title}" class="traces_route_title" />    
 	<tabMenu name="tabMenu">
 		<tabMenuItem text="__Overview" tag="overview">

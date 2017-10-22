@@ -6,6 +6,7 @@
         </topMenuTextItem>
     </element>
     <element ref="content">
+        <datalayer type="App\Vc\Route\RoutePageLayer" />
         <openLayer trace="${routeTrace}" />
     </element>
 </page>

@@ -54,7 +54,7 @@ class DisplayController extends Controller
         if($this->getCheckRouteShow($p_id_route,$l_route,$l_view)){
             return $l_view;
         }        
-        return View("display.overview", ["route"=>$l_route]);
+        return new ResourceView("route/Overview.xml",["route"=>$l_route]);
     }
 }
 ?>

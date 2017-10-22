@@ -1,0 +1,15 @@
+<page file="route/RoutePage.xml">
+<element ref="content">
+    <datalayer type="App\Vc\Route\OverviewLayer" />
+    <xmlRouteInfo route="${route}"/>
+    <condition conditionValue="${hasAlbumImages}">
+        <verticalSizer>
+        <divText text="__Album" className="routeall_sectionTitle"/>
+        <xmlImageList images="${images}" />
+        <textLink text="__Compleet album">
+            <url for="setUrl" route="display.album" id="${id}"/>
+        </textLink>
+        </verticalSizer>
+    </condition>
+</element>
+</page>

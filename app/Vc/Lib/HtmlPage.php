@@ -4,6 +4,8 @@ namespace App\Vc\Lib;
 
 use Illuminate\Support\ViewErrorBag;
 use XMLView\Engine\Data\DataStore;;
+use XMLView\Widgets\Base\Theme;
+use XMLView\Widgets\Base\AppTheme;
 /**
  * HtmlPage object 
  *
@@ -18,7 +20,7 @@ abstract class HtmlPage extends HtmlComponent
     
     function __construct()
     {
-        $this->theme=new Theme();
+        $this->theme=AppTheme::new();
     }
     
     

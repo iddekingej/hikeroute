@@ -2,4 +2,6 @@
     <element name="traceTable" value="Trace\XMLTraceTable" />
     <element name="openLayer"  value="Trace\XMLOpenLayer" />
     <element name="hrPage"     value="Lib\XMLAppPage" />
+    <element name="xmlRouteInfo" value="Route\XMLRouteInfo" />
+    <element name="xmlImageList" value="Lib\XMLImageList" />
 </aliases>

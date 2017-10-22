@@ -129,7 +129,7 @@ class Route1Base extends \Tests\TestCase
     function testPageOverview()
     {
         $this->expectOutputRegex("/".$this->route->title."/s");
-        $l_page=new OverviewPage($this->route);
+        $l_page=new ResourceView("route/Overview.xml",["route"=>($this->route)]);
         $l_page->display();        
         
     }

@@ -4,6 +4,8 @@ namespace App\Vc\Lib;
 
 use App\Lib\Base;
 use XMLView\Engine\Data\DataStore;;
+use XMLView\Widgets\Base\Theme;
+use XMLView\Widgets\Base\AppTheme;
 
 
 /**
@@ -15,7 +17,7 @@ abstract class HtmlComponent extends Base
 {
     /**
      * Variable to access themes
-     * @var Theme
+     * @var AppTheme
      */
     protected $theme;
     
@@ -41,7 +43,7 @@ abstract class HtmlComponent extends Base
     
     function __construct()
     {
-        $this->theme=Theme::new();
+        $this->theme=AppTheme::new();
     }
     
     function getPage():?HtmlPage

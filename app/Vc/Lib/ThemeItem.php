@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Vc\Lib;
 
 use App\Lib\Base;
+use XMLView\Widgets\Base\Theme;
 
 class ThemeItem extends Base{
     
