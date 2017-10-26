@@ -39,9 +39,9 @@ class location1Test extends \Tests\TestCase
     function test2location()
     {
         \App\Location\LocationService::setLocationService("nomatim");
-        $l_gpx = new GPXPoint(40 + 44 / 60, - 73 + 51 / 60, "");
+        $l_gpx = new GPXPoint(40 + 44 / 60, - 73 - 51 / 60, "");
         $l_data = (LocationService::locationFromGPX($l_gpx));
-        $this->assertEquals( "/United States of America/New York/Village of East Hampton",$l_data->getFullname());
+        $this->assertEquals( "/United States of America/New York/NYC",$l_data->getFullname());
         sleep(1);
     }
 

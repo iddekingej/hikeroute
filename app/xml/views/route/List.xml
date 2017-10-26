@@ -1,0 +1,11 @@
+<page file="page/page.xml"  title="__Traces overview">
+    <element ref="mainMenu" currentTag="routes" />
+    <element ref="content"> 
+        <topMenu>
+            <topMenuTextItem text="__Add new route">
+                <url for="setUrl" route="routes.new" />
+            </topMenuTextItem>
+        </topMenu>
+        <xmlRouteTable routes="${routes}" title="__Routes overview"/>
+    </element>
+</page>

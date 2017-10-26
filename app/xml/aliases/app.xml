@@ -3,5 +3,6 @@
     <element name="openLayer"  value="Trace\XMLOpenLayer" />
     <element name="hrPage"     value="Lib\XMLAppPage" />
     <element name="xmlRouteInfo" value="Route\XMLRouteInfo" />
+    <element name="xmlRouteTable" value="Route\XMLRouteTable" />
     <element name="xmlImageList" value="Lib\XMLImageList" />
 </aliases>

@@ -51,11 +51,9 @@ class RoutesController extends Controller
      */
     function listRoutes()
     {
-        return View("routes.list", [
-            "routes" => \Auth::user()->routes()
-                ->orderBy("created_at", "desc")
-                ->getResults()
-        ]);
+        return new ResourceView("route/List.xml",["routes"=> \Auth::user()->routes()
+            ->orderBy("created_at", "desc")
+            ->getResults()]);
     }
 
     /**
