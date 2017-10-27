@@ -4,4 +4,4 @@
         <datalayer type="App\Vc\Trace\UploadLayer" />
         <formFile label="__GPX Trace file" name="routefile" />
     </form>
-</page>
+</page> 

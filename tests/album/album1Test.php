@@ -6,6 +6,7 @@ use App\Models\RouteTraceTableCollection;
 use App\Models\Route;
 use App\Vc\Album\ImageUploadPage;
 use Illuminate\Support\ViewErrorBag;
+use XMLView\View\ResourceView;
 
 class album1Test extends TestCase
 {
@@ -34,9 +35,10 @@ class album1Test extends TestCase
     
     function testUloadImageForm()
     {
-        $l_form=new ImageUploadPage($this->route, new ViewErrorBag());
+        $this->expectOutputRegex("/type=[\']file[\']/s");
+        $l_form=new ResourceView("album/Upload.xml",["route"=>$this->route]);
         $l_form->display();
-        $this->assertEquals(1,1);
+        
     }
     
     function testDeleteRoute()

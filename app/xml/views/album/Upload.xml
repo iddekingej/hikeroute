@@ -1,0 +1,8 @@
+<page type="@hrPage">
+    <datalayer type="App\Vc\Album\ImageUploadLayer" />
+    <form containerAlign='center' title="Upload image">
+            <url for="setUrl" route="images.save" id="${id}"/>
+            <url for="setCancelUrl" route="display.album" p_id_route="${id}" />
+            <formFile name='image' label="__Image" />
+    </form>
+</page>

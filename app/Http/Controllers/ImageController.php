@@ -11,6 +11,7 @@ use App\Models\RouteImageTableCollection;
 use App\Models\RouteImage;
 use App\Lib\RouteGC;
 use App\Lib\RouteImageGC;
+use XMLView\View\ResourceView;
 
 class ImageController extends Controller
 {
@@ -23,7 +24,7 @@ class ImageController extends Controller
         if($this->getCheckRouteEdit($p_id, $l_route, $l_view)){
             return $l_view;
         }
-        return View("album.image",["route"=>$l_route]);
+        return new ResourceView("album/Upload.xml",["route"=>$l_route]);        
     }
     
     
