@@ -1,6 +1,7 @@
 <page file="route/RoutePage.xml">
 <element ref="content">
     <datalayer type="App\Vc\Route\OverviewLayer" />
+    <element ref='tabMenu' currentTag="overview" />
     <xmlRouteInfo route="${route}"/>
     <condition conditionValue="${hasAlbumImages}">
         <verticalSizer>
