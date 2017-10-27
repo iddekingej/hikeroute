@@ -13,13 +13,14 @@ class ShowDataLayer implements DataLayer{
     {
         $l_trace=$p_parent->getValue("trace");
         $l_map=new MapData($p_parent,
-            ["uploadedBy"=>$l_trace->user->name
+            ["id"=>$l_trace->id
+            ,"uploadedBy"=>$l_trace->user->name
             ,"location"=>$l_trace->getLocationString()
             ,"recordedAt"=>Localize::shortDate($l_trace->startdate)
             ,"distance"=>Localize::meterToDistance((int)$l_trace->distance)
             ,"downloadParams"=>["p_id"=>$l_trace->id]
-           ,"hasroutes"=>!($l_trace->routes->isEmpty())
-                ,"hasNoRoutes"=>$l_trace->routes->isEmpty()
+            ,"hasroutes"=>!($l_trace->routes->isEmpty())
+            ,"hasNoRoutes"=>$l_trace->routes->isEmpty()
             ]);
         $l_list=[];
         

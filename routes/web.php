@@ -8,6 +8,7 @@ Route::pattern("p_id_user","[0-9]+");
 Route::pattern("p_flag","[01]");
 Route::pattern("p_route","[0-9]+");
 Route::pattern("p_routeTrace","[0-9]+");
+Route::pattern("p_user","[0-9]+");
 
 Auth::routes();
 

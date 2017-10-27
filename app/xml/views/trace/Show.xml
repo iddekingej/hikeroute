@@ -1,6 +1,13 @@
 <page file="page/page.xml"  title="__Show route trace">
     <element ref="mainMenu" currentTag="traces"/>
     <element ref="content"> 
+        <condition conditionValue="${hasNoRoutes}">
+            <topMenu>
+	            <topMenuConfirmItem confirmMessage='__Delete this trace?' text="__Delete thus trace?">                
+	                <url for="setUrl" route="traces.del" p_routeTrace="${id}"/>                
+	            </topMenuConfirmItem>
+                </topMenu>
+        </condition>
         <datalayer type="App\Vc\Trace\ShowDataLayer" />
 		<infoTable  title="Route trace information">
 			<infoTableText label="__Uploaded by" text="${uploadedBy}" />

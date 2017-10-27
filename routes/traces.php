@@ -18,7 +18,7 @@ Route::group([
         "as" => "traces.show",
         "uses" => "TracesController@show"
     ]);
-    Route::get("del/{p_id}", [
+    Route::get("del/{p_routeTrace}", [
         "as" => "traces.del",
         "uses" => "TracesController@del"
     ]);

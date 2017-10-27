@@ -20,7 +20,7 @@ Route::group([
         "as" => "admin.users.new",
         "uses" => 'AdminController@newuser'
     ]);
-    Route::get('edit/{p_id_user}', [
+    Route::get('edit/{p_user}', [
         "as" => "admin.users.edit",
         "uses" => "AdminController@edituser"
     ]);

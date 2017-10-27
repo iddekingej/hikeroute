@@ -45,18 +45,16 @@ class TracesController extends Controller
         return $this->displayError(__("Not allowed to view this route trace"));
     }
 
-    function del($p_id)
+    function del(RouteTrace $p_routeTrace)
     {
-        $this->checkInteger($p_id);
-        $l_trace = RouteTrace::findOrFail($p_id);
-        if ($l_trace->hasRoutes()) {
+        if ($p_routeTrace->hasRoutes()) {
             return $this->displayError(__("Not allowed to delete this trace, the route trace is used in a route"));
         }
         ;
-        if (! $l_trace->canDelete(\Auth::user())) {
+        if (! $p_routeTrace->canDelete(\Auth::user())) {
             return $this->displayError(__("Not allowed to delete this route trace"));
         }
-        $l_trace->deleteDepend();
+        $p_routeTrace->deleteDepend();
         return Redirect::route("traces.list");
     }
 

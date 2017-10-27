@@ -50,12 +50,9 @@ class AdminController extends Controller
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory view to display
      */
     
-    function editUser($p_id_user)
+    function editUser(User $p_user)
     {
- 
-        $this->checkInteger($p_id_user);
-        $l_user = User::findOrFail($p_id_user);
-        return new ResourceView("admin/UserAdmin.xml",["user"=>$l_user]);            
+        return new ResourceView("admin/UserAdmin.xml",["user"=>$p_user]);            
     }
 
     /**
