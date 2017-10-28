@@ -98,7 +98,7 @@ abstract class TestCase extends BaseTestCase
             $this->assertContains($l_expect, $l_output);
         }
     }
-
+    
     function setUp()
     {
         parent::setup();

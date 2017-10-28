@@ -36,6 +36,7 @@ class routePagesTest extends \Tests\TestCase
         $l_controller->editRoute($this->route);
         $this->assertEquals(1,1);
     }
+    
     function testEditRoute()
     {
         $this->actingAs($this->getTestingUser())->get("/routes/edit/".$this->route->id)->assertStatus(200)->assertSee(static::ROUTETITLE);

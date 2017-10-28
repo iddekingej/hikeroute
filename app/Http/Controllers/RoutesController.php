@@ -27,7 +27,7 @@ class RoutesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+       $this->middleware('auth');
     }
 
     /**
@@ -197,11 +197,11 @@ class RoutesController extends Controller
      */
     function editRoute(Route $p_route)
     {               
-        if($p_route->canEdit(\Auth::user())){
-            return new ResourceView("route/Edit.xml",["route"=>$p_route]);
-        } else {
-            return $this->displayError(__("Not allowed to edit this route"));
-        }
+            if($p_route->canEdit(\Auth::user())){
+                return new ResourceView("route/Edit.xml",["route"=>$p_route]);
+            }else {
+              return $this->displayError(__("Not allowed to edit this route"));
+            }
     }
 
     /**
